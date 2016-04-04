@@ -1,0 +1,2 @@
+<li class="active"><a href="<?php echo base_url();?>view_file/Dispaly_list" title="Show File List"><i class="fa fa-file-text"></i> <span><?php echo $this->lang->line('view_file_manue');?></span></a></li>
+<li class="active"><a href="<?php echo base_url();?>view_file/Dispaly_list/1" title="Show Return Files"><i class="fa fa-share"></i> <span><?php echo $this->lang->line('return_files');?></span></a></li>

@@ -1,0 +1,85 @@
+table{
+	border:none;
+}
+table th, table td{
+	border:none;
+	display: table-cell;
+    vertical-align: inherit;
+	padding:4px;
+	
+}
+p{
+	text-indent: 50px;
+    text-align: justify;
+    margin-bottom: 6px;
+    line-height: 20px;
+}
+
+#eFileTemplate table{
+	border:none;
+}
+
+#eFileTemplate table th, #eFileTemplate table td{
+	border:none;
+	display: table-cell;
+    vertical-align: inherit;
+	padding:4px;
+	
+}
+
+#eFileTemplate p{
+	text-indent: 50px;
+    text-align: justify;
+    margin-bottom: 6px;
+    line-height: 20px;
+}
+
+#compose-textarea{
+	border:none !important;
+}
+
+#compose-textarea table th, #compose-textarea table td{
+	border:none !important;
+}
+
+@media print{
+	table{
+		border:none !important;
+	}
+	table th, table td{
+		border:none !important;
+		display: table-cell !important;
+		vertical-align: inherit !important;
+		padding:4px !important;
+	}
+}
+
+/*१४ ०३ २०१६*/
+@media screen {
+    header.onlyprint, footer.onlyprint,.onlyprint {
+        display: none; /* Hide from screen */
+    }
+}
+
+@media print {
+    header.onlyprint {
+        position: fixed; /* Display only on print page (each) */
+        top: 0; /* Because it's header */
+    }
+    footer.onlyprint {
+        position: fixed;
+        bottom: 0; /* Because it's footer */
+    }
+	.onlyprint{
+		display: block; 
+	}
+}
+.singed_verify{
+	display:none;
+	font-size:10px !important;
+	width:50% !important; 
+	text-align:center !important;
+}
+.displayblock{
+		display:block !important;
+}

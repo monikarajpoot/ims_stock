@@ -1,0 +1,137 @@
+<?php 
+$contents  = '' ;
+$contents .= '<tr><td align="center"><u><h3>'.$dept_name.'</h3></u></td></tr>';
+$contents .= '<tr><td><div style="float:left">फा.क्रं. 8/';
+if($is_genrate == true){
+$contents .= $post_data['file_no'];
+}else
+{
+	$contents .=  '<input type="text" name="file_no" id="file_no1" />';
+}
+$contents .= '/';
+if($is_genrate == true){
+$contents .= $post_data['year'];
+}else
+{
+	$contents .=  '<input type="text" name="year" />';
+}
+$contents .= '/21-क(अभि0), </div><div style="float:right">भोपाल, दिनांक   ';
+if($is_genrate == true){
+$contents .= $post_data['date1'];
+}else
+{
+	$contents .=  '<input type="text" class="date1" name="date1" value="'.date('d-m-Y').'" placeholder="dd/mm/yyyy" />';
+}
+$contents .= '</div></td></tr>';
+$contents .= '<tr><td align="left">प्रति,</td></tr>';
+if($is_genrate == true){
+$contents .= '<tr><td><span style="margin-left:10%">'.$post_data['danme'].',</span></td></tr>';
+}else{
+$contents .= '<tr><td><span style="margin-left:10%">'.get_employee_dd('danme').',</span></td></tr>';	
+}
+$contents .= '<tr><td><span style="margin-left:10%">';
+
+
+if($is_genrate == true){
+$contents .= $post_data['section'];
+}else{
+$contents .= get_section_dd('section');
+	
+}
+
+
+$contents .= '</span></td></tr>';
+
+$contents .= '<tr><td><span style="margin-left:10%">भोपाल।</span></td></tr>';
+$contents .= '<tr><td><div style="float:left; width:10%;">विषय:- </div><div style="float:float; width:85% "> अभियोजन स्वीकृति ';
+if($is_genrate == true){
+	$contents .= $post_data['ps_subject'];
+}else
+{
+$contents .= '<input type="text" name="ps_subject">';
+}
+
+$contents .= '।</td></tr>';
+$contents .= '<tr><td align="center">------0-------</td></tr>';
+$contents .= '<tr><td><p>उपरोक्त विषयांकित प्रकरण में विधि विभाग द्वारा पारित अभियोजन स्वीकृति आदेश क्रमांक ';
+if($is_genrate == true){
+	$contents .= $post_data['order_no'];
+}else
+{
+	$contents .= '<input type="text" name="order_no">';
+}
+$contents .= ' में  ';
+if($is_genrate == true){
+	$contents .= $post_data['danme_1'];
+}else
+{
+	$contents .= '<input type="text" name="danme_1">';
+}
+$contents .= 'को प्रथम अपर सत्र न्यायाधीश एवं विशेष न्यायाधीश, भोपाल के न्यायालय में दिनांक ';
+if($is_genrate == true){
+	$contents .= $post_data['date1'];
+}else
+{
+	$contents .= '<input type="text" class="date1" name="date1" placeholder="dd/mm/yyyy" value="'.get_date_formate(@$file_judgment_date,'d/m/Y').'"/>';
+}
+ 
+ 
+ $contents .= ' को साक्ष्य हेतु उपस्थित होने के लिये निर्देशित किया जाता है। विभाग में प्राप्त समंस की प्रति संलग्न है। संबंधित नस्ती आपको अभियोजन शाखा  द्वारा उपलब्ध करायी जा सकेगी। कृपया  दिनांक ';
+if($is_genrate == true){
+	$contents .= $post_data['date2'];
+}else
+{
+	$contents .= '<input type="text" class="date1" name="date2" placeholder="dd/mm/yyyy" value="'.get_date_formate(@$file_judgment_date,'d/m/Y').'"/>';
+}
+ $contents .= ' को प्रकरण के संबंध में साक्ष्य हेतु न्यायालय के समक्ष   उपस्थित होने तथा उस तिथि को हुई कार्यवाही के संक्षिप्त विवरण के साथ मूल समंस की प्रति एवं नस्ती अभियोजन शाखा को लौटायी जाए।</p></td></tr>';
+
+$contents .= '<tr><td>&nbsp;</td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ) </div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अवर सचिव</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
+$contents .= '<tr><td><div style="float:left">फा.क्रं. 8/';
+if($is_genrate == true){
+$contents .= $post_data['file_no'];
+}else
+{
+	$contents .=  '<input type="text" name="file_no" />';
+}
+$contents .= '/';
+if($is_genrate == true){
+$contents .= $post_data['year'];
+}else
+{
+	$contents .=  '<input type="text" name="year" />';
+}
+$contents .= '/21-क(अभि0), </div><div style="float:right">भोपाल, दिनांक   ';
+if($is_genrate == true){
+$contents .= $post_data['date1'];
+}else
+{
+	$contents .=  '<input type="text" class="date1" name="date1" value="'.date('d-m-Y').'" placeholder="dd/mm/yyyy" />';
+}
+$contents .= '</div></td></tr>';
+
+$contents .= '<tr><td>प्रतिलिपि:-</td></tr>';
+$contents .= '<tr><td align="left"><div width="100%"><div style="float:left; width:14%;">1-</div> <div style="float:left; display:block; width:85%; "><p style="margin:0; text-indent:0;">विशेष पुलिस स्थापना,लोकायुक्त कार्यालय ';
+if($is_genrate == true){
+$contents .= $post_data['office'];
+}else
+{
+	$contents .=  '<input type="text" name="office" />';
+}
+
+$contents .= ' की ओर सूचनार्थ अग्रेषित।</p></div></div></td></tr>';
+$contents .= '<tr><td><div style="width:100%;"><div style="float:left; width:14%;">2-</div> <div style="float:left; display:block; width:85%;"><p style="margin:0; text-indent:0;">स्थापना शाखा,विधि और विधायी कार्य विभाग की ओर आवश्यक कार्यवाही हेतु अग्रेषित ।</p></div></div></td></tr>';
+
+
+
+$contents .= '<tr><td>&nbsp;</td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ) </div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;"> अवर सचिव</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.@$dept_name.'</div></td></tr>';
+
+//print content
+//echo $contents;
+?>   
+

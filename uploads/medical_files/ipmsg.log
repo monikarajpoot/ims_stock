@@ -1,0 +1,490 @@
+=====================================
+ To: Rohit (Programmer/PROGRAMMER--PC/127.0.0.1/DELL-<7bf3d3c235189631>)
+  at Wed Jul 22 16:08:03 2015 (RSA2/Signed)(locked)
+-------------------------------------
+hi
+
+=====================================
+ From: Rohit (Programmer/PROGRAMMER--PC/127.0.0.1/DELL-<7bf3d3c235189631>)
+  at Wed Jul 22 16:08:03 2015 (RSA2/Signed)(locked)
+-------------------------------------
+hi
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Wed Jul 22 17:18:30 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+how
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Wed Jul 22 18:42:11 2015 (RSA2/Signed)(sealed)
+  (image) ipmsgclip_s_1437570731_0.png
+-------------------------------------
+
+
+=====================================
+ To: DELL (DELL-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Wed Jul 22 18:42:21 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+dada
+
+=====================================
+ To: DELL (DELL-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Wed Jul 22 18:43:56 2015 (RSA2/Signed)(sealed)
+  (files) Dictionary.lnk
+-------------------------------------
+
+
+=====================================
+ From: DELL (DELL-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Wed Jul 22 18:44:13 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+hiiii
+
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Sat Jul 25 17:50:49 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+Dealing assistent page 
+view file of deling assistent 
+view profile of deling assistent 
+view notice board table on dashboard
+view notice board slider on dashboard
+create leave form design 
+intert leave data into database
+view leave details on view leave details page 
+
+
+
+=====================================
+ To: jp (Programmer/LAW-64-HP/10.139.229.64/Administrator-<e166c6563c0c2db5>)
+  at Mon Jul 27 11:50:41 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+कृपया अपने काम पर ध्यान दे!
+
+=====================================
+ From: jp (Programmer/LAW-64-HP/10.139.229.64/Administrator-<e166c6563c0c2db5>)
+  at Mon Jul 27 11:52:36 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+>कृपया अपने काम पर ध्यान दे!
+I'M TRYING 
+
+=====================================
+ To: jp (Programmer/LAW-64-HP/10.139.229.64/Administrator-<e166c6563c0c2db5>)
+  at Mon Jul 27 17:20:21 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+कृपया दस्तावेज़ का काम जल्द समाप्त करने का कष्ट करे|
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Jul 28 14:42:48 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+one more option need at user and cancel leave
+
+
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Tue Jul 28 15:15:49 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/leave/index.php
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Jul 28 15:49:23 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+leave ka route banaya h kya
+
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Jul 28 18:43:52 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+getemployeeName
+
+=====================================
+ From: Raginee (Programmer/RAGINEE-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Wed Jul 29 14:44:49 2015 (RSA2)(sealed)
+-------------------------------------
+function empdetails($emp_id)
+{
+    $CI = & get_instance();
+    $CI->db->select('*');
+    $CI->db->where('emp_id',$emp_id);
+    $CI->db->from(EMPLOYEES);
+    $query = $CI->db->get();
+    $data = $query->result_array();
+   // pr($data);
+    return $data;
+}
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Jul 29 14:54:13 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+getemployeeRole($leave->role_id)
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Jul 29 16:42:11 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+on_behalf_leave int 12
+leave_apply enum('Email', 'Message', 'Other')
+	leave_message text
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Jul 29 18:43:54 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+$lang["for_EL_with_headquarter_permission"]= htmlentities("मुख्यालय छोड़ने की अनुमति");
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Thu Jul 30 12:12:12 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+$( "#no_days_cl" ).change(function() {
+				var days = $("#no_days_cl").val();
+				$("#days").val(days);
+				var leaveid = $(this).attr("data-leaveid");	
+				//alert(uid);
+				$('#leaveID').val(leaveid);
+				var number = this.value ;
+				var descimal = isDecimal(number) 
+				
+				if(descimal == true){
+					$( ".cl_leave_days" ).removeClass( "hide_class" );
+				}else
+				{
+					$( ".cl_leave_days" ).addClass( "hide_class" );
+				}
+				$( ".headquoter_leave" ).removeClass( "hide_class" );
+			});
+
+=====================================
+ From: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Thu Jul 30 12:16:50 2015 (multi)(RSA2/Signed)(sealed)
+  (files) ft_emprole_master.sql
+-------------------------------------
+
+
+=====================================
+ To: jp (Programmer/LAW-64-HP/10.139.229.64/Administrator-<e166c6563c0c2db5>)
+  at Thu Jul 30 16:13:02 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+#Listen 12.34.56.78:80
+Listen 80
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 04 12:11:37 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+type_of_headquoter enum('GG', 'MG', '')
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 04 12:19:19 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+leave_forworeded_option
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 04 15:49:03 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+getemployeeName
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 04 15:49:14 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+>getemployeeName
+thnku
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Wed Aug 05 17:25:00 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+Table name
+
+=====================================
+ From: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Wed Aug 05 17:29:54 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+hi
+
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 05 17:38:40 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftams
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 05 17:55:14 2015 (multi)(RSA2/Signed)(sealed)
+-------------------------------------
+please update leave lang file from 
+\\10.139.229.64\Users\PROGRAMMERS\Desktop\ITSHARE\sulbha\5_aug\modules\language
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 05 17:57:27 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+root
+lawdept
+
+=====================================
+ From: Raginee (Programmer/RAGINEE-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Wed Aug 05 18:23:03 2015 (multi)(RSA2/Signed)(sealed)
+-------------------------------------
+<li class="active"><a href="<?php echo base_url();?>dealing_assistant"><i class="fa fa-users"></i> <span><?php echo $this->lang->line('dealing_assistant_manue');?></span></a></li>
+<li class="active"><a href="<?php echo base_url();?>view_file"><i class="fa fa-users"></i> <span><?php echo $this->lang->line('view_file_manue');?></span></a></li>
+            
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 05 18:40:51 2015 (multi)(RSA2/Signed)(sealed)
+  (files) menushow on employee.xlsx
+-------------------------------------
+
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 05 18:41:14 2015 (RSA2/Signed)(sealed)
+  (files) menushow on employee.xlsx
+-------------------------------------
+
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Thu Aug 06 12:06:42 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+\\10.139.229.25\
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 06 12:29:45 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftams
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 06 12:30:37 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+ps.shvirendra
+123456
+
+=====================================
+ From: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Thu Aug 06 14:51:48 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms/
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 06 14:52:00 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms/
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 06 14:56:11 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms/
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Mon Aug 10 13:34:20 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+Miss Srivastva ji Leave controller or leave_form update ker le पुनः
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Mon Aug 10 18:04:00 2015 (multi)(RSA2/Signed)(sealed)
+  (files) ft_leave_log.sql
+-------------------------------------
+
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Mon Aug 10 18:55:58 2015 (multi)(RSA2/Signed)(sealed)
+  (files) ft_leave_log.sql
+-------------------------------------
+
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 11 11:01:08 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+not
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 11 11:01:29 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+>not
+kya not chalu kro use
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Tue Aug 11 13:10:45 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://www.mp.gov.in
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 11 13:30:42 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+leave controller pe work kr rahi h
+
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 11 13:30:54 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+>leave controller pe work kr rahi h
+ha
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Tue Aug 11 13:31:02 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+>>leave controller pe work kr rahi h
+>ha
+ok
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Thu Aug 13 11:44:09 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms_new/
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 13 12:18:56 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+51010869
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 13 12:19:06 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+51010866
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Thu Aug 13 13:06:07 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+ Order deny,allow
+    Allow from all 
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Thu Aug 13 16:34:20 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms_backup
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Fri Aug 14 10:13:58 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms_backup/
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+ To: Raginee (Programmer/RAGINEE-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+ To: Rohit (Programmer/PROGRAMMER--PC/10.139.229.25/DELL-<7bf3d3c235189631>)
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Fri Aug 14 14:56:01 2015 (multi)(RSA2/Signed)(sealed)
+-------------------------------------
+lawadmin123
+
+admin password
+
+=====================================
+ From: Rohit (Programmer/PROGRAMMER--PC/10.139.229.25/DELL-<7bf3d3c235189631>)
+  at Fri Aug 14 14:56:01 2015 (multi)(RSA2/Signed)(sealed)
+-------------------------------------
+lawadmin123
+
+admin password
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Mon Aug 17 11:42:44 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+h
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Mon Aug 17 14:20:20 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+admin
+lawadmin123
+
+=====================================
+ To: Jyoti (Programmer/HOME/10.139.229.112/abcd-<a9a44a9a324f94c7>)
+  at Mon Aug 17 14:51:24 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+admin
+lawadmin123
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Mon Aug 17 14:59:43 2015 (RSA2/Signed)(sealed)
+  (image) ipmsgclip_s_1439803783_0.png
+-------------------------------------
+
+
+=====================================
+ From: Raginee (Programmer/RAGINEE-PC/10.139.229.115/DELL-<91126f7b8ef881e0>)
+  at Mon Aug 17 16:03:58 2015 (RSA2/Signed)(sealed)
+  (files) Sulbha.xlsx
+-------------------------------------
+
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Mon Aug 17 16:30:54 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+susmita.jain@mapit.gov.in
+
+=====================================
+ From: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 19 10:20:14 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+hellooooooooooooooooo
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 19 10:20:14 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25
+
+=====================================
+ To: Sulbha (Programmer/SULBHA/10.139.229.114/DELL-<bc1c0ad31dbd525d>)
+  at Wed Aug 19 10:21:06 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+root
+lawdept
+
+
+=====================================
+ To: Susmita (Programmer/MAP_IT/10.139.229.13/MAPIT-<2ed6069c7934a570>)
+  at Wed Aug 19 16:06:52 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms_backup
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Wed Aug 19 16:14:17 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms_backup
+
+=====================================
+ To: Bijendra (Programmer/DELL-PC/10.139.229.113/DELL-<fd0e7f977e1baf13>)
+  at Thu Aug 20 14:51:24 2015 (RSA2/Signed)(sealed)
+-------------------------------------
+http://10.139.229.25/ftms/admin/department_structure
+
