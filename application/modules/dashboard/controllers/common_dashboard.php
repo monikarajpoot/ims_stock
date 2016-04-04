@@ -18,7 +18,8 @@ class Common_dashboard extends MX_Controller {
  	public function index()
     {
 		no_cache(); 
-		//print_r($this->session->all_userdata());		
+		//print_r($this->session->all_userdata());	
+       
         $this->isLoggedIn();
         $data = array();
         $data['title']          = $this->lang->line('title');

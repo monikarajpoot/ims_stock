@@ -17,6 +17,7 @@ class Home extends MX_Controller {
      * @return void
      */
     public function index() {
+       
         if ($this->session->userdata('is_logged_in')) {
             redirect('dashboard');
         } else if ($this->session->userdata('admin_logged_in')) {
