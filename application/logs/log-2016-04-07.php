@@ -1186,3 +1186,51 @@ ERROR - 2016-04-07 17:09:37 --> Could not find the language line "salary_mastar"
 ERROR - 2016-04-07 17:09:37 --> Could not find the language line "salary_mastar"
 ERROR - 2016-04-07 17:09:37 --> Could not find the language line "bulk_action"
 ERROR - 2016-04-07 17:09:37 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-07 17:39:28 --> Could not find the language line "salary_mastar"
+ERROR - 2016-04-07 17:39:28 --> Could not find the language line "salary_mastar"
+ERROR - 2016-04-07 17:39:29 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-07 17:39:29 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 88
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 88
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\common_helper.php 578
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\common_helper.php 578
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: salarysalarysalarysalarysalarysalary C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 90
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 90
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Undefined variable: salarysalarysalarysalarysalary C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 91
+ERROR - 2016-04-07 17:39:29 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 91
+ERROR - 2016-04-07 17:40:12 --> Could not find the language line "salary_mastar"
+ERROR - 2016-04-07 17:40:12 --> Could not find the language line "salary_mastar"
+ERROR - 2016-04-07 17:40:12 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-07 17:40:12 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 88
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 88
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\common_helper.php 578
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\common_helper.php 578
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: leave C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 89
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: salarysalarysalarysalarysalarysalary C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 90
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 90
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Undefined variable: salarysalarysalarysalarysalary C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 91
+ERROR - 2016-04-07 17:40:12 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\salary_mastar.php 91

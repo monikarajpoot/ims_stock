@@ -108,18 +108,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                         <li><a href="javascript:void(0)"><i class="fa fa-folder-o"></i> भेजी गई ई-फ़ाइलें (Sent)</a></li>
                     </ul>
                 </li>
-                <li class="header bg-aqua">Stock Management</li>
-                <li class="treeview" title="Not Active">
-                    <a href="#">
-                        <i class="fa fa-shopping-cart"></i> <span>भण्डार मास्टर्स</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu menu-open" style="display: block;">
-                        <li><a href="<?php echo base_url(); ?>stock/all_cate"><i class="fa fa-folder-o"></i> श्रेणी </a></li>
-                        <li><a href="<?php echo base_url(); ?>stock/all_items"><i class="fa fa-folder-o"></i> सामग्री  </a></li>
-                        <li><a href="<?php echo base_url(); ?>stock/all_items_emp"><i class="fa fa-folder-o"></i> कर्मचारी वितरण सामग्री </a></li>
-                    </ul>
-                </li>
+            
                 <li title="Not Active">
                     <a href="javascript:void(0)" data-original-title="Draft" data-toggle="tooltip"><i class="fa fa-file-word-o"></i> <span>ड्राफ्ट</span></a>
                 </li>
@@ -128,6 +117,18 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
             <!-----efile side menu end---->
 
 			<?php if(check_est_so()) { ?>
+                <li class="header bg-aqua">Salary</li>
+                <li class="treeview" title="Not Active">
+                    <a href="#">
+                        <i class="fa fa-shopping-cart"></i> <span>वेतन रजिस्टर</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu menu-open" style="display: block;">
+                        <li><a href="<?php echo base_url(); ?>stock/all_cate"><i class="fa fa-folder-o"></i> श्रेणी </a></li>
+                        <li><a href="<?php echo base_url(); ?>stock/all_items"><i class="fa fa-folder-o"></i> सामग्री  </a></li>
+                        <li><a href="<?php echo base_url(); ?>stock/all_items_emp"><i class="fa fa-folder-o"></i> कर्मचारी वितरण सामग्री </a></li>
+                    </ul>
+                </li>
 			<li <?php if ($this->uri->segment(2) == 'category' && $this->uri->segment(1) == 'establishment') { echo 'class="active"'; } ?>>
                 <a href="<?php echo base_url('establishment');?>/category/" title="Eshtablishment category"><i class="fa fa-users"></i> <span>शाखा में कार्य के प्रकार</span></a>
             </li>
