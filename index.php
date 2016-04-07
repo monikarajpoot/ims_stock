@@ -23,7 +23,7 @@
  *
  */
  //
- define('ENVIRONMENT', 'production');	
+ //define('ENVIRONMENT', 'production');	
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
