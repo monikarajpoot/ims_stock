@@ -8,10 +8,10 @@ class Payroll_model extends CI_Model {
 
 
     public function getpayroll() {
-        $this->db->select('*');
-        $query = $this->db->get('ft_pay_register');
-    //  echo  $this->db->last_query();
-        return $query->row();
+       // $this->db->select('*');
+        $query = $this->db->query('SELECT pay_id,pay_month,pay_total,emp_unique_id,emp_full_name_hi FROM `ft_pay_register` join ft_employee on ft_pay_register.pay_emp_unique_id = ft_employee.emp_unique_id group by pay_month ');
+     
+        return $query->result();
     }
      public function getEmployeeLeave() {
         $employee_leave = ft_pay_register;
@@ -28,11 +28,32 @@ class Payroll_model extends CI_Model {
     }
     function salary_cate()
     {
-
     	$query = $this->db->get("ft_pay_salary_category");
         //$this->db->last_query();
         return $rows = $query->result();
-    }
+    }function getpay($emp_id)
+	{
+		  $this->db->select('*');
+		  $this->db->from('ft_pay_register');
+
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
+		$this->db->where("pay_emp_unique_id",$emp_id);
+		$query = $this->db->get();
+//echo $this->db->last_query();
+		
+        return $rows = $query->result();
+	}function emp_bank($emp_id)
+	{
+		$this->db->select('*');
+		  $this->db->from('ft_pay_emmp_bank');
+
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_emmp_bank.pay_emp_unique_id');
+		$this->db->where("pay_emp_unique_id",$emp_id);
+		$query = $this->db->get();
+//echo $this->db->last_query();
+		
+        return $rows = $query->result();
+	}
 }
 
 ?>

@@ -48,35 +48,29 @@
                         <table id="leave_tbl" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th width='5%'><input type="checkbox" id="selectall"/></th>
+                                    <th width='5%'><?php echo $this->lang->line('sno')  ?></th>
                                     <th width='25%'><?php echo $this->lang->line('emp_unique_code')  ?></th>
                                     <th width="10%"><?php echo $this->lang->line('emp_name'); ?></th>
+									  <th width="10%"><?php echo $this->lang->line('emp_pay_month'); ?></th>
                                     <th width='25%'><?php echo $this->lang->line('pay'); ?></th>
                                    <th width="15%"><?php echo $this->lang->line('view'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php  $i = 1;
-                               //pre($details_leave);
-                                foreach ($details_leave as $key => $leave) { ?>
+                            <?php  $i = 0;
+                             //  pre($pay_regi);
+                                foreach ($pay_regi as $key => $pay) { $i++; ?>
 									<tr>
-                                        <td><input type="checkbox" class="case" name="leave_ids[]" value="<?php echo $leave->emp_leave_movement_id ?>"/></td>
-                                        <td><a href="<?php echo base_url('leave')."/leave_details/".$leave->emp_id ?>" data-original-title="<?php echo get_employee_gender($leave->emp_id, false).' ' .$leave->emp_full_name ?>"  data-toggle="tooltip"><?php echo get_employee_gender($leave->emp_id).' '.$leave->emp_full_name_hi . '</a>/' . getemployeeRole($leave->role_id); ?></td>
-                                        <td><?php echo $leave->emp_leave_reason ?></td>
-                                        <td><?php echo get_date_formate($leave->emp_leave_create_date); ?></td>
-                                        <td><?php echo leaveType($leave->emp_leave_type, true) ?></td>
-                                        <td><?php echo $leave->emp_leave_no_of_days; ?></td>
-                                        <td><?php echo get_date_formate($leave->emp_leave_date); ?></td>
-                                        <td><?php echo get_date_formate($leave->emp_leave_end_date); ?></td>
-                                        <td><?php echo setForwordMessage($leave->emp_leave_forword_type); ?> <br/> <label class="label-waring label"><?php echo $leave->emp_leave_forword_emp_id != 0 ? getemployeeName($leave->emp_leave_forword_emp_id, true) : 'N/A'; ?></label>  </td>
-                                        <td>
+                                        <td><?php echo $i;?></td>
+                                       <td><?php echo $pay->emp_unique_id ?></td>
+                                        <td><?php echo $pay->emp_full_name_hi; ?></td>
+										 <td><?php echo date("M",strtotime($pay->pay_month)); ?></td>
+                                        <td><?php echo $pay->pay_total;?></td>
+                                       <td>
                                             <div class="btn-group" >
-                                                <!--<a href="<?php echo base_url(); ?>leave/leave_approve/approve/<?php echo $leave->emp_leave_movement_id; ?>" class="btn  btn-twitter" onclick="return confirm('Are you sure?');"><?php echo $this->lang->line('leave_approve') ?></a> -->
-                                                <button type="button" class="btn btn-success btn-block btnapprove" name="btnapprove" data-empid="<?php echo $leave->emp_id; ?>" data-leaveid="<?php echo $leave->emp_leave_movement_id; ?>" data-toggle="modal" data-target="#approveModal"><?php echo $this->lang->line('leave_approve') ?></button>
-                                                <button type="button" class="btn btn-danger btn-block btndeny" name="btndeny" data-empid="<?php echo $leave->emp_id; ?>" data-leaveid="<?php echo $leave->emp_leave_movement_id; ?>" data-toggle="modal" data-target="#denyModal"><?php echo $this->lang->line('leave_deny') ?></button>
-                                                 <?php if($leave->medical_files !=  '') { ?>
-                                                    <a href="<?php echo base_url(); ?>uploads/medical_files/<?php echo $leave->medical_files; ?>" target="_blank">Certificate</a>
-                                                <?php } ?>
+                                               <a href="<?php echo base_url();?>payroll/empslary/<?php echo $pay->emp_unique_id ?>" >
+                                              <button type="button" class="btn btn-danger btn-block btndeny" name="btndeny" data-empid="<?php echo $pay->pay_id; ?>" data-leaveid="<?php echo $pay->pay_id; ?>" data-toggle="modal" data-target="#denyModal"><?php echo $this->lang->line('view') ?></button>
+                                               <a/>
                                             </div>
                                         </td>
                                     </tr>
@@ -123,12 +117,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">अवकाश अस्वीकृत  करें</h4>
+                <h4 class="modal-title" id="myModalLabel"><?php echo $this->lang->line('pay_slip')?></h4>
             </div>
             <div class="modal-body">
-                <form action="<?php echo base_url(); ?>leave/leave_approve/deny" accept-charset="UTF-8" role="form" class="form-signin" method="post" id="aer">
+                <form action="" >
                     <div class="modal-body">
-					<h3>बचे हुए अवकाश</h3>
+					<h3><?php ?></h3>
 						<div class="user_leave_details"></div>
                         <input type="hidden" name="leaveID" id="leaveID" class="leaveID" value="">
                         <label>अवकाश अस्वीकृति का कारण</label>

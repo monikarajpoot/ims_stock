@@ -50,8 +50,8 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'db_eoffice_31mar';
+$db['default']['password'] = 'lawdept';
+$db['default']['database'] = 'ims_stock';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'ft_';
 $db['default']['pconnect'] = TRUE;

@@ -7,9 +7,12 @@ class Payroll extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->module('template');
+		$this->load->helper('cookie','payroll');
      //  $this->load->language('leave', 'hindi');
         $this->load->model("payroll_model");
          $this->load->language('payroll', 'hindi');
+		     $this->load->library('PHPExcel');
+
            //   $this->load->language('leave_approve', 'hindi');
     }
 
@@ -51,7 +54,7 @@ class Payroll extends MX_Controller {
         print_r($_FILES);//die;
         $config = array(
             'upload_path'   => './uploads/payroll/',
-            'allowed_types' => 'xlsx',
+            'allowed_types' => 'xlsx|xls',
             'max_size'      => '100',
             'max_width'     => '1024',
             'max_height'    => '768',
@@ -89,23 +92,41 @@ class Payroll extends MX_Controller {
            // $this->load->view('upload_success', $data);
         }
     }
+	public function edit_salary()
+	{
+		$emp_id = $this->uri->segment("");
+		$data['title'] = $this->lang->line("edit_salary"); 
+		
+	}
     public function register()
     {
          $data['title'] = $this->lang->line('pay_title');
-          $data['title_tab'] = $this->lang->line('view_all_employee');
-$data['details_leave'] = $this->payroll_model->getEmployeeLeave();
-          $data['pay_regi'] = $this->payroll_model->getpayroll();
-        $data['module_name'] = "payroll";
-        $data['view_file'] = "payroll/register";
-        $this->template->index($data);
-      //    $this->load->view('register',$data);
+         $data['title_tab'] = $this->lang->line('view_all_employee');
+        // $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
+         $data['pay_regi'] = $this->payroll_model->getpayroll();
+         $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/register";
+         $this->template->index($data);
+      //$this->load->view('register',$data);
     }
+	public function empslary()
+	{
+		
+		$emp_id = $this->uri->segment("3");
+	$data['title'] = $this->lang->line('emp_salary_details');
+		$data['pay_regi'] = $this->payroll_model->getpay($emp_id);
+		$data['emp_bank'] = $this->payroll_model->emp_bank($emp_id);
+		//pre($data['pay_regi']);
+		$data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/emp_salary";
+         $this->template->index($data);
+	}
     public function salary_mastar()
     {
         $data['title'] = $this->lang->line('salary_mastar');
-          $data['title_tab'] = $this->lang->line('salary_mastar');
-       // $data['details_leave'] = $this->payroll_model->salary_cate();
-          $data['pay_salary'] = $this->payroll_model->getpayroll();
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+     // $data['details_leave'] = $this->payroll_model->salary_cate();
+        $data['pay_salary'] = $this->payroll_model->getpayroll();
         $data['module_name'] = "payroll";
         $data['view_file'] = "payroll/salary_mastar";
         $this->template->index($data);
@@ -114,17 +135,17 @@ $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
     }
     public function add_salary()
     {
-$data['title'] = $this->lang->line('salary_mastar');
-          $data['title_tab'] = $this->lang->line('salary_mastar');
-       // $data['details_leave'] = $this->payroll_model->salary_cate();
-          $data['pay_salary'] = $this->payroll_model->getpayroll();
+		$data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+     // $data['details_leave'] = $this->payroll_model->salary_cate();
+        $data['pay_salary'] = $this->payroll_model->getpayroll();
         $data['module_name'] = "payroll";
         $data['view_file'] = "payroll/";
         $this->template->index($data);
 
 
     }
-    public function employee_list() {
+    public function employee_list(){
         $data['title'] = $this->lang->line('view_all_employee');
         $data['title_tab'] = $this->lang->line('view_all_employee');
         $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
