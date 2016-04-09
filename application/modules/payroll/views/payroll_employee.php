@@ -27,7 +27,7 @@
                                 <th width='5%'>SNo.</th>
                                 <th width="15%"><?php echo $this->lang->line('emp_unique_id'); ?></th>
                                 <th width='15%'><?php echo $this->lang->line('emp_name'); ?></th>
-                                <th width='10%'><?php echo $this->lang->line('emp_designation'); ?></th>
+                              
                                 <th width="10%"><?php echo $this->lang->line('emp_mobile_no'); ?></th>
                                 <th width="15%"><?php echo $this->lang->line('emp_email'); ?></th>
                                    <th width="10%"><?php echo $this->lang->line('pay_amount'); ?></th>
@@ -39,14 +39,13 @@
 							$userrole = checkUserrole();
 							$crnt_emp_id = 	$this->session->userdata('emp_id');
 							$emp_section = getusersection($crnt_emp_id);
+							pre($details_leave);
                             foreach ($details_leave as $key => $leave) {
                                 ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $leave->emp_unique_id; ?></td>
-                                    <td><a href="<?php echo base_url('leave')."/leave_details/".$leave->emp_id ?>" data-original-title="<?php echo get_employee_gender($leave->emp_id, false).' ' .$leave->emp_full_name ?>"  data-toggle="tooltip"><?php echo get_employee_gender($leave->emp_id).' '.$leave->emp_full_name_hi . '</a>'; ?></td>
-                                    <td><?php echo getemployeeRole($leave->role_id); ?></td>
-
+                                    <td><?php echo $leave->emp_full_name_hi ; ?></td>
                                     <td><?php echo $leave->emp_mobile_number; ?></td>
                                     <td><?php echo $leave->emp_email; ?></td>
                                     <td><?php echo calculate_el($leave->el_leave); ?></td>

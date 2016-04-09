@@ -22,13 +22,47 @@
                 </div>
            <div class="container"><h2><?php echo $title;?></h2>
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home"><?php echo $this->lang->line('tab1_pay_detail_incrment')?></a></li>
+  <li class="active"><a data-toggle="tab" href="#home1"><?php echo $this->lang->line('tab1_emp_detail')?></a></li>  
+  <li ><a data-toggle="tab" href="#home"><?php echo $this->lang->line('tab1_pay_detail_incrment')?></a></li>
     <li><a data-toggle="tab" href="#menu1"><?php echo $this->lang->line('tab2_pay_gpf')?></a></li>
     <li><a data-toggle="tab" href="#menu2"><?php echo $this->lang->line('tab3_pay_adv')?></a></li>
     <li><a data-toggle="tab" href="#menu3"><?php echo $this->lang->line('tab4_pay_bankdetails')?></a></li>
   </ul>
 
   <div class="tab-content">
+  <div id="home1" class="tab-pane fade in active">
+      <h3><?php echo $this->lang->line('tab1_emp_detail')?></h3>
+       <div class="col-md-12">
+    <div class="box box-primary">
+        <div class="box-body">
+		<?php foreach ($pay_regi as $key => $pay) {?>
+		 
+			
+			
+			<div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line("pay_arrdhar_card");?></label> <span class="text-danger">*</span></label>
+               <?php echo $pay->emp_adhar_card_no;?>
+            </div>
+			
+			<div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line("emp_name");?></label> <span class="text-danger">*</span></label>
+               <?php echo $pay->emp_full_name_hi;?>
+            </div>
+			
+		
+			<div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line("emp_house_no");?></label> <span class="text-danger">*</span></label>
+               <?php echo $pay->emp_house_no;?>
+            </div><div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line("emp_mobile_no");?></label> <span class="text-danger">*</span></label>
+               <?php echo $pay->emp_mobile_number;?>
+            </div><div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line("emp_pay_month");?></label> <span class="text-danger">*</span></label>
+               <?php echo date("M",strtotime($pay->pay_month));?>
+            </div>
+		<?php }?>
+</div>
+</div></div></div>
     <div id="home" class="tab-pane fade in active">
       <h3><?php echo $this->lang->line('tab1_pay_detail_incrment')?></h3>
        <div class="col-md-12">
@@ -46,7 +80,7 @@
 			
 			<div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_special");?></label> <span class="text-danger">*</span></label>
-               <?php echo $pay->pay_ss;?>
+               <?php echo $pay->pay_special;?>
             </div>
 			
 			<div class="form-group">

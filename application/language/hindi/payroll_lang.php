@@ -15,7 +15,10 @@ $lang["view"]=htmlentities("देखे");
 $lang["sno"]=htmlentities("क्रमांक");
 $lang["emp_pay_month"]=htmlentities("वेतन महीना");
 $lang["pay_slip"] = htmlentities("वेतन पर्ची");
+$lang["pay_arrdhar_card"] = htmlentities("आधार कार्ड नंबर");
+$lang["emp_house_no"] = htmlentities("मकान नंबर");
 ////////// Salary details/////////////////
+$lang["tab1_emp_detail"] =htmlentities("कर्मचारी  विवरण");
 $lang["salary_head_name"]=htmlentities("वेतन हेड नाम");
 $lang["pay"]=htmlentities("वेतन");
 $lang["basic_pay"]=htmlentities("मूल वेतन");

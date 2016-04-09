@@ -54,6 +54,18 @@ class Payroll_model extends CI_Model {
 		
         return $rows = $query->result();
 	}
+	function getpayroll_emp()
+	{
+		$this->db->select('*');
+		  $this->db->from('ft_pay_emmp_bank');
+
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_emmp_bank.pay_emp_unique_id');
+		$this->db->where("pay_emp_unique_id",$emp_id);
+		$query = $this->db->get();
+//echo $this->db->last_query();
+		
+        return $rows = $query->result();
+	}
 }
 
 ?>

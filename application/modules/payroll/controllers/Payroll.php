@@ -51,10 +51,10 @@ class Payroll extends MX_Controller {
       $this->load->view("uploadfrom");
     }
  function do_upload() {
-        print_r($_FILES);//die;
+        //print_r($_FILES);//die;
         $config = array(
             'upload_path'   => './uploads/payroll/',
-            'allowed_types' => 'xlsx|xls',
+            'allowed_types' => 'csv',
             'max_size'      => '100',
             'max_width'     => '1024',
             'max_height'    => '768',
@@ -73,18 +73,39 @@ class Payroll extends MX_Controller {
             $filename = $upload_data['file_name'];
             $filepsth = $upload_data['file_path'];
             $content = file_get_contents($filepsth.$filename);
-            print_r($content);
-            die;
-            $data_ary = array(
-                'title'     => $upload_data['client_name'],
-                'file'      => $upload_data['file_name'],
-                'width'     => $upload_data['image_width'],
-                'height'    => $upload_data['image_height'],
-                'type'      => $upload_data['image_type'],
-                'size'      => $upload_data['file_size'],
-                'date'      => time(),
-            );
-
+           $content = explode(",",$content);
+			$insertvalue = array(
+			 'pay_emp_unique_id'=> $content[1],
+                'pay_month'      => date("M"),
+                'pay_basic'     => $content[3],
+                'pay_special'    => $content[4],
+                'pay_da'      => $content[5],
+                'pay_hra'      => $content[7],
+                'pay_sa'      => $content[8],
+				'pay_madical' => $content[9],
+				'pay_total_sum'=> $content[10],
+				'pay_dpf'=> "",
+				'pay_dpf_adv'=>"",
+				'pay_gpf'=> $content[11],
+				'pay_gpf_adv'=> $content[12],
+				'pay_defined_contribution'=>"",
+				'pay_gias'=>$content[13],
+				'pay_house_loan'=>$content[14],
+				'pay_house_rent'=>"",
+				'pay_car_loan'=>$content[15],
+				'pay_fuel_charge'=>$content[16],
+				'pay_grain_adv'=>"",
+				'pay_festival_adv'=>"",
+				'pay_professional_tax'=>$content[17],
+				'pay_income_tax'=>$content[18],
+				'pay_other_adv'=>$content[19],
+				'pay_total_cut'=>$content[20],
+				'pay_total'=>$content[21],
+			);//pre($insertvalue);
+			 $data['pay_regi'] = insertData($insertvalue , "ft_pay_register");
+			 print_r($data['pay_regi']);
+         //   die;
+     
             //$this->load->database();
            // $this->db->insert('upload', $data_ary);
 
@@ -104,6 +125,7 @@ class Payroll extends MX_Controller {
          $data['title_tab'] = $this->lang->line('view_all_employee');
         // $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
          $data['pay_regi'] = $this->payroll_model->getpayroll();
+		 
          $data['module_name'] = "payroll";
          $data['view_file'] = "payroll/register";
          $this->template->index($data);
@@ -148,7 +170,7 @@ class Payroll extends MX_Controller {
     public function employee_list(){
         $data['title'] = $this->lang->line('view_all_employee');
         $data['title_tab'] = $this->lang->line('view_all_employee');
-        $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
+        $data['details_leave'] = $this->payroll_model->getpayroll();
 
         $data['module_name'] = "payroll";
         $data['view_file'] = "payroll_employee";
