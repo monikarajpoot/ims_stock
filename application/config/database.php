@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'lawdept';
+$db['default']['password'] = '';
 $db['default']['database'] = 'ims_stock';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'ft_';

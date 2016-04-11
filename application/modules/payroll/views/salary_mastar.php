@@ -38,9 +38,10 @@
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('bulk_action'); ?> </label>
                             </div>
                           
-                     <!--        <div class="col-xs-3 bulk_action">
-                                <button type="submit" class="btn btn-block btn-success"><?php echo $this->lang->line('bulk_action'); ?></button>
-                            </div> -->
+                          <div class="col-xs-12 ">
+                             <a href="<?php echo base_url();?>payroll/addcate/" >
+                                                <button type="button" class="btn  btn-primary"><?php echo $this->lang->line('add_new'); ?></button></a>
+                            </div> 
                         </div>
                     </div>
                     <div class="box-body">
@@ -48,8 +49,7 @@
                         <table id="leave_tbl" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th width='5%'><input type="checkbox" id="selectall"/></th>
-                                    <th width='5%5%'><?php echo $this->lang->line('salary_head_name')  ?></th>
+                                    <th width='5%'><?php echo $this->lang->line('salary_head_name')  ?></th>
                                     <th width="5%"><?php echo $this->lang->line('pay'); ?></th>
                                     <th width='5%'><?php echo $this->lang->line('pay_da'); ?></th>
                                       <th width='5%'><?php echo $this->lang->line('pay_gradepay'); ?></th>
@@ -64,46 +64,49 @@
                                     <th width='10%'><?php echo $this->lang->line('pay_dpf'); ?></th>
                                     <th width='10%'><?php echo $this->lang->line('pay_dpf_adv'); ?></th>
                                     <th width='10%'><?php echo $this->lang->line('pay_gis'); ?></th>
-                                    <th width='10%'><?php echo $this->lang->line('pay_home_loan'); ?></th>
-                                     <th width='10%'><?php echo $this->lang->line('pay_car_loan'); ?></th>
-                                    <th width='10%'><?php echo $this->lang->line('pay_fule_charge'); ?></th>
-                                    
-                                     <th width='10%'><?php echo $this->lang->line('pay_professional_tax'); ?></th>
-                                    <th width='10%'><?php echo $this->lang->line('pay_income_tax'); ?></th>
-                                    <th width='10%'><?php echo $this->lang->line('pay_festival_adv'); ?></th>
-                                   
-                                     <th width='10%'><?php echo $this->lang->line('pay_define'); ?></th>
-                                    <th width='10%'><?php echo $this->lang->line('pay_house_rent'); ?></th>
-                                     <th width='10%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
-                                    
+                               
 
                                    <th width="15%"><?php echo $this->lang->line('view'); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php  $i = 1;
-                               //pre($details_leave);
+                              // pre($pay_salary);
                                 foreach ($pay_salary as $key => $salary) { ?>
 									<tr>
-                                        <td><input type="checkbox" class="case" name="leave_ids[]" value="<?php echo $leave->emp_leave_movement_id ?>"/></td>
-                                        <td><a href="<?php echo base_url('leave')."/leave_details/".$leave->emp_id ?>" data-original-title="<?php echo get_employee_gender($leave->emp_id, false).' ' .$leave->emp_full_name ?>"  data-toggle="tooltip"><?php echo get_employee_gender($leave->emp_id).' '.$leave->emp_full_name_hi . '</a>/' . getemployeeRole($leave->role_id); ?></td>
-                                        <td><?php echo $salarysalarysalarysalarysalarysalary->emp_leave_reason ?></td>
-                                        <td><?php echo get_date_formate($salarysalarysalarysalarysalary->emp_leave_create_date); ?></td>
-                                        <td><?php echo leaveType($salarysalarysalarysalary->emp_leave_type, true) ?></td>
-                                        <td><?php echo $salarysalarysalary->emp_leave_no_of_days; ?></td>
-                                        <td><?php echo get_date_formate($salarysalary->emp_leave_date); ?></td>
-                                        <td><?php echo get_date_formate($salary->emp_leave_end_date); ?></td>
-                                        <td><?php echo setForwordMessage($leave->emp_leave_forword_type); ?> <br/> <label class="label-waring label"><?php echo $leave->emp_leave_forword_emp_id != 0 ? getemployeeName($leave->emp_leave_forword_emp_id, true) : 'N/A'; ?></label>  </td>
-                                        <td>
-                                            <div class="btn-group" >
-                                                <!--<a href="<?php echo base_url(); ?>leave/leave_approve/approve/<?php echo $leave->emp_leave_movement_id; ?>" class="btn  btn-twitter" onclick="return confirm('Are you sure?');"><?php echo $this->lang->line('leave_approve') ?></a> -->
-                                                <button type="button" class="btn btn-success btn-block btnapprove" name="btnapprove" data-empid="<?php echo $leave->emp_id; ?>" data-leaveid="<?php echo $leave->emp_leave_movement_id; ?>" data-toggle="modal" data-target="#approveModal"><?php echo $this->lang->line('leave_approve') ?></button>
-                                                <button type="button" class="btn btn-danger btn-block btndeny" name="btndeny" data-empid="<?php echo $leave->emp_id; ?>" data-leaveid="<?php echo $leave->emp_leave_movement_id; ?>" data-toggle="modal" data-target="#denyModal"><?php echo $this->lang->line('leave_deny') ?></button>
-                                                 <?php if($leave->medical_files !=  '') { ?>
-                                                    <a href="<?php echo base_url(); ?>uploads/medical_files/<?php echo $leave->medical_files; ?>" target="_blank">Certificate</a>
-                                                <?php } ?>
-                                            </div>
-                                        </td>
+                                    <th width='5%5%'><?php echo $salary->pay_cate_name  ?></th>
+                                    <th width="5%"><?php if($salary->pay_cate_basic == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                     <th width='5%'><?php if($salary->pay_cate_da == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                         <th width='5%'><?php if($salary->pay_cate_grp == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_hra == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='5%'><?php if($salary->pay_cate_special == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='5%'><?php if($salary->pay_cate_sa == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                     <th width='5%'><?php if($salary->pay_cate_sp == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                      <th width='5%'><?php if($salary->pay_cate_ca == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='5%'><?php if($salary->pay_cate_madical == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='5%'><?php if($salary->pay_cate_gpf == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='5%'><?php if($salary->pay_cate_gpf_adv == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='10%'><?php if($salary->pay_cate_dpf == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='10%'><?php if($salary->pay_cate_dpf_adv == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='10%'><?php if($salary->pay_cate_gias == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                   
+                                    <th width='10%'> <a href="<?php echo base_url();?>payroll/getcate/<?php echo $salary->pay_cate_id ?>" >
+                                              <button type="button" class="btn btn-primary" name="btndeny" ><?php echo $this->lang->line('view') ?></button>
+                                               <a/></th>
+                                   
+                                    
+                                    
+
                                     </tr>
 
                                 <?php  $i++; } ?>

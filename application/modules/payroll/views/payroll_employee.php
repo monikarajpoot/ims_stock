@@ -30,6 +30,8 @@
                               
                                 <th width="10%"><?php echo $this->lang->line('emp_mobile_no'); ?></th>
                                 <th width="15%"><?php echo $this->lang->line('emp_email'); ?></th>
+                                  <th width="15%"><?php echo $this->lang->line('pay_arrdhar_card'); ?></th>
+                                    <th width="15%"><?php echo $this->lang->line('emp_house_no'); ?></th>
                                    <th width="10%"><?php echo $this->lang->line('pay_amount'); ?></th>
                                 <th width="10%"><?php echo $this->lang->line('view'); ?></th>
                             </tr>
@@ -39,26 +41,21 @@
 							$userrole = checkUserrole();
 							$crnt_emp_id = 	$this->session->userdata('emp_id');
 							$emp_section = getusersection($crnt_emp_id);
-							pre($details_leave);
-                            foreach ($details_leave as $key => $leave) {
-                                ?>
+							//pre($details_leave);
+                            foreach ($details_leave as $key => $leave) { ?>
                                 <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $leave->emp_unique_id; ?></td>
                                     <td><?php echo $leave->emp_full_name_hi ; ?></td>
                                     <td><?php echo $leave->emp_mobile_number; ?></td>
                                     <td><?php echo $leave->emp_email; ?></td>
-                                    <td><?php echo calculate_el($leave->el_leave); ?></td>
-                                    <td><?php echo $leave->hpl_leave.' ('.calculate_hpl($leave->hpl_leave).')'; ?></td>
-                                    <td>
-										<a href="<?php echo base_url(); ?>leave/leave_details/<?php echo $leave->emp_id ?>"><?php echo $this->lang->line('view'); ?></a>
-										<?php if ((in_array(7, explode(',',$emp_section)) && $userrole == 8) || $userrole == 1 ){ ?>
-											<a href="<?php echo base_url(); ?>leave/leave/manage_leave/<?php echo $leave->emp_id ?>"><?php echo $this->lang->line('edit'); ?></a>
-										<?php }  ?>
-									</td>
+                                    <td><?php echo $leave->emp_house_no; ?></td>
+                                    <td><?php echo $leave->emp_adhar_card_no; ?></td>
+                                    <td><?php echo  $leave->pay_total;?></td>
+                                    <td><a href="<?php echo base_url(); ?>payroll/empslary/<?php echo $leave->emp_unique_id ?>"><?php echo $this->lang->line('view'); ?></a>
+								</td>
                                 </tr>
-                                <?php $i++;
-                            }
+                                <?php $i++; }
                             ?>
                         </tbody>
                     </table>

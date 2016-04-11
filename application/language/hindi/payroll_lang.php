@@ -17,7 +17,11 @@ $lang["emp_pay_month"]=htmlentities("वेतन महीना");
 $lang["pay_slip"] = htmlentities("वेतन पर्ची");
 $lang["pay_arrdhar_card"] = htmlentities("आधार कार्ड नंबर");
 $lang["emp_house_no"] = htmlentities("मकान नंबर");
-////////// Salary details/////////////////
+$lang["add_new"] = htmlentities("ऐड नई रिकॉर्ड");
+$lang["view_on_excel"] = htmlentities("एक्सेल पर देखें");
+$lang["print_on_excel"] = htmlentities("एक्सेल पर प्रिंट");
+/////////view on excel/ Salary details/////////////////
+$lang["salary_mastar"] = htmlentities("वेतन मास्टर");
 $lang["tab1_emp_detail"] =htmlentities("कर्मचारी  विवरण");
 $lang["salary_head_name"]=htmlentities("वेतन हेड नाम");
 $lang["pay"]=htmlentities("वेतन");
@@ -44,13 +48,13 @@ $lang["pay_sp"]= htmlentities("सचिवालय एवं विशेष �
 $lang["pay_ca"]= htmlentities("सीए");
 $lang["pay_gradepay"]= htmlentities("ग्रेडपे");
 $lang["pay_dpf"]= htmlentities("डीपीएफ अंशदान");
-$lang["pay_dpf_adv"]= htmlentities("डीपीएफअग्रिम");
+$lang["pay_dpf_adv"]= htmlentities("डीपीएफ अग्रिम");
 $lang["pay_define"]= htmlentities("पारिभाषित अंशदान कटोत्राी");
 $lang["pay_house_rent"]= htmlentities("आवास किराया कटौत्राी");
 $lang["pay_grain_adv"]= htmlentities("अनाज अग्रिम");
 $lang["emp_salary_details"]= htmlentities("कर्मचारी वेतन अभिलेख");
 $lang["tab1_pay_detail_incrment"]= htmlentities("वेतन अभिलेख / वेतन वृद्धि");
-$lang["tab2_pay_gpf"]= htmlentities("जी पी फ / डी प फ");
+$lang["tab2_pay_gpf"]= htmlentities("जी पी फ / डी पी फ");
 
 $lang["tab3_pay_adv"]= htmlentities("अग्रिम");
 
@@ -61,6 +65,6 @@ $lang["bank_name"] = htmlentities("बैंक का नाम");
 $lang["bank_ifsc"] = htmlentities("बैंक आईएफएससी कोड");
 $lang["bank_account_no"] = htmlentities("बैंक खाता नम्बर");
 $lang["ag_series"] = htmlentities("एजी श्रृंखला");
-$lang["gpf_dpf_code"]= htmlentities("जी पी फ / डी प फ कोड");
+$lang["gpf_dpf_code"]= htmlentities("जी पी फ / डी पी फ कोड");
 $lang["contact_no"]= htmlentities("संपर्क नंबर");
 	?>

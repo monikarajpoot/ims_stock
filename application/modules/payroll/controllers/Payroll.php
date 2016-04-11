@@ -147,24 +147,78 @@ class Payroll extends MX_Controller {
     {
         $data['title'] = $this->lang->line('salary_mastar');
         $data['title_tab'] = $this->lang->line('salary_mastar');
-     // $data['details_leave'] = $this->payroll_model->salary_cate();
-        $data['pay_salary'] = $this->payroll_model->getpayroll();
+    
+        $data['pay_salary'] = $this->payroll_model->salary_mastar();
         $data['module_name'] = "payroll";
         $data['view_file'] = "payroll/salary_mastar";
         $this->template->index($data);
 
 
     }
+     public function addsalary(){
+        $data['title'] = $this->lang->line('emp_salary_details');
+
+    //pre($data['pay_regi']);
+    $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/emp_salary_details";
+         $this->template->index($data);
+    }
+    public function showdetails()
+    {
+       $emp_id = $this->uri->segment("3");
+       $data['pay_regi'] = $this->payroll_model->getpay($emp_id);
+    $data['emp_bank'] = $this->payroll_model->emp_bank($emp_id);
+      $this->load->view("salary_details_from" ,$data);
+    }
+      public function addcate()
+    {
+        $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+    
+     
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/addcate";
+        $this->template->index($data);
+
+
+    }
+    public function allcate(){
+
+           $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+    
+      $data['pay_salary'] = $this->payroll_model->salary_mastar();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/allcate";
+        $this->template->index($data);
+    }
+    public function add_cate()
+    {
+        
+        $data = $this->input->post();
+
+        $data['pay_regi'] = insertData($data , "ft_pay_salary_category");
+        redirect('payroll/salary_mastar');
+    }
     public function add_salary()
     {
 		$data['title'] = $this->lang->line('salary_mastar');
         $data['title_tab'] = $this->lang->line('salary_mastar');
      // $data['details_leave'] = $this->payroll_model->salary_cate();
-        $data['pay_salary'] = $this->payroll_model->getpayroll();
+        $data['pay_salary'] = $this->payroll_model->salary_mastar();
         $data['module_name'] = "payroll";
-        $data['view_file'] = "payroll/";
+        $data['view_file'] = "payroll/salary_mastar";
         $this->template->index($data);
 
+
+    }
+    public function empcate()
+    {
+                $emp_id = $this->uri->segment("3");
+        $data['pay_salary'] = $this->payroll_model->salary_emp($emp_id);
+         $data['cate_salary'] = $this->payroll_model->cate_salary($emp_id);
+
+        $this->load->view("empccate" , $data);
 
     }
     public function employee_list(){

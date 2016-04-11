@@ -34,23 +34,23 @@
       <h3><?php echo $this->lang->line('tab1_emp_detail')?></h3>
        <div class="col-md-12">
     <div class="box box-primary">
-        <div class="box-body">
-		<?php foreach ($pay_regi as $key => $pay) {?>
-		 
-			
-			
-			<div class="form-group">
+   <div class="box-body">
+    <?php foreach ($pay_regi as $key => $pay) {?>
+     
+      
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_arrdhar_card");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->emp_adhar_card_no;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("emp_name");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->emp_full_name_hi;?>
             </div>
-			
-		
-			<div class="form-group">
+      
+    
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("emp_house_no");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->emp_house_no;?>
             </div><div class="form-group">
@@ -60,7 +60,7 @@
                 <label for="file_type"><?php echo $this->lang->line("emp_pay_month");?></label> <span class="text-danger">*</span></label>
                <?php echo date("M",strtotime($pay->pay_month));?>
             </div>
-		<?php }?>
+    <?php }?>
 </div>
 </div></div></div>
     <div id="home" class="tab-pane fade in active">
@@ -68,31 +68,31 @@
        <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-body">
-		<?php foreach ($pay_regi as $key => $pay) {?>
-		 <div class="form-group">
+    <?php foreach ($pay_regi as $key => $pay) {?>
+     <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("basic_pay");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_basic; ?>
             </div>
-				 <div class="form-group">
+         <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_da");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_da; ?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_special");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_special;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_hra");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_hra;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_sa");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_sa;?>
             </div>
-			<div class="form-group">
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_ma");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_madical;?>
             </div><div class="form-group">
@@ -102,7 +102,7 @@
                 <label for="file_type"><?php echo $this->lang->line("pay_income_tax");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_total_sum;?>
             </div>
-		<?php }?>
+    <?php }?>
 </div>
 </div>
 </div> 
@@ -112,31 +112,31 @@
         <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-body">
-		<?php foreach ($pay_regi as $key => $pay) {?>
-		 <div class="form-group">
+    <?php foreach ($pay_regi as $key => $pay) {?>
+     <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_gpf");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_gpf; ?>
             </div>
-				 <div class="form-group">
+         <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_gpf_adv");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_gpf_adv; ?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_gis");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_gias;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_home_loan");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_house_loan;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_car_loan");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_house_loan;?>
             </div>
-			<div class="form-group">
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_fule_charge");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_fuel_charge;?>
             </div><div class="form-group">
@@ -146,7 +146,7 @@
                 <label for="file_type"><?php echo $this->lang->line("pay_income_tax");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->pay_income_tax;?>
             </div>
-		<?php }?>
+    <?php }?>
 </div>
 </div>
 </div>  </div>
@@ -159,31 +159,31 @@
      <div class="col-md-12">
     <div class="box box-primary">
         <div class="box-body">
-		<?php foreach ($emp_bank as $key => $pay) {?>
-		 <div class="form-group">
+    <?php foreach ($emp_bank as $key => $pay) {?>
+     <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("state");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_state_id; ?>
             </div>
-				 <div class="form-group">
+         <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("districk");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_district; ?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("bank_name");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_bank_name;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("bank_ifsc");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_ifsc_code;?>
             </div>
-			
-			<div class="form-group">
+      
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("bank_account_no");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_bank_account_no;?>
             </div>
-			<div class="form-group">
+      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("ag_series");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->peb_ag_series;?>
             </div><div class="form-group">
@@ -193,14 +193,14 @@
                 <label for="file_type"><?php echo $this->lang->line("contact_no");?></label> <span class="text-danger">*</span></label>
                <?php echo $pay->emp_mobile_number;?>
             </div>
-		<?php }?>
+    <?php }?>
 </div>
 </div>
 </div>
 
-			</div>
+      </div>
   </div> </div>
-		   </div>
+       </div>
         </div>
     </div>
 </section><!-- /.content -->
