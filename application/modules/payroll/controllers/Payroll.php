@@ -167,6 +167,7 @@ class Payroll extends MX_Controller {
     {
        $emp_id = $this->uri->segment("3");
        $data['pay_regi'] = $this->payroll_model->getpay($emp_id);
+	    $data['emp_details'] = $this->payroll_model->getemp($emp_id);
     $data['emp_bank'] = $this->payroll_model->emp_bank($emp_id);
       $this->load->view("salary_details_from" ,$data);
     }
@@ -182,6 +183,29 @@ class Payroll extends MX_Controller {
 
 
     }
+	public function advance()
+	{
+	           $data['title'] = $this->lang->line('tab3_pay_adv');
+        $data['title_tab'] = $this->lang->line('tab3_pay_adv');
+    
+      $data['pay_salary'] = $this->payroll_model->advance();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/advance";
+        $this->template->index($data);
+	}public function add_adv()
+	{
+	                  $data['title'] = $this->lang->line('tab3_pay_adv');
+        $data['title_tab'] = $this->lang->line('tab3_pay_adv');
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/add_adv";
+        $this->template->index($data);
+	}public function post_adv()
+	{
+	          $data = $this->input->post();
+			 $data['pay_regi'] = insertData($data , "ft_pay_advance_master");
+			 redirect('payroll/advance');
+        $this->template->index($data);
+	}
     public function allcate(){
 
            $data['title'] = $this->lang->line('salary_mastar');

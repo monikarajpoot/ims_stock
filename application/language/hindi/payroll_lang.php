@@ -56,8 +56,11 @@ $lang["emp_salary_details"]= htmlentities("कर्मचारी वेतन
 $lang["tab1_pay_detail_incrment"]= htmlentities("वेतन अभिलेख / वेतन वृद्धि");
 $lang["tab2_pay_gpf"]= htmlentities("जी पी फ / डी पी फ");
 
+$lang["adv_name"]= htmlentities("अग्रिम नाम");
+$lang["adv_name_en"]= htmlentities("अग्रिम नाम अंग्रेजी में");
+$lang["adv_no_installment"]= htmlentities("अग्रिम किस्त");
+$lang["adv_intrest"]= htmlentities("अग्रिम ब्याज");
 $lang["tab3_pay_adv"]= htmlentities("अग्रिम");
-
 $lang["tab4_pay_bankdetails"]= htmlentities("बैंक खता विवरण");
 $lang["state"] = htmlentities("राज्य");
 $lang["districk"] = htmlentities("जिला");
@@ -67,4 +70,5 @@ $lang["bank_account_no"] = htmlentities("बैंक खाता नम्ब�
 $lang["ag_series"] = htmlentities("एजी श्रृंखला");
 $lang["gpf_dpf_code"]= htmlentities("जी पी फ / डी पी फ कोड");
 $lang["contact_no"]= htmlentities("संपर्क नंबर");
+$lang["advance_master"]= htmlentities("अग्रिम मास्टर" );
 	?>

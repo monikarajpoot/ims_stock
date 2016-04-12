@@ -45,10 +45,21 @@ class Payroll_model extends CI_Model {
 	}function emp_bank($emp_id)
 	{
 		$this->db->select('*');
-		  $this->db->from('ft_pay_emmp_bank');
+		  $this->db->from('ft_emp_service_record');
 
-         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_emmp_bank.pay_emp_unique_id');
-		$this->db->where("pay_emp_unique_id",$emp_id);
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_emp_service_record.emp_uid');
+		$this->db->where("emp_uid",$emp_id);
+		$query = $this->db->get();
+//echo $this->db->last_query();
+		
+        return $rows = $query->result();
+	}function getemp($emp_id)
+	{
+		$this->db->select('*');
+		  $this->db->from('ft_employee');
+
+      //   $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_emp_service_record.emp_uid');
+		$this->db->where("emp_unique_id",$emp_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();
 		
@@ -100,6 +111,25 @@ class Payroll_model extends CI_Model {
 
 
     }
+	function emp_uid($emp_id)
+	{
+		     $this->db->select('*');
+          $this->db->from('ft_employee');
+		$this->db->like('emp_unique_id', $emp_id); 
+		 $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+	}
+	function advance()
+	{
+		     $this->db->select('*');
+          $this->db->from('ft_pay_advance_master');
+		
+		 $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+	}
 }
-
 ?>
