@@ -31,13 +31,27 @@ class Payroll_model extends CI_Model {
     	$query = $this->db->get("ft_pay_salary_category");
         //$this->db->last_query();
         return $rows = $query->result();
-    }function getpay($emp_id)
+    }
+
+function getcate($emp_id)
+  {
+      $this->db->select('*');
+      $this->db->from('ft_employee');
+  //  $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
+     $this->db->join('ft_pay_salary_category', 'ft_employee.emp_pay_cate_id = ft_pay_salary_category.pay_cate_id');
+    $this->db->where("emp_unique_id",$emp_id);
+    $query = $this->db->get();
+//echo $this->db->last_query();
+    
+        return $rows = $query->result();
+  }
+    function getpay($emp_id)
 	{
 		  $this->db->select('*');
 		  $this->db->from('ft_pay_register');
-
-         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
-		$this->db->where("pay_emp_unique_id",$emp_id);
+    $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
+    // $this->db->join('ft_pay_salary_category', 'ft_employee.emp_pay_cate_id = ft_pay_salary_category.pay_cate_id');
+ 		$this->db->where("pay_emp_unique_id",$emp_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();
 		
@@ -48,6 +62,7 @@ class Payroll_model extends CI_Model {
 		  $this->db->from('ft_emp_service_record');
 
          $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_emp_service_record.emp_uid');
+         $this->db->join('ft_employee_details', 'ft_employee_details.uid = ft_emp_service_record.emp_uid');
 		$this->db->where("emp_uid",$emp_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();
@@ -58,7 +73,7 @@ class Payroll_model extends CI_Model {
 		$this->db->select('*');
 		  $this->db->from('ft_employee');
 
-      //   $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_emp_service_record.emp_uid');
+      // $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_emp_service_record.emp_uid');
 		$this->db->where("emp_unique_id",$emp_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();
@@ -70,7 +85,7 @@ class Payroll_model extends CI_Model {
 		$this->db->select('*');
 		  $this->db->from('ft_pay_emmp_bank');
 
-         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_emmp_bank.pay_emp_unique_id');
+    $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_emmp_bank.pay_emp_unique_id');
 		$this->db->where("pay_emp_unique_id",$emp_id);
 		$query = $this->db->get();
 //echo $this->db->last_query();

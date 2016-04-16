@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div><!-- /.box-header -->
-   <form action="" >
+   <form action="<?php echo base_url(); ?>payroll/showdetails" method="<?php echo base_url(); ?>payroll/showdetails" >
         <div class="box-body">
      
                     <div class="col-md-6">
@@ -51,7 +51,7 @@
                     </div><!-- col 6 -->
         </div><!-- /.box-body -->
         <div class="box-footer">
-          <button class="btn btn-primary" type="button" name="savenotice" id="savenotice" onclick="showdetails()" value="1"><?php echo $this->lang->line('submit_botton'); ?></button>
+          <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice" onclick="showdetails()" value="1"><?php echo $this->lang->line('submit_botton'); ?></button>
         </div>
         </form>
         
@@ -61,15 +61,3 @@
  
     </div>
 </section><!-- /.content -->
-<script>
-function showdetails()
-{//alert(345);
- 
-var unique =   $("#emp_unique_code").val();
-//alert(unique);
- $.ajax({url: "<?php echo base_url(); ?>payroll/showdetails/"+unique, success: function(result){
-  //alert(result)
-        $("#div1").html(result);
-    }});
-}
-</script>

@@ -50,6 +50,7 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 
 		$this->load->initialize();
+	//	$this->output->enable_profiler(true);
 		
 		log_message('debug', "Controller Class Initialized");
 	}

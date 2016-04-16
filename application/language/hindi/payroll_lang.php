@@ -67,8 +67,23 @@ $lang["districk"] = htmlentities("जिला");
 $lang["bank_name"] = htmlentities("बैंक का नाम");
 $lang["bank_ifsc"] = htmlentities("बैंक आईएफएससी कोड");
 $lang["bank_account_no"] = htmlentities("बैंक खाता नम्बर");
+$lang["bank_branch_name"] = htmlentities("बैंक शाखा");
 $lang["ag_series"] = htmlentities("एजी श्रृंखला");
 $lang["gpf_dpf_code"]= htmlentities("जी पी फ / डी पी फ कोड");
 $lang["contact_no"]= htmlentities("संपर्क नंबर");
 $lang["advance_master"]= htmlentities("अग्रिम मास्टर" );
-	?>
+
+///////////////////
+$lang["advance_no"]= htmlentities("अग्रिम संख्या" );
+$lang["advance_current_month"] = htmlentities("इस तिथि तक");
+$lang["starting_month"] = htmlentities("अग्रिम सूचित दिनांक ");
+$lang["advance_amount"] = htmlentities("अग्रिम राशि");
+$lang["advance_inetrest"] = htmlentities("अग्रिम ब्याज दर");
+$lang["advnce_instsallment_number"] = htmlentities("अग्रिम किस्त संख्या");	
+$lang["advnce_current_instsallment_number"] = htmlentities("अग्रिम वर्तमान किस्त संख्या");
+$lang["advnce_rmaining_instsallment_number"] = htmlentities("अग्रिम शेष किस्त नंबर");
+$lang["advnce_remaing_amount"] = htmlentities("अग्रिम शेष राशि");
+$lang["intrest_amount"] = htmlentities("ब्याज राशि");
+$lang["instalment_amount"] = htmlentities("किस्त राशि");
+$lang["intrest_amount"] = htmlentities("ब्याज राशि");
+?>

@@ -165,11 +165,23 @@ class Payroll extends MX_Controller {
     }
     public function showdetails()
     {
-       $emp_id = $this->uri->segment("3");
+       $emp_id = $_GET["emp_unique_codeemp_unique_code"];
        $data['pay_regi'] = $this->payroll_model->getpay($emp_id);
-	    $data['emp_details'] = $this->payroll_model->getemp($emp_id);
+        $data['emp_details'] = $this->payroll_model->getemp($emp_id);
+      foreach ($data['emp_details']as $key => $valueca) {
+        $pay_cate_id =$valueca->emp_pay_cate_id;
+
+      }
+      $condi =  array("pay_cate_id"=>$pay_cate_id );
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+        
     $data['emp_bank'] = $this->payroll_model->emp_bank($emp_id);
-      $this->load->view("salary_details_from" ,$data);
+     $data['adv'] = $this->payroll_model->advance();
+    //  $this->load->view("addsalary" ,$data);
+         // pre($data['dataval'] );
+         $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/addsalary";
+         $this->template->index($data);
     }
       public function addcate()
     {
@@ -274,6 +286,56 @@ class Payroll extends MX_Controller {
         $this->load->view('departmental_setup', $data);
     }
 
+
+    public function add_emp_salary()
+    {
+      print_r($_POST);
+      if($_POST['emp_unique_code'] != "")
+      {
+           $data['emp_details'] = $this->payroll_model->getemp($_POST['emp_unique_code']);
+            $ifemp = count($data['emp_details']);
+            if($ifemp == 1)
+            {
+              if(isset($_POST['pay_define'])){
+               $pay_define =$_POST['pay_define']; 
+              }else{
+               $pay_define=0;
+              }
+            if(isset($_POST['pay_madical'])){
+               $madical =$_POST['pay_madical'];
+              }else{
+               $madical=0;
+              }
+             
+              $datapay = array(
+                'pay_emp_unique_id' => $_POST['emp_unique_code'] ,
+                'pay_basic' => $_POST['pay_basic'] ,
+              'pay_grp' => $_POST['pay_gradepay'] ,
+              'pay_da' => $_POST['pay_da'] ,
+              'pay_special' => $_POST['pay_special'] ,
+              'pay_hra' => $_POST['pay_hra'] ,
+              'pay_sa' => $_POST['pay_sa'] ,
+              'pay_madical' => $madical ,
+              'pay_ca' => $_POST['pay_ca'] ,
+              'pay_sp' => $_POST['pay_sp'] ,
+              'pay_others' => $_POST['pay_others'] ,
+              'pay_total_sum' => $_POST['pay_total_sum'] ,
+               'pay_gpf' => $_POST['pay_gpf'] ,
+              'pay_gias' => $_POST['pay_gias'] ,
+              'pay_defined_contribution' => $pay_define ,
+              'pay_fuel_charge' => $_POST['pay_fuel_charge'] ,
+              'pay_professional_tax' => $_POST['pay_professional_tax'] ,
+              'pay_income_tax' => $_POST['pay_income_tax'] ,
+              'pay_ca' => $_POST['pay_ca'] ,
+              'pay_sp' => $_POST['pay_sp'] ,
+              'pay_others' => $_POST['pay_others'] ,
+              'pay_total_sum' => $_POST['pay_total_sum'] ,
+               );
+              insertData($datapay , "ft_pay_register");
+
+            }
+      }
+    }
     /**
      * logout all session and redirect to home page
      * @return void
@@ -284,5 +346,7 @@ class Payroll extends MX_Controller {
         no_cache();
         redirect("home");
     }
+
+
 
 }

@@ -53,7 +53,10 @@
                 <label for="email"><?php echo $this->lang->line('adv_name_en')  ?></label>
                 <input type="text" class="form-control" name="adv_name_en" id="adv_name_hi">
               </div>
-             
+             <div class="form-group">
+                <label for="email"><?php echo $this->lang->line('advance_amount')  ?></label>
+                <input type="text" class="form-control" name="adv_amount" id="adv_amount">
+              </div>
               <div class="checkbox">
         <label for="email"><?php echo $this->lang->line('adv_no_installment')  ?></label>
                 <input type="text" class="form-control" name="adv_no_installment" id="adv_no_installment">
