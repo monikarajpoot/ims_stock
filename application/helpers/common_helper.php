@@ -3292,3 +3292,13 @@ function ps_mark_file(){
         'o' => 'अन्य',
     );
 }
+/////////code add by Monika
+function getsum($tablename,$condi ,$column) 
+{
+    $CI = & get_instance();
+    $sessionemp = emp_session_id();
+    $query =   $CI->db->query("SELECT sum($column) as sum_val FROM ".$tablename." where ".$condi );
+    $state_name = $query->row_array();
+    //print_r($state_name);
+    return $state_name;
+}

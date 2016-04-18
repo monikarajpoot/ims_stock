@@ -11,7 +11,7 @@ class Payroll extends MX_Controller {
      //  $this->load->language('leave', 'hindi');
         $this->load->model("payroll_model");
          $this->load->language('payroll', 'hindi');
-		     $this->load->library('PHPExcel');
+		     
 
            //   $this->load->language('leave_approve', 'hindi');
     }
@@ -121,16 +121,40 @@ class Payroll extends MX_Controller {
 	}
     public function register()
     {
+
          $data['title'] = $this->lang->line('pay_title');
          $data['title_tab'] = $this->lang->line('view_all_employee');
         // $data['details_leave'] = $this->payroll_model->getEmployeeLeave();
-         $data['pay_regi'] = $this->payroll_model->getpayroll();
-		 
+      //  $data['pay_regi'] = $this->payroll_model->getpayroll();
+		// echo "fsdfsd";die();
          $data['module_name'] = "payroll";
-         $data['view_file'] = "payroll/register";
+          $data['view_file'] = "payroll/emp_register";
+        // $data['view_file'] = "payroll/register";
          $this->template->index($data);
       //$this->load->view('register',$data);
     }
+    public function showrigtser()
+    {
+      $emp_id = $_GET["uid"];
+        $data['title'] = $this->lang->line('pay_title');
+         $data['title_tab'] = $this->lang->line('pay_title');
+         $data['pay_regi'] = $this->payroll_model->getpay($emp_id);
+          $data['emp_details'] = $this->payroll_model->getemp($emp_id);
+      foreach ($data['emp_details']as $key => $valueca) {
+        $pay_cate_id =$valueca->emp_pay_cate_id;
+
+      }
+      $condi =  array("pay_cate_id"=>$pay_cate_id );
+       $data['pay_basic'] = getsum('ft_pay_register' , '`pay_emp_unique_id` ='.$emp_id,'pay_basic');
+       //print_r($pay_basic);
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+           $data['module_name'] = "payroll";
+          $data['view_file'] = "payroll/emp_register_details";
+        // $data['view_file'] = "payroll/register";
+          $this->template->index($data);
+
+    }
+
 	public function empslary()
 	{
 		
@@ -306,24 +330,45 @@ class Payroll extends MX_Controller {
               }else{
                $madical=0;
               }
-             
-              $datapay = array(
+              if(isset($_POST['pay_gradepay'])){
+               $pay_gradepay =$_POST['pay_gradepay'];
+              }else{
+               $pay_gradepay=0;
+              }
+              if(isset($_POST['pay_special'])){
+               $pay_special =$_POST['pay_special'];
+              }else{
+               $pay_special=0;
+              }
+              $pay_ca = "";
+              if(isset($_POST['pay_ca'])){
+               $pay_ca =$_POST['pay_ca'];
+              }else{
+               $pay_ca =0;
+              }
+
+               if(isset($_POST['pay_fuel_charge'])){
+               $pay_fuel_charge =$_POST['pay_fuel_charge'];
+              }else{
+               $pay_fuel_charge=0;
+              }
+              $datapay = array('pay_month' => "April" ,
                 'pay_emp_unique_id' => $_POST['emp_unique_code'] ,
                 'pay_basic' => $_POST['pay_basic'] ,
-              'pay_grp' => $_POST['pay_gradepay'] ,
+              'pay_grp' => $pay_gradepay ,
               'pay_da' => $_POST['pay_da'] ,
-              'pay_special' => $_POST['pay_special'] ,
+              'pay_special' => $pay_special ,
               'pay_hra' => $_POST['pay_hra'] ,
               'pay_sa' => $_POST['pay_sa'] ,
               'pay_madical' => $madical ,
-              'pay_ca' => $_POST['pay_ca'] ,
+              'pay_ca' => $pay_ca,
               'pay_sp' => $_POST['pay_sp'] ,
               'pay_others' => $_POST['pay_others'] ,
               'pay_total_sum' => $_POST['pay_total_sum'] ,
                'pay_gpf' => $_POST['pay_gpf'] ,
               'pay_gias' => $_POST['pay_gias'] ,
               'pay_defined_contribution' => $pay_define ,
-              'pay_fuel_charge' => $_POST['pay_fuel_charge'] ,
+              'pay_fuel_charge' => $pay_fuel_charge ,
               'pay_professional_tax' => $_POST['pay_professional_tax'] ,
               'pay_income_tax' => $_POST['pay_income_tax'] ,
               'pay_ca' => $_POST['pay_ca'] ,

@@ -1,6 +1,7 @@
-
-
 <?php
+
+//echo count($pay_regi);
+
  	if(count($pay_regi) != 0){
  	$i=0; 	
  		foreach ($pay_regi as $key => $pay) { 
