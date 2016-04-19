@@ -352,7 +352,8 @@ class Payroll extends MX_Controller {
               }else{
                $pay_fuel_charge=0;
               }
-              $datapay = array('pay_month' => "April" ,
+              $month = date("now")
+              $datapay = array('pay_month' => $month ,
                 'pay_emp_unique_id' => $_POST['emp_unique_code'] ,
                 'pay_basic' => $_POST['pay_basic'] ,
               'pay_grp' => $pay_gradepay ,

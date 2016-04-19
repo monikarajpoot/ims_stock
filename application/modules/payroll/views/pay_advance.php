@@ -16,7 +16,7 @@
   <div class='input-group date' id='datetimepicker1'>
        <label for="file_type"></label> <?php echo $this->lang->line("starting_month"); ?> <span class="text-danger">*</span></label>
                  
-                    <input type='text' name="starting_month<?php echo $value->adv_id ?>" id="starting_month" placeholder="<?php echo $this->lang->line('starting_month'); ?>"  class="form-control" />
+                    <input type='text' name="starting_month<?php echo $value->adv_id ?>" id="starting_month" placeholder="<?php echo $this->lang->line('starting_month'); ?>"  class="form-control date1" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
