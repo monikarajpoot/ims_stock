@@ -44,6 +44,21 @@
               <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_unique_code'); ?><span class="text-danger">*</span></label>
                 <input type="text" name="emp_unique_codeemp_unique_code" id="emp_unique_code" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="" class="form-control">
+                
+              </div>
+                <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month" name="pay_month" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
                 <?php echo form_error('category_title_hin');?>
               </div>
 

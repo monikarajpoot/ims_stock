@@ -52,12 +52,29 @@ class Payroll_model extends CI_Model {
     $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
     // $this->db->join('ft_pay_salary_category', 'ft_employee.emp_pay_cate_id = ft_pay_salary_category.pay_cate_id');
  		$this->db->where("pay_emp_unique_id",$emp_id);
-  
 		$query = $this->db->get();
 //ho $this->db->last_query();
-		
-        return $rows = $query->result();
+	   return $rows = $query->result();
 	}
+
+  public  function getpaymonth($emp_id,$pay_month)
+  {
+    $currentyear = date("Y");
+      $this->db->select('*');
+      $this->db->from('ft_pay_register');
+    $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
+    $this->db->where("pay_emp_unique_id",$emp_id);
+    $this->db->where("pay_month",$pay_month);
+    $this->db->where("pay_year",$currentyear);
+    $query = $this->db->get();
+//echo $this->db->last_query();
+   return $rows = $query->result();
+  }
+
+
+
+
+
   public function emp_bank($emp_id)
 	{
 		$this->db->select('*');
@@ -152,5 +169,65 @@ class Payroll_model extends CI_Model {
         
         return $rows = $query->result();
 	}
+  public function getempdetails($id = "")
+  {
+      $this->db->select('*');
+          $this->db->from('ft_employee');
+      if($id != ""){
+       $this->db->where("emp_unique_id",$id);
+      }
+     $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+
+  }
+
+public function house_type($id = "")
+  {
+      $this->db->select('*');
+          $this->db->from('pay_house_rent_master');
+      if($id != ""){
+       $this->db->where("ph_id",$id);
+      }
+     $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+
+  }
+
+  function pay_slip()
+  {
+
+    $this->db->select('*');
+          $this->db->from('ft_pay_register');
+      $this->db->where("pay_year",$_POST['pay_year']);
+       $this->db->where("pay_emp_unique_id",$_POST['uid']);
+     $this->db->where("pay_month",$_POST['pay_month']);
+     $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+
+
+  }
+  function add_deatils()
+  {
+
+    
+    $id =$_POST['emp_unique_id'];
+
+    $data = array(
+               'emp_house_no' => $_POST['emp_house_no'],
+               'emp_house_type' =>  $_POST['emp_house_type'],
+               'emp_pen_no' =>$_POST['emp_pen_no'],
+               'emp_adhar_card_no' => $_POST['emp_adhar_card_no'],
+            );
+
+$this->db->where('emp_unique_id', $id);
+$this->db->update('ft_employee', $data); 
+  }
+
 }
 ?>

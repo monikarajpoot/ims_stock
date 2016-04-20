@@ -2,13 +2,33 @@
 
            <div class="container">
 
+ <fieldset class="scheduler-border">
+    <legend class="scheduler-border"><?php echo $this->lang->line('employee_on_leave')?></legend>
+    <div class="control-group">
+          <div class="form-group">
+                <label for="file_type"><?php echo $this->lang->line('How_many_employees_on_leave_days_employees');?> </label>
+        <select name="pay_day" id="pay_day"  class="form-control">
+                                <option value=""><?php echo $this->lang->line('How_many_employees_on_leave_days_employees'); ?></option>
+                                <?php for ($m=1; $m<=31; $m++) {
+   
+     
+     ?>
+                                    <option value="<?php echo $m ?>"  ><?php echo $m ?></option>
+                                <?php } ?>>
+           </select></div>
+</div>
+</fieldset>
+
+
+
+
   <fieldset class="scheduler-border">
     <legend class="scheduler-border"><?php echo $this->lang->line('tab1_emp_detail')?></legend>
     <div class="control-group">
       <?php  foreach ($emp_details as $key => $pay) {?>
       <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_arrdhar_card");?></label> <span class="text-danger">*</span></label>
-               <input type="text" name="emp_adhar_card_no" id="emp_adhar_card_no" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="<?php echo $pay->emp_adhar_card_no;?>" class="form-control">
+               <input type="text" name="emp_adhar_card_no"  disabled="disabled" id="emp_adhar_card_no" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="<?php echo $pay->emp_adhar_card_no;?>" class="form-control">
             <input type="hidden" name="emp_unique_code" id="emp_unique_code"   value="<?php echo $pay->emp_unique_id;?>" class="form-control">
      
 
@@ -19,7 +39,7 @@
             </div>
       <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("emp_house_no");?></label> <span class="text-danger">*</span></label>
-                 <input type="text" name="emp_house_no" id="emp_house_noemp_house_no" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="<?php echo $pay->emp_house_no;?>" class="form-control">
+                 <input type="text" name="emp_house_no" disabled="disabled" id="emp_house_noemp_house_no" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="<?php echo $pay->emp_house_no;?>" class="form-control">
               
             </div>
       <div class="form-group">

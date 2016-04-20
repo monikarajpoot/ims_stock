@@ -493,7 +493,7 @@ function getCity($city_id) {
     if($city_id){
          $CI->db->where('city_id',$city_id);
     }
-	$CI->db->order_by('state_name_hi', 'ASC');
+	$CI->db->order_by('city_name', 'ASC');
     $query = $CI->db->get();
     $row = $query->row();
     return $row->city_name;

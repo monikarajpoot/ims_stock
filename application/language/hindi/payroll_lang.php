@@ -13,6 +13,7 @@ $lang["payroll_select"] = htmlentities("चयन करें");
 $lang["edit_salary"]=htmlentities("बदलिए वेतन");
 $lang["view"]=htmlentities("देखे");
 $lang["sno"]=htmlentities("क्रमांक");
+$lang["emp_pay_year"]=htmlentities("वेतन साल");
 $lang["emp_pay_month"]=htmlentities("वेतन महीना");
 $lang["pay_slip"] = htmlentities("वेतन पर्ची");
 $lang["pay_arrdhar_card"] = htmlentities("आधार कार्ड नंबर");
@@ -86,4 +87,7 @@ $lang["advnce_remaing_amount"] = htmlentities("अग्रिम शेष र�
 $lang["intrest_amount"] = htmlentities("ब्याज राशि");
 $lang["instalment_amount"] = htmlentities("किस्त राशि");
 $lang["intrest_amount"] = htmlentities("ब्याज राशि");
+$lang["payslip "] = htmlentities("अवकाश पर कर्मचारी");
+$lang["employee_on_leave "] = htmlentities("अवकाश पर कर्मचारी");
+$lang["How_many_employees_on_leave_days_employees"] = htmlentities("कितने कर्मचारी दिन छूट्टी पर रहे कर्मचारी ");
 ?>

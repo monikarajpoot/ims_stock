@@ -170,7 +170,8 @@ function showday()
    $("#pay_da").val(da);
 }
 function showtotal()
-{//alert("sadsa");
+{
+  alert("sadsa");
  pay_basic = $("#pay_basic").val();
  pay_grp = $("#pay_gradepay").val();
 pay_others = $("#pay_others").val();
@@ -192,7 +193,7 @@ alert(pay_ma);
    parseInt(pay_ca) + parseInt(pay_ma) +  
    parseInt(pay_da) + parseInt(pay_sp)+ parseInt(pay_ma) + parseInt(pay_sa) + parseInt(pay_hra);
  
-//alert(result);
+alert(result);
    $("#pay_total_sum").val(result);
 }
 </script>
