@@ -68,15 +68,31 @@ class Payroll extends MX_Controller {
             $this->load->view('uploadfrom', $error);
         } else {
             $upload_data = $this->upload->data();
-           // print_r($upload_data['file_name']);
+           print_r($upload_data['file_name']);
 
             $filename = $upload_data['file_name'];
             $filepsth = $upload_data['file_path'];
-            $content = file_get_contents($filepsth.$filename);
-           $content = explode(",",$content);
+              $handle = fopen($filepsth.$filename,"r");
+            //$content = file_get_contents($filepsth.$filename);
+           $content = fgetcsv($handle, 1000, ","); 
+          ///$content = explode(",",$content);
+           if (($handle = fopen($filepsth.$filename,"r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+       // $sql = "INSERT INTO record ( id, name, marks) VALUES ( '".mysql_escape_string($data[0])."','".mysql_escape_string($data[1])."','".mysql_escape_string($data[2])."')";
+        //$query = mysql_query($sql);
+        if($query){
+            echo "row inserted\n";
+        }
+        else{
+            echo die(mysql_error());
+        }
+    }
+    fclose($handle);
+}
+die();
 			$insertvalue = array(
 			 'pay_emp_unique_id'=> $content[1],
-                'pay_month'      => date("M"),
+                'pay_month'      => "march",
                 'pay_basic'     => $content[3],
                 'pay_special'    => $content[4],
                 'pay_da'      => $content[5],
@@ -102,8 +118,8 @@ class Payroll extends MX_Controller {
 				'pay_total_cut'=>$content[20],
 				'pay_total'=>$content[21],
 			);//pre($insertvalue);
-			 $data['pay_regi'] = insertData($insertvalue , "ft_pay_register");
-			 print_r($data['pay_regi']);
+			 //$data['pay_regi'] = insertData($insertvalue , "ft_pay_register");
+			
          //   die;
      
             //$this->load->database();
@@ -281,7 +297,8 @@ class Payroll extends MX_Controller {
                 $emp_id = $this->uri->segment("3");
         $data['pay_salary'] = $this->payroll_model->salary_emp($emp_id);
          $data['cate_salary'] = $this->payroll_model->cate_salary($emp_id);
-
+          $condi =  array("pay_cate_id"=>$emp_id );
+$data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
         $this->load->view("empccate" , $data);
 
     }
@@ -484,8 +501,15 @@ $data['house_type'] = $this->payroll_model->house_type();
 public function pay_slip()
     {
     
-         
+         $emp_id = $_POST['uid'];
           $data['payslip'] = $this->payroll_model->pay_slip();
+        $data['emp_details'] = $this->payroll_model->getemp($emp_id);
+      foreach ($data['emp_details']as $key => $valueca) {
+        $pay_cate_id =$valueca->emp_pay_cate_id;
+
+      }
+      $condi =  array("pay_cate_id"=>$pay_cate_id );
+           $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
           $this->load->view("pay_slip" , $data);
     }
 

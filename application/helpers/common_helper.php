@@ -3302,3 +3302,13 @@ function getsum($tablename,$condi ,$column)
     //print_r($state_name);
     return $state_name;
 }
+function sumcolumn($fl ,$id)
+{
+
+    $CI = & get_instance();
+    $sessionemp = emp_session_id();
+    $query =   $CI->db->query("SELECT SUM(`".$fl."`) as val FROM ft_pay_register WHERE `pay_salary_cate_id`=".$id );
+    $state_name = $query->row_array();
+    //print_r($state_name);
+    return $state_name;
+}

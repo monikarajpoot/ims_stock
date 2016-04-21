@@ -109,8 +109,8 @@
                                 foreach ($pay_regi as $key => $pay) { $k++; 
                                    // 
                                     if($k==1){ echo pre($key);
-                                    $keyval = getsum('ft_pay_register' , '`pay_emp_unique_id` ='.$pay->emp_unique_id,$key);
-                                    pre($keyval);
+                                 //   $keyval = getsum('ft_pay_register' , '`pay_emp_unique_id` ='.$pay->emp_unique_id,$key);
+                                   
                                      }?>
 								    <tr>
                                   
@@ -173,7 +173,7 @@
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo $pay->pay_fule_charge; ?></th>
+                                   <th width="15%"><?php echo $pay->pay_fuel_charge; ?></th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
@@ -199,91 +199,91 @@
                                 </tr>
 
                                 <?php  } ?>
-                                 <?php  ?>
-                                    <tr style="background-color: #ccc;">
+                                 <?php// $emp_id == $dataval[0]['pay_cate_id'] ;?>
+                                    <tr>
                                   
-                                    <th width='5%'><?php echo "Total"  ?></th>
+                                    <th width='5%'></th>
                                     <th width='25%'></th>
                                     <th width="10%"></th>
-                                     <th width="10%"></th>
+                                     <th width="10%">Total </th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-                            <th width='25%'><?php echo $pay_basic['sum_val'];  ?></th>
+                            <th width='25%'><?php echo sumcolumn("pay_basic" , $dataval[0]['pay_cate_id'])['val'] ;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo  $pay_grp['sum_val']  ?></th>
+                                    <th width="10%"><?php echo  @sumcolumn("pay_grp" , $dataval[0]['pay_cate_id'])['val'];  ?></th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay_special['sum_val'];   ?></th>
+                                    <th width='25%'><?php echo  @sumcolumn("pay_special" ,$dataval[0]['pay_cate_id'])['val']   ?></th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php  echo  $pay->pay_da['sum_val'];  ?></th>
+                                   <th width="15%"><?php  echo  @sumcolumn("pay_da" ,$dataval[0]['pay_cate_id'])['val'] ?></th>
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo $pay->pay_others['sum_val'] ?></th>
+                                    <th width='5%'><?php echo  @sumcolumn("pay_others" , $dataval[0]['pay_cate_id'])['val']; ?></th>
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_sa['sum_val'];  ?></th>
+                                    <th width='25%'><?php echo sumcolumn("pay_sa" , $dataval[0]['pay_cate_id'])['val'];  ?></th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo $pay->pay_madical['sum_val']; ?></th>
+                                    <th width="10%"><?php echo sumcolumn("pay_madical" , $dataval[0]['pay_cate_id'])['val'];  ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo $pay->pay_sp['sum_val']; ?></th>
+                                     <th width='5%'><?php echo @sumcolumn("pay_sp" , $dataval[0]['pay_cate_id'])['val'];?></th>
 
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_ca['sum_val'] ?></th>
+                                    <th width='25%'><?php echo @sumcolumn("pay_ca" , $dataval[0]['pay_cate_id'])['val'];?></th>
                                   
                                     <?php } ?>
-                            <th width='25%'><?php echo $pay->pay_total_sum['sum_val']; ?></th>
+                            <th width='25%'><?php echo @sumcolumn("pay_total_sum" , $dataval[0]['pay_cate_id'])['val']; ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_gpf['sum_val']; ?></th>
+                                    <th width='25%'><?php echo  @sumcolumn("pay_gpf" , $dataval[0]['pay_cate_id'])['val']; ?></th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php echo  $pay->pay_gpf_adv['sum_val']; ?> </th>
+                                   <th width="15%"><?php echo  @sumcolumn("pay_gpf_adv" ,$dataval[0]['pay_cate_id'])['val']; ?> </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php echo   $pay->pay_dpf['sum_val'] ?></th>
+                                    <th width='5%'><?php echo    sumcolumn("pay_dpf" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo   $pay->pay_dpf_adv['sum_val'] ?></th>
+                                    <th width='25%'><?php echo   sumcolumn("pay_dpf_adv" , $dataval[0]['pay_cate_id'])['val']  ?></th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php echo   $pay->pay_gias['sum_val'] ?><</th>
+                                    <th width="10%"><?php echo   sumcolumn("pay_gias" , $dataval[0]['pay_cate_id'])['val'] ?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_defined_contribution['sum_val'] ?></th>
+                                    <th width='25%'><?php echo sumcolumn("pay_defined_contribution" , $dataval[0]['pay_cate_id'])['val'] ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-                            <th width='25%'><?php echo $pay->pay_house_loan['sum_val'] ?></th>
+                            <th width='25%'><?php echo  sumcolumn("pay_house_loan" , $dataval[0]['pay_cate_id'])['val']?></th>
 
                             <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
 
 
-                                    <th width='25%'><?php echo $pay->pay_car_loan['sum_val'] ?></th>
+                                    <th width='25%'><?php echo sumcolumn("pay_car_loan" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
-                                <th width='25%'><?php echo $pay->pay_house_rent['sum_val'] ?></th>
+                                <th width='25%'><?php echo sumcolumn("pay_house_rent" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo $pay->pay_grain_adv['sum_val'] ?></th>
+                                     <th width='25%'><?php echo sumcolumn("pay_garain_adv" ,$dataval[0]['pay_cate_id'])['val'] ?></th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo $pay->pay_fule_charge['sum_val']; ?></th>
+                                   <th width="15%"><?php echo  sumcolumn("pay_fuel_charge" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
-                            <th width='25%'><?php echo $pay->pay_festival_adv['sum_val']; ?></th>
+                            <th width='25%'><?php echo  sumcolumn("pay_festival_adv" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
 
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo $pay->pay_professional_tax['sum_val']; ?></th>
+                                    <th width='5%'><?php echo sumcolumn("pay_professional_tax" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo $pay->pay_income_tax['sum_val'] ?></th>
+                                <th width="10%"><?php echo  sumcolumn("pay_income_tax" ,$dataval[0]['pay_cate_id'])['val'] ?></th>
 
                             
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo $pay->pay_other_adv['sum_val'] ?></th>
+                                    <th width='25%'><?php echo sumcolumn("pay_other_adv" , $dataval[0]['pay_cate_id'])['val'] ?></th>
 
                                     <?php } ?>
-                                   <th width="15%"><?php echo $pay->pay_other_adv['sum_val']; ?></th>
-                                   <th width="15%"><?php echo $pay->pay_total['sum_val']; ?></th>
+                                   <th width="15%"><?php echo sumcolumn("pay_total_cut" , $dataval[0]['pay_cate_id'])['val'] ?></th>
+                                   <th width="15%"><?php echo sumcolumn("pay_total" , $dataval[0]['pay_cate_id'])['val']  ?></th>
                                 </tr>
                             </tbody>
                         </table>

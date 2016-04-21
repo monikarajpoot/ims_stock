@@ -126,12 +126,12 @@ class Payroll_model extends CI_Model {
     }
    public function salary_emp($cate_id)
     {
-        $this->db->select('pay_emp_unique_id,emp_full_name_hi,pay_basic,pay_grp,pay_ca,pay_da,pay_hra,pay_sa,pay_madical,pay_special,pay_sp,pay_total_sum,pay_dpf,pay_dpf_adv,pay_gpf,pay_gpf_adv,pay_defined_contribution,pay_gias,pay_house_loan,pay_house_rent,pay_car_loan,pay_fuel_charge,pay_grain_adv,pay_festival_adv,pay_professional_tax,pay_income_tax,pay_other_adv,pay_total_cut,pay_total');
-          $this->db->from('ft_employee');
+        $this->db->select('*');
+          $this->db->from('ft_pay_register');
 
         // $this->db->join('ft_employee', 'ft_employee.emp_pay_cate_id = ft_pay_salary_category.pay_cate_id');
-         $this->db->join('ft_pay_register', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
-        $this->db->where("emp_pay_cate_id",$cate_id);
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+        $this->db->where("pay_salary_cate_id",$cate_id);
         $query = $this->db->get();
 //echo $this->db->last_query();
         
@@ -202,6 +202,7 @@ public function house_type($id = "")
 
     $this->db->select('*');
           $this->db->from('ft_pay_register');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
       $this->db->where("pay_year",$_POST['pay_year']);
        $this->db->where("pay_emp_unique_id",$_POST['uid']);
      $this->db->where("pay_month",$_POST['pay_month']);
