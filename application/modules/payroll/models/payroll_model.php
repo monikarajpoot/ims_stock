@@ -124,16 +124,17 @@ class Payroll_model extends CI_Model {
         
         return $rows = $query->result();
     }
-   public function salary_emp($cate_id)
+   public function salary_emp($cate_id,$m)
     {
         $this->db->select('*');
           $this->db->from('ft_pay_register');
 
-        // $this->db->join('ft_employee', 'ft_employee.emp_pay_cate_id = ft_pay_salary_category.pay_cate_id');
-         $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+         $this->db->join('ft_pay_bill_cate', 'ft_pay_bill_cate.pbill_cate_id = ft_pay_register.pay_salary_cate_id');
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
         $this->db->where("pay_salary_cate_id",$cate_id);
+        $this->db->where("pay_month",$m);
         $query = $this->db->get();
-//echo $this->db->last_query();
+echo $this->db->last_query();
         
         return $rows = $query->result();
     }
@@ -229,6 +230,35 @@ public function house_type($id = "")
 $this->db->where('emp_unique_id', $id);
 $this->db->update('ft_employee', $data); 
   }
+function pay_bill($data)
+{
 
+        $this->db->select('*');
+        $this->db->from('ft_pay_bill_cate');
+         $this->db->where("pbill_month",$_POST['pay_month'] );
+        $this->db->where("pbill_year",date("Y") );
+        $this->db->where("pbill_cate_id",$_POST['pay_head']);
+         $query = $this->db->get();
+         $rows = $query->result();
+       $pcount = count($rows);
+       if($pcount == 0)
+        {
+          $this->db->insert("ft_pay_bill_cate" ,$data);
+          return "yes";
+      }else{return "no";}
+
+
+}
+function salary_bill()
+{
+$this->db->select('*');
+        $this->db->from('ft_pay_bill_cate');
+         $this->db->where("pbill_month",$_POST['pay_month'] );
+        $this->db->where("pbill_year",date("Y") );
+        $this->db->where("pbill_cate_id",$_POST['pay_head']);
+         $query = $this->db->get();
+         $rows = $query->result();
+         return $rows;
+}
 }
 ?>

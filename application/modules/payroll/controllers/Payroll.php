@@ -295,7 +295,8 @@ die();
     public function empcate()
     {
                 $emp_id = $this->uri->segment("3");
-        $data['pay_salary'] = $this->payroll_model->salary_emp($emp_id);
+                   $emp_month = $this->uri->segment("4");
+        $data['pay_salary'] = $this->payroll_model->salary_emp($emp_id,$emp_month);
          $data['cate_salary'] = $this->payroll_model->cate_salary($emp_id);
           $condi =  array("pay_cate_id"=>$emp_id );
 $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
@@ -421,7 +422,7 @@ $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
                print_r($adv[0]);
                $advkey = explode(" ", $adv[0]);
                print_r($advkey[0]);
-     if($advkey == "grain")
+             if($advkey == "grain")
                 {
                  $aadv =array(  'pay_grain_adv' => $adv[1],
                    'pay_festival_adv' => 0,);
@@ -429,8 +430,12 @@ $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
                 $aadv =array( 'pay_grain_adv' => 0,
                    'pay_festival_adv' => $adv[1]);
                 }
-            //  $month = date("now")
-              $datapay = array('pay_month' => "" ,
+            $currentmonth = date('F'); 
+              $datapay = array(
+                'pay_salary_cate_id' => $_POST['pay_salary_cate_id'],
+
+                'pay_month' => $currentmonth ,
+                'pay_year' => "2016" ,
                 'pay_emp_unique_id' => $_POST['emp_unique_code'] ,
                 'pay_basic' => $_POST['pay_basic'] ,
               'pay_grp' => $pay_gradepay ,
@@ -523,8 +528,53 @@ public function pay_slip()
         no_cache();
         redirect("home");
     }
+    public function paydiduction()
+    {
+      echo "dasd";
 
 
+    }
+public function paybillno()
+    {
+       $data['title'] = $this->lang->line('pay_slip');
+        $data['title_tab'] = $this->lang->line('pay_slip');
+        $data['pay_cate'] = $this->payroll_model->salary_mastar();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "paybillno";
+        $this->template->index($data);
+
+
+    }
+    function pay_bill()
+    {
+
+        $datapay = array('pbill_month' => $_POST['pay_month'] ,
+                'pbill_cate_id' => $_POST['pay_head'] ,
+                'pbill_year' => date("Y") ,
+                    'pbill_computer_no' => $_POST['computer_bill_number'] ,
+              'pbill_office_no' => $_POST['office_bill_number'] ,
+               'pbill_vocher_no' => $_POST['vocher_bill_number'] ,
+        
+               );
+              
+        $data['pay_cate'] = $this->payroll_model->pay_bill($datapay);
+
+        echo $data['pay_cate'];
+        if($data['pay_cate'] == "Yes"){
+
+        }else{
+ $data['title'] = $this->lang->line('pay_slip');
+        $data['title_tab'] = $this->lang->line('pay_slip');
+        $data['error'] = "इस महीने के बिल संख्या पहले से ही जोड़ी जा चुकी है ";
+        $data['pay_bill'] = $this->payroll_model->salary_bill( $_POST['pay_month'] ,$_POST['pay_head']);
+        $data['pay_cate'] = $this->payroll_model->salary_mastar();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "paybillno";
+        $this->template->index($data);
+
+        }
+
+    }
 
 
 }

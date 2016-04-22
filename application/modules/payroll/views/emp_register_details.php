@@ -31,75 +31,84 @@
                                     <th width='25%'><?php echo $this->lang->line('emp_unique_code')  ?></th>
                                     <th width="10%"><?php echo $this->lang->line('emp_name'); ?></th>
                                     <th width="10%"><?php echo $this->lang->line('emp_pay_month'); ?></th>
-                                        <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-							<th width='25%'><?php echo $this->lang->line('basic_pay'); ?></th>
+                           <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
+                            <th width='25%'><?php  echo $this->lang->line('basic_pay');  ?></th>
+                                 <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
+                                    <th width="10%"><?php echo  $this->lang->line('pay_gradepay');  ?></th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_special'); ?></th>
+                                    <th width='25%'><?php echo  $this->lang->line('pay_special');   ?></th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php echo $this->lang->line('pay_da'); ?></th>
+                                   <th width="15%"><?php  echo  $this->lang->line('pay_da');?></th>
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo $this->lang->line('pay_others')  ?></th>
+                                    <th width='5%'><?php echo $this->lang->line('pay_others'); ?></th>
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_sa')  ?></th>
+                                    <th width='25%'><?php echo $this->lang->line('pay_sa');  ?></th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo $this->lang->line('pay_ma'); ?></th>
-                                  <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo $this->lang->line('pay_sp')  ?></th>
+                                    <th width="10%"><?php echo  $this->lang->line('pay_ma'); ?></th>
+
+                                     <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
+                                     <th width='5%'><?php echo $this->lang->line('pay_sp'); ?></th>
+
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_ca')  ?></th>
-                                       <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo $this->lang->line('pay_gradepay'); ?></th>
+                                    <th width='25%'><?php echo $this->lang->line('pay_ca');?></th>
+                                  
                                     <?php } ?>
-							<th width='25%'><?php echo $this->lang->line('pay_sum'); ?></th>
+                            <th width='25%'><?php echo $this->lang->line('pay_sum'); ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_gpf'); ?></th>
+                                    <th width='25%'><?php echo  $this->lang->line('pay_gpf'); ?></th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php echo $this->lang->line('pay_gpf_adv'); ?></th>
+                                   <th width="15%"><?php  echo $this->lang->line('pay_gpf_adv');  ?> </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php echo $this->lang->line('pay_dpf')  ?></th>
+                                    <th width='5%'><?php  echo $this->lang->line('pay_dpf'); ?></th>
+
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_dpf_adv')  ?></th>
+                                    <th width='25%'><?php echo $this->lang->line('pay_dpf_adv');   ?></th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php echo $this->lang->line('pay_gis'); ?></th>
+                                    <th width="10%"><?php  echo $this->lang->line('pay_gis');?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_define'); ?></th>
+                                    <th width='25%'><?php echo $this->lang->line('pay_define')."dsf"; ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-							<th width='25%'><?php echo $this->lang->line('pay_home_loan'); ?></th>
+                            <th width='25%'><?php echo $this->lang->line('pay_home_loan');?></th>
+
+                            <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
+
+
+                                    <th width='25%'><?php echo $this->lang->line('pay_car_loan');?></th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
                                 <th width='25%'><?php echo $this->lang->line('pay_house_rent'); ?></th>
+
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                    <th width='25%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
+                                     <th width='25%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
                                 
-                                 <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
-
-
-                                    <th width='25%'><?php echo $this->lang->line('pay_car_loan'); ?></th>
+                                
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
                                    <th width="15%"><?php echo $this->lang->line('pay_fule_charge'); ?></th>
 
+                                         <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
+
+                            <th width='25%'><?php echo $this->lang->line('pay_festival_adv');  ?></th>
+
+
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo $this->lang->line('pay_professional_tax')  ?></th>
+                                    <th width='5%'><?php echo $this->lang->line('pay_professional_tax'); ?></th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo $this->lang->line('pay_income_tax'); ?></th>
+                                <th width="10%"><?php echo  $this->lang->line('pay_income_tax'); ?></th>
 
-                                  <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
-
-							<th width='25%'><?php echo $this->lang->line('pay_festival_adv'); ?></th>
-
+                            
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo $this->lang->line('pay_other_adv'); ?></th>
+                                    <th width='25%'><?php echo  $this->lang->line('pay_other_adv'); ?></th>
 
-                                    <?php } ?> 
-                                    <th width="15%"><?php echo $this->lang->line('pay_total_cut'); ?></th>
-                                   <th width="15%"><?php  echo $this->lang->line('pay_amount'); ?></th>
+                                    <?php } ?>
+                                   <th width="15%"><?php echo $this->lang->line('pay_total_cut'); ?></th>
+                                   <th width="15%"><?php echo $this->lang->line('pay_amount');  ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -256,7 +265,7 @@
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo sumcolumn("pay_garain_adv" ,$dataval[0]['pay_cate_id'])['val'] ?></th>
+                                     <th width='25%'><?php echo sumcolumn("pay_grain_adv" ,$dataval[0]['pay_cate_id'])['val'] ?></th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>

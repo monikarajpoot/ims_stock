@@ -42,15 +42,41 @@
                         </div>
                     </div>
                     <div class="box-body">
-                    	<?php foreach($pay_salary  as $sal_Cate){?>
-               <div class="col-xs-3">
-    <a target="_blank" href="<?php echo base_url(); ?>payroll/empcate/<?php echo $sal_Cate->pay_cate_id; ?>"  class="btn btn-block btn-info" ><?php echo $this->lang->line('view_on_excel'); ?> <?php echo $sal_Cate->pay_cate_name; ?></a><br/>
+                           <div class="form-group col-xs-2">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month" name="pay_month" onchage="changemonth()" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
+                <div class="col-xs-12">    	<?php foreach($pay_salary  as $sal_Cate){?>
+               <div class="col-xs-2">
+    <a target="_blank" id="<?php echo $sal_Cate->pay_cate_id; ?>" href="<?php echo base_url(); ?>payroll/empcate/<?php echo $sal_Cate->pay_cate_id; ?>"  class="btn btn-block btn-info" ><?php echo $this->lang->line('view_on_excel'); ?> <?php echo $sal_Cate->pay_cate_name; ?></a><br/>
     </div>
     <?php }?>
-            </div><!-- /.box -->
+            </div><!-- /.box --></div>
         </div>
     </div><!-- /.row -->
     <!-- Main row -->
 </section><!-- /.content -->
 
 <!-- Modal approve -->
+
+<script type="text/javascript">
+$('select').on('change', function() {
+  alert( this.value ); // or $(this).val()
+  $("#1").attr("href", "<?php echo base_url(); ?>payroll/empcate/1/"+this.value);
+  $("#2").attr("href", "<?php echo base_url(); ?>payroll/empcate/2/"+this.value);
+  $("#3").attr("href", "<?php echo base_url(); ?>payroll/empcate/3/"+this.value);
+  $("#4").attr("href", "<?php echo base_url(); ?>payroll/empcate/4/"+this.value);
+});
+
+</script>

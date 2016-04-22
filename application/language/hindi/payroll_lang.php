@@ -1,11 +1,16 @@
 <?php 
-	/*Common Key word*/
+	/*Common Key word*/	
+	$lang["computer_bill_number"]="कंप्यूटर देयक नंबर ";
+$lang["office_bill_number"]="ऑफिस देयक नंबर ";
+$lang["vocher_bill_number"]="वॉचर  देयक नंबर ";
+$lang["computer_bill_number"]="कंप्यूटर देयक नंबर ";
+	$lang["pay_head"]="वेतन हेड ";
 $lang["pay_title"]="वेतन रजिस्टर";
 $lang["pay_amount"]="देय राशि";
 $lang["view_all_employee"]="कर्मचारी सूची देखें";
 $lang["emp_unique_id"] = htmlentities("यूनिक");
 $lang["emp_unique_code"] = htmlentities("यूनिक कोड");
-$lang["emp_name"] = htmlentities("अधिकारी नाम");
+$lang["emp_name"] = htmlentities("अधिकारी / कर्मचारी  नाम");
 $lang["emp_designation"] = htmlentities("पदनाम");
 $lang["emp_mobile_no"] = htmlentities("मोबइल नंबर ");
 $lang["emp_email"] = htmlentities("ईमेल");
@@ -50,7 +55,7 @@ $lang["pay_ca"]= htmlentities("सीए");
 $lang["pay_gradepay"]= htmlentities("ग्रेडपे");
 $lang["pay_dpf"]= htmlentities("डीपीएफ अंशदान");
 $lang["pay_dpf_adv"]= htmlentities("डीपीएफ अग्रिम");
-$lang["pay_define"]= htmlentities("पारिभाषित अंशदान कटोत्राी");
+$lang["pay_define"]= htmlentities("परिभाषित अंशदान कटोत्राी");
 $lang["pay_house_rent"]= htmlentities("आवास किराया कटौत्राी");
 $lang["pay_grain_adv"]= htmlentities("अनाज अग्रिम");
 $lang["emp_salary_details"]= htmlentities("कर्मचारी वेतन अभिलेख");
@@ -89,5 +94,5 @@ $lang["instalment_amount"] = htmlentities("किस्त राशि");
 $lang["intrest_amount"] = htmlentities("ब्याज राशि");
 $lang["payslip "] = htmlentities("अवकाश पर कर्मचारी");
 $lang["employee_on_leave "] = htmlentities("अवकाश पर कर्मचारी");
-$lang["How_many_employees_on_leave_days_employees"] = htmlentities("कितने कर्मचारी दिन छूट्टी पर रहे कर्मचारी ");
+$lang["How_many_employees_on_leave_days_employees"] = htmlentities("कितने दिन कर्मचारी अवकाश पर ");
 ?>
