@@ -125,11 +125,13 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
 					<li><a href="<?php echo base_url(); ?>payroll/allcate"><i class="fa fa-folder-o"></i> वेतन मास्टर </a></li>
-                    <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटौती </a></li>
+                    <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटोत्राी  </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/paybillno"><i class="fa fa-folder-o"></i> बिल नंबर जोड़ें </a></li>
-
-                        <li><a href="<?php echo base_url(); ?>payroll/register"><i class="fa fa-folder-o"></i> पेय ाररेअर्स </a></li>
-                        <li><a href="<?php echo base_url(); ?>payroll/addsalary"><i class="fa fa-folder-o"></i> वेतन में जोड़ने </a></li>
+    <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> एरीयर्स जोड़ें </a></li>
+  <li><a href="<?php echo base_url(); ?>payroll/emplist_current_month"><i class="fa fa-folder-o"></i>वेतन सूची संशोधन </a></li>
+                       
+                        <li><a href="<?php echo base_url(); ?>payroll/register"><i class="fa fa-folder-o"></i> वेतन रजिस्टर</a></li>
+                        <li><a href="<?php echo base_url(); ?>payroll/addsalary"><i class="fa fa-folder-o"></i> वेतन जोड़ने </a></li>
                         <li><a href="<?php echo base_url(); ?>payroll/payslip"><i class="fa fa-folder-o"></i> वेतन पर्ची </a></li>
                     </ul>
                 </li>

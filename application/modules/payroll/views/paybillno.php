@@ -117,6 +117,13 @@
                    <input type="text" name="vocher_bill_number" id="vocher_bill_number" placeholder="<?php echo $this->lang->line('vocher_bill_number'); ?>"  value="<?php echo $pbill->pbill_vocher_no  ?>"  class="form-control">
               
               </div>
+
+               <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('vocher_bill_date'); ?><span class="text-danger">*</span></label>
+            
+                   <input type="text" class="date" name="vocher_bill_date" id="vocher_bill_number" placeholder="<?php echo $this->lang->line('vocher_bill_date'); ?>"  value="<?php echo $pbill->pbill_vocher_date ?>"  class="form-control">
+              
+              </div>
                     </div><!-- col 6 -->
                     <?php } }else{?>
 
@@ -187,6 +194,13 @@
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('vocher_bill_number'); ?><span class="text-danger">*</span></label>
             
                    <input type="text" name="vocher_bill_number" id="vocher_bill_number" placeholder="<?php echo $this->lang->line('vocher_bill_number'); ?>"  value="" class="form-control">
+              
+              </div>
+
+               <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('vocher_bill_date'); ?><span class="text-danger">*</span></label>
+            
+                   <input type="text"  name="vocher_bill_date" id="vocher_bill_date" placeholder="<?php echo $this->lang->line('vocher_bill_date'); ?>"  value=""  class="form-control date1">
               
               </div>
                     </div>

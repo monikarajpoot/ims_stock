@@ -6,6 +6,21 @@ class Payroll_model extends CI_Model {
         parent::__construct();
     }
 
+    public function getemp_emi($emp_id)
+    {
+
+      $currentyear = date("Y");
+      $this->db->select('*');
+      $this->db->from('ft_pay_emi');
+      $this->db->select_max("emi_no_installment");
+      $this->db->join('ft_pay_emp_advance', 'ft_pay_emp_advance.pea_emp_unique_id = ft_pay_emi.emi_emp_unique_id');
+      $this->db->where("emi_emp_unique_id",$emp_id);
+      // $this->db->where("pay_month",$pay_month);
+      // $this->db->where("pay_year",$currentyear);
+       $query = $this->db->get();
+     //echo $this->db->last_query();
+   return $rows = $query->result();
+    }
 
     public function getpayroll() {
        // $this->db->select('*');
@@ -129,14 +144,30 @@ class Payroll_model extends CI_Model {
         $this->db->select('*');
           $this->db->from('ft_pay_register');
 
-         $this->db->join('ft_pay_bill_cate', 'ft_pay_bill_cate.pbill_cate_id = ft_pay_register.pay_salary_cate_id');
+       //  $this->db->join('ft_pay_bill_cate', 'ft_pay_bill_cate.pbill_cate_id = ft_pay_register.pay_salary_cate_id');
          $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
         $this->db->where("pay_salary_cate_id",$cate_id);
         $this->db->where("pay_month",$m);
         $query = $this->db->get();
-echo $this->db->last_query();
+// /echo $this->db->last_query();
         
         return $rows = $query->result();
+    }
+    
+     function pay_diduction($f,$cate_id,$m)
+    {
+
+       $this->db->select('pay_emp_unique_id,emp_full_name_hi, pay_month ,'.$f);
+          $this->db->from('ft_pay_register');
+
+       //  $this->db->join('ft_pay_bill_cate', 'ft_pay_bill_cate.pbill_cate_id = ft_pay_register.pay_salary_cate_id');
+         $this->db->join('ft_employee', 'ft_employee.emp_unique_id = ft_pay_register.pay_emp_unique_id');
+        $this->db->where("pay_salary_cate_id",$cate_id);
+        $this->db->where("pay_month",$m);
+   
+        $query = $this->db->get();
+     //echo $this->db->last_query();
+ return $rows = $query->result();
     }
    public function cate_salary($cate_id)
     {
@@ -260,5 +291,35 @@ $this->db->select('*');
          $rows = $query->result();
          return $rows;
 }
+
+function pay_bill_cate($cate ,$m)
+{
+        $this->db->select('*');
+        $this->db->from('ft_pay_bill_cate');
+        $this->db->where("pbill_month",$m );
+        $this->db->where("pbill_year",date("Y") );
+        $this->db->where("pbill_cate_id",$cate);
+        $query = $this->db->get();
+        $rows = $query->result();
+         //echo $this->db->last_query();
+         return $rows;
+}
+
+function salary_emp_mofification($emp_id,$emp_month){
+//SELECT * FROM `ft_pay_register` Where `pay_emp_unique_id` = "171005898" and `pay_month` in ("March" , "April")
+  $currentmoth = date("F");
+  $query = $this->db->query('SELECT * FROM `ft_pay_register` JOIN ft_employee on ft_pay_register.pay_emp_unique_id = ft_employee.emp_unique_id where `pay_month` = "April"');
+     
+        return $query->result();
+}
+
+function pay_salary_master(){
+//SELECT * FROM `ft_pay_register` Where `pay_emp_unique_id` = "171005898" and `pay_month` in ("March" , "April")
+  $currentmoth = date("F");
+  $query = $this->db->query('SELECT * FROM  ft_pay_emp_salary');
+     
+        return $query->result();
+}
+
 }
 ?>

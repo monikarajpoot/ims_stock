@@ -4,6 +4,9 @@
 $lang["office_bill_number"]="ऑफिस देयक नंबर ";
 $lang["vocher_bill_number"]="वॉचर  देयक नंबर ";
 $lang["computer_bill_number"]="कंप्यूटर देयक नंबर ";
+$lang["vocher_bill_date"]="वाउचर बिल की तारीख";
+$lang["arrears_payment_duration"]="बकाया भुगतान की अवधि";
+
 	$lang["pay_head"]="वेतन हेड ";
 $lang["pay_title"]="वेतन रजिस्टर";
 $lang["pay_amount"]="देय राशि";

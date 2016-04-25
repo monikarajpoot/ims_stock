@@ -3302,13 +3302,40 @@ function getsum($tablename,$condi ,$column)
     //print_r($state_name);
     return $state_name;
 }
-function sumcolumn($fl ,$id)
+function sumcolumn($fl ,$id, $month)
+{
+
+    $CI = & get_instance();
+ 
+    $sessionemp = emp_session_id();
+    $query =   $CI->db->query("SELECT SUM(`".$fl."`) as val FROM ft_pay_register WHERE `pay_salary_cate_id`=".$id." and pay_month='".$month."'" );
+    $state_name = $query->row_array();
+    //print_r($state_name); 
+  // echo $CI->db->last_query();  
+    return $state_name;
+}
+function sumcolumn_one_emp($fl ,$id,$uid)
 {
 
     $CI = & get_instance();
     $sessionemp = emp_session_id();
-    $query =   $CI->db->query("SELECT SUM(`".$fl."`) as val FROM ft_pay_register WHERE `pay_salary_cate_id`=".$id );
+    $query =   $CI->db->query("SELECT SUM(`".$fl."`) as val FROM ft_pay_register WHERE `pay_salary_cate_id`=".$id." and pay_emp_unique_id=".$uid );
+
+   
     $state_name = $query->row_array();
-    //print_r($state_name);
+   //print_r($state_name);
+
+        
+        
+    return $state_name;
+}
+function deffentcolum($uid,$cm ,$pm,$fileid)
+{
+
+    $CI = & get_instance();
+    $sessionemp = emp_session_id();
+    $query =   $CI->db->query("SELECT (pay_basic - pay_basic) as a FROM `ft_pay_register` where `pay_month` in ('".$cm."' ,'".$pm."' ) and pay_emp_unique_id =". $uid );
+    $state_name = $query->row_array();
+   //print_r($state_name);
     return $state_name;
 }

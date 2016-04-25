@@ -31,7 +31,8 @@
                <input type="text" name="emp_adhar_card_no"  disabled="disabled" id="emp_adhar_card_no" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="<?php echo $pay->emp_adhar_card_no;?>" class="form-control">
             <input type="hidden" name="emp_unique_code" id="emp_unique_code"   value="<?php echo $pay->emp_unique_id;?>" class="form-control">
      
-
+<input type="hidden" name="pay_salary_cate_id" id="pay_salary_cate_id"   value="<?php echo $pay->emp_pay_cate_id;?>" class="form-control">
+     
             </div>
       <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("emp_name");?></label> <span class="text-danger">*</span></label>
