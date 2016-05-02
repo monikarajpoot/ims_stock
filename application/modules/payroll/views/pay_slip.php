@@ -17,7 +17,7 @@
     text-align: center;
 ">
     <td height="60" colspan="8">Name Of employee :<?php echo $pay->emp_full_name?> </td>
-    <td colspan="14">Uniq code of employee :<?php echo $_POST['uid'];?> </td>
+    <td colspan="14">Unique code of employee :<?php echo $_POST['uid'];?> </td>
   </tr>
   <tr height="60">
     <td height="60" width="64"><strong>Gross Amonut</strong></td>

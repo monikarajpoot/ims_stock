@@ -1,6 +1,7 @@
 <?php
 foreach ($pay_regi as $key => $value) {
   # code...
+
   $cate_id = $value->emp_pay_cate_id;
 }
 
@@ -93,7 +94,7 @@ foreach ($pay_regi as $key => $value) {
 			 <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_gradepay");?></label> <span class="text-danger">*</span></label>
                   <input type="text" name="pay_gradepay" id="pay_gradepay" placeholder="<?php echo $this->lang->line('pay_gradepay'); ?>"  value="0" class="form-control">
-                 <input type="hidden" name="pay_salary_cate_id" id="pay_salary_cate_id" placeholder="<?php echo $this->lang->line('pay_gradepay'); ?>" value="<?php echo $cate_id  ?>" class="form-control">
+                 <input type="hidden" name="pay_salary_cate_id" id="pay_salary_cate_id" value="<?php echo $emp_details[0]->emp_pay_cate_id;  ?>" class="form-control">
                
             </div>
    <?php }if($dataval[0]['pay_cate_special'] == 1){ ?>

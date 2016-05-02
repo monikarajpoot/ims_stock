@@ -59,7 +59,7 @@
               </div>
                 <div class="col-xs-12">    	<?php foreach($pay_salary  as $sal_Cate){?>
                <div class="col-xs-2">
-    <a target="_blank" id="<?php echo $sal_Cate->pay_cate_id; ?>" href="<?php echo base_url(); ?>payroll/diduction/<?php echo $sal_Cate->pay_cate_id; ?>"  class="btn btn-block btn-info" ><?php echo $this->lang->line('view_on_excel'); ?> <?php echo $sal_Cate->pay_cate_name; ?></a><br/>
+    <a target="_blank" id="<?php echo $sal_Cate->pay_cate_id; ?>" href="<?php echo base_url(); ?>payroll/diduction/<?php echo $sal_Cate->pay_cate_id; ?>"  class="btn btn-block btn-info" ><?php echo $sal_Cate->pay_cate_name; ?></a><br/>
     </div>
     <?php }?>
             </div><!-- /.box --></div>

@@ -2,11 +2,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <?php //echo $title; ?>
+        <?php  echo $dd_key = $this->uri->segment(3); ?>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><?php #echo $title; ?></li>
+        <li class="active"><?php echo $title; ?></li>
     </ol>
 </section>
 
@@ -72,7 +72,7 @@ $cate_id = $this->uri->segment(4);
 
                                 <?php  } ?>
                                  <?php// $emp_id == $dataval[0]['pay_cate_id'] ;?>
-                                              <tr>
+                                             <!--  <tr>
                                   
                                     <th width='5%'></th>
                                     <th width='25%'></th>
@@ -82,9 +82,9 @@ $cate_id = $this->uri->segment(4);
                             <th width='25%'><?php 
 $month = $this->uri->segment(5); 
 
-                            echo sumcolumn($dd_key ,$cate_id,$month)['val'] ;  ?></th>
+                      //      echo sumcolumn($dd_key ,$cate_id,$month)['val'] ;  ?></th>
                                                          </th>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div><!-- /.box-body -->
