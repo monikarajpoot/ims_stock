@@ -18,7 +18,8 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                        <h3 class="box-title"> <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){ echo $pay->emp_unique_id;  ?> <?php echo $pay->emp_full_name_hi;} } ?></th></h3>                 
+                        <h3 class="box-title"> <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){ echo "<b    style='width: 50%;float: left;'>Unique ID:".$pay->emp_unique_id."</b>";  ?> <?php echo "<b style='width: 50%;float: left;'>Name :".$pay->emp_full_name_hi."</b> <b style='width: 50%;float: left;'>Year 2016 - 2017 <b>"
+                        ;} } ?></th></h3>                 
                     </div>
                    
                     <div class="box-body">

@@ -56,7 +56,7 @@
                 <label for="file_type"><?php echo $this->lang->line("pay_da");?></label> <span class="text-danger">*</span></label>
 
 
-               <input type="text" name="pay_da" onfocus="showday()" id="pay_da" placeholder="<?php echo $this->lang->line('pay_da'); ?>"  value="0" class="form-control">
+               <input type="text" name="pay_da"  id="pay_da" placeholder="<?php echo $this->lang->line('pay_da'); ?>"  value="0" class="form-control">
                
             </div>
    
