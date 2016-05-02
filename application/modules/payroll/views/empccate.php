@@ -9,7 +9,7 @@
 		</tr>
 	<?php $emp_id = $this->uri->segment("3"); if($emp_id == 1){ ?>
 	<tr style="text-align:center">
-		<td colspan="32"><h2>विषय: माह <?php echo $pay_bill[0]->pbill_month?> 2016 का न्यायिक सेवा अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमाक <?php echo $pay_bill[0]->pbill_computer_no; ?>        दिनांक    /4/2016 आफिस देयक क्रमाक  <?php echo $pay_bill[0]->pbill_computer_no; ?>    दिनांक  /4/2016</h2></td>
+		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का न्यायिक सेवा अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमाक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक    /4/2016 आफिस देयक क्रमाक  <?php echo @$pay_bill[0]->pbill_computer_no; ?>    दिनांक  /4/2016</h2></td>
 	
 		</tr>
 
@@ -105,7 +105,7 @@
                                     <?php $k =0; foreach ($pay_salary as $key => $pay) { $k++; ?>
                                   <tr>
                                   
-                                    <th width='5%'><?php echo $k  ?></th>
+                                    <th width='5%'><?php echo $k  ?> <a href="<?php echo base_url(); ?>payroll/edit_salary/<?php echo $pay->pay_id; ?>/<?php echo $pay->emp_unique_id;  ?>" >edit</a></th>
                                     <th width='25%'><?php echo $pay->emp_unique_id;  ?></th>
                                     <th width="10%"><?php echo $pay->emp_full_name_hi; ?></th>
                                      <th width="10%"><?php echo date("M",strtotime($pay->pay_month)); ?></th>

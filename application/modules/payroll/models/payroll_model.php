@@ -327,121 +327,309 @@ function pay_salary_master(){
         return $query->result();
 }
 function add_arriyas()
-{$year = date("Y") ;
-  $maonth = date("F") ;
+{
 
+  $year = date("Y") ;
+      $maonth = date("F") ;
+
+      if(isset($_POST['pay_gradepay'])){
+
+        $pay_gradepay = $_POST['pay_gradepay'];
+
+      }else{
+    $pay_gradepay = 0;
+
+      }
+        if(isset($_POST['pay_gradepay'])){
+
+        $pay_gradepay = $_POST['pay_gradepay'];
+
+      }else{
+    $pay_gradepay = 0;
+
+      }
+        if(isset($_POST['pay_ca'])){
+
+        $pay_ca = $_POST['pay_ca'];
+
+      }else{
+    $pay_ca = 0;
+
+      }
+        if(isset($_POST['pay_da'])){
+
+        $pay_da = $_POST['pay_da'];
+
+      }else{
+    $pay_da = 0;
+
+      }
+
+        if(isset($_POST['pay_hra'])){
+
+        $pay_hra = $_POST['pay_hra'];
+
+      }else{
+    $pay_hra = 0;
+
+      }
+
+
+        if(isset($_POST['pay_sa'])){
+
+        $pay_sa = $_POST['pay_sa'];
+
+      }else{
+    $pay_sa = 0;
+
+      }
+
+          if(isset($_POST['pay_madical'])){
+
+        $pay_madical = $_POST['pay_madical'];
+
+      }else{
+    $pay_madical = 0;
+
+      }
+
+
+            if(isset($_POST['pay_special'])){
+
+        $pay_special = $_POST['pay_special'];
+
+      }else{
+    $pay_special = 0;
+
+      }
+      if(isset($_POST['pay_sp'])){
+
+        $pay_sp = $_POST['pay_sp'];
+
+      }else{
+    $pay_sp = 0;
+
+      }
+            if(isset($_POST['pay_others'])){
+
+        $pay_others = $_POST['pay_others'];
+
+      }else{
+    $pay_others = 0;
+
+      }
+        $total = $pay_others  + $pay_gradepay +$pay_ca + $pay_da + $pay_hra + $pay_sa + $pay_sa + $pay_madical + $pay_special + $pay_sp ;
+       $data = array(
+
+        'pay_salary_cate_id' => $_POST['pay_salary_cate_id'],
+        'pay_emp_unique_id' => $_POST['emp_unique_id'],
+        'pay_month' => $maonth,
+        'pay_year' =>$year,
+        'pay_end_month' => $_POST['arriyas_end_month'],
+        'pay_start_month' =>  $_POST['arriyas_start_month'],
+        'pay_grp' =>  $pay_gradepay,
+        'pay_ca' => $pay_ca,
+        'pay_da' => $pay_da,
+         'pay_hra' => $pay_hra,
+          'pay_sa' =>$pay_sa,
+           'pay_madical' => $pay_madical, 
+           'pay_special' =>$pay_special ,
+       'pay_sp' => $pay_sp,
+       'pay_arriyas' =>1,
+       'pay_others' => $pay_others,
+       'pay_total_sum' => $total,
+       'pay_total' => $total
+       );
+          
+      $this->db->insert('ft_pay_register', $data); 
+      return true;
+}
+function add_allsallary()
+{
+  print_r($_POST['pay_cate']);
+
+  foreach ($_POST['pay_cate'] as $key => $value) {
+    # code...
+    echo $value;
+//  }
+ $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary` where  pay_salary_cate_id ='.$value);
+  $rowid = $query->result();
+      foreach ($rowid  as $key => $pay) {
+
+           $currentmonth = $_POST['pay_month']; 
+              $datapay = array(
+                'pay_salary_cate_id' => $pay->pay_salary_cate_id,
+
+                'pay_month' => $currentmonth ,
+                'pay_year' => "2016" ,
+                'pay_emp_unique_id' => $pay->pay_emp_unique_id ,
+                'pay_basic' => $pay->pay_basic ,
+              'pay_grp' => $pay->pay_grp ,
+              'pay_da' => $pay->pay_da ,
+              'pay_special' =>$pay->pay_special ,
+              'pay_hra' =>$pay->pay_hra ,
+              'pay_sa' => $pay->pay_sa ,
+              'pay_madical' => $pay->pay_madical ,
+              'pay_ca' =>  $pay->pay_ca,
+              'pay_sp' =>  $pay->pay_sp,
+              'pay_others' =>  $pay->pay_others ,
+               'pay_ca' => $pay->pay_ca,
+              'pay_sp' => $pay->pay_sp ,
+               'pay_total_sum' =>  $pay->pay_total_sum,
+               'pay_dpf' =>  $pay->pay_dpf ,
+                'pay_dpf_adv' =>  $pay->pay_dpf_adv,
+               'pay_gpf' =>  $pay->pay_gpf ,
+               'pay_gpf' =>  $pay->pay_gpf_adv,
+              'pay_gias' => $pay->pay_gias ,
+              'pay_defined_contribution' => $pay->pay_defined_contribution ,
+              'pay_fuel_charge' => $pay->pay_fuel_charge ,
+              'pay_professional_tax' => $pay->pay_professional_tax ,
+              'pay_income_tax' => $pay->pay_income_tax ,
+               'pay_grain_adv' => $pay->pay_grain_adv ,
+              'pay_festival_adv' => $pay->pay_festival_adv ,
+               'pay_other_adv' => $pay->pay_other_adv,
+      'pay_house_loan' => $pay->pay_house_loan,
+      'pay_car_loan' => $pay->pay_car_loan,
+      'pay_house_rent' => $pay->pay_house_rent,
+      'pay_total_cut' => $pay->pay_total_cut,
+       'pay_total' => $pay->pay_total,
+        'created_by' => $this->session->userdata('user_id'),
+               );
+      $this->db->insert("ft_pay_register", $datapay);
+      echo $this->db->last_query();
+
+      }
+    }
+  }
+  function edit_salary($id)
+  {
+
+  $query = $this->db->query('SELECT * FROM `ft_pay_register` where  pay_id ='.$id);
+  $rowid = $query->result();
+  return $rowid ;
+  }
+  function edit_slary_emp()
+  {
   if(isset($_POST['pay_gradepay'])){
 
-    $pay_gradepay = $_POST['pay_gradepay'];
+        $pay_gradepay = $_POST['pay_gradepay'];
 
-  }else{
-$pay_gradepay = 0;
+      }else{
+    $pay_gradepay = 0;
+
+      }
+        if(isset($_POST['pay_ca'])){
+
+        $pay_ca = $_POST['pay_ca'];
+
+      }else{
+    $pay_ca = 0;
+
+      }
+        if(isset($_POST['pay_da'])){
+
+        $pay_da = $_POST['pay_da'];
+
+      }else{
+    $pay_da = 0;
+
+      }
+
+        if(isset($_POST['pay_hra'])){
+
+        $pay_hra = $_POST['pay_hra'];
+
+      }else{
+    $pay_hra = 0;
+
+      }
+
+
+        if(isset($_POST['pay_sa'])){
+
+        $pay_sa = $_POST['pay_sa'];
+
+      }else{
+    $pay_sa = 0;
+
+      }
+
+          if(isset($_POST['pay_madical'])){
+
+        $pay_madical = $_POST['pay_madical'];
+
+      }else{
+    $pay_madical = 0;
+
+      }
+
+
+            if(isset($_POST['pay_special'])){
+
+        $pay_special = $_POST['pay_special'];
+
+      }else{
+    $pay_special = 0;
+
+      }
+      if(isset($_POST['pay_sp'])){
+
+        $pay_sp = $_POST['pay_sp'];
+
+      }else{
+    $pay_sp = 0;
+
+      }
+            if(isset($_POST['pay_others'])){
+
+        $pay_others = $_POST['pay_others'];
+
+      }else{
+    $pay_others = 0;
+
+      }
+
+
+        $datapay = array(
+                'pay_salary_cate_id' => $_POST['pay_salary_cate_id'],
+                     'pay_basic' => $_POST['pay_basic'] ,
+              'pay_grp' =>$pay_gradepay,
+              'pay_da' => $pay_da,
+              'pay_special' =>$pay_special ,
+              'pay_hra' =>$pay_hra,
+              'pay_sa' => $pay_sa,
+              'pay_madical' =>$pay_madical,
+              'pay_ca' =>  $pay_ca,
+              'pay_sp' =>  $pay_sp,
+              'pay_others' => $pay_others ,
+               'pay_ca' => $_POST['pay_ca'],
+              'pay_sp' => $_POST['pay_sp'] ,
+               'pay_total_sum' =>  $_POST['pay_total_sum'],
+               'pay_dpf' =>  $_POST['pay_dpf'] ,
+                'pay_dpf_adv' =>  $_POST['pay_dpf_adv'],
+               'pay_gpf' =>  $_POST['pay_gpf'] ,
+               'pay_gpf' => $_POST['pay_gpf_adv'],
+              'pay_gias' => $_POST['pay_gias'] ,
+              'pay_defined_contribution' => $_POST['pay_define'] ,
+              'pay_fuel_charge' => $_POST['pay_fuel_charge'] ,
+              'pay_professional_tax' => $_POST['pay_professional_tax'] ,
+              'pay_income_tax' =>$_POST['pay_income_tax'] ,
+               'pay_grain_adv' => $_POST['pay_grain_adv'] ,
+              'pay_festival_adv' =>$_POST['pay_festival_adv'] ,
+               'pay_other_adv' => $_POST['pay_other_adv'],
+      'pay_house_loan' => $_POST['pay_house_loan'],
+      'pay_car_loan' => $_POST['pay_car_loan'],
+      'pay_house_rent' => $_POST['pay_house_rent'],
+      'pay_total_cut' => $_POST['pay_total_cut'],
+       'pay_total' => $_POST['pay_total'],
+        'updated_by' => $this->session->userdata('user_id'),
+        'updated_at' =>date("Y-m-dd H:i:s"),
+        'no_updated'=>$_POST['no_updated']
+               );
+      $this->db->insert("ft_pay_register", $datapay);
+      echo $this->db->last_query();
 
   }
-    if(isset($_POST['pay_gradepay'])){
-
-    $pay_gradepay = $_POST['pay_gradepay'];
-
-  }else{
-$pay_gradepay = 0;
-
-  }
-    if(isset($_POST['pay_ca'])){
-
-    $pay_ca = $_POST['pay_ca'];
-
-  }else{
-$pay_ca = 0;
-
-  }
-    if(isset($_POST['pay_da'])){
-
-    $pay_da = $_POST['pay_da'];
-
-  }else{
-$pay_da = 0;
-
-  }
-
-    if(isset($_POST['pay_hra'])){
-
-    $pay_hra = $_POST['pay_hra'];
-
-  }else{
-$pay_hra = 0;
-
-  }
-
-
-    if(isset($_POST['pay_sa'])){
-
-    $pay_sa = $_POST['pay_sa'];
-
-  }else{
-$pay_sa = 0;
-
-  }
-
-      if(isset($_POST['pay_madical'])){
-
-    $pay_madical = $_POST['pay_madical'];
-
-  }else{
-$pay_madical = 0;
-
-  }
-
-
-        if(isset($_POST['pay_special'])){
-
-    $pay_special = $_POST['pay_special'];
-
-  }else{
-$pay_special = 0;
-
-  }
-  if(isset($_POST['pay_sp'])){
-
-    $pay_sp = $_POST['pay_sp'];
-
-  }else{
-$pay_sp = 0;
-
-  }
-        if(isset($_POST['pay_others'])){
-
-    $pay_others = $_POST['pay_others'];
-
-  }else{
-$pay_others = 0;
-
-  }
-  $total = $pay_others  + $pay_gradepay +$pay_ca + $pay_da + $pay_hra + $pay_sa + $pay_sa + $pay_madical + $pay_special + $pay_sp ;
- $data = array(
-
-  'pay_salary_cate_id' => $_POST['pay_salary_cate_id'],
-  'pay_emp_unique_id' => $_POST['emp_unique_id'],
-  'pay_month' => $maonth,
-  'pay_year' =>$year,
-  'pay_end_month' => $_POST['arriyas_end_month'],
-  'pay_start_month' =>  $_POST['arriyas_start_month'],
-  'pay_grp' =>  $pay_gradepay,
-  'pay_ca' => $pay_ca,
-  'pay_da' => $pay_da,
-   'pay_hra' => $pay_hra,
-    'pay_sa' =>$pay_sa,
-     'pay_madical' => $pay_madical, 
-     'pay_special' =>$pay_special ,
- 'pay_sp' => $pay_sp,
- 'pay_arriyas' =>1,
- 'pay_others' => $pay_others,
- 'pay_total_sum' => $total,
- 'pay_total' => $total
- );
-    
-$this->db->insert('ft_pay_register', $data); 
-return true;
-}
 
 }
 ?>
