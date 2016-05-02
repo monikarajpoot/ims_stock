@@ -250,3 +250,13 @@ function get_establishment_employees_with_des($withso = true){
 		return $query->result();
 	}
 }
+
+function getbillno($cate,$m,$y)
+{	$CI = & get_instance();
+	$CI->db->where('pbill_month',$m);
+	$CI->db->where('pbill_year',$y);
+    $CI->db->where('pbill_cate_id',$cate);
+    $query = $CI->db->get("ft_pay_bill_cate");
+$pbilno = $query->result();
+return $pbilno[0]->pbill_computer_no;
+}

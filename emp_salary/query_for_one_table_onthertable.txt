@@ -1,0 +1,1 @@
+UPDATE ft_employee table1 JOIN ft_pay_register table2 ON table1.`emp_unique_id` = table2.pay_emp_unique_id SET table1.emp_pay_cate_id = table2.pay_salary_cate_id 

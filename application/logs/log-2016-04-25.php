@@ -1050,3 +1050,39 @@ ERROR - 2016-04-25 18:13:43 --> Severity: Notice  --> Trying to get property of 
 ERROR - 2016-04-25 18:13:43 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
 ERROR - 2016-04-25 18:13:43 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
 ERROR - 2016-04-25 18:13:47 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:27:07 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:47:58 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined variable: pay_cate_id C:\xampp\htdocs\ims_stock\application\modules\payroll\controllers\Payroll.php 220
+ERROR - 2016-04-25 18:51:41 --> Could not find the language line "employee_on_leave"
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 86
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 91
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 99
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 105
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 114
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 120
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 126
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 134
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 140
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 165
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_addon.php 185
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 69
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 76
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 85
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 92
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 98
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 105
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 112
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 119
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 125
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 146
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 163
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 165
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 170
+ERROR - 2016-04-25 18:51:41 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_diduction.php 175
+ERROR - 2016-04-25 18:52:17 --> Could not find the language line "employee_on_leave"
+ERROR - 2016-04-25 18:55:01 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:55:13 --> Severity: Notice  --> Undefined variable: pay_bill C:\xampp\htdocs\ims_stock\application\modules\payroll\views\paybillno.php 43
+ERROR - 2016-04-25 18:55:57 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:56:15 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:56:20 --> Could not find the language line "bulk_action"
+ERROR - 2016-04-25 18:56:34 --> Could not find the language line "bulk_action"

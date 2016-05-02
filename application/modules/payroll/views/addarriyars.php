@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div><!-- /.box-header -->
-   <form action="<?php echo base_url(); ?>payroll/pay_slip" method="post" >
+   <form action="<?php echo base_url(); ?>payroll/add_arriyas" method="post" >
         <div class="box-body">
      
                     <div class="col-md-6">
@@ -48,14 +48,39 @@
               </div>
 
                <div class="col-xs-3" id="dis1" >
-                                <input type="text" name="frm_dt" id="frm_dt"   name="daterange" id="search_value" value="" autocomplete="off" placeholder="Put Value"  class="form-control">
-                                <?php echo form_error('search_value');?>
+                                  <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month" name="pay_month" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
                             </div>
                             <div id="dis2" >
                                 <div class="col-xs-3">
-                                    <input type="text" placeholder="From Date" name="daterange" id="movement_to_dt" autocomplete="off"  class="form-control">
-                                    <?php echo form_error('frm_dt');?>
-                                </div>
+                                       <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month_end" name="pay_month" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
          
                     </div><!-- col 6 -->
         </div><!-- /.box-body -->

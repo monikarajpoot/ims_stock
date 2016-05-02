@@ -18,7 +18,7 @@
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                        <h3 class="box-title"><?php echo $title_tab; ?></h3>                 
+                        <h3 class="box-title"> <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){ echo $pay->emp_unique_id;  ?> <?php echo $pay->emp_full_name_hi;} } ?></th></h3>                 
                     </div>
                    
                     <div class="box-body">
@@ -27,9 +27,8 @@
                             <thead>
                                 <tr>
                                     
-                                    <th width='5%'><?php echo $this->lang->line('sno')  ?></th>
-                                    <th width='25%'><?php echo $this->lang->line('emp_unique_code')  ?></th>
-                                    <th width="10%"><?php echo $this->lang->line('emp_name'); ?></th>
+                                   
+                                   <th width="10%"><?php  echo " एरीयर्स / वेतन "; ?></th>
                                     <th width="10%"><?php echo $this->lang->line('emp_pay_month'); ?></th>
                            <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th width='25%'><?php  echo $this->lang->line('basic_pay');  ?></th>
@@ -109,6 +108,9 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo $this->lang->line('pay_total_cut'); ?></th>
                                    <th width="15%"><?php echo $this->lang->line('pay_amount');  ?></th>
+
+                                   <th width="15%"><?php echo "कम्यूटर बिल नंबर "  ?></th>
+                                    <th width="15%"><?php echo "वॉचर बिल नंबर "  ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,10 +125,9 @@
                                      }?>
 								    <tr>
                                   
-                                    <th width='5%'><?php echo $k  ?></th>
-                                    <th width='25%'><?php echo $pay->emp_unique_id;  ?></th>
-                                    <th width="10%"><?php echo $pay->emp_full_name_hi; ?></th>
-                                     <th width="10%"><?php echo date("M",strtotime($pay->pay_month)); ?></th>
+                                    
+                                   <th width="10%"><?php if($pay->pay_arriyas == 1 ){ echo "एरीयर्स" ;}else{ echo "वेतन" ;} ?></th>
+                                     <th width="10%"><?php  echo date("M",strtotime($pay->pay_month)); ?></th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th width='25%'><?php echo $pay->pay_basic;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
@@ -205,15 +206,17 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo $pay->pay_other_adv; ?></th>
                                    <th width="15%"><?php echo $pay->pay_total; ?></th>
+                                           <th width='5%'><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_computer_no')?></th>
+                                
+                                             <th width='5%'><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_vocher_no') ?></th>
                                 </tr>
 
                                 <?php  } ?>
                                  <?php// $emp_id == $dataval[0]['pay_cate_id'] ;?>
-                                              <tr>
+                                              <tr style="background-color: #18981D; color: #fff;font-size: 14px;font-weight: bold;">
                                   
-                                    <th width='5%'></th>
-                                    <th width='25%'></th>
-                                    <th width="10%"></th>
+                              
+                                  
                                      <th width="10%">Total  </th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th width='25%'><?php echo sumcolumn_one_emp("pay_basic" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ;  ?></th>
@@ -293,6 +296,7 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo sumcolumn_one_emp("pay_total_cut" , $dataval[0]['pay_cate_id'] , $_GET["uid"])['val']?></th>
                                    <th width="15%"><?php echo sumcolumn_one_emp("pay_total" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']  ?></th>
+                                           <th width='5%'></th>   <th width='5%'></th> <th width='5%'></th>
                                 </tr>
                             </tbody>
                         </table>

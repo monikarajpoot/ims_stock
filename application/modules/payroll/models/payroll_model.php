@@ -86,7 +86,13 @@ class Payroll_model extends CI_Model {
    return $rows = $query->result();
   }
 
-
+public  function update_salary($data)
+  {
+     $this->db->where('pay_id', $data['pay_id']);
+$this->db->update('ft_pay_register', $data); 
+return true;
+    
+  }
 
 
 
@@ -319,6 +325,122 @@ function pay_salary_master(){
   $query = $this->db->query('SELECT * FROM  ft_pay_emp_salary');
      
         return $query->result();
+}
+function add_arriyas()
+{$year = date("Y") ;
+  $maonth = date("F") ;
+
+  if(isset($_POST['pay_gradepay'])){
+
+    $pay_gradepay = $_POST['pay_gradepay'];
+
+  }else{
+$pay_gradepay = 0;
+
+  }
+    if(isset($_POST['pay_gradepay'])){
+
+    $pay_gradepay = $_POST['pay_gradepay'];
+
+  }else{
+$pay_gradepay = 0;
+
+  }
+    if(isset($_POST['pay_ca'])){
+
+    $pay_ca = $_POST['pay_ca'];
+
+  }else{
+$pay_ca = 0;
+
+  }
+    if(isset($_POST['pay_da'])){
+
+    $pay_da = $_POST['pay_da'];
+
+  }else{
+$pay_da = 0;
+
+  }
+
+    if(isset($_POST['pay_hra'])){
+
+    $pay_hra = $_POST['pay_hra'];
+
+  }else{
+$pay_hra = 0;
+
+  }
+
+
+    if(isset($_POST['pay_sa'])){
+
+    $pay_sa = $_POST['pay_sa'];
+
+  }else{
+$pay_sa = 0;
+
+  }
+
+      if(isset($_POST['pay_madical'])){
+
+    $pay_madical = $_POST['pay_madical'];
+
+  }else{
+$pay_madical = 0;
+
+  }
+
+
+        if(isset($_POST['pay_special'])){
+
+    $pay_special = $_POST['pay_special'];
+
+  }else{
+$pay_special = 0;
+
+  }
+  if(isset($_POST['pay_sp'])){
+
+    $pay_sp = $_POST['pay_sp'];
+
+  }else{
+$pay_sp = 0;
+
+  }
+        if(isset($_POST['pay_others'])){
+
+    $pay_others = $_POST['pay_others'];
+
+  }else{
+$pay_others = 0;
+
+  }
+  $total = $pay_others  + $pay_gradepay +$pay_ca + $pay_da + $pay_hra + $pay_sa + $pay_sa + $pay_madical + $pay_special + $pay_sp ;
+ $data = array(
+
+  'pay_salary_cate_id' => $_POST['pay_salary_cate_id'],
+  'pay_emp_unique_id' => $_POST['emp_unique_id'],
+  'pay_month' => $maonth,
+  'pay_year' =>$year,
+  'pay_end_month' => $_POST['arriyas_end_month'],
+  'pay_start_month' =>  $_POST['arriyas_start_month'],
+  'pay_grp' =>  $pay_gradepay,
+  'pay_ca' => $pay_ca,
+  'pay_da' => $pay_da,
+   'pay_hra' => $pay_hra,
+    'pay_sa' =>$pay_sa,
+     'pay_madical' => $pay_madical, 
+     'pay_special' =>$pay_special ,
+ 'pay_sp' => $pay_sp,
+ 'pay_arriyas' =>1,
+ 'pay_others' => $pay_others,
+ 'pay_total_sum' => $total,
+ 'pay_total' => $total
+ );
+    
+$this->db->insert('ft_pay_register', $data); 
+return true;
 }
 
 }

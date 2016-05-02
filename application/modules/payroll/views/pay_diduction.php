@@ -19,7 +19,7 @@
          <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("pay_define");?></label> <span class="text-danger">*</span></label>
                
-                       <input type="text" name="pay_define" id="pay_define" placeholder="<?php echo $this->lang->line('pay_ma'); ?>"  value="<?php echo $pay->pay_define;?>" class="form-control">
+                       <input type="text" name="pay_define" id="pay_define" placeholder="<?php echo $this->lang->line('pay_ma'); ?>"  value="<?php echo $pay->pay_defined_contribution;?>" class="form-control">
             </div>
         <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
       <div class="form-group">

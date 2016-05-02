@@ -114,17 +114,18 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                 </li>
             <?php } ?>
         <?php } ?>
-            <!-----efile side menu end---->
 
-			<?php if(check_est_so()) { ?>
-                <li class="header bg-aqua">Salary</li>
+        <?php 
+        /// condition check for eslogin user
+        if($this->session->userdata('user_id') == 115010496 || $this->session->userdata('user_id') == 171005898  || $this->session->userdata('user_id') == 51010885) {?>
+        <li class="header bg-aqua">Salary </li>
                 <li class="treeview" title="Not Active">
                     <a href="#">
                         <i class="fa fa-shopping-cart"></i> <span>वेतन रजिस्टर</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
-					<li><a href="<?php echo base_url(); ?>payroll/allcate"><i class="fa fa-folder-o"></i> वेतन मास्टर </a></li>
+                    <li><a href="<?php echo base_url(); ?>payroll/allcate"><i class="fa fa-folder-o"></i> वेतन मास्टर </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटोत्राी  </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/paybillno"><i class="fa fa-folder-o"></i> बिल नंबर जोड़ें </a></li>
     <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> एरीयर्स जोड़ें </a></li>
@@ -135,6 +136,10 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                         <li><a href="<?php echo base_url(); ?>payroll/payslip"><i class="fa fa-folder-o"></i> वेतन पर्ची </a></li>
                     </ul>
                 </li>
+        <?php }?>
+            <!-----efile side menu end---->
+			<?php if(check_est_so()) { ?>
+                
 			<li <?php if ($this->uri->segment(2) == 'category' && $this->uri->segment(1) == 'establishment') { echo 'class="active"'; } ?>>
                 <a href="<?php echo base_url('establishment');?>/category/" title="Eshtablishment category"><i class="fa fa-users"></i> <span>शाखा में कार्य के प्रकार</span></a>
             </li>
