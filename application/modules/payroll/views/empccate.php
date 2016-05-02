@@ -190,10 +190,8 @@
                                 </tr>
 	<?php }  ?>
 
-                                  <tr style="
-    background-color: green;
-    font-size: 16px;
-    font-weight: bold;">
+                        <tr style="background-color: #18981D; color: #fff;font-size: 14px;font-weight: bold;">
+                                  
                                   
                                     <th width='5%'></th>
                                     <th width='25%'></th>

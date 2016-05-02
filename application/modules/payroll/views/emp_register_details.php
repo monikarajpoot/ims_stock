@@ -216,7 +216,7 @@
                                               <tr style="background-color: #18981D; color: #fff;font-size: 14px;font-weight: bold;">
                                   
                               
-                                  
+                                  <th width='5%'></th>
                                      <th width="10%">Total  </th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th width='25%'><?php echo sumcolumn_one_emp("pay_basic" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ;  ?></th>
@@ -296,7 +296,7 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo sumcolumn_one_emp("pay_total_cut" , $dataval[0]['pay_cate_id'] , $_GET["uid"])['val']?></th>
                                    <th width="15%"><?php echo sumcolumn_one_emp("pay_total" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']  ?></th>
-                                           <th width='5%'></th>   <th width='5%'></th> <th width='5%'></th>
+                                              <th width='5%'></th> <th width='5%'></th>
                                 </tr>
                             </tbody>
                         </table>
