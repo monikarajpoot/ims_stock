@@ -125,7 +125,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
-                         <li><a href="<?php echo base_url(); ?>payroll/addallsallary"><i class="fa fa-folder-o"></i> वेतन जोड़ने </a></li>
+                         <li><a href="<?php echo base_url(); ?>payroll/addallsallary"><i class="fa fa-folder-o"></i> वेतन जोड़ें </a></li>
                          <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> एरीयर्स जोड़ें </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/allcate"><i class="fa fa-folder-o"></i> वेतन मास्टर </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटोत्राी  </a></li>
@@ -136,6 +136,21 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                        
                         <li><a href="<?php echo base_url(); ?>payroll/payslip"><i class="fa fa-folder-o"></i> वेतन पर्ची </a></li>
                     </ul>
+                </li>
+    <li class="header bg-aqua">Salary master </li>
+                <li class="treeview" title="Not Active">
+                    <a href="#">
+                        <i class="fa fa-shopping-cart"></i> <span> हेड</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu menu-open" style="display: block;">
+                         <li><a href="<?php echo base_url(); ?>payroll/allheads"><i class="fa fa-folder-o"></i> वेतन हेड  </a></li>
+
+                         <li><a href="<?php echo base_url(); ?>payroll/allfixstion"><i class="fa fa-folder-o"></i>  वेतन फिक्सेशन </a></li>
+                         
+                         <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> कर्मचारी वेतन फिक्सेशन </a></li>
+
+    </ul>
                 </li>
         <?php }?>
             <!-----efile side menu end---->

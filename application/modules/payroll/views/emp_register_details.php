@@ -17,103 +17,116 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
-                <div class="box-header with-border">
-                        <h3 class="box-title"> <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){ echo "<b    style='width: 50%;float: left;'>Unique ID:".$pay->emp_unique_id."</b>";  ?> <?php echo "<b style='width: 50%;float: left;'>Name :".$pay->emp_full_name_hi."</b> <b style='width: 50%;float: left;'>Year 2016 - 2017 <b>"
-                        ;} } ?></th></h3>                 
-                    </div>
+               
                    
-                    <div class="box-body">
-                        <?php //echo $this->session->flashdata('message'); ?>
-                        <table  class="table">
-                            <thead>
+                    <div class="box-body ">
+                         <table  class="" cellpadding="0" cellspacing="0"  border="0">
+ <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){
+  ?> <tr>
+      <th colspan="26" ><table cellpadding="0" cellspacing="0"  border="0" width="100%" border="1">
+          <tr>
+            <td >Name :</td>
+            <td><?php echo $pay->emp_full_name_hi; ?></td>
+            <td >Unique ID</td>
+            <td ><?php echo  $pay->emp_unique_id;?></td>
+            <td >Year </td>
+            <td >2016 - 2017</td>
+          </tr>
+            </table></th>
+    </tr>
+<?php }} ?>
+
+                            
                                 <tr>
                                     
                                    
-                                   <th width="10%"><?php  echo " एरीयर्स / वेतन "; ?></th>
-                                    <th width="10%"><?php echo $this->lang->line('emp_pay_month'); ?></th>
+                                   <th ><?php  echo " एरीयर्स / वेतन "; ?></th>
+                                    <th ><?php echo $this->lang->line('emp_pay_month'); ?></th>
                            <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-                            <th width='25%'><?php  echo $this->lang->line('basic_pay');  ?></th>
+                            <th ><?php  echo $this->lang->line('basic_pay');  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo  $this->lang->line('pay_gradepay');  ?></th>
+                                    <th ><?php echo  $this->lang->line('pay_gradepay');  ?></th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo  $this->lang->line('pay_special');   ?></th>
+                                    <th ><?php echo  $this->lang->line('pay_special');   ?></th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php  echo  $this->lang->line('pay_da');?></th>
+                                   <th ><?php  echo  $this->lang->line('pay_da');?></th>
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo $this->lang->line('pay_others'); ?></th>
+                                    <th ><?php echo $this->lang->line('pay_others'); ?></th>
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_sa');  ?></th>
+                                    <th ><?php echo $this->lang->line('pay_sa');  ?></th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo  $this->lang->line('pay_ma'); ?></th>
+                                    <th ><?php echo  $this->lang->line('pay_ma'); ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo $this->lang->line('pay_sp'); ?></th>
+                                     <th ><?php echo $this->lang->line('pay_sp'); ?></th>
 
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_ca');?></th>
+                                    <th ><?php echo $this->lang->line('pay_ca');?></th>
                                   
                                     <?php } ?>
-                            <th width='25%'><?php echo $this->lang->line('pay_sum'); ?></th>
+                            <th ><?php echo $this->lang->line('pay_sum'); ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo  $this->lang->line('pay_gpf'); ?></th>
+                                    <th ><?php echo  $this->lang->line('pay_gpf'); ?></th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php  echo $this->lang->line('pay_gpf_adv');  ?> </th>
+                                   <th ><?php  echo $this->lang->line('pay_gpf_adv');  ?> </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php  echo $this->lang->line('pay_dpf'); ?></th>
+                                    <th ><?php  echo $this->lang->line('pay_dpf'); ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_dpf_adv');   ?></th>
+                                    <th ><?php echo $this->lang->line('pay_dpf_adv');   ?></th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php  echo $this->lang->line('pay_gis');?></th>
+                                    <th ><?php  echo $this->lang->line('pay_gis');?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_define')."dsf"; ?></th>
+                                    <th ><?php echo $this->lang->line('pay_define')."dsf"; ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-                            <th width='25%'><?php echo $this->lang->line('pay_home_loan');?></th>
+                            <th ><?php echo $this->lang->line('pay_home_loan');?></th>
 
                             <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
 
 
-                                    <th width='25%'><?php echo $this->lang->line('pay_car_loan');?></th>
+                                    <th ><?php echo $this->lang->line('pay_car_loan');?></th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
-                                <th width='25%'><?php echo $this->lang->line('pay_house_rent'); ?></th>
+                                <th ><?php echo $this->lang->line('pay_house_rent'); ?></th>
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
+                                     <th ><?php echo $this->lang->line('pay_grain_adv'); ?></th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo $this->lang->line('pay_fule_charge'); ?></th>
+                                   <th ><?php echo $this->lang->line('pay_fule_charge'); ?></th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
-                            <th width='25%'><?php echo $this->lang->line('pay_festival_adv');  ?></th>
+                            <th ><?php echo $this->lang->line('pay_festival_adv');  ?></th>
 
 
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo $this->lang->line('pay_professional_tax'); ?></th>
+                                    <th ><?php echo $this->lang->line('pay_professional_tax'); ?></th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo  $this->lang->line('pay_income_tax'); ?></th>
+                                <th ><?php echo  $this->lang->line('pay_income_tax'); ?></th>
 
                             
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo  $this->lang->line('pay_other_adv'); ?></th>
+                                    <th ><?php echo  $this->lang->line('pay_other_adv'); ?></th>
 
                                     <?php } ?>
-                                   <th width="15%"><?php echo $this->lang->line('pay_total_cut'); ?></th>
-                                   <th width="15%"><?php echo $this->lang->line('pay_amount');  ?></th>
+                                   <th ><?php echo $this->lang->line('pay_total_cut'); ?></th>
+                                   <th ><?php echo $this->lang->line('pay_amount');  ?></th>
 
-                                   <th width="15%"><?php echo "कम्यूटर बिल नंबर "  ?></th>
-                                    <th width="15%"><?php echo "वॉचर बिल नंबर "  ?></th>
+                                   <th ><?php echo "कम्यूटर बिल नंबर "  ?></th>
+                                    <th ><?php echo "वॉचर बिल नंबर "  ?></th>
+                                    <th ><?php echo "ग्रॉस अमाउंट  "  ?></th>
+                                    <th ><?php echo "नेट अमाउंट  "  ?></th>
                                 </tr>
-                            </thead>
+                            
                             <tbody>
                             <?php  $k = 0;
                               // pre($pay_regi);
@@ -127,90 +140,95 @@
 								    <tr>
                                   
                                     
-                                   <th width="10%"><?php if($pay->pay_arriyas == 1 ){ echo "एरीयर्स" ;}else{ echo "वेतन" ;} ?></th>
+                                   <th ><?php if($pay->pay_arriyas == 1 ){ echo "एरीयर्स" ;}else{ echo "वेतन" ;} ?></th>
 								   
-                                     <th width="10%"><?php if($pay->pay_arriyas == 1 ){ echo $pay->pay_start_month ." - ".$pay->pay_end_month;  }else{ echo $pay->pay_month; } ?></th>
+                                     <th ><?php if($pay->pay_arriyas == 1 ){ echo $pay->pay_start_month ." - ".$pay->pay_end_month;  }else{ echo $pay->pay_month; } ?></th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-                            <th width='25%'><?php echo $pay->pay_basic;  ?></th>
+                            <th ><?php echo $pay->pay_basic;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo  $pay->pay_grp;  ?></th>
+                                    <th ><?php echo  $pay->pay_grp;  ?></th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_special;   ?></th>
+                                    <th ><?php echo $pay->pay_special;   ?></th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php  echo  $pay->pay_da;  ?></th>
+                                   <th ><?php  echo  $pay->pay_da;  ?></th>
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo $pay->pay_others ?></th>
+                                    <th ><?php echo $pay->pay_others ?></th>
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_sa;  ?></th>
+                                    <th ><?php echo $pay->pay_sa;  ?></th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo $pay->pay_madical; ?></th>
+                                    <th ><?php echo $pay->pay_madical; ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo $pay->pay_sp; ?></th>
+                                     <th ><?php echo $pay->pay_sp; ?></th>
 
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_ca ?></th>
+                                    <th ><?php echo $pay->pay_ca ?></th>
                                   
                                     <?php } ?>
-                            <th width='25%'><?php echo $pay->pay_total_sum; ?></th>
+                            <th ><?php echo $pay->pay_total_sum; ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_gpf; ?></th>
+                                    <th ><?php echo $pay->pay_gpf; ?></th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php echo  $pay->pay_gpf_adv; ?> </th>
+                                   <th ><?php echo  $pay->pay_gpf_adv; ?> </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php echo   $pay->pay_dpf ?></th>
+                                    <th ><?php echo   $pay->pay_dpf ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo   $pay->pay_dpf_adv ?></th>
+                                    <th ><?php echo   $pay->pay_dpf_adv ?></th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php echo   $pay->pay_gias ?></th>
+                                    <th ><?php echo   $pay->pay_gias ?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_defined_contribution ?></th>
+                                    <th ><?php echo $pay->pay_defined_contribution ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-                            <th width='25%'><?php echo $pay->pay_house_loan ?></th>
+                            <th ><?php echo $pay->pay_house_loan ?></th>
 
                             <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
 
 
-                                    <th width='25%'><?php echo $pay->pay_car_loan ?></th>
+                                    <th ><?php echo $pay->pay_car_loan ?></th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
-                                <th width='25%'><?php echo $pay->pay_house_rent ?></th>
+                                <th ><?php echo $pay->pay_house_rent ?></th>
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo $pay->pay_grain_adv ?></th>
+                                     <th ><?php echo $pay->pay_grain_adv ?></th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo $pay->pay_fuel_charge; ?></th>
+                                   <th ><?php echo $pay->pay_fuel_charge; ?></th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
-                            <th width='25%'><?php echo $pay->pay_festival_adv; ?></th>
+                            <th ><?php echo $pay->pay_festival_adv; ?></th>
 
 
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo $pay->pay_professional_tax; ?></th>
+                                    <th ><?php echo $pay->pay_professional_tax; ?></th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo $pay->pay_income_tax ?></th>
+                                <th ><?php echo $pay->pay_income_tax ?></th>
 
                             
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo $pay->pay_other_adv ?></th>
+                                    <th ><?php echo $pay->pay_other_adv ?></th>
 
                                     <?php } ?>
-                                   <th width="15%"><?php echo $pay->pay_other_adv; ?></th>
-                                   <th width="15%"><?php echo $pay->pay_total; ?></th>
-                                           <th width='5%'><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_computer_no')?></th>
+                                   <th ><?php echo $pay->pay_other_adv; ?></th>
+                                   <th ><?php echo $pay->pay_total; ?></th>
+                                           <th ><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_computer_no')?></th>
                                 
-                                             <th width='5%'><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_vocher_no') ?></th>
+                                             <th ><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_vocher_no') ?></th>
+                               
+                 <th ><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_gross_amount')?></th>
+                                
+                                             <th ><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_net_amont') ?></th>
+                              
                                 </tr>
 
                                 <?php  } ?>
@@ -218,92 +236,92 @@
                                               <tr style="background-color: #18981D; color: #fff;font-size: 14px;font-weight: bold;">
                                   
                               
-                                  <th width='5%'></th>
-                                     <th width="10%">Total  </th>
+                                  <th ></th>
+                                     <th >Total  </th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-                            <th width='25%'><?php echo sumcolumn_one_emp("pay_basic" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ;  ?></th>
+                            <th ><?php echo sumcolumn_one_emp("pay_basic" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo  @sumcolumn_one_emp("pay_grp" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo  @sumcolumn_one_emp("pay_grp" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo  @sumcolumn_one_emp("pay_special" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
+                                    <th ><?php echo  @sumcolumn_one_emp("pay_special" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php  echo  @sumcolumn_one_emp("pay_da" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                   <th ><?php  echo  @sumcolumn_one_emp("pay_da" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo  @sumcolumn_one_emp("pay_others" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo  @sumcolumn_one_emp("pay_others" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo sumcolumn_one_emp("pay_sa" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_sa" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo sumcolumn_one_emp("pay_madical" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_madical" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo @sumcolumn_one_emp("pay_sp" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
+                                     <th ><?php echo @sumcolumn_one_emp("pay_sp" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
 
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo @sumcolumn_one_emp("pay_ca" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
+                                    <th ><?php echo @sumcolumn_one_emp("pay_ca" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
                                   
                                     <?php } ?>
-                            <th width='25%'><?php echo @sumcolumn_one_emp("pay_total_sum" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                            <th ><?php echo @sumcolumn_one_emp("pay_total_sum" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo  @sumcolumn_one_emp("pay_gpf" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo  @sumcolumn_one_emp("pay_gpf" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php echo  @sumcolumn_one_emp("pay_gpf_adv" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?> </th>
+                                   <th ><?php echo  @sumcolumn_one_emp("pay_gpf_adv" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?> </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php echo    sumcolumn_one_emp("pay_dpf" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
+                                    <th ><?php echo    sumcolumn_one_emp("pay_dpf" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
 
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo   sumcolumn_one_emp("pay_dpf_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
+                                    <th ><?php echo   sumcolumn_one_emp("pay_dpf_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];   ?></th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php echo   sumcolumn_one_emp("pay_gias" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo   sumcolumn_one_emp("pay_gias" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo sumcolumn_one_emp("pay_defined_contribution" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_defined_contribution" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-                            <th width='25%'><?php echo  sumcolumn_one_emp("pay_house_loan" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
+                            <th ><?php echo  sumcolumn_one_emp("pay_house_loan" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']; ?></th>
 
                             <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
 
 
-                                    <th width='25%'><?php echo sumcolumn_one_emp("pay_car_loan" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_car_loan" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
-                                <th width='25%'><?php echo sumcolumn_one_emp("pay_house_rent" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                <th ><?php echo sumcolumn_one_emp("pay_house_rent" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo sumcolumn_one_emp("pay_grain_adv" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                     <th ><?php echo sumcolumn_one_emp("pay_grain_adv" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo  sumcolumn_one_emp("pay_fuel_charge" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
+                                   <th ><?php echo  sumcolumn_one_emp("pay_fuel_charge" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'];  ?></th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
-                            <th width='25%'><?php echo  sumcolumn_one_emp("pay_festival_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
+                            <th ><?php echo  sumcolumn_one_emp("pay_festival_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
 
 
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo sumcolumn_one_emp("pay_professional_tax" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_professional_tax" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo  sumcolumn_one_emp("pay_income_tax" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
+                                <th ><?php echo  sumcolumn_one_emp("pay_income_tax" ,$dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
 
                             
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo sumcolumn_one_emp("pay_other_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
+                                    <th ><?php echo sumcolumn_one_emp("pay_other_adv" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val'] ?></th>
 
                                     <?php } ?>
-                                   <th width="15%"><?php echo sumcolumn_one_emp("pay_total_cut" , $dataval[0]['pay_cate_id'] , $_GET["uid"])['val']?></th>
-                                   <th width="15%"><?php echo sumcolumn_one_emp("pay_total" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']  ?></th>
-                                              <th width='5%'></th> <th width='5%'></th>
+                                   <th ><?php echo sumcolumn_one_emp("pay_total_cut" , $dataval[0]['pay_cate_id'] , $_GET["uid"])['val']?></th>
+                                   <th ><?php echo sumcolumn_one_emp("pay_total" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']  ?></th>
+                                              <th ></th> <th ></th>  <th ></th> <th ></th>
                                 </tr>
                             </tbody>
                         </table>
                     </div><!-- /.box-body -->
-                </form>
+
             </div><!-- /.box -->
         </div>
     </div><!-- /.row -->

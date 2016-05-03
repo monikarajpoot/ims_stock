@@ -270,6 +270,28 @@ $this->db->update('ft_employee', $data);
 function pay_bill($data)
 {
 
+       $query = $this->db->query("SELECT sum(pay_total_sum) as payts,sum(pay_total) pay_total FROM `ft_pay_register` where  pay_month ='".$_POST['pay_month']."' AND pay_salary_cate_id =".$_POST['pay_head']);
+  $rowid = $query->result();
+  foreach ($rowid as $key => $value) {
+    # code...
+
+   $pts =$value->payts;
+    $pt =$value->pay_total;
+  }
+
+   $data = array('pbill_month' => $_POST['pay_month'] ,
+                'pbill_cate_id' => $_POST['pay_head'] ,
+                'pbill_year' => date("Y") ,
+                   'pbill_gross_amount' => $pts ,
+                      'pbill_net_amont' => $pt ,
+                'pbill_computer_no' => $_POST['computer_bill_number'] ,
+              'pbill_office_no' => $_POST['office_bill_number'] ,
+               'pbill_vocher_no' => $_POST['vocher_bill_number'] ,
+              'pbill_vocher_date' => date("Y-m-d", strtotime($_POST['vocher_bill_date'])) ,
+               );
+  if(count($rowid) != 0){
+      foreach ($rowid  as $key => $pay) {
+
         $this->db->select('*');
         $this->db->from('ft_pay_bill_cate');
          $this->db->where("pbill_month",$_POST['pay_month'] );
@@ -278,11 +300,17 @@ function pay_bill($data)
          $query = $this->db->get();
          $rows = $query->result();
        $pcount = count($rows);
-       if($pcount == 0)
-        {
-          $this->db->insert("ft_pay_bill_cate" ,$data);
-          return "yes";
-      }else{return "no";}
+             if($pcount == 0)
+              {
+                $this->db->insert("ft_pay_bill_cate" ,$data);
+                return "yes";
+            }else{
+              return "no";
+          }}
+    }else{
+
+       return "no";
+    }
 
 
 }
@@ -740,6 +768,93 @@ if(isset($_POST['pay_house_rent'])){
       echo $this->db->last_query();
 
   }
+function edithead($id,$tablename)
+{
+
+
+  $query = $this->db->query('SELECT * FROM `'.$tablename.'` where '.$id);
+  $rowid = $query->result();
+  return $rowid ;
+}
+function edit_head()
+{
+ 
+    $data =array('pay_cate_name'=> inputcheckvaul('pay_cate_name'), 
+      'pay_cate_basic'=> inputcheckvaul('pay_cate_basic'), 
+      'pay_cate_da'=>  inputcheckvaul('pay_cate_da'), 
+      'pay_cate_special'=> inputcheckvaul('pay_cate_da'), 
+      'pay_cate_sa'=> inputcheckvaul('pay_cate_sa'),
+      'pay_cate_madical'=> inputcheckvaul('pay_cate_madical'),
+      'pay_cate_grp'=> inputcheckvaul('pay_cate_grp'),
+      'pay_cate_ca'=> inputcheckvaul('pay_cate_ca'),
+      'pay_cate_hra'=> inputcheckvaul('pay_cate_hra'),
+      'pay_cate_other_add'=> inputcheckvaul('pay_cate_other_add'),
+      'pay_cate_special'=> inputcheckvaul('pay_cate_special'),
+      'pay_cate_sp'=> inputcheckvaul('pay_cate_sp'),
+      'pay_cate_dpf'=> inputcheckvaul('pay_cate_dpf'),
+      'pay_cate_dpf_adv'=> inputcheckvaul('pay_cate_dpf_adv'),
+      'pay_cate_gpf'=> inputcheckvaul('pay_cate_gpf'),
+      'pay_cate_gpf_adv'=> inputcheckvaul('pay_cate_gpf_adv'),
+      'pay_cate_defined_contribution'=> inputcheckvaul('pay_cate_defined_contribution'),
+      'pay_cate_gias'=> inputcheckvaul('pay_cate_gias'),
+      'pay_cate_house_loan'=> inputcheckvaul('pay_cate_house_loan'),
+      'pay_cate_car_loan'=> inputcheckvaul('pay_cate_car_loan'),
+      'pay_cate_house_rent'=> inputcheckvaul('pay_cate_house_rent'),
+      'pay_cate_fuel_charge'=> inputcheckvaul('pay_cate_fuel_charge'),
+      'pay_cate_garain_adv'=> inputcheckvaul('pay_cate_garain_adv'),
+      'pay_cate_festival_adv'=> inputcheckvaul('pay_cate_festival_adv'),
+      'pay_cate_professional_tax'=> inputcheckvaul('pay_cate_professional_tax'),
+      'pay_cate_income_tax'=> inputcheckvaul('pay_cate_income_tax'),
+       'pay_cate_other_adv'=> inputcheckvaul('pay_cate_other_adv'), 
+
+              );
+//print_r($data);die();
+   $this->db->where("pay_cate_id",$_POST['pay_cate_id']);
+      $this->db->update("ft_pay_salary_category", $data);
+}
+
+function salary_fixstion()
+{
+
+
+  $query = $this->db->query('SELECT * FROM `ft_pay_fixation` ');
+  $rowid = $query->result();
+  return $rowid ;
+}
+function add_fixstion()
+{
+
+  $data =array('pf_cate_id'=>$_POST['pf_cate_id'] ,
+   'pf_name'=>$_POST['pf_name'] ,
+    'pf_discription'=>$_POST['pf_discription'], 
+    'pf_type'=>$_POST['pf_type'],
+     'pf_parcentage_val'=>$_POST['pf_parcentage_val'],
+     'pf_range'=>$_POST['pf_range'],
+     'created_by'=>$this->session->userdata('user_id') );
+  
+  $this->db->insert("ft_pay_fixation", $data);
+      return true ;
 
 }
+     
+function edit_fixstion()
+{
+
+  $data =array('pf_cate_id'=>$_POST['pf_cate_id'] ,
+   'pf_name'=>$_POST['pf_name'] ,
+    'pf_discription'=>$_POST['pf_discription'], 
+    'pf_type'=>$_POST['pf_type'],
+     'pf_parcentage_val'=>$_POST['pf_parcentage_val'],
+     'pf_range'=>$_POST['pf_range'],
+     'created_by'=>$this->session->userdata('user_id') );
+   
+    $this->db->where("pf_id",$_POST['pf_id']);
+      $this->db->update("ft_pay_fixation", $data);
+ 
+      return true ;
+
+}
+  
+}
+
 ?>

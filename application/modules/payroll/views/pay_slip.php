@@ -5,18 +5,18 @@
 	# code...?>
 
   <tr height="27">
-    <td colspan="23" height="27" width="1344"><div align="center"><strong>Govt Of M.P Law and Legislative Affairs Department Vindhyachal Bhawan Bhopal</strong><br />
+    <td colspan="23" height="27" width="1344"><div align="center"><strong>Govt of M.P Law and Legislative Affairs Department, Vindhyachal Bhawan, Bhopal</strong><br />
     </div></td>
   </tr>
   <tr height="28">
-    <td colspan="23" height="28"><div align="center"><strong>Salary Slip for the  month Of <?php echo $pay->pay_month ." of ". $pay->pay_year  ;?> </strong></div></td>
+    <td colspan="23" height="28"><div align="center"><strong>Salary Slip for the  month of <?php echo $pay->pay_month ." of ". $pay->pay_year  ;?> </strong></div></td>
   </tr>
     <tr height="60" style="
     font-size: 18px;
     font-weight: bold;
     text-align: center;
 ">
-    <td height="60" colspan="8">Name Of employee :<?php echo $pay->emp_full_name?> </td>
+    <td height="60" colspan="8">Name of employee :<?php echo $pay->emp_full_name?> </td>
     <td colspan="14">Unique code of employee :<?php echo $_POST['uid'];?> </td>
   </tr>
   <tr height="60">

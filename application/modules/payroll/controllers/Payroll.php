@@ -328,7 +328,7 @@ $data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
          $data['cate_salary'] = $this->payroll_model->cate_salary($emp_id);
          $data['pay_bill'] = $this->payroll_model->pay_bill_cate($emp_id,$emp_month);
           $condi =  array("pay_cate_id"=>$emp_id );
-$data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
         $this->load->view("empccate" , $data);
 
     }
@@ -754,35 +754,84 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
         $this->template->index($data);
 
     }
-
-
-    function pay_bill()
+    function allheads()
     {
 
-        $datapay = array('pbill_month' => $_POST['pay_month'] ,
-                'pbill_cate_id' => $_POST['pay_head'] ,
-                'pbill_year' => date("Y") ,
-                    'pbill_computer_no' => $_POST['computer_bill_number'] ,
-              'pbill_office_no' => $_POST['office_bill_number'] ,
-               'pbill_vocher_no' => $_POST['vocher_bill_number'] ,
-              'pbill_vocher_date' => date("Y-m-d", strtotime($_POST['vocher_bill_date'])) ,
-               );
-              
-        $data['pay_cate'] = $this->payroll_model->pay_bill($datapay);
-
-        echo $data['pay_cate'];
-        if($data['pay_cate'] == "Yes"){
-
-        }else{
- $data['title'] = $this->lang->line('pay_slip');
-        $data['title_tab'] = $this->lang->line('pay_slip');
-        $data['error'] = "इस महीने के बिल संख्या पहले से ही जोड़ी जा चुकी है ";
-        $data['pay_bill'] = $this->payroll_model->salary_bill( $_POST['pay_month'] ,$_POST['pay_head']);
-        $data['pay_cate'] = $this->payroll_model->salary_mastar();
+      $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+    
+        $data['pay_salary'] = $this->payroll_model->salary_mastar();
         $data['module_name'] = "payroll";
-        $data['view_file'] = "paybillno";
+        $data['view_file'] = "payroll/salary_mastar";
+        $this->template->index($data);
+    }
+    function edithead()
+    {$cateid = "pay_cate_id = ". $this->uri->segment(3);
+          $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+       $data['pay_salary'] = $this->payroll_model->edithead($cateid,"ft_pay_salary_category");
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/edithead";
         $this->template->index($data);
 
+    }
+    function edit_head()
+    {
+      $this->payroll_model->edit_head();
+      redirect("payroll/allheads");
+    }
+    function allfixstion(){
+
+       $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+    
+        $data['pay_salary'] = $this->payroll_model->salary_fixstion();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/allfixstion";
+        $this->template->index($data);
+    }
+    function addfixstion()
+    {
+       $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+      $data['pay_cate'] = $this->payroll_model->salary_mastar();
+     
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/addfixstion";
+        $this->template->index($data);
+    }
+    function add_fixstion()
+    {
+      $this->payroll_model->add_fixstion();
+      redirect("payroll/allfixstion");
+    }
+    function editfixstion()
+    {
+      $cateid = "pf_id = ". $this->uri->segment(3);
+       $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+      $data['pay_cate'] = $this->payroll_model->salary_mastar();
+     
+      $data['pay_salary'] = $this->payroll_model->edithead($cateid,"ft_pay_fixation");
+     
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/editfixstion";
+        $this->template->index($data);
+    }
+    function edit_fixstion()
+    {
+      $this->payroll_model->edit_fixstion();
+      redirect("payroll/allfixstion");
+    }
+    function pay_bill()
+    {      
+        $data['pay_cate'] = $this->payroll_model->pay_bill();
+        if($data['pay_cate'] != "NO"){
+         $this->session->set_flashdata('error', "इस महीने के बिल संख्या पहले से ही जोड़ी जा चुकी है ");
+         redirect("payroll/paybillno/");
+        }else{
+
+          redirect("payroll/empcate/".$_POST['pay_head']."/".$_POST['pay_month']);
         }
 
     }
@@ -790,7 +839,7 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
     {
 
 
- print_r($_POST);
+
       $emi = $this->payroll_model->getemp_emi($_POST['emp_unique_code']);
       if($_POST['emp_unique_code'] != "")
       {

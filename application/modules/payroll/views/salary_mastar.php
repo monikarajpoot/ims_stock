@@ -40,13 +40,13 @@
                           
                           <div class="col-xs-12 ">
                              <a href="<?php echo base_url();?>payroll/addcate/" >
-                                                <button type="button" class="btn  btn-primary"><?php echo $this->lang->line('add_new'); ?></button></a>
+                               <button type="button" class="btn  btn-primary"><?php echo $this->lang->line('add_new'); ?></a></button>
                             </div> 
                         </div>
                     </div>
                     <div class="box-body">
                         <?php echo $this->session->flashdata('message'); ?>
-                        <table id="leave_tbl" class="table table-bordered table-striped">
+                        <table  class="table ">
                             <thead>
                                 <tr>
                                     <th width='5%'><?php echo $this->lang->line('salary_head_name')  ?></th>
@@ -64,50 +64,72 @@
                                     <th width='10%'><?php echo $this->lang->line('pay_dpf'); ?></th>
                                     <th width='10%'><?php echo $this->lang->line('pay_dpf_adv'); ?></th>
                                     <th width='10%'><?php echo $this->lang->line('pay_gis'); ?></th>
-                               
+                                                                  <th width="15%"><?php echo $this->lang->line('pay_home_loan'); ?></th>
 
-                                   <th width="15%"><?php echo $this->lang->line('view'); ?></th>
+                                   <th width="15%"><?php echo $this->lang->line('pay_car_loan'); ?></th>
+                                   <th width="15%"><?php echo $this->lang->line('pay_house_rent'); ?></th>
+                                        <th width="15%"><?php echo $this->lang->line('pay_fule_charge'); ?></th>
+                                         <th width="15%"><?php echo $this->lang->line('pay_grain_adv'); ?></th>
+                                         <th width="15%"><?php echo $this->lang->line('pay_festival_adv'); ?></th>
+                                         <th width="15%"><?php echo $this->lang->line('pay_professional_tax'); ?></th>
+                                         <th width="15%"><?php echo $this->lang->line('pay_income_tax'); ?></th>
+                                       <th width="15%"><?php echo $this->lang->line('pay_other_adv'); ?></th>  
+                                    <th width="15%"></th>
+
                                 </tr>
                             </thead>
                             <tbody>
                             <?php  $i = 1;
-                              // pre($pay_salary);
+                               //pre($pay_salary);
                                 foreach ($pay_salary as $key => $salary) { ?>
 									<tr>
                                     <th width='5%5%'><?php echo $salary->pay_cate_name  ?></th>
-                                    <th width="5%"><?php if($salary->pay_cate_basic == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
-                                     <th width='5%'><?php if($salary->pay_cate_da == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
-                                         <th width='5%'><?php if($salary->pay_cate_grp == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
-                                    <th width='5%'><?php if($salary->pay_cate_hra == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width="5%"><?php if($salary->pay_cate_basic == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
+                                     <th width='5%'><?php if($salary->pay_cate_da == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
+                                         <th width='5%'><?php if($salary->pay_cate_grp == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_hra == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='5%'><?php if($salary->pay_cate_special == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_special == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='5%'><?php if($salary->pay_cate_sa == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_sa == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                     <th width='5%'><?php if($salary->pay_cate_sp == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                     <th width='5%'><?php if($salary->pay_cate_sp == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                      <th width='5%'><?php if($salary->pay_cate_ca == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                      <th width='5%'><?php if($salary->pay_cate_ca == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='5%'><?php if($salary->pay_cate_madical == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_madical == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='5%'><?php if($salary->pay_cate_gpf == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_gpf == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='5%'><?php if($salary->pay_cate_gpf_adv == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='5%'><?php if($salary->pay_cate_gpf_adv == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='10%'><?php if($salary->pay_cate_dpf == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='10%'><?php if($salary->pay_cate_dpf == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='10%'><?php if($salary->pay_cate_dpf_adv == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='10%'><?php if($salary->pay_cate_dpf_adv == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='10%'><?php if($salary->pay_cate_gias == 1){?>  <button type="button" class="btn btn-success" name="btndeny" data-empid="">Yes</button> <?php  }else{ ?><button type="button" class="btn btn-danger" name="btndeny" data-empid="">NO</button><?php } ?></th>
+                                    <th width='10%'><?php if($salary->pay_cate_gias == 1){?>  Yes <?php  }else{ ?>NO<?php } ?></th>
                                    
-                                    <th width='10%'> <a href="<?php echo base_url();?>payroll/getcate/<?php echo $salary->pay_cate_id ?>" >
-                                              <button type="button" class="btn btn-primary" name="btndeny" ><?php echo $this->lang->line('view') ?></button>
-                                               <a/></th>
+                                    <th width='10%'><?php if($salary->pay_cate_house_loan == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
                                    
-                                    
-                                    
+                                    <th width='10%'><?php if($salary->pay_cate_car_loan == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                    <th width='10%'><?php if($salary->pay_cate_house_rent == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                                 
+                                    <th width='10%'><?php if($salary->pay_cate_fuel_charge == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                   <th width='10%'><?php if($salary->pay_cate_garain_adv == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                    <th width='10%'><?php if($salary->pay_cate_festival_adv == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                <th width='10%'><?php if($salary->pay_cate_professional_tax == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                 <th width='10%'><?php if($salary->pay_cate_income_tax == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                
+                                <th width='10%'><?php if($salary->pay_cate_other_adv == 1){?>  Yes <?php  }else{ ?>NO<?php } ?> </th>
+                                   
+                                    <th width="15%"><a href="<?php echo base_url(); ?>payroll/edithead/<?php echo $salary->pay_cate_id ?>">edit</a> </th>
 
-                                    </tr>
+                                </tr>
 
                                 <?php  $i++; } ?>
                             </tbody>
@@ -125,7 +147,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 <h4 class="modal-title" id="myModalLabel">अवकाश स्वीकृत करें</h4>
             </div>
             <div class="modal-body">
@@ -138,8 +160,8 @@
                         <textarea name="approve_reson" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">रद्द</button>
-                        <button type="submit" class="btn btn-primary" name="btnapprove">जमा करें</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">रद्द
+                        <button type="submit" class="btn btn-primary" name="btnapprove">जमा करें
                     </div>
                 </form>
             </div>
@@ -150,7 +172,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 <h4 class="modal-title" id="myModalLabel">अवकाश अस्वीकृत  करें</h4>
             </div>
             <div class="modal-body">
@@ -163,8 +185,8 @@
                         <textarea name="deny_reson" class="form-control" required=""></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">रद्द</button>
-                        <button type="submit" class="btn btn-primary" name="btndeny">जमा करे</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">रद्द
+                        <button type="submit" class="btn btn-primary" name="btndeny">जमा करे
                     </div>
                 </form>
             </div>      

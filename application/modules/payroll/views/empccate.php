@@ -6,7 +6,7 @@
 		</tr>
 	<?php $emp_id = $this->uri->segment("3"); ?>
 	<tr style="text-align:center">
-		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का <?php echo $dataval[0]['pay_cate_name'];?> अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमाक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक    /4/2016 आफिस देयक क्रमाक  <?php echo @$pay_bill[0]->pbill_computer_no; ?>    दिनांक  /4/2016</h2></td>
+		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का <?php echo $dataval[0]['pay_cate_name'];?> अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
 	
 		</tr>
 
