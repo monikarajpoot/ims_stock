@@ -866,7 +866,7 @@
     }
 	
 	//date picker 
-<?php if($this->uri->segment(1)=='data_entry' ||$this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='reports' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='return_file'){ ?>
+<?php if($this->uri->segment(1)=='data_entry' || $this->uri->segment(1)=='payroll' ||$this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='reports' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='return_file'){ ?>
 	
 	 $(document).ready(function() {
     $('#centr_table').DataTable( {

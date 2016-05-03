@@ -128,7 +128,8 @@
                                   
                                     
                                    <th width="10%"><?php if($pay->pay_arriyas == 1 ){ echo "एरीयर्स" ;}else{ echo "वेतन" ;} ?></th>
-                                     <th width="10%"><?php  echo date("M",strtotime($pay->pay_month)); ?></th>
+								   
+                                     <th width="10%"><?php if($pay->pay_arriyas == 1 ){ echo $pay->pay_start_month ." - ".$pay->pay_end_month;  }else{ echo $pay->pay_month; } ?></th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th width='25%'><?php echo $pay->pay_basic;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>

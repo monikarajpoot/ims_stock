@@ -129,12 +129,7 @@ die();
            // $this->load->view('upload_success', $data);
         }
     }
-	public function edit_salary()
-	{
-		$emp_id = $this->uri->segment("3");
-		$data['title'] = $this->lang->line("edit_salary"); 
-		
-	}
+
     public function register()
     {
 
@@ -631,6 +626,69 @@ public function paybillno()
 
 
     }
+
+    public function addallsallary()
+    {
+         $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+    $data['msg'] = " "; 
+
+      $data['pay_salary'] = $this->payroll_model->salary_mastar();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/addallsallary";
+        $this->template->index($data);
+    }
+    function add_allsallary()
+    { $currentmonth = $_POST['pay_month']; $isk=0;
+ foreach ($_POST['pay_cate'] as $key => $value) {$isk=$isk +1;
+    # code...
+
+  $data['pay_bill'] = $this->payroll_model->month_salary_cate($value,$currentmonth);
+
+    } 
+ $count = count($data['pay_bill']);
+
+ //print_r( count($data['pay_bill']));die();
+if($count == 0 )
+{   $data['pay_salary'] = $this->payroll_model->add_allsallary();
+redirect("payroll/allcate");
+}else{
+   $this->session->set_flashdata('error', "Allrady add salary this Month for this salary head");
+                    redirect("payroll/addallsallary/");
+}
+   
+    }
+    function edit_salary()
+    {
+
+      $pay_id =$this->uri->segment("3");
+      $emp_id =$this->uri->segment("4");
+$data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
+
+  $data['emp_details'] = $this->payroll_model->getemp($emp_id);
+      
+ foreach ($data['emp_details']as $key => $valueca) {
+        $pay_cate_id =$valueca->emp_pay_cate_id;
+
+      }
+      $condi =  array("pay_cate_id"=>$pay_cate_id );
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+
+  $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+       $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/edit_salary";
+         $this->template->index($data);
+    }
+    public function edit_slary_emp()
+    {
+        $emp_id =$_POST['pay_salary_cate_id'];
+        $month = $_POST['pay_month'];
+      
+     $this->payroll_model->edit_slary_emp();
+     redirect("payroll/empcate/".$emp_id."/".$month);
+    }
+
     public function payarriyars()
     {
         $data['title'] = $this->lang->line('pay_slip');
