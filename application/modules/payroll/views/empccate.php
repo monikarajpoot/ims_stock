@@ -7,13 +7,13 @@
 		<td colspan="32"><h1>मध्यप्रदेश शासन विधि एवं विधायी कार्य विभाग</h1></td>
 		
 		</tr>
-	<?php $emp_id = $this->uri->segment("3"); if($emp_id == 1){ ?>
+	<?php $emp_id = $this->uri->segment("3"); ?>
 	<tr style="text-align:center">
-		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का न्यायिक सेवा अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमाक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक    /4/2016 आफिस देयक क्रमाक  <?php echo @$pay_bill[0]->pbill_computer_no; ?>    दिनांक  /4/2016</h2></td>
+		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का <?php echo $dataval[0]['pay_cate_name'];?> अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमाक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक    /4/2016 आफिस देयक क्रमाक  <?php echo @$pay_bill[0]->pbill_computer_no; ?>    दिनांक  /4/2016</h2></td>
 	
 		</tr>
 
-	<?php } ?>
+
 		
                                 <tr>
                                     
@@ -102,10 +102,14 @@
                                 </tr>
 	
 	
-                                    <?php $k =0; foreach ($pay_salary as $key => $pay) { $k++; ?>
+                                    <?php $k =0; foreach ($pay_salary as $key => $pay) { $k++; 
+                                      if($pay->no_updated == 0){?>
                                   <tr>
-                                  
-                                    <th width='5%'><?php echo $k  ?> <a href="<?php echo base_url(); ?>payroll/edit_salary/<?php echo $pay->pay_id; ?>/<?php echo $pay->emp_unique_id;  ?>" >edit</a></th>
+                                  <?php }else{ ?>
+                                  <tr style="background-color: #FF8D00;
+    color: #ffffff;">
+                                    <?php } ?>
+                                    <th width='5%'><?php echo $k ;if(!isset($pay_bill[0]->pbill_computer_no)) {?> <a href="<?php echo base_url(); ?>payroll/edit_salary/<?php echo $pay->pay_id; ?>/<?php echo $pay->emp_unique_id;  ?>" >edit</a><?php } ?></th>
                                     <th width='25%'><?php echo $pay->emp_unique_id;  ?></th>
                                     <th width="10%"><?php echo $pay->emp_full_name_hi; ?></th>
                                      <th width="10%"><?php echo date("M",strtotime($pay->pay_month)); ?></th>
@@ -193,7 +197,7 @@
                                   <tr style="
     background-color: green;
     font-size: 16px;
-    font-weight: bold;">
+    font-weight: bold;    color: #ffffff;">
                                   
                                     <th width='5%'></th>
                                     <th width='25%'></th>
@@ -234,7 +238,7 @@
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
                                     <th width="10%"><?php echo   sumcolumn("pay_gias" ,$this->uri->segment("3"),$this->uri->segment("4"))['val'] ?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo sumcolumn("pay_defined_contribution" ,$this->uri->segment("3"))['val'] ?></th>
+                                    <th width='25%'><?php echo sumcolumn("pay_defined_contribution" ,$this->uri->segment("3"),$this->uri->segment("4"))['val'] ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
                             <th width='25%'><?php echo  sumcolumn("pay_house_loan" ,$this->uri->segment("3"),$this->uri->segment("4"))['val']?></th>

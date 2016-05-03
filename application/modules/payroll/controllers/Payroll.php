@@ -631,18 +631,32 @@ public function paybillno()
     {
          $data['title'] = $this->lang->line('salary_mastar');
         $data['title_tab'] = $this->lang->line('salary_mastar');
-    
+    $data['msg'] = " "; 
+
       $data['pay_salary'] = $this->payroll_model->salary_mastar();
         $data['module_name'] = "payroll";
         $data['view_file'] = "payroll/addallsallary";
         $this->template->index($data);
     }
     function add_allsallary()
-    {
+    { $currentmonth = $_POST['pay_month']; $isk=0;
+ foreach ($_POST['pay_cate'] as $key => $value) {$isk=$isk +1;
+    # code...
 
-      print_r($_POST);
-    $data['pay_salary'] = $this->payroll_model->add_allsallary();
-    redirect("payroll/allcate");
+  $data['pay_bill'] = $this->payroll_model->month_salary_cate($value,$currentmonth);
+
+    } 
+ $count = count($data['pay_bill']);
+
+ //print_r( count($data['pay_bill']));die();
+if($count == 0 )
+{   $data['pay_salary'] = $this->payroll_model->add_allsallary();
+redirect("payroll/allcate");
+}else{
+   $this->session->set_flashdata('error', "Allrady add salary this Month for this salary head");
+                    redirect("payroll/addallsallary/");
+}
+   
     }
     function edit_salary()
     {
@@ -668,10 +682,11 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
     }
     public function edit_slary_emp()
     {
-
+        $emp_id =$_POST['pay_salary_cate_id'];
+        $month = $_POST['pay_month'];
       
      $this->payroll_model->edit_slary_emp();
-
+     redirect("payroll/empcate/".$emp_id."/".$month);
     }
 
     public function payarriyars()

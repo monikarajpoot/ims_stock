@@ -28,22 +28,27 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
-            
+
                     <div class="box-header with-border">
-                        <h3 class="box-title"><?php echo $title_tab; ?></h3>                 
+                        <h3 class="box-title"><?php echo $title_tab; ?></h3>     
+                        <br/>
                     </div>
 
                     <div class="box-header with-border">
                         <div class="row">
                             <div class="col-xs-2">
                                 <label for="exampleInputEmail1"><?php echo $this->lang->line('bulk_action'); ?> </label>
-                            </div>
-                          
-                          
+                            </div><?php if($this->session->flashdata('error')){?>
+     <div class="col-xs-6" style="    background-color: rgba(255, 24, 0, 0.44);
+    width: 68%;
+    padding: 0 5px;
+    border: solid 1px red;"><?php // echo $this->session->flashdata('message');
+                        echo $this->session->flashdata('error'); ?><div/>
+                        <?php } ?>
                         </div>
                     </div>
                     <div class="box-body">
-
+           
     <form action="<?php echo base_url();?>payroll/add_allsallary" method="post">
 
                            <div class="form-group col-xs-2">

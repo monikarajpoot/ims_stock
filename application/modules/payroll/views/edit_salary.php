@@ -42,6 +42,14 @@
  	if(count($pay_salary) != 0){
  	$i=0; 	
  		foreach ($pay_salary as $key => $pay) { 
+
+      ?>
+  <input type="hidden" name="pay_salary_cate_id" id="pay_salary_cate_id" value="<?php echo $pay->pay_salary_cate_id  ?>" class="form-control">
+                <input type="hidden" name="pay_id" id="pay_id" value="<?php echo $pay->pay_id;  ?>" class="form-control">
+                  <input type="hidden" name="pay_month" id="pay_month" value="<?php echo $pay->pay_month;  ?>" class="form-control">
+               <input type="hidden" name="no_updated" id="no_updated" value="<?php echo $pay->no_updated +1;  ?>" class="form-control">
+               
+      <?php
                if($dataval[0]['pay_cate_basic'] == 1){	?>
      <div class="form-group">
                 <label for="file_type"><?php echo $this->lang->line("basic_pay");?></label> <span class="text-danger">*</span></label>
@@ -53,11 +61,7 @@
              <div class="form-group ">
                 <label for="file_type"><?php echo $this->lang->line("pay_gradepay");?></label> <span class="text-danger">*</span></label>
                   <input type="text" onfocus="totalvalue()" name="pay_gradepay" id="pay_gradepay" placeholder="<?php echo $this->lang->line('pay_gradepay'); ?>" value="<?php echo @$pay->pay_grp; ?>" class="form-control">
-                <input type="hidden" name="pay_salary_cate_id" id="pay_salary_cate_id" value="<?php echo $pay->pay_salary_cate_id  ?>" class="form-control">
-                <input type="hidden" name="pay_id" id="pay_id" value="<?php echo $pay->pay_id;  ?>" class="form-control">
-                  <input type="hidden" name="pay_month" id="pay_month" value="<?php echo $pay->pay_month;  ?>" class="form-control">
-               <input type="hidden" name="no_updated" id="no_updated" value="<?php echo $pay->no_updated +1;  ?>" class="form-control">
-               
+              
             </div>
 
 <?php }if($dataval[0]['pay_cate_da'] == 1){	?>
@@ -189,7 +193,7 @@
 	                  <input type="text" name="pay_total_cut" onfocus="showtotal_DIII()" id="pay_total_cut" placeholder="<?php echo $this->lang->line('pay_total_cut'); ?>"  value="<?php echo $pay->pay_total_cut;?>" class="form-control">
 	            </div>
         <div class="form-group ">
-	                <label for="file_type"><?php echo $this->lang->line("pay_total");?></label> <span class="text-danger">*</span></label>
+	                <label for="file_type">कुल </label> <span class="text-danger">*</span></label>
 	               
 	                  <input type="text" name="pay_total" onfocus="" id="pay_total" placeholder=""  value="<?php echo $pay->pay_total;?>" class="form-control">
 	            </div>
@@ -221,27 +225,59 @@
 function totalvalue()
 {
 pay_basic = $("#pay_basic").val();
- pay_grp = $("#pay_gradepay").val();
+
 pay_others = $("#pay_others").val();
- pay_sp = $("#pay_sp").val();
- pay_ca = $("#pay_ca").val();
- <?php if($dataval[0]['pay_cate_madical'] == 1){ ?>
+ 
+ 
+ <?php if($dataval[0]['pay_cate_grp'] == 1){ ?>
+  
+ pay_grp = $("#pay_gradepay").val();
+ <?php }else{ ?>
+     var  pay_grp = 0
+     <?php } ?>
+
+<?php if($dataval[0]['pay_cate_madical'] == 1){ ?>
   
  pay_ma = $("#pay_madical").val();
  <?php }else{ ?>
      var  pay_ma = 0
      <?php } ?>
 
+
+     <?php if($dataval[0]['pay_cate_sp'] == 1){ ?>
+  
+pay_sp = $("#pay_sp").val();
+ <?php }else{ ?>
+     var  pay_sp = 0
+     <?php } ?>
       <?php if($dataval[0]['pay_cate_sa'] == 1){ ?>
   pay_sa = $("#pay_sa").val();
  <?php }else{ ?>
      var  pay_sa = 0
      <?php } ?>
- pay_da = $("#pay_da").val();
- 
+
+
+
+        <?php if($dataval[0]['pay_cate_ca'] == 1){ ?>
+  pay_ca = $("#pay_ca").val();
+ <?php }else{ ?>
+     var  pay_ca = 0
+     <?php } ?>
+          <?php if($dataval[0]['pay_cate_da'] == 1){ ?>
+  pay_da = $("#pay_da").val();
+ <?php }else{ ?>
+     var  pay_da = 0
+     <?php } ?>
+     <?php if($dataval[0]['pay_cate_hra'] == 1){ ?>
   pay_hra = $("#pay_hra").val();
+ <?php }else{ ?>
+     var  pay_hra = 0
+     <?php } ?>
+
+ 
+ 
     pay_special = $("#pay_special").val();
-   console.log("Monika ");
+ // alert(pay_sp);
     pay_didi = $("#pay_total_cut").val();
   var result = parseInt(pay_basic) + parseInt(pay_grp) + 
    parseInt(pay_others) + parseInt(pay_sp)+ 
