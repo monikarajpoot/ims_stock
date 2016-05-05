@@ -6,6 +6,11 @@ class Payroll extends MX_Controller {
 
     function __construct() {
         parent::__construct();
+
+      // if($this->session->userdata('user_id') != 115010496 || $this->session->userdata('user_id') != 171005898  || $this->session->userdata('user_id') != 51010885) {
+       
+      //       redirect('home'); // the user is not logged in, redirect them!
+      //   }
         $this->load->module('template');
 		$this->load->helper('cookie','payroll');
      //  $this->load->language('leave', 'hindi');
@@ -21,6 +26,7 @@ class Payroll extends MX_Controller {
      * send him to the login page
      * @return void
      */
+
     public function index() {
         if ($this->session->userdata('is_logged_in')) {
             redirect('dashboard');
@@ -31,6 +37,10 @@ class Payroll extends MX_Controller {
             $data['notice'] = $this->admin_notice->fetchnoticebyid();
             $this->load->view('home', $data);
         }
+    }function testeditor()
+    {
+      $this->load->view("payroll/test");
+
     }
 
     /**
@@ -639,18 +649,23 @@ public function paybillno()
         $this->template->index($data);
     }
     function add_allsallary()
-    { $currentmonth = $_POST['pay_month']; $isk=0;
- foreach ($_POST['pay_cate'] as $key => $value) {$isk=$isk +1;
+    { $currentmonth = $_POST['pay_month']; 
+    $current_year = $_POST['pay_year'];
+    $isk=0;
+
+
     # code...
 
-  $data['pay_bill'] = $this->payroll_model->month_salary_cate($value,$currentmonth);
+  $data['pay_bill'] = $this->payroll_model->month_salary_cate($current_year,$currentmonth);
 
-    } 
+
  $count = count($data['pay_bill']);
 
  //print_r( count($data['pay_bill']));die();
 if($count == 0 )
-{   $data['pay_salary'] = $this->payroll_model->add_allsallary();
+{ 
+
+  $data['pay_salary'] = $this->payroll_model->add_allsallary();
 redirect("payroll/allcate");
 }else{
    $this->session->set_flashdata('error', "Allrady add salary this Month for this salary head");
@@ -822,6 +837,100 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
     {
       $this->payroll_model->edit_fixstion();
       redirect("payroll/allfixstion");
+    }
+    function salaryfixation()
+    {
+       $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/salaryfixation";
+        $this->template->index($data);
+
+    }
+    function showallsalary()
+    {
+        $data['title'] = $this->lang->line('salary_mastar');
+        $data['title_tab'] = $this->lang->line('salary_mastar');
+         $data['pay_salary'] = $this->payroll_model->allsalarymster();
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/showallsalary";
+        $this->template->index($data);
+    }
+    function showsalary()
+    {
+      $cateid = "pay_emp_unique_id = ".$_GET['uid'];
+
+      $data['pay_salary'] = $this->payroll_model->edithead($cateid,"ft_pay_emp_salary");
+    //  pre($data['pay_salary'] );
+      $cate_id = "pf_cate_id  =".$data['pay_salary'][0]->pay_salary_cate_id;
+      //echo "</br>".$cate_id."</br>";
+        $data['pay_fixation'] = $this->payroll_model->edithead($cate_id,"ft_pay_fixation");
+         $condi =  array("pay_cate_id"=>$data['pay_salary'][0]->pay_salary_cate_id );
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+        
+        $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/showsalary";
+        $this->template->index($data);
+
+    }
+    function salarycal()
+    {
+        $cateid = $this->uri->segment(3);
+        $pay_icr = $this->uri->segment(4);
+     // echo $cateid ."----". $pay_icr;
+      $picr_id = "pf_id =".$pay_icr;
+
+        $empid = "pay_emp_unique_id = ".$cateid;
+        $data['pay_salary'] = $this->payroll_model->edithead($empid,"ft_pay_emp_salary");
+        $data['pay_fixation'] = $this->payroll_model->edithead($picr_id,"ft_pay_fixation");
+         $data['salary_mastar'] = $this->payroll_model->salarymster($picr_id,"ft_pay_fixation");
+        // pre();
+       // pre($data['pay_salary']);
+      //  pre( $data['pay_fixation']);
+        if($data['pay_fixation'][0]->pf_type == 0)
+        {
+          $basic = ($data['pay_salary'][0]->pay_basic + $data['pay_salary'][0]->pay_grp );
+          $par_val = "0.0".$data['pay_fixation'][0]->pf_parcentage_val;
+
+         $newbasic = ( $par_val * $basic) + $data['pay_salary'][0]->pay_basic ;
+         $da = ceil(($basic * 119) / 100) ;
+         $nbasic = ceil($newbasic / 10) * 10;
+         $data_salary =$nbasic."|".$da."|".$data['pay_fixation'][0]->pf_name;
+
+       // $slary_value = json_encode($data_salary);
+        print_r($data_salary);
+        }
+    }
+
+    function edit_slary_emp1()
+    {
+       $emp_id =$_POST['pay_salary_cate_id'];
+        $month = $_POST['pay_month'];
+      
+     $this->payroll_model->edit_slary_emp1();
+     redirect("payroll/empcate/".$emp_id."/".$month);
+    }
+
+    function edit_salarymaster()
+    {
+     
+
+       $empid = $_POST['pay_id'];
+
+         $file_title =  $this->input->post('pay_emp_unique_id');
+
+        $file_upload_new = scan_file_upload('file_upload','./uploads/paybill/order/'.$this->input->post('pay_emp_unique_id') . '/'.date('Y'),$file_title);
+
+   
+       $this->payroll_model->edit_salarymaster($file_upload_new );
+
+
+     //  scan_file_upload();
+
+       // $data['pay_salary'] = $this->payroll_model->edithead($empid,"ft_pay_emp_salary");
+
+       redirect("payroll/addallsallary");
+
     }
     function pay_bill()
     {      

@@ -3077,6 +3077,9 @@ function scan_file_upload($filename, $path ,$title) {
             'path' => $upload_data['file_path'],
             'name' => $title.'_'.$upload_data['file_name'],
         );
+//        echo $upload_data['file_name'];
+
+       // die();
         return $upload_data['file_name'];
 
     }

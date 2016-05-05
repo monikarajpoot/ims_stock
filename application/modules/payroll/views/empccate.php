@@ -1,3 +1,4 @@
+ <script src="<?php echo base_url(); ?>/themes/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <?php        if(count($pay_salary) != 0) { ?>
 <table border="1" style="background-color:FFFFCC;border-collapse:collapse;border:1px solid FFCC00;color:000000;width:100%" cellpadding="3" cellspacing="3">
 <thead>	<tr style="text-align:center">
@@ -96,99 +97,336 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo $this->lang->line('pay_total_cut'); ?></th>
                                    <th width="15%"><?php echo $this->lang->line('pay_amount');  ?></th>
+                                     <th width="15%"></th>
                                 </tr>
-	
+	<
 	
                                     <?php $k =0; foreach ($pay_salary as $key => $pay) { $k++; 
+                                      ?>
+   <form action="<?php echo base_url();?>payroll/edit_slary_emp1" onsubmit="onsumitsalary(<?php echo $pay->pay_id; ?>)" id="emp<?php echo $pay->pay_id;  ?>" method="post">
+                               
+                                      <?php
                                       if($pay->no_updated == 0){?>
-                                  <tr>
+                                        <tr id="<?php echo $pay->pay_id; ?>">
                                   <?php }else{ ?>
-                                  <tr style="background-color: #FF8D00;
+
+                                  <tr id="<?php echo $pay->pay_id; ?>" style="background-color: #FF8D00;
     color: #ffffff;">
                                     <?php } ?>
-                                    <th width='5%'><?php echo $k ;if(!isset($pay_bill[0]->pbill_computer_no)) {?> <a href="<?php echo base_url(); ?>payroll/edit_salary/<?php echo $pay->pay_id; ?>/<?php echo $pay->emp_unique_id;  ?>" >edit</a><?php } ?></th>
+
+                                  
+                                    <th width='5%'><?php echo $k ;if(!isset($pay_bill[0]->pbill_computer_no)) {?> <a href="#<?php echo $pay->pay_id; ?>" onclick="efitfrom(<?php echo $pay->pay_id?>)"  >edit</a><?php } ?></th>
                                     <th width='25%'><?php echo $pay->emp_unique_id;  ?></th>
                                     <th width="10%"><?php echo $pay->emp_full_name_hi; ?></th>
                                      <th width="10%"><?php echo date("M",strtotime($pay->pay_month)); ?></th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
-                            <th width='25%'><?php echo $pay->pay_basic;  ?></th>
+                            <th width='25%'>
+                               <input type="hidden" name="pay_salary_cate_id" id="pay_id" value="<?php echo $pay->pay_salary_cate_id;  ?>" class="form-control">
+        
+                                  <input type="hidden" name="pay_id" id="pay_id" value="<?php echo $pay->pay_id;?>" >
+                  <input type="hidden" name="pay_month" id="pay_month" value="<?php echo $pay->pay_month;?>" >
+               <input type="hidden" name="no_updated" id="no_updated" value="<?php echo $pay->no_updated +1; ?>" >
+               
+                              <div class="username<?php echo $pay->pay_id; ?>" id="pay_basic"><?php echo $pay->pay_basic;  ?></div>
+
+                      <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                        <input type="numbar" id="pay_basic1" name="pay_basic" value="<?php echo $pay->pay_basic;  ?>" ></div>
+
+                            </th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>
-                                    <th width="10%"><?php echo $pay->pay_grp;  ?></th>
+                                    <th width="10%"> <div class="username<?php echo $pay->pay_id; ?>" id="pay_grp"> <?php echo $pay->pay_grp;  ?></div>
+  <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+    <input type="numbar" id="pay_grp1" name="pay_grp"   value="<?php echo $pay->pay_grp;  ?>" ></div>
+
+                                    </th>
                               <?php }if($dataval[0]['pay_cate_special'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_special;   ?></th>
+                                    <th width='25%'><div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                      <?php echo $pay->pay_special;   ?></div>
+                                        <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                          <input type="numbar" name="pay_special"  id="pay_special1"value="<?php echo $pay->pay_special;  ?>" ></div>
+
+
+                                    </th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
                                    <th width="15%"><?php  echo  $pay->pay_da;  ?></th>
+
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
-                                    <th width='5%'><?php echo $pay->pay_others ?></th>
+                                    <th width='5%'><div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                      <?php echo $pay->pay_others ?></div>
+                                  <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" name="pay_others" id="pay_others1" value="<?php echo $pay->pay_others;  ?>" >
+
+                                  </div>
+                                                  </th>
+
                                               <?php }if($dataval[0]['pay_cate_sa'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_sa;  ?></th>
+                                    <th width='25%'>
+
+                                      <div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                        <?php echo $pay->pay_sa;  ?></div>
+                        <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_sa1" value="<?php echo $pay->pay_sa;  ?>" name="pay_sa"  >
+
+                                  </div>
+
+                                      </th>
                                      <?php }if($dataval[0]['pay_cate_madical'] == 1){  ?>
-                                    <th width="10%"><?php echo $pay->pay_madical; ?></th>
+                                    <th width="10%"><div class="username<?php echo $pay->pay_id; ?>"  id="pay_special">
+                                      <?php echo $pay->pay_madical; ?>
+</div>
+                        <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_madical1" value="<?php echo $pay->pay_madical;  ?>" name="pay_madical" >
+
+                                  </div>
+                                    </th>
 
                                      <?php }if($dataval[0]['pay_cate_sp'] == 1){  ?>
-                                     <th width='5%'><?php echo $pay->pay_sp; ?></th>
+                                     <th width='5%'>
+                                    <div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                      <?php echo $pay->pay_sp; ?>
+                                              </div>
+                                      <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_madical1" value="<?php echo $pay->pay_sp;  ?>" name="pay_sp"  >
+
+                                  </div>
+
+                                     </th>
 
                                            <?php }if($dataval[0]['pay_cate_ca'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_ca ?></th>
+                                    <th width='25%'>
+                                    <div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                      <?php echo $pay->pay_ca ?>
+                                          </div>
+                                      <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_ca" value="<?php echo $pay->pay_ca;  ?>"  name="pay_ca"  >
+
+                                  </div>
+
+                                    </th>
                                   
                                     <?php } ?>
                             <th width='25%'><?php echo $pay->pay_total_sum; ?></th>
                              <?php if($dataval[0]['pay_cate_gpf'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_gpf; ?></th>
+                             <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                    <th width='25%'>
+                          <div class="username<?php echo $pay->pay_id; ?>" id="pay_special" >
+                                      <?php echo $pay->pay_gpf; ?>
+                                     </div>
+                                      <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_gpf" value="<?php echo $pay->pay_gpf;  ?>"   name="pay_gpf" >
+
+                                  </div>
+
+
+                                    </th>
                                     <?php }if($dataval[0]['pay_cate_gpf_adv'] == 1){  ?>
-                                   <th width="15%"><?php echo  $pay->pay_gpf_adv; ?> </th>
+
+                                   <th width="15%">
+                                <div class="username<?php echo $pay->pay_id; ?>" id="pay_special" > 
+
+                                    <?php echo  $pay->pay_gpf_adv; ?> </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_gpf_adv" value="<?php echo $pay->pay_gpf_adv;  ?>" name="pay_gpf_adv"  >
+
+                                  </div>
+                                  </th>
                                    <?php }if($dataval[0]['pay_cate_dpf'] == 1){  ?>
-                                    <th width='5%'><?php echo   $pay->pay_dpf ?></th>
+                                   <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                    <th width='5%'><?php echo   $pay->pay_dpf ?>
+
+                                         </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_dpf_adv" value="<?php echo $pay->pay_dpf;  ?>" name="pay_dpf"  >
+
+                                  </div>
+
+                                    </th>
 
                                      <?php }if($dataval[0]['pay_cate_dpf_adv'] == 1){  ?>
-                                    <th width='25%'><?php echo   $pay->pay_dpf_adv ?></th>
+                                    <th width='25%'>
+                                       <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo   $pay->pay_dpf_adv ?>
+                                    </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_dpf_adv" value="<?php echo $pay->pay_dpf_adv;  ?>"  name="pay_dpf_adv" >
+
+                                  </div>
+                                    </th>
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
-                                    <th width="10%"><?php echo $pay->pay_gias ?> </th>
+
+                                    <th width="10%">
+                                      <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_gias ?> 
+                                           </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_gias" value="<?php echo $pay->pay_gias;  ?>" name="pay_gias"  >
+
+                                  </div>
+
+                                    </th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $pay->pay_defined_contribution ?></th>
+                                    <th width='25%'>
+                                  
+                                  <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_defined_contribution ?>
+                                            </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_define" value="<?php echo $pay->pay_defined_contribution;  ?>" name="pay_define"  >
+
+                                  </div>
+
+                                      </th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
-                            <th width='25%'><?php echo $pay->pay_house_loan ?></th>
+                            <th width='25%'>
+                          <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                              <?php echo $pay->pay_house_loan ?>
+                                </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_house_loan" value="<?php echo $pay->pay_house_loan;  ?>" name="pay_house_loan"  >
+
+                                  </div>
+
+                            </th>
 
                             <?php }if($dataval[0]['pay_cate_car_loan'] == 1){  ?>
 
 
-                                    <th width='25%'><?php echo $pay->pay_car_loan ?></th>
+                                    <th width='25%'>
+                                    <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_car_loan ?>
+                                    </div>
+                                   <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_car_loan" value="<?php echo $pay->pay_car_loan;  ?>"  name="pay_car_loan"  >
+
+                                  </div>
+
+
+                                    </th>
 
                                         <?php }if($dataval[0]['pay_cate_house_rent'] == 1){  ?>
-                                <th width='25%'><?php echo $pay->pay_house_rent ?></th>
+                                <th width='25%'>
+                                  <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                  <?php echo $pay->pay_house_rent ?></div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_house_rent" value="<?php echo $pay->pay_house_rent;  ?>"  name="pay_house_rent" >
+
+                                  </div>
+
+                                </th>
 
                              <?php }if($dataval[0]['pay_cate_garain_adv'] == 1){  ?>
                                 
-                                     <th width='25%'><?php echo $pay->pay_grain_adv ?></th>
+                                     <th width='25%'>
+                                        <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+
+                                      <?php echo $pay->pay_grain_adv ?>
+
+                                      </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_grain_adv" value="<?php echo $pay->pay_grain_adv;  ?>"  name="pay_grain_adv" >
+
+                                  </div>
+                                     </th>
                                 
                                 
                                      <?php }if($dataval[0]['pay_cate_fuel_charge'] == 1){  ?>
 
-                                   <th width="15%"><?php echo $pay->pay_fuel_charge; ?></th>
+                                   <th width="15%">
+
+                                      <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                    <?php echo $pay->pay_fuel_charge; ?>
+                                    </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_grain_adv" value="<?php echo $pay->pay_fuel_charge;  ?>" name="pay_fuel_charge"  >
+
+                                  </div>
+
+                                  </th>
 
                                          <?php }if($dataval[0]['pay_cate_festival_adv'] == 1){  ?>
 
-                            <th width='25%'><?php echo $pay->pay_festival_adv; ?></th>
+                            <th width='25%'>
+                              <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                              <?php echo $pay->pay_festival_adv; ?>
+                                </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_festival_adv" value="<?php echo $pay->pay_festival_adv;  ?>"  name="pay_festival_adv" >
+
+                                  </div>
+
+                            </th>
 
 
                                       <?php }if($dataval[0]['pay_cate_professional_tax'] == 1){  ?>
 
-                                    <th width='5%'><?php echo $pay->pay_professional_tax; ?></th>
+                                    <th width='5%'>
+                                       <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_professional_tax; ?>
+                                      </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_professional_tax" value="<?php echo $pay->pay_professional_tax;  ?>"  name="pay_professional_tax"  >
+
+                                  </div>
+
+                                    </th>
 
                                       <?php }if($dataval[0]['pay_cate_income_tax'] == 1){  ?>
 
-                                <th width="10%"><?php echo $pay->pay_income_tax ?></th>
+                                <th width="10%">
+                                   <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                  <?php echo $pay->pay_income_tax ?>
+ </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_income_tax" value="<?php echo $pay->pay_income_tax;  ?>"  name="pay_income_tax" >
+
+                                  </div>
+                                </th>
 
                             
                                   <?php }if($dataval[0]['pay_cate_other_adv'] == 1){  ?>
 
-                                    <th width='25%'><?php echo $pay->pay_other_adv ?></th>
+                                    <th width='25%'>
+                                    <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_other_adv ?>
+                                      </div>
+                                    <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" id="pay_other_adv" value="<?php echo $pay->pay_other_adv;  ?>"  name="pay_other_advs" >
+
+                                  </div>
+
+                                    </th>
 
                                     <?php } ?>
                                    <th width="15%"><?php echo $pay->pay_total_cut; ?></th>
-                                   <th width="15%"><?php echo $pay->pay_total; ?></th>
+                                 
+                                     <th width="15%"><?php echo $pay->pay_total; ?>    
+                                   </th>
+ <th width="15%">                         <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+
+    <input type="test" id="pay_other_adv" value=" "  name="remark" >
+<button class="btn btn-primary" type="submit" name="savenotice" id="savenotice"  value="1">
+  <?php echo $this->lang->line('submit_botton'); ?></button>
+  
+                                  </div>   
+                                   </th>
+
                                 </tr>
+                              </form>
 	<?php }  ?>
 
 
@@ -280,6 +518,9 @@
                                     <?php } ?>
                                    <th width="15%"><?php echo sumcolumn("pay_total_cut" ,$this->uri->segment("3"),$this->uri->segment("4"))['val'] ?></th>
                                    <th width="15%"><?php echo sumcolumn("pay_total" ,$this->uri->segment("3"),$this->uri->segment("4"))['val']  ?></th>
+                              <th width="15%"></th>
+                             
+
                                 </tr>
 </table>
 
@@ -307,5 +548,26 @@
         display: none !important;
     }
 }
+input{    width: 54px;}
+</style><script type="text/javascript">
+function efitfrom(id)
+{
 
-</style>
+  $(".username1"+id).show();
+  $(".username"+id).hide();
+}
+function onsumitsalary(id)
+{
+   var r = confirm("कृपया सुनिश्चित करें कि , डेटा सही है की नहीं");
+    if (r == true) {
+        document.getElementById("emp"+id).submit();
+
+
+    } else {
+        txt = "You pressed Cancel!";
+    }
+  alert(txt);
+
+}
+
+</script>

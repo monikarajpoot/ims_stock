@@ -49,8 +49,8 @@
                         <table  class="table table-bordered table-striped display dataTable no-footer ">
                             <thead>
                                 <tr>
-                                    <th width='5%'>फिक्सशन  नाम</th>
-                                    <th width="5%">फिक्सशन  विवरण </th>
+                                    <th width='5%'>फिक्सेशन  नाम</th>
+                                    <th width="5%">फिक्सेशन  विवरण </th>
                                     <th width='5%'>फिक्सेशन सैलरी  हेड </th>
                                      <th width='5%'>फिक्सेशन अमाउंट टाइप  </th>
                                       <th width='5%'>पर्सेंटेज इंक्रेमनेंट  अमाउंट </th>

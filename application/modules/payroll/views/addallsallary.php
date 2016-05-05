@@ -51,10 +51,10 @@
            
     <form action="<?php echo base_url();?>payroll/add_allsallary" method="post">
 
-                           <div class="form-group col-xs-2">
+                           <div class="form-group col-xs-6">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
-                  <select name="pay_month" name="pay_month" onchage="changemonth()" class="form-control">
+                  <select name="pay_month" name="pay_month" required onchage="changemonth()" class="form-control">
                                 <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
                                 <?php for ($m=1; $m<=12; $m++) {
      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
@@ -67,15 +67,22 @@
                 <?php echo form_error('category_title_hin');?>
               </div>
               
-                 	<?php foreach($pay_salary  as $sal_Cate){?>
-               <div class="col-xs-2">
-                 <div class="checkbox">
-                <label><input type="checkbox" name="pay_cate[]"  value="<?php echo $sal_Cate->pay_cate_id; ?>"> <?php echo $sal_Cate->pay_cate_name; ?></label>
-              </div>
+              
+               <div class=" form-group col-xs-6">
+              <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_year'); ?><span class="text-danger">*</span></label>
+             
+                <select name="pay_year" required class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_year'); ?></option>
+                                <?php for ($y=2016; $y<=2100; $y++) {
+   
+     ?>
+                                    <option value="<?php echo $y ?>"  ><?php echo $y ?></option>
+                                <?php } ?>
+                            </select>   </div>
 
 
     </div>
-    <?php }?>
+   
       <div class="box-footer">
           <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice"  value="1"><?php echo $this->lang->line('submit_botton'); ?></button>
         </div>
