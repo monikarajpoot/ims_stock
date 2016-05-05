@@ -9,7 +9,7 @@
     </div></td>
   </tr>
   <tr height="28">
-    <td colspan="27" height="28"><div align="center"><strong>Salary Slip for the  month of <?php echo $pay->pay_month ." of ". $pay->pay_year  ;?> </strong></div></td>
+    <td colspan="27" height="28"><div align="center"><strong>Salary Slip for the  month of <?php echo $pay->pay_month .",". $pay->pay_year  ;?> </strong></div></td>
   </tr>
     <tr height="60" style="
     font-size: 18px;
@@ -19,17 +19,17 @@
     <td height="60" colspan="8">Post of employee :<?php echo getemployeeRole($pay->designation_id);?> </td>
     <td colspan="12">Unique code of employee :<?php echo $_POST['uid'];?> </td>
   </tr>
-  <tr height="60">
-    <td height="60" width="64"><strong>Gross Amonut</strong></td>
+  <tr height="60" style="font-size: 14px;">>
+    <td height="60" width="64"><strong>Gross Amount</strong></td>
     <td width="64"><strong>Net Amount</strong></td>
     <td width="64"><strong>Computer Bill</strong></td>
-    <td width="64"><strong>Office bill</strong></td>
+    <td width="64"><strong>Office Bill</strong></td>
     <td width="64"><strong>Voucher No.</strong></td>
     <td width="64"><strong>Voucher  Date</strong></td>
-    <td width="64"><strong>SGS/ DPF Number.</strong></td>
-    <td width="64"><strong>Pan Number.</strong></td>
+    <td width="64"><strong>SGS / DPF Number.</strong></td>
+    <td width="64"><strong>PAN Number</strong></td>
     <td width="64"><strong>Aadhaar card Number</strong></td>
-    <td width="64"><strong>Govt Quarter Number.</strong></td>
+    <td width="64"><strong>Govt Quarter Number</strong></td>
     <td width="64">&nbsp;</td>
     <td width="64">&nbsp;</td>
     <td width="64">&nbsp;</td>
@@ -48,7 +48,7 @@
     <td width="64">&nbsp;</td>
   
   </tr>
-  <tr height="30" style="font-size: 23px; font-weight: bold;padding: 8px;">
+  <tr height="30" style="font-size: 14px; font-weight: bold;">
     <td height="20"><?php echo  @$pay_bill[0]->pbill_gross_amount  ; ?></td>
     <td><?php echo  @$pay_bill[0]->pbill_net_amont  ; ?></td>
     <td><?php echo @$pay_bill[0]->pbill_computer_no; ?></td>
@@ -76,14 +76,14 @@
  <td>&nbsp;</td>
   </tr>
   <tr height="30">
-    <td colspan="10" height="20" align="center"><strong>Detail of pay</strong></td>
+    <td colspan="10" height="20" align="center"><strong>Details of pay</strong></td>
     <td colspan="14" align="center"><strong>Deduction Amount</strong></td>
  
   </tr>
-  <tr height="60">
+  <tr height="60"  style="font-size: 14px;">
         
 							<th width='25%'><?php echo $this->lang->line('basic_pay'); ?></th>
-                           
+                    <th width='25%'><?php echo $this->lang->line('pay_gradepay'); ?></th>         
                                     <th width='25%'><?php echo $this->lang->line('pay_special'); ?></th>
                                   
                                    <th width="15%"><?php echo $this->lang->line('pay_da'); ?></th>
@@ -98,7 +98,7 @@
                                        
                                     <th width='25%'><?php echo $this->lang->line('pay_ca')  ?></th>
                                      
-                                    <th width="10%"><?php echo $this->lang->line('pay_gradepay'); ?></th>
+                             
                                     
 							<th width='25%'><?php echo $this->lang->line('pay_sum'); ?></th>
 						
@@ -121,7 +121,7 @@
                                 <th width='25%'><?php echo $this->lang->line('pay_house_rent'); ?></th>
                             
                                 
-                                    <th width='25%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
+                                    
                                 
 
 
@@ -132,15 +132,15 @@
 
                                   
 
-                                    <th width='5%'><?php echo $this->lang->line('pay_professional_tax')  ?></th>
+                              
+
+                                  <th width='25%'><?php echo $this->lang->line('pay_grain_adv'); ?></th>
+							<th width='25%'><?php echo $this->lang->line('pay_festival_adv'); ?></th>
+
+                                        <th width='5%'><?php echo $this->lang->line('pay_professional_tax')  ?></th>
 
                                    
                                 <th width="10%"><?php echo $this->lang->line('pay_income_tax'); ?></th>
-
-                                  
-							<th width='25%'><?php echo $this->lang->line('pay_festival_adv'); ?></th>
-
-                                  
 
                                     <th width='25%'><?php echo $this->lang->line('pay_other_adv'); ?></th>
 
@@ -150,7 +150,7 @@
   </tr>
 
 
-                                 <tr height="30" style="font-size: 23px; font-weight: bold;padding: 8px;">
+                                  <tr height="30" style="font-size: 14px; font-weight: bold;">
                                   
                                                            
                             <th width='25%'><?php echo $pay->pay_basic;  ?></th>
@@ -177,18 +177,18 @@
                                  
                             <th width='25%'><?php echo $pay->pay_house_loan ?></th>
 
+     <th width='25%'><?php echo $pay->pay_house_rent ?></th>
+ 
+                                  <th width='25%'><?php echo $pay->pay_car_loan ?></th>
 
-
-                                    <th width='25%'><?php echo $pay->pay_car_loan ?></th>
-
-                                <th width='25%'><?php echo $pay->pay_house_rent ?></th>
+                           
 
                                 
-                                     <th width='25%'><?php echo $pay->pay_grain_adv ?></th>
+                                    
                                 
 
                                    <th width="15%"><?php echo $pay->pay_fuel_charge; ?></th>
-
+                                    <th width='25%'><?php echo $pay->pay_grain_adv ?></th> 
                             <th width='25%'><?php echo $pay->pay_festival_adv; ?></th>
 
                                     <th width='5%'><?php echo $pay->pay_professional_tax; ?></th>

@@ -15,12 +15,21 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
-                <div class="box-header">
-                    <h1 ><?php// echo ;    ?></h1>
-                </div>
+                
                 <div class="box-body">
-                    <?php //$this->load->view('payroll_header') ?>
-                </div>
+                       
+ <?php  $in = 0;  foreach ($emp_details as $key => $pay) { $in = $in +1 ; if($in == 1){
+  ?> 
+        <div class="col-xs-12">
+          <div class="col-xs-6">
+           <h3> Neme : <?php echo $pay->emp_full_name_hi; ?><h3/>
+          </div>    <div class="col-xs-6">
+            <h3>Unique code :<?php echo  $pay->emp_unique_id;?></h3>
+            </div>   </div>
+        
+
+         
+<?php }} ?>                 </div>
             </div>
         </div>
     </div>
@@ -91,7 +100,7 @@
  <div class="col-lg-12" id="orderdetails"> 
 <div class="form-group">
     <input id="uploadImage1" type="file" name="file_upload" onchange="PreviewImage(1);" style="float: left" required/>
-  नस्ती / पत्र  का अपलोड साइज़ : 10 MB
+  आदेश का अपलोड साइज़ : 10 MB
     <input type="button" id="reset_pdf" value="Remove doc" style="float: right"/>
     <span id="dis_file_size"></span>
 </div>

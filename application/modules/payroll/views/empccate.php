@@ -5,11 +5,68 @@
 		<td colspan="32"><h1>मध्यप्रदेश शासन विधि एवं विधायी कार्य विभाग</h1></td>
 		
 		</tr>
-	<?php $emp_id = $this->uri->segment("3"); ?>
-	<tr style="text-align:center">
-		<td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का <?php echo $dataval[0]['pay_cate_name'];?> अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
-	
-		</tr>
+	<?php $emp_id = $this->uri->segment("3"); if($emp_id == 1){ ?>
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का न्यायिक सेवा  अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+    <?php }elseif($emp_id == 4){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का चतुर्थ श्रेणी कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+        <?php }elseif($emp_id == 2){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+   <?php }elseif($emp_id == 3){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , दुितीय एवं तृतीय आधि. /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+<?php }elseif($emp_id == 7 ){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: 29-2014 न्याय  प्रशासन 3428 चतुर्थ श्रेणी कर्मचारियों का माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+<?php }elseif($emp_id == 6 ){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: श्री दिनेश कुमार कुमरे  का वेतन 29-2014 से आहरण अंशदायी होने के कारन पृथक से बनाया जा रहा है | वेतन माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+<?php }elseif($emp_id == 5 ){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माँग संख्या 29-2014 न्याय प्रशासन 114-3482 महाधिवक्ता कायार्लय  वेतन देयक तृतीय श्रेणी कर्मचारी का 
+   माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+    <?php }elseif($emp_id == 8 ){ ?>
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+  
+    </tr>
+
+    <?php }?>
+    
 
 
 		
@@ -110,12 +167,11 @@
                                         <tr id="<?php echo $pay->pay_id; ?>">
                                   <?php }else{ ?>
 
-                                  <tr id="<?php echo $pay->pay_id; ?>" style="background-color: #FF8D00;
-    color: #ffffff;">
+                                  <tr id="<?php echo $pay->pay_id; ?>" class="printdrak" style="background-color: #FF9800;color: #000;">
                                     <?php } ?>
 
                                   
-                                    <th width='5%'><?php echo $k ;if(!isset($pay_bill[0]->pbill_computer_no)) {?> <a href="#<?php echo $pay->pay_id; ?>" onclick="efitfrom(<?php echo $pay->pay_id?>)"  >edit</a><?php } ?></th>
+                                    <th width='5%'><?php echo $k ;if(!isset($pay_bill[0]->pbill_computer_no)) {?> <a class="no-print" href="#<?php echo $pay->pay_id; ?>" onclick="efitfrom(<?php echo $pay->pay_id?>)"  >edit</a><?php } ?></th>
                                     <th width='25%'><?php echo $pay->emp_unique_id;  ?></th>
                                     <th width="10%"><?php echo $pay->emp_full_name_hi; ?></th>
                                      <th width="10%"><?php echo date("M",strtotime($pay->pay_month)); ?></th>
@@ -416,7 +472,10 @@
                                  
                                      <th width="15%"><?php echo $pay->pay_total; ?>    
                                    </th>
- <th width="15%">                         <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+ <th width="15%">                            <div class="username<?php echo $pay->pay_id; ?>" id="pay_special"> 
+
+                                      <?php echo $pay->pay_remark ?>
+                                      </div> <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
 
     <input type="test" id="pay_other_adv" value=" "  name="remark" >
 <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice"  value="1">
@@ -431,9 +490,9 @@
 
 
                                   <tr style="
-    background-color: green;
+    background-color: #8BC34A;
     font-size: 16px;
-    font-weight: bold;    color: #ffffff;">
+    font-weight: bold;    color: #000;">
 
                                   
                                     <th width='5%'></th>
@@ -547,6 +606,11 @@
     {
         display: none !important;
     }
+    .printdrak {
+      background-color: #000000;
+    }
+
+
 }
 input{    width: 54px;}
 </style><script type="text/javascript">

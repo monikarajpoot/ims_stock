@@ -67,7 +67,7 @@
                <?php $currentmonth = date('F'); ?>
                   <select name="pay_year" name="pay_year" class="form-control">
                                 <option value=""><?php echo $this->lang->line('emp_pay_year'); ?></option>
-                                <?php for ($m=2016; $m >= 2001; $m--) {
+                                <?php for ($m=2016; $m >= 2014; $m--) {
    
      
      ?>

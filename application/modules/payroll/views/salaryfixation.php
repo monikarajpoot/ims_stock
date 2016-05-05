@@ -5,7 +5,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><?php echo $title; ?></li>
+        <li class="active"><?php echo "वेतन निर्धारण" ?></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -20,7 +20,7 @@
                 <div class="box-header">
                   <!--  <h3>यह आपकी पर्सनल जानकारी है अगर इसमे किसी प्रकार की त्रुटी दिखाई दे तो हमें अवश्य सूचित करे|</h3> -->
                 </div>
-           <div class="container"><h2><?php echo $title;?></h2>
+           <div class="container"><h2><?php echo "वेतन निर्धारण";?></h2>
   
 <div class="row">
         <div class="col-xs-12">

@@ -669,7 +669,7 @@ if($count == 0 )
   $data['pay_salary'] = $this->payroll_model->add_allsallary();
 redirect("payroll/allcate");
 }else{
-   $this->session->set_flashdata('error', "Allrady add salary this Month for this salary head");
+   $this->session->set_flashdata('error', "salary for this month under this salary already added ");
                     redirect("payroll/addallsallary/");
 }
    
@@ -865,6 +865,8 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
     //  pre($data['pay_salary'] );
       $cate_id = "pf_cate_id  =".$data['pay_salary'][0]->pay_salary_cate_id;
       //echo "</br>".$cate_id."</br>";
+
+          $data['emp_details'] = $this->payroll_model->getemp($_GET['uid']);
         $data['pay_fixation'] = $this->payroll_model->edithead($cate_id,"ft_pay_fixation");
          $condi =  array("pay_cate_id"=>$data['pay_salary'][0]->pay_salary_cate_id );
       $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
