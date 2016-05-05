@@ -220,7 +220,19 @@ return true;
         return $rows = $query->result();
 
   }
+  public function getempgpf($id = "")
+  {
+      $this->db->select('*');
+          $this->db->from('ft_emp_service_record');
+      if($id != ""){
+       $this->db->where("emp_uid",$id);
+      }
+     $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
 
+  }
 public function house_type($id = "")
   {
       $this->db->select('*');
@@ -262,6 +274,8 @@ public function house_type($id = "")
                'emp_house_type' =>  $_POST['emp_house_type'],
                'emp_pen_no' =>$_POST['emp_pen_no'],
                'emp_adhar_card_no' => $_POST['emp_adhar_card_no'],
+               'emp_gpf_dpf_code' => $_POST['gpf_dpf_code'],
+
             );
 
 $this->db->where('emp_unique_id', $id);

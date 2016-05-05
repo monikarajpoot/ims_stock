@@ -644,3 +644,59 @@ ERROR - 2016-05-05 13:55:10 --> Severity: Notice  --> Undefined offset: 0 C:\xam
 ERROR - 2016-05-05 13:55:10 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
 ERROR - 2016-05-05 13:55:10 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
 ERROR - 2016-05-05 13:55:10 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 14:26:34 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:26:39 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:15 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:27:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\empccate.php 10
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 14:28:02 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 14:34:08 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 14:34:48 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:36:05 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:36:57 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:44:29 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:44:54 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:45:29 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:46:35 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:46:35 --> Severity: Notice  --> Undefined property: stdClass::$emp_gpf_dpf_code C:\xampp\htdocs\ims_stock\application\modules\payroll\views\add_employee_details.php 90
+ERROR - 2016-05-05 14:46:50 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:47:18 --> Could not find the language line "bulk_action"
+ERROR - 2016-05-05 14:50:38 --> Could not find the language line "bulk_action"

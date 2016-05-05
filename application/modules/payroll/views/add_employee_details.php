@@ -83,9 +83,16 @@
 
                <div class="form-group "><label for="email"><?php echo "पेन कार्ड नंबर "  ?>:</label>
                 <label><input type="text" name="emp_pen_no" value="<?php $emp->emp_pen_no?>"></label>
+
+              </div>
+
+               <div class="form-group "><label for="email"><?php echo "जी पी फ & डी पी फ कोड "  ?>:</label>
+                <label><input type="text" name="gpf_dpf_code" value="<?php $emp->emp_gpf_dpf_code?>"></label>
+                
               </div>
 <?php }?>
              
+
 
 
 

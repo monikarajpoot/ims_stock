@@ -540,6 +540,7 @@ $data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
            $data['title'] = $this->lang->line('view_all_employee');
         $data['title_tab'] = $this->lang->line('view_all_employee');
         $data['details_leave'] = $this->payroll_model->getempdetails( $emp_id );
+        $data['gpf'] = $this->payroll_model->getempgpf( $emp_id );
 $data['house_type'] = $this->payroll_model->house_type();
         $data['module_name'] = "payroll";
         $data['view_file'] = "add_employee_details";

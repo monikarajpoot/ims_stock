@@ -49,8 +49,8 @@
   
   </tr>
   <tr height="30" style="font-size: 23px; font-weight: bold;padding: 8px;">
-    <td height="20"><?php echo $pay->pay_total_sum?></td>
-    <td><?php echo $pay->pay_total?></td>
+    <td height="20"><?php echo  @$pay_bill[0]->pbill_gross_amount  ; ?></td>
+    <td><?php echo  @$pay_bill[0]->pbill_net_amont  ; ?></td>
     <td><?php echo @$pay_bill[0]->pbill_computer_no; ?></td>
     <td><?php echo @$pay_bill[0]->pbill_office_no; ?> </td>
     <td><?php echo @$pay_bill[0]->pbill_vocher_no; ?></td>

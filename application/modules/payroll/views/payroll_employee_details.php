@@ -34,6 +34,7 @@
                                     <th width="15%"><?php echo "हाउस टाइप "  ?></th>
                                      <th width="15%"><?php echo $this->lang->line('pay_arrdhar_card'); ?></th>
                                    <th width="10%"><?php echo "पेन कार्ड नंबर " ?></th>
+                                    <th width="10%"><?php echo "जी पी फ & डी पी फ कोड " ?></th>
                                 <th width="10%"><?php echo $this->lang->line('view'); ?></th>
                             </tr>
                         </thead>
@@ -54,6 +55,7 @@
                                     <td><?php echo $leave->emp_house_type; ?></td>
                                     <td><?php echo $leave->emp_adhar_card_no; ?></td>
                                     <td><?php echo  $leave->emp_pen_no;?></td>
+                                    <td><?php echo  $leave->emp_gpf_dpf_code;?></td>
                                     <td><a href="<?php echo base_url(); ?>payroll/adddetails/<?php echo $leave->emp_unique_id ?>"><?php echo $this->lang->line('view'); ?></a>
 								</td>
                                 </tr>
