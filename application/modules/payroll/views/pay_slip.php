@@ -15,9 +15,9 @@
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-">
-    <td height="60" colspan="8">Name of employee :<?php echo $pay->emp_full_name?> </td>
-    <td colspan="18">Unique code of employee :<?php echo $_POST['uid'];?> </td>
+"> <td height="60" colspan="8">Name of employee :<?php echo $pay->emp_full_name?> </td>
+    <td height="60" colspan="8">Post of employee :<?php echo getemployeeRole($pay->designation_id);?> </td>
+    <td colspan="12">Unique code of employee :<?php echo $_POST['uid'];?> </td>
   </tr>
   <tr height="60">
     <td height="60" width="64"><strong>Gross Amonut</strong></td>
@@ -76,7 +76,7 @@
  <td>&nbsp;</td>
   </tr>
   <tr height="20">
-    <td colspan="8" height="20"><div align="center"><strong>Detail of pay</strong></div></td>
+    <td colspan="10" height="20"><div align="center"><strong>Detail of pay</strong></div></td>
     <td colspan="14"><div align="center"><strong>Deduction Amount</strong></div></td>
  
   </tr>
