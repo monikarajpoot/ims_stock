@@ -1,5 +1,5 @@
 <?php //pre($payslip);?>
-<table border="1" cellpadding="0" cellspacing="0" bordercolor="#000000">
+<table border="1" cellpadding="0" cellspacing="0" bordercolor="#666">
 <?php foreach ($payslip as $key => $pay) {
   //pre($pay_bill);
 	# code...?>
@@ -55,7 +55,7 @@
     <td><?php echo @$pay_bill[0]->pbill_office_no; ?> </td>
     <td><?php echo @$pay_bill[0]->pbill_vocher_no; ?></td>
     <td> <?php echo @$pay_bill[0]->pbill_vocher_date;?></td>
-    <td>------</td>
+    <td><?php echo $pay->emp_gpf_dpf_code?></td>
     <td><?php echo $pay->emp_pen_no?></td>
     <td><?php echo $pay->emp_adhar_card_no?></td>
     <td><?php echo $pay->emp_house_no?></td>
@@ -75,9 +75,9 @@
     <td>&nbsp;</td>
  <td>&nbsp;</td>
   </tr>
-  <tr height="20">
-    <td colspan="10" height="20"><div align="center"><strong>Detail of pay</strong></div></td>
-    <td colspan="14"><div align="center"><strong>Deduction Amount</strong></div></td>
+  <tr height="30">
+    <td colspan="10" height="20" align="center"><strong>Detail of pay</strong></td>
+    <td colspan="14" align="center"><strong>Deduction Amount</strong></td>
  
   </tr>
   <tr height="60">

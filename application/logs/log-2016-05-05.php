@@ -806,3 +806,82 @@ ERROR - 2016-05-05 15:13:42 --> Severity: Notice  --> Undefined offset: 0 C:\xam
 ERROR - 2016-05-05 15:13:42 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
 ERROR - 2016-05-05 15:13:42 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
 ERROR - 2016-05-05 15:13:42 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:16:55 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:17:30 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:17:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined index: pay_month C:\xampp\htdocs\ims_stock\application\modules\payroll\controllers\Payroll.php 565
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined index: uid C:\xampp\htdocs\ims_stock\application\modules\payroll\controllers\Payroll.php 567
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined index: pay_year C:\xampp\htdocs\ims_stock\application\modules\payroll\models\payroll_model.php 256
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined index: uid C:\xampp\htdocs\ims_stock\application\modules\payroll\models\payroll_model.php 257
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined index: pay_month C:\xampp\htdocs\ims_stock\application\modules\payroll\models\payroll_model.php 258
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined variable: pay_cate_id C:\xampp\htdocs\ims_stock\application\modules\payroll\controllers\Payroll.php 575
+ERROR - 2016-05-05 15:18:48 --> Severity: Notice  --> Undefined variable: pay_cate_id C:\xampp\htdocs\ims_stock\application\modules\payroll\controllers\Payroll.php 577
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:18:52 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:19:40 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 52
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 53
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 56
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
+ERROR - 2016-05-05 15:20:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 57
