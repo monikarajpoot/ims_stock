@@ -47,7 +47,7 @@
                 <?php echo form_error('category_title_hin');?>
               </div>
 
-               <div class="col-xs-3" id="dis1" >
+               <div class="col-xs-6" id="dis1" >
                                   <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
@@ -60,12 +60,20 @@
                                     <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
                                 <?php } ?>
                             </select> 
+ <select name="pay_year" name="pay_year" class="form-control">
+                                <option value=""><?php echo " एरीयर्स साल "; ?></option>
+                                <?php for ($my=2011; $my<=date("Y"); $my++) {
+   
+     ?>
+                                    <option value="<?php echo $my ?>"  ><?php echo $my ?></option>
+                                <?php } ?>
+                            </select> 
 
                 <?php echo form_error('category_title_hin');?>
               </div>
                             </div>
                             <div id="dis2" >
-                                <div class="col-xs-3">
+                                <div class="col-xs-6">
                                        <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
@@ -76,6 +84,14 @@
      
      ?>
                                     <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+							 <select name="pay_year_end" name="pay_year_end" class="form-control">
+                                <option value=""><?php echo " एरीयर्स साल "; ?></option>
+                                <?php for ($my=2011; $my<=date("Y"); $my++) {
+   
+     ?>
+                                    <option value="<?php echo $my ?>"  ><?php echo $my ?></option>
                                 <?php } ?>
                             </select> 
 

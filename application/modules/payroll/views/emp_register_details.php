@@ -142,7 +142,7 @@
                                     
                                    <th ><?php if($pay->pay_arriyas == 1 ){ echo "एरीयर्स" ;}else{ echo "वेतन" ;} ?></th>
 								   
-                                     <th ><?php if($pay->pay_arriyas == 1 ){ echo $pay->pay_start_month ." - ".$pay->pay_end_month;  }else{ echo $pay->pay_month; } ?></th>
+                                     <th ><?php if($pay->pay_arriyas == 1 ){ echo $pay->pay_start_month ." - ".$pay->pay_end_month."<br/>(".$pay->pay_arriyas_year.")";  }else{ echo $pay->pay_month; } ?></th>
                                         <?php if($dataval[0]['pay_cate_basic'] == 1){  ?>
                             <th ><?php echo $pay->pay_basic;  ?></th>
                                  <?php }if($dataval[0]['pay_cate_grp'] == 1){  ?>

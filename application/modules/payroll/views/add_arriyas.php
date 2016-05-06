@@ -43,6 +43,7 @@
                  <input type="hidden" name="emp_unique_id" id="emp_unique_id" value="<?php echo $emp_details[0]->emp_unique_id;  ?>" class="form-control">
                <input type="hidden" name="arriyas_start_month" id="arriyas_start_month"  value="<?php echo $_POST['pay_month'];  ?>" class="form-control">
                  <input type="hidden" name="arriyas_end_month" id="arriyas_end_month"  value="<?php echo $_POST['pay_month_end']; ?>" class="form-control">
+                <input type="hidden" name="arriyas_year" id="arriyas_end_month"  value="<?php echo $_POST['pay_year']."-".$_POST['pay_year_end']; ?>" class="form-control">
                
             </div>
    <?php }if($dataval[0]['pay_cate_special'] == 1){ ?>

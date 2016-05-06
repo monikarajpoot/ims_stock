@@ -469,6 +469,7 @@ function add_arriyas()
         'pay_year' =>$year,
         'pay_end_month' => $_POST['arriyas_end_month'],
         'pay_start_month' =>  $_POST['arriyas_start_month'],
+		'pay_arriyas_year' =>  $_POST['arriyas_year'],
         'pay_grp' =>  $pay_gradepay,
         'pay_ca' => $pay_ca,
         'pay_da' => $pay_da,

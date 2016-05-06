@@ -494,3 +494,52 @@ ERROR - 2016-05-06 11:43:31 --> Severity: Notice  --> Undefined offset: 0 C:\xam
 ERROR - 2016-05-06 11:43:31 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 54
 ERROR - 2016-05-06 11:43:31 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
 ERROR - 2016-05-06 11:43:31 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\modules\payroll\views\pay_slip.php 55
+ERROR - 2016-05-06 11:49:48 --> Could not find the language line "pay_year"
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:54:46 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:32 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Undefined offset: 0 C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
+ERROR - 2016-05-06 11:56:53 --> Severity: Notice  --> Trying to get property of non-object C:\xampp\htdocs\ims_stock\application\helpers\establishment_helper.php 261
