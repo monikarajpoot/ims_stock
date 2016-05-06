@@ -492,14 +492,15 @@ function add_allsallary()
 
  
 //  }
- $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary` ');
+ $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary`  ');
   $rowid = $query->result();
+  //where  pay_emp_unique_id = 51010886
+ // pre($rowid);
       foreach ($rowid  as $key => $pay) {
 
            $currentmonth = $_POST['pay_month']; 
               $datapay = array(
                 'pay_salary_cate_id' => $pay->pay_salary_cate_id,
-
                 'pay_month' => $currentmonth ,
                 'pay_year' =>  $_POST['pay_year'] ,
                 'pay_emp_unique_id' => $pay->pay_emp_unique_id ,
@@ -519,7 +520,7 @@ function add_allsallary()
                'pay_dpf' =>  $pay->pay_dpf ,
                 'pay_dpf_adv' =>  $pay->pay_dpf_adv,
                'pay_gpf' =>  $pay->pay_gpf ,
-               'pay_gpf' =>  $pay->pay_gpf_adv,
+               'pay_gpf_adv' =>  $pay->pay_gpf_adv,
               'pay_gias' => $pay->pay_gias ,
               'pay_defined_contribution' => $pay->pay_defined_contribution ,
               'pay_fuel_charge' => $pay->pay_fuel_charge ,
@@ -535,7 +536,10 @@ function add_allsallary()
        'pay_total' => $pay->pay_total,
         'created_by' => $this->session->userdata('user_id'),
                );
-      $this->db->insert("ft_pay_register", $datapay);
+			//   pre($datapay);
+		//	   die();
+			   
+     $this->db->insert("ft_pay_register", $datapay);
      
 
     }
