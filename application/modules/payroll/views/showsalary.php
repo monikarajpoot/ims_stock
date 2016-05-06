@@ -48,11 +48,12 @@
                <select name="pf_icr" id="pf_icr" onchange="salarycal()" required class="form-control">
 
                                 <option value=""><?php echo "वेतन फिक्सेशन प्रकार"; ?></option>
-                                <?php foreach ($pay_fixation as $key => $fix) {
-                                  # code...
-                                ?>
+                                <?php foreach ($pay_fixation as $key => $fix) { ?>
+							
                                <option   value="<?php echo $fix->pf_id; ?>"  ><?php echo $fix->pf_name ?></option>
-                               <?php } ?> </select>  </div>
+							   
+							   <?php 
+							   }?> </select>  </div>
 
               </div>
                       </div>

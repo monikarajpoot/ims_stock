@@ -37,9 +37,12 @@ class Payroll extends MX_Controller {
             $data['notice'] = $this->admin_notice->fetchnoticebyid();
             $this->load->view('home', $data);
         }
-    }function testeditor()
+    }function showbuget()
     {
-      $this->load->view("payroll/test");
+	$pay_cate_id = $this->uri->segment(3);
+	
+	    $data['dataval'] =$this->payroll_model->getcate_al($pay_cate_id);
+      $this->load->view("payroll/test" ,$data);
 
     }
 
@@ -60,86 +63,7 @@ class Payroll extends MX_Controller {
     {
       $this->load->view("uploadfrom");
     }
- function do_upload() {
-        //print_r($_FILES);//die;
-        $config = array(
-            'upload_path'   => './uploads/payroll/',
-            'allowed_types' => 'csv',
-            'max_size'      => '100',
-            'max_width'     => '1024',
-            'max_height'    => '768',
-            'encrypt_name'  => true,
-        );
-
-        $this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload()) {
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('uploadfrom', $error);
-        } else {
-            $upload_data = $this->upload->data();
-           print_r($upload_data['file_name']);
-
-            $filename = $upload_data['file_name'];
-            $filepsth = $upload_data['file_path'];
-              $handle = fopen($filepsth.$filename,"r");
-            //$content = file_get_contents($filepsth.$filename);
-           $content = fgetcsv($handle, 1000, ","); 
-          ///$content = explode(",",$content);
-           if (($handle = fopen($filepsth.$filename,"r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-       // $sql = "INSERT INTO record ( id, name, marks) VALUES ( '".mysql_escape_string($data[0])."','".mysql_escape_string($data[1])."','".mysql_escape_string($data[2])."')";
-        //$query = mysql_query($sql);
-        if($query){
-            echo "row inserted\n";
-        }
-        else{
-            echo die(mysql_error());
-        }
-    }
-    fclose($handle);
-}
-die();
-			$insertvalue = array(
-			 'pay_emp_unique_id'=> $content[1],
-                'pay_month'      => "march",
-                'pay_basic'     => $content[3],
-                'pay_special'    => $content[4],
-                'pay_da'      => $content[5],
-                'pay_hra'      => $content[7],
-                'pay_sa'      => $content[8],
-				'pay_madical' => $content[9],
-				'pay_total_sum'=> $content[10],
-				'pay_dpf'=> "",
-				'pay_dpf_adv'=>"",
-				'pay_gpf'=> $content[11],
-				'pay_gpf_adv'=> $content[12],
-				'pay_defined_contribution'=>"",
-				'pay_gias'=>$content[13],
-				'pay_house_loan'=>$content[14],
-				'pay_house_rent'=>"",
-				'pay_car_loan'=>$content[15],
-				'pay_fuel_charge'=>$content[16],
-				'pay_grain_adv'=>"",
-				'pay_festival_adv'=>"",
-				'pay_professional_tax'=>$content[17],
-				'pay_income_tax'=>$content[18],
-				'pay_other_adv'=>$content[19],
-				'pay_total_cut'=>$content[20],
-				'pay_total'=>$content[21],
-			);//pre($insertvalue);
-			 //$data['pay_regi'] = insertData($insertvalue , "ft_pay_register");
-			
-         //   die;
-     
-            //$this->load->database();
-           // $this->db->insert('upload', $data_ary);
-
-            //$data = array('upload_data' => $upload_data);
-           // $this->load->view('upload_success', $data);
-        }
-    }
-
+ 
     public function register()
     {
 
@@ -214,7 +138,7 @@ die();
         $pay_month= $_GET["pay_month"];
         
       $last_month = Date('F', strtotime($pay_month . " last month"));
-$data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
+		$data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
      $data['emp_details'] = $this->payroll_model->getemp($emp_id);
        $data['emp_emi'] = $this->payroll_model->getemp_emi($emp_id);
       foreach ($data['emp_details']as $key => $valueca) {
@@ -519,7 +443,7 @@ $data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
 
            //  insertData($datapay , "ft_pay_register");
             $this->payroll_model->update_salary($datapay);
-    redirect("Payroll/addsalary");
+    redirect("payroll/addsalary");
             }
       }
     }
@@ -549,7 +473,7 @@ $data['house_type'] = $this->payroll_model->house_type();
     public function add_deatils()
     {
       $this->payroll_model->add_deatils();
-      redirect("Payroll/pan_adhar_house");
+      redirect("payroll/pan_adhar_house");
     }
     public function payslip()
     {
@@ -626,15 +550,37 @@ public function pay_slip()
       }
 
 
-public function paybillno()
+	public function paybillno()
     {
        $data['title'] = $this->lang->line('pay_slip');
         $data['title_tab'] = $this->lang->line('pay_slip');
         $data['pay_cate'] = $this->payroll_model->salary_mastar();
+		$data['pay_emp'] = $this->payroll_model->salary_mastaremp();
         $data['module_name'] = "payroll";
         $data['view_file'] = "paybillno";
         $this->template->index($data);
-
+    }
+	
+	 function pay_bill()
+    {     
+	$data["salary_bill_cate"]= $this->payroll_model->pay_bill_all();
+	
+	if(count($data["salary_bill_cate"]) == 0)
+	{
+        $data['pay_cate'] = $this->payroll_model->pay_bill();
+		if(inputcheckvaul('pay_head') != 0)
+		{
+		 redirect("payroll/empcate/".$_POST['pay_head']."/".$_POST['pay_month']);
+		 }else{
+		 
+		  redirect("payroll/showrigtser/?uid=".$_POST['emp_uinq']);
+		 }
+	}else{
+		 $this->session->set_flashdata('error', "इस महीने के बिल संख्या पहले से ही जोड़ी जा चुकी है ");
+         redirect("payroll/paybillno/");
+	}
+		
+      
 
     }
 
@@ -902,7 +848,24 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
 
        // $slary_value = json_encode($data_salary);
         print_r($data_salary);
-        }
+        }else{
+			if($data['pay_salary'][0]->pay_basic >= 58930)
+			{
+			 $basic =$data['pay_salary'][0]->pay_basic +1280;
+			
+			}elseif($data['pay_salary'][0]->pay_basic >= 67210){
+			
+			$basic =$data['pay_salary'][0]->pay_basic +1380;
+			
+			}elseif($data['pay_salary'][0]->pay_basic >= 70290){
+			 $basic =$data['pay_salary'][0]->pay_basic +1540;
+			}
+			
+			$nbasic = ceil($basic / 10) * 10;
+			 $da = ceil(($basic * 119) / 100) ;
+			  $data_salary =$nbasic."|".$da."|".$data['pay_fixation'][0]->pf_name;
+			 print_r($data_salary);
+		}
     }
 
     function edit_slary_emp1()
@@ -935,18 +898,7 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
        redirect("payroll/addallsallary");
 
     }
-    function pay_bill()
-    {      
-        $data['pay_cate'] = $this->payroll_model->pay_bill();
-        if($data['pay_cate'] != "NO"){
-         $this->session->set_flashdata('error', "इस महीने के बिल संख्या पहले से ही जोड़ी जा चुकी है ");
-         redirect("payroll/paybillno/");
-        }else{
-
-          redirect("payroll/empcate/".$_POST['pay_head']."/".$_POST['pay_month']);
-        }
-
-    }
+   
     public function edit_emp_salary()
     {
 
@@ -1107,7 +1059,7 @@ if(isset($_POST['pay_sa'])){
 
            //  insertData($datapay , "ft_pay_register");
             $this->payroll_model->update_salary($datapay);
-//   redirect("Payroll/addsalary");
+//   redirect("payroll/addsalary");
 
     }
     }

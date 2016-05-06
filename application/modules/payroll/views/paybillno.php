@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div><!-- /.box-header -->
-   <form action="<?php echo base_url(); ?>payroll/pay_bill" method="post" onsubmit="return validate(form)" >
+   <form action="<?php echo base_url(); ?>payroll/pay_bill" method="post"  >
         <div class="box-body">
      
      
@@ -49,17 +49,41 @@
                         <?php } ?>
                      <div class="col-md-6">
                
-   
                          <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo "बिल नंबर टाइप"; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select required name="pay_type" onchange="showemp()" class="form-control">
+                                <option value=""><?php echo "बिल नंबर टाइप"; ?></option>
+      
+                                    <option value="0" selected="selected"  >वेतन</option>
+                         <!--    <option value="1"  >एरीयर्स</option>-->
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
+             
+			  
+			       <div class="form-group empcode" style="display:none">
+                <label for="exampleInputEmail1"><?php echo "कर्मचारी यूनिक कोड"; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select  name="emp_uinq" class="form-control">
+                                <option value=""><?php echo "कर्मचारी यूनिक कोड"; ?></option>
+         <?php foreach ($pay_emp as $key => $pay) {
+                                              
+       ?>
+                                    <option value="<?php echo $pay->pay_emp_unique_id ?>" ><?php echo $pay->pay_emp_unique_id ?></option>
+									<?php }?>
+                            
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
+                         <div class="form-group emphead">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('pay_head'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
-                  <select name="pay_head" required name="pay_head" class="form-control">
+                  <select  name="pay_head" id="pay_head" onchange="selectbuget()" class="form-control">
                                 <option value=""><?php echo $this->lang->line('pay_head'); ?></option>
-                                <?php foreach ($pay_cate as $key => $pcate) {
-                                  # code...
-                                
-     
-     ?>
+                                <?php foreach ($pay_cate as $key => $pcate) {                       ?>
                                     <option value="<?php echo $pcate->pay_cate_id ?>"  ><?php echo $pcate->pay_cate_name ?></option>
                                 <?php } ?>
                             </select> 
@@ -67,10 +91,23 @@
                 <?php echo form_error('category_title_hin');?>
               </div>
 
+
+<div class="form-group emphead">
+                <label for="exampleInputEmail1"><?php echo "वेतन बजट मद"; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                <div  id="buget">  <select  name="pay_buget" class="form-control">
+                                <option value=""><?php echo "वेतन बजट मद"; ?></option>
+                                <?php foreach ($pay_cate as $key => $pcate) {                       ?>
+                                    <option value="<?php echo $pcate->pay_cate_id ?>"  ><?php echo $pcate->pay_cate_budget_no ?></option>
+                                <?php } ?>
+                            </select> 
+</div>
+                <?php echo form_error('category_title_hin');?>
+              </div>
                       <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
-                  <select name="pay_month" required name="pay_month" class="form-control">
+                  <select name="pay_month" required  class="form-control">
                                 <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
                                 <?php for ($m=1; $m<=12; $m++) {
      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
@@ -85,7 +122,7 @@
                       <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_year'); ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
-                  <select required name="pay_year" name="pay_year" class="form-control">
+                  <select required name="pay_year" class="form-control">
                                 <option value=""><?php echo $this->lang->line('emp_pay_year'); ?></option>
                                 <?php for ($m=2016; $m >= 2014; $m--) {
    
@@ -104,6 +141,13 @@
                    <input type="number" required name="computer_bill_number" id="computer_bill_number" placeholder="<?php echo $this->lang->line('computer_bill_number'); ?>"  value="" class="form-control">
               
               </div>
+			     <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo "कंप्यूटर बिल तारीख"; ?><span class="text-danger">*</span></label>
+            
+                   <input type="text" required name="computer_bill_date" id="computer_bill_number" placeholder="<?php echo "कंप्यूटर बिल तारीख";  ?>"  value="" class="form-control date1">
+              
+              </div>
+			  
   <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('office_bill_number'); ?><span class="text-danger">*</span></label>
             
@@ -127,7 +171,7 @@
                  
         </div><!-- /.box-body -->
         <div class="box-footer">
-          <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice" onclick="showdetails()" value="1"><?php echo $this->lang->line('submit_botton'); ?></button>
+          <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice"  value="1"><?php echo $this->lang->line('submit_botton'); ?></button>
         </div>
         </form>
         
@@ -150,5 +194,23 @@ function validate(form) {
     else {
         return false;
     }
+}function showemp()
+{
+
+$(".empcode").show();
+$(".emphead").hide();
+
+
 }
+function selectbuget()
+{
+
+$val =$("#pay_head").val();
+
+$.get("<?php echo base_url();?>payroll/showbuget/"+$val,function(a){
+
+$("#buget").html(a);
+})
+}
+
 </script>

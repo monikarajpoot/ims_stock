@@ -54,14 +54,14 @@
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माँग संख्या 29-2014 न्याय प्रशासन 114-3482 महाधिवक्ता कायार्लय  वेतन देयक तृतीय श्रेणी कर्मचारी का 
+    <td colspan="32"><h2>विषय: माँग संख्या 29-2014 न्याय प्रशासन 114-3428 महाधिवक्ता कायार्लय  वेतन देयक तृतीय श्रेणी कर्मचारी का 
    माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
   
     </tr>
 
     <?php }elseif($emp_id == 8 ){ ?>
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>   दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
   
     </tr>
 

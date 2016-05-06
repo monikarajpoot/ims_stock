@@ -281,46 +281,46 @@ public function house_type($id = "")
 $this->db->where('emp_unique_id', $id);
 $this->db->update('ft_employee', $data); 
   }
-function pay_bill($data)
+function pay_bill()
 {
+		  if($_POST['pay_type'] == 0) 
+			{
+			  $query = $this->db->query("SELECT sum(pay_total_sum) as payts,sum(pay_total) pay_total FROM `ft_pay_register` where  pay_month ='".$_POST['pay_month']."' AND pay_salary_cate_id =".$_POST['pay_head']);
+		  $rowid = $query->result();
+			  foreach ($rowid as $key => $value) {
+				   		$pts =$value->payts;
+				$pt =$value->pay_total;
+				$common=0;
+			  }
+			}else{
+			 $query = $this->db->query("SELECT pay_total_sum as payts,pay_total pay_total FROM `ft_pay_register` where  pay_month ='".$_POST['pay_month']."' AND pay_emp_unique_id =".$_POST['emp_uinq']);
+		  $rowid = $query->result();
+		  foreach ($rowid as $key => $value) {
+				   		$pts =$value->payts;
+				$pt =$value->pay_total;
+				$common=1;
+			  }
+			}
 
-       $query = $this->db->query("SELECT sum(pay_total_sum) as payts,sum(pay_total) pay_total FROM `ft_pay_register` where  pay_month ='".$_POST['pay_month']."' AND pay_salary_cate_id =".$_POST['pay_head']);
-  $rowid = $query->result();
-  foreach ($rowid as $key => $value) {
-    # code...
+	   $data = array('pbill_month' => $_POST['pay_month'] ,
+					'pbill_cate_id' =>  inputcheckvaul('pay_head') ,
+					'pbill_cate_id' =>  inputcheckvaul('buget') ,
+					'computer_bill_date' =>  date("Y-m-d",strtotime($_POST['computer_bill_date'])) ,
+					'pbill_type' => $_POST['pay_type'] ,
+					'pbill_year' => date("Y") ,
+					'pbill_gross_amount' => $pts ,
+					'pbill_net_amont' => $pt ,
+					'pbill_computer_no' => $_POST['computer_bill_number'] ,
+				  'pbill_office_no' => $_POST['office_bill_number'] ,
+				   'pbill_vocher_no' => $_POST['vocher_bill_number'] ,
+				  'pbill_vocher_date' => date("Y-m-d", strtotime($_POST['vocher_bill_date'])) ,
+				   );
+	  if(count($rowid) != 0){
+      	foreach ($rowid  as $key => $pay) {
 
-   $pts =$value->payts;
-    $pt =$value->pay_total;
-  }
-
-   $data = array('pbill_month' => $_POST['pay_month'] ,
-                'pbill_cate_id' => $_POST['pay_head'] ,
-                'pbill_year' => date("Y") ,
-                   'pbill_gross_amount' => $pts ,
-                      'pbill_net_amont' => $pt ,
-                'pbill_computer_no' => $_POST['computer_bill_number'] ,
-              'pbill_office_no' => $_POST['office_bill_number'] ,
-               'pbill_vocher_no' => $_POST['vocher_bill_number'] ,
-              'pbill_vocher_date' => date("Y-m-d", strtotime($_POST['vocher_bill_date'])) ,
-               );
-  if(count($rowid) != 0){
-      foreach ($rowid  as $key => $pay) {
-
-        $this->db->select('*');
-        $this->db->from('ft_pay_bill_cate');
-         $this->db->where("pbill_month",$_POST['pay_month'] );
-        $this->db->where("pbill_year",date("Y") );
-        $this->db->where("pbill_cate_id",$_POST['pay_head']);
-         $query = $this->db->get();
-         $rows = $query->result();
-       $pcount = count($rows);
-             if($pcount == 0)
-              {
                 $this->db->insert("ft_pay_bill_cate" ,$data);
                 return "yes";
-            }else{
-              return "no";
-          }}
+           }
     }else{
 
        return "no";
@@ -328,6 +328,20 @@ function pay_bill($data)
 
 
 }
+function pay_bill_all()
+{
+$this->db->select('*');
+        $this->db->from('ft_pay_bill_cate');
+         $this->db->where("pbill_month",$_POST['pay_month'] );
+        $this->db->where("pbill_year",date("Y") );
+        $this->db->where("pbill_cate_id",inputcheckvaul('pay_head'));
+         $query = $this->db->get();
+         $rows = $query->result();
+       $pcount = count($rows);
+
+
+}
+
 function salary_bill()
 {
 $this->db->select('*');
@@ -1183,7 +1197,22 @@ function edit_fixstion()
          $nbasic = ceil($newbasic / 10) * 10;
         $total_sum =  $nbasic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
         $total = $total_sum - $value->pay_total_cut;
-        }
+        }else{
+		if($value->pay_basic>= 58930)
+			{
+			 $basic =$value->pay_basic + 1280;
+			}elseif($value->pay_basic >= 67210){
+			$basic =$value->pay_basic + 1380;
+			}elseif($value->pay_basic >= 70290){
+			 $basic =$value->pay_basics + 1540;
+			}
+			
+			$nbasic = ceil($basic / 10) * 10;
+			 $da = ceil(($basic * 119) / 100) ;
+			  $data_salary =$nbasic."|".$da."|".$data['pay_fixation'][0]->pf_name;
+			 $total_sum =  $nbasic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
+        $total = $total_sum - $value->pay_total_cut;
+		}
 
         $datanew =array(
         
@@ -1218,7 +1247,18 @@ function edit_fixstion()
     }
 
   }
-
+  function salary_mastaremp()
+  {
+  			     $query = $this->db->query('SELECT pay_emp_unique_id FROM `ft_pay_register` where pay_arriyas =1  GROUP by pay_emp_unique_id ');
+  $rowid = $query->result();
+  return $rowid ;
+  }
+  function getcate_al($id)
+  {
+  			     $query = $this->db->query('SELECT pay_cate_budget_no FROM `ft_pay_salary_category` where pay_cate_id ='.$id);
+  $rowid = $query->result();
+  return $rowid ;
+  }
 }
 
 ?>
