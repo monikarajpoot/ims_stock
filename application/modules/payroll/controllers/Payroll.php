@@ -826,23 +826,21 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
     {
         $cateid = $this->uri->segment(3);
         $pay_icr = $this->uri->segment(4);
-     // echo $cateid ."----". $pay_icr;
+     
       $picr_id = "pf_id =".$pay_icr;
 
         $empid = "pay_emp_unique_id = ".$cateid;
         $data['pay_salary'] = $this->payroll_model->edithead($empid,"ft_pay_emp_salary");
         $data['pay_fixation'] = $this->payroll_model->edithead($picr_id,"ft_pay_fixation");
-         $data['salary_mastar'] = $this->payroll_model->salarymster($picr_id,"ft_pay_fixation");
-        // pre();
-       // pre($data['pay_salary']);
-      //  pre( $data['pay_fixation']);
+         $data['salary_mastar'] = $this->payroll_model->salarymster($data['pay_salary'][0]->pay_salary_cate_id);
+      
         if($data['pay_fixation'][0]->pf_type == 0)
         {
           $basic = ($data['pay_salary'][0]->pay_basic + $data['pay_salary'][0]->pay_grp );
           $par_val = "0.0".$data['pay_fixation'][0]->pf_parcentage_val;
 
          $newbasic = ( $par_val * $basic) + $data['pay_salary'][0]->pay_basic ;
-         $da = ceil(($basic * 119) / 100) ;
+         $da = ceil(($basic * $data['salary_mastar'][0]->salary_da) / 100) ;
          $nbasic = ceil($newbasic / 10) * 10;
          $data_salary =$nbasic."|".$da."|".$data['pay_fixation'][0]->pf_name;
 
@@ -1065,5 +1063,48 @@ if(isset($_POST['pay_sa'])){
     }
 
     }
+    function editda()
+     {
+        $data["da"] = $this->payroll_model->showda();
+        $data["cate"]= $this->payroll_model->salary_cate(); 
+          $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/editda";
+        $this->template->index($data);
+
+     }
+     function showda()
+     {
+       $pay_cate_id = $this->uri->segment(3);
+       $data['dataval'] =$this->payroll_model->getcate_pp($pay_cate_id);
+      $this->load->view("payroll/da" ,$data);
+
+     }
+     function update_da()
+     {
+       $data['dataval'] =$this->payroll_model->update_da();
+      //  $this->load->view("payroll/da" ,$data);
+       redirect("payroll/editda");
+     }
+     
+     function payslipall()
+     {$data['title'] = "वेतन पर्ची क्लास 4";
+        $data['title_tab'] = "वेतन पर्ची क्लास 4";
+       $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/payslipall";
+        $this->template->index($data);
+
+     }
+    function showallpayslip()
+    {
+
+         $data['title'] = "वेतन पर्ची क्लास 4";
+        $data['title_tab'] = "वेतन पर्ची क्लास 4";
+      $data['payall'] =$this->payroll_model->showallpayslip();
+      $data['module_name'] = "payroll";
+        //$data['view_file'] = "payroll/showallpayslip";
+        $this->load->view("payroll/showallpayslip",$data);
+      //  $this->template->index($data);
+    }
+
 
 }

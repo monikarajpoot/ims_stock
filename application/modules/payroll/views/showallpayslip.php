@@ -7,11 +7,18 @@
 }
 -->
 </style>
+<?php 
 
-<table border="1" cellpadding="0" cellspacing="0" bordercolor="#666">
-<?php foreach ($payslip as $key => $pay) {
-  //pre($pay_bill);
-	# code...?>
+
+foreach ($payall as $key => $value11) {
+  # code...
+
+  $payslip = getsalary($value11->pay_month,$value11->pay_year,$value11->pay_emp_unique_id);
+?>
+<table border="1" style="margin-top:10px" cellpadding="0" cellspacing="0" bordercolor="#666">
+<?php  //pre($payslip);
+foreach ($payslip as $key => $pay) {
+  ?>
 
   <tr height="27">
     <td colspan="20" height="27"><div align="center"><strong>Govt of M.P Law and Legislative Affairs Department, Vindhyachal Bhawan, Bhopal</strong><br />
@@ -26,7 +33,7 @@
         <tr>
           <th width="33%" align="center" style="border-right: solid 2px #666;">Name of employee :<?php echo $pay->emp_full_name?> </th>
           <th width="33%" align="center" style="border-right: solid 2px #666;">Post of employee :<?php echo getemployeeRole($pay->designation_id);?> </th>
-          <th width="33%" align="center">Unique code of employee :<?php echo $_POST['uid'];?></th>
+          <th width="33%" align="center">Unique code of employee :<?php echo $pay->pay_emp_unique_id;?></th>
         </tr>
       </table>
     </td>
@@ -127,8 +134,9 @@
       </table>        </td>
     </tr>
   
-	<?php }?> 
+	<?php } ?> 
 </table>
+<?php } ?>
   <input  type="button" onclick="window.print();" style="background-color: #052B02;border: solid 2px #36730F;margin: 10px auto;
     color: #ffffff;
     padding: 10px;" name="Submit" class="no-print"  value="print" /> <input style="background-color: #052B02;border: solid 2px #36730F;margin: 10px auto;

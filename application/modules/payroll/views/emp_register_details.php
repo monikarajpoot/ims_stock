@@ -121,9 +121,17 @@
                                    <th ><?php echo $this->lang->line('pay_total_cut'); ?></th>
                                    <th ><?php echo $this->lang->line('pay_amount');  ?></th>
 
-                                   <th ><?php echo "कम्यूटर बिल नंबर "  ?></th>
-                                    <th ><?php echo "वॉचर बिल नंबर "  ?></th>
-                                    <th ><?php echo "ग्रॉस अमाउंट  "  ?></th>
+									<th ><?php echo "कम्यूटर बिल नंबर "  ?></th>
+                                
+                                             <th ><?php echo   "कम्यूटर बिल दिनांक" ?></th>
+                               
+                 <th ><?php echo  "कम्यूटर ऑफिस नंबर" ?></th>
+                                
+                                             <th ><?php echo "वॉचर बिल नंबर " 
+											 ?></th>
+                               <th ><?php echo "वॉचर बबिल दिनांक"   ?></th>
+							   
+							   <th ><?php echo "ग्रॉस अमाउंट  "  ?></th>
                                     <th ><?php echo "नेट अमाउंट  "  ?></th>
                                 </tr>
                             
@@ -221,17 +229,43 @@
                                     <?php } ?>
                                    <th ><?php echo $pay->pay_other_adv; ?></th>
                                    <th ><?php echo $pay->pay_total; ?></th>
-                                           <th ><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_computer_no')?></th>
+								   <?php $vv =getbillno(); foreach($vv as $bb){
+								   if($bb->pbill_type == 0 && $bb->pbill_month == $pay->pay_month && $bb->pbill_cate_id == $pay->pay_salary_cate_id && $bb->pbill_year == $pay->pay_year ){ ?>
+                                           <th ><?php echo $bb->pbill_computer_no  ?></th>
                                 
-                                             <th ><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_vocher_no') ?></th>
+                                             <th ><?php echo   $bb->pbill_computer_date ?></th>
                                
-                 <th ><?php echo @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_gross_amount')?></th>
+                 <th ><?php echo $bb->pbill_office_no ?></th>
                                 
-                                             <th ><?php echo  @getbillno($pay->pay_salary_cate_id,$pay->pay_month,$pay->pay_year,'pbill_net_amont') ?></th>
-                              
+                                             <th ><?php echo $bb->pbill_vocher_no ?></th>
+                               <th ><?php echo $bb->pbill_vocher_date ?></th>
+							   
+							       <th ><?php echo $bb->pbill_gross_amount ?></th>
+							   
+							       <th ><?php echo $bb->pbill_net_amont ?></th>
+							   
+							   
+							   
+                                <?php  }elseif($bb->pbill_type == 1 && $bb->pbill_month == $pay->pay_month && $bb->pbill_emp_code == $pay->pay_emp_unique_id && $bb->pbill_year == $pay->pay_year ){?>
+								
+								
+								       <th ><?php echo $bb->pbill_computer_no  ?></th>
+                                
+                                             <th ><?php echo   $bb->pbill_computer_date ?></th>
+                               
+                 <th ><?php echo $bb->pbill_office_no ?></th>
+                                
+                                             <th ><?php echo $bb->pbill_vocher_no ?></th>
+                               <th ><?php echo $bb->pbill_vocher_date ?></th>
+							   
+							       <th ><?php echo $bb->pbill_gross_amount ?></th>
+							   
+							       <th ><?php echo $bb->pbill_net_amont ?></th>
+							   
+								
+								<?php }} ?>
                                 </tr>
-
-                                <?php  } ?>
+<?php  } ?>
                                  <?php// $emp_id == $dataval[0]['pay_cate_id'] ;?>
                                               <tr style="background-color: #18981D; color: #fff;font-size: 14px;font-weight: bold;">
                                   
@@ -316,7 +350,17 @@
                                     <?php } ?>
                                    <th ><?php echo sumcolumn_one_emp("pay_total_cut" , $dataval[0]['pay_cate_id'] , $_GET["uid"])['val']?></th>
                                    <th ><?php echo sumcolumn_one_emp("pay_total" , $dataval[0]['pay_cate_id'], $_GET["uid"])['val']  ?></th>
-                                              <th ></th> <th ></th>  <th ></th> <th ></th>
+                                             <th ></th>
+                                
+                                             <th ></th>
+                               
+                 <th ></th>
+                                
+                                             <th ></th>
+                               <th </th>
+							   
+							   <th ></th>
+                                    <th ></th> 
                                 </tr>
                             </tbody>
                         </table>

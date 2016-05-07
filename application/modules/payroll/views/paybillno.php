@@ -35,7 +35,7 @@
                         </a>
                     </div>
                 </div><!-- /.box-header -->
-   <form action="<?php echo base_url(); ?>payroll/pay_bill" method="post"  >
+   <form action="<?php echo base_url(); ?>payroll/pay_bill" onsubmit="onsumitsalary()" id="emp" method="post"  >
         <div class="box-body">
      
      
@@ -56,12 +56,11 @@
                                 <option value=""><?php echo "बिल नंबर टाइप"; ?></option>
       
                                     <option value="0" selected="selected"  >वेतन</option>
-                         <!--    <option value="1"  >एरीयर्स</option>-->
+                             <option value="1"  >एरीयर्स</option>
                             </select> 
 
                 <?php echo form_error('category_title_hin');?>
               </div>
-             
 			  
 			       <div class="form-group empcode" style="display:none">
                 <label for="exampleInputEmail1"><?php echo "कर्मचारी यूनिक कोड"; ?><span class="text-danger">*</span></label>
@@ -211,6 +210,18 @@ $.get("<?php echo base_url();?>payroll/showbuget/"+$val,function(a){
 
 $("#buget").html(a);
 })
+}function onsumitsalary(id)
+{
+   var r = confirm("कृपया सुनिश्चित करें कि डेटा सही है अथवा नहीं");
+    if (r == true) {
+        document.getElementById("emp").submit();
+
+
+    } else {
+        txt = "You pressed Cancel!";
+    }
+  //alert(txt);
+
 }
 
 </script>

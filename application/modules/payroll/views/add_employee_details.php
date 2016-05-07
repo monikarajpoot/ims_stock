@@ -90,7 +90,7 @@
 
               </div>
 
-               <div class="form-group "><label for="email"><?php echo "जी पी फ & डी पी फ कोड "  ?>:</label>
+               <div class="form-group "><label for="email"><?php echo "जी पी फ & डी पी फ & पी आर इ ण  कोड "  ?>:</label>
                <input type="text" class="form-control" name="gpf_dpf_code" value="<?php $emp->emp_gpf_dpf_code?>">          
               </div>
 

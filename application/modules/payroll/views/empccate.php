@@ -622,7 +622,7 @@ function efitfrom(id)
 }
 function onsumitsalary(id)
 {
-   var r = confirm("कृपया सुनिश्चित करें कि , डेटा सही है की नहीं");
+   var r = confirm("कृपया सुनिश्चित करें कि डेटा सही है अथवा नहीं");
     if (r == true) {
         document.getElementById("emp"+id).submit();
 
@@ -630,7 +630,7 @@ function onsumitsalary(id)
     } else {
         txt = "You pressed Cancel!";
     }
-  alert(txt);
+  //alert(txt);
 
 }
 

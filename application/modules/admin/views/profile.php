@@ -124,6 +124,56 @@
         </div><!-- ./col -->
     </div>
     <!-- Main row -->
+      <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <!-- small box -->
+            <div class="box box-warning">
+                <div class="box-header">
+                    <h3>  वेतन पर्ची </h3>
+                </div>
+                 <?php //pre($user_service_profile);
+                        foreach($user_service_profile as $row) { ?>
+                <form action="<?php echo base_url();?>payroll/pay_slip" method="post">
+<?php }?>
+    <div class="col-lg-6 col-xs-6">
+                    <div class="form-group ">
+
+                        <input  type="hidden" name="uid" id="uid" value="<?php echo $row->emp_uid; ?>" class="form-control">
+                <label for="exampleInputEmail1"><?php echo "वेतन महीना"; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month" name="pay_month" required onchage="changemonth()" class="form-control">
+                                <option value=""><?php echo "वेतन महीना"; ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
+    </div> </div>
+     <div class="col-lg-6 col-xs-6">
+     <div class="form-group ">
+                <label for="exampleInputEmail1"><?php echo  "वेतन साल"; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+              <select name="pay_year" required class="form-control">
+                                <option value=""><?php echo "वेतन साल"; ?></option>
+                                <?php for ($y=2014; $y<=date("Y"); $y++) {
+   
+     ?>
+                                    <option value="<?php echo $y ?>"  <?php echo  date("Y") == $y  ? 'selected' : ''; ?>  ><?php echo $y ?></option>
+                                <?php } ?>
+                            </select> 
+
+    </div>
+
+             </div>
+             <div class="box-footer">
+          <button class="btn btn-primary" type="submit" name="savenotice" id="savenotice"  value="1"><?php echo "देखे" ?></button>
+        </div>
+
+   </div>     </div>
+</div>
 
     <div class="row">
         <div class="col-lg-12 col-xs-12">
@@ -328,6 +378,7 @@
                     <div class="box-footer">
                         <div class="form-group col-lg-4 pull-right">
                            <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+                               <!-- <button type="submit" class="btn btn-primary">Update</button> -->
                         </div>     
                     </div>
                 </form>

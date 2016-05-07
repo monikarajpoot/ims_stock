@@ -133,10 +133,11 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
    
                    
                         <li><a href="<?php echo base_url(); ?>payroll/register"><i class="fa fa-folder-o"></i> वेतन रजिस्टर</a></li>
-                       
+                       <li><a href="<?php echo base_url(); ?>payroll/payslipall"><i class="fa fa-folder-o"></i> वेतन पर्ची क्लास 4 </a></li>
                         <li><a href="<?php echo base_url(); ?>payroll/payslip"><i class="fa fa-folder-o"></i> वेतन पर्ची </a></li>
                     </ul>
                 </li>
+					<?php if(check_est_so()) { ?>
     <li class="header bg-aqua">Salary master </li>
                 <li class="treeview" title="Not Active">
                     <a href="#">
@@ -144,6 +145,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
+                          <li><a href="<?php echo base_url(); ?>payroll/editda"><i class="fa fa-folder-o"></i> कर्मचारी डी.ए   </a></li>
                          <li><a href="<?php echo base_url(); ?>payroll/allheads"><i class="fa fa-folder-o"></i> वेतन हेड  </a></li>
                           <li><a href="<?php echo base_url(); ?>payroll/pan_adhar_house"><i class="fa fa-folder-o"></i> पेन नंबर जोड़े </a></li>
 
@@ -155,7 +157,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
 
     </ul>
                 </li>
-        <?php }?>
+        <?php } }?>
             <!-----efile side menu end---->
 			<?php if(check_est_so()) { ?>
                 

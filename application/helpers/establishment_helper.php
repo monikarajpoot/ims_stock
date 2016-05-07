@@ -251,14 +251,11 @@ function get_establishment_employees_with_des($withso = true){
 	}
 }
 //////////////code add by monika 
-function getbillno($cate,$m,$y)
+function getbillno()
 {	$CI = & get_instance();
-	$CI->db->where('pbill_month',$m);
-	$CI->db->where('pbill_year',$y);
-    $CI->db->where('pbill_cate_id',$cate);
-    $query = $CI->db->get("ft_pay_bill_cate");
+	 $query = $CI->db->get("ft_pay_bill_cate");
 $pbilno = $query->result();
-return $pbilno[0]->pbill_computer_no;
+return $pbilno ;
 }
 
 function inputcheckvaul($var)
@@ -281,3 +278,22 @@ function gethead($id)
 $pbilno = $query->result();
 return $pbilno;
 }
+function getsalary($m,$y,$ui)
+{
+	$CI = & get_instance();
+ $CI->db->select('*');
+          $CI->db->from('ft_pay_register');
+          $CI->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+      $CI->db->where("pay_year",$y);
+       $CI->db->where("pay_emp_unique_id",$ui);
+     $CI->db->where("pay_month",$m);
+     $query = $CI->db->get();
+            
+    //    echo $CI->db->last_query();
+         $rows = $query->result();
+
+
+        return $rows;
+
+
+ }

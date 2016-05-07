@@ -290,6 +290,8 @@ function pay_bill()
 			  foreach ($rowid as $key => $value) {
 				   		$pts =$value->payts;
 				$pt =$value->pay_total;
+				$head = $_POST['pay_head'];
+				$buget = $_POST['buget'];
 				$common=0;
 			  }
 			}else{
@@ -299,13 +301,16 @@ function pay_bill()
 				   		$pts =$value->payts;
 				$pt =$value->pay_total;
 				$common=1;
+				$head = 0;
+				$buget =0;
 			  }
 			}
 
 	   $data = array('pbill_month' => $_POST['pay_month'] ,
-					'pbill_cate_id' =>  inputcheckvaul('pay_head') ,
-					'pbill_cate_id' =>  inputcheckvaul('buget') ,
-					'computer_bill_date' =>  date("Y-m-d",strtotime($_POST['computer_bill_date'])) ,
+					'pbill_cate_id' =>  $head ,
+					'pbill_bugetno' =>  $buget,
+					'pbill_emp_code' =>inputcheckvaul('emp_uinq'),
+					'pbill_computer_date' =>  date("Y-m-d",strtotime($_POST['computer_bill_date'])) ,
 					'pbill_type' => $_POST['pay_type'] ,
 					'pbill_year' => date("Y") ,
 					'pbill_gross_amount' => $pts ,
@@ -316,11 +321,11 @@ function pay_bill()
 				  'pbill_vocher_date' => date("Y-m-d", strtotime($_POST['vocher_bill_date'])) ,
 				   );
 	  if(count($rowid) != 0){
-      	foreach ($rowid  as $key => $pay) {
+      
 
                 $this->db->insert("ft_pay_bill_cate" ,$data);
                 return "yes";
-           }
+         
     }else{
 
        return "no";
@@ -979,7 +984,10 @@ if(isset($_POST['pay_house_rent'])){
       }
 
 
-      print_r($_POST);
+$query1 = $this->db->query("SELECT * FROM `ft_pay_salary_master` where  salary_cate_id =".inputcheckvaul('pay_salary_cate_id'));
+  $rowid = $query1->result();
+     
+
       $ts = $_POST['pay_basic'] + inputcheckvaul('pay_grp') + $pay_da + $pay_special + $pay_hra +
        $pay_sa + $pay_madical + $pay_others + $pay_special+ $pay_ca +  $pay_sp;
 
@@ -991,7 +999,7 @@ if(isset($_POST['pay_house_rent'])){
 
          $dab = (inputcheckvaul('pay_basic') + $pay_gradepay );
         
-         $da  = ($dab * 119)/100;
+         $da  = ($dab *  $rowid[0]->salary_da)/100;
       //   echo $_POST['pay_id']."test";
         // die();
 
@@ -1123,9 +1131,10 @@ function edit_fixstion()
       return true ;
 
 }
-  function salarymster()
+  function salarymster($cate)
   {
-     $query = $this->db->query('SELECT salary_da FROM `ft_pay_salary_master` where salary_id =1');
+     $query = $this->db->query('SELECT salary_da FROM `ft_pay_salary_master` where salary_cate_id ='.$cate);
+
   $rowid = $query->result();
   return $rowid ;
   }
@@ -1133,6 +1142,7 @@ function edit_fixstion()
   {
      $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary` ');
   $rowid = $query->result();
+
   return $rowid ;
   }
   function edit_salarymaster($file)
@@ -1185,6 +1195,10 @@ function edit_fixstion()
 
    $query1 = $this->db->query('SELECT * FROM `ft_pay_fixation` where pf_id ='.$_POST["pf_icr"]);
     $rowid1 = $query1->result();
+
+     $query22 = $this->db->query('SELECT * FROM `ft_pay_salary_master` where salary_cate_id ='.$value->pay_salary_cate_id);
+    $rowid12 = $query22->result();
+
   foreach ($rowid1 as $key => $value1) {
     # code...
     if($value1->pf_type == 0)
@@ -1193,7 +1207,7 @@ function edit_fixstion()
           $par_val = "0.0".$value1->pf_parcentage_val;
 
          $newbasic = ( $par_val * $basic) + $value->pay_basic ;
-         $da = ceil(($basic * 119) / 100) ;
+         $da = ceil(($basic * $rowid12[0]->salary_da) / 100) ;
          $nbasic = ceil($newbasic / 10) * 10;
         $total_sum =  $nbasic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
         $total = $total_sum - $value->pay_total_cut;
@@ -1208,7 +1222,7 @@ function edit_fixstion()
 			}
 			
 			$nbasic = ceil($basic / 10) * 10;
-			 $da = ceil(($basic * 119) / 100) ;
+			 $da = ceil(($basic * $rowid12[0]->salary_da) / 100) ;
 			  $data_salary =$nbasic."|".$da."|".$data['pay_fixation'][0]->pf_name;
 			 $total_sum =  $nbasic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
         $total = $total_sum - $value->pay_total_cut;
@@ -1237,9 +1251,9 @@ function edit_fixstion()
           'pef_emp_unique_id'=> $value->pay_emp_unique_id,
            'pef_remark'=> $_POST['description'],
             'pef_order_no'=> $_POST['order_no'],
-            'pef_order_date'=> $_POST['order_date'],
+            'pef_order_date'=> date("Y-m-d",strtotime($_POST['order_date'])),
             'pef_order_applicable_month'=> $_POST['pay_month'],
-            'pef_order_applicable_date'=>$_POST["order_date1"],
+            'pef_order_applicable_date'=>date("Y-m-d",strtotime($_POST["order_date1"])),
            'created_by'=>  $this->session->userdata('user_id'),
        );
         $this->db->insert("ft_pay_emp_fixation", $datafixs);
@@ -1259,6 +1273,64 @@ function edit_fixstion()
   $rowid = $query->result();
   return $rowid ;
   }
+  function showda()
+  {
+ $query = $this->db->query('SELECT * FROM `ft_pay_salary_master` ');
+  $rowid = $query->result();
+  return $rowid ;
+
+  }
+  function getcate_pp($id)
+  {
+             $query = $this->db->query('SELECT salary_da,salary_id FROM `ft_pay_salary_master` where salary_cate_id ='.$id);
+  $rowid = $query->result();
+  return $rowid ;
+  }
+  function update_da()
+  { 
+
+         $query = $this->db->query('SELECT * FROM `ft_pay_salary_master` where salary_id ='.$_POST['id']);
+  $rowid = $query->result();
+
+foreach ($rowid as $key => $value) {
+  # code...
+
+     $datafixs =array(
+        'salary_cate_id'=>$value->salary_cate_id,
+          'salary_da'=> $value->salary_da,
+         'created_by'=>  $value->created_by, 
+         'salary_id'=>  $value->salary_id, 
+       );
+        $this->db->insert("ft_pay_log_salary_master", $datafixs);
+
+         $data =array(
+    
+          'salary_da'=> $_POST['da'],
+         );
+         $this->db->where("salary_id",$_POST['id']);
+        $this->db->update("ft_pay_salary_master", $data);
+}
+
+
+  }
+
+function showallpayslip()
+{
+   $this->db->select('*');
+          $this->db->from('ft_pay_register');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+      $this->db->where("pay_year",$_POST['pay_year']);
+       $this->db->where("pay_salary_cate_id",4);
+     $this->db->where("pay_month",$_POST['pay_month']);
+     $query = $this->db->get();
+            
+        
+        return $rows = $query->result();
+
+
+}
+
+
 }
 
 ?>

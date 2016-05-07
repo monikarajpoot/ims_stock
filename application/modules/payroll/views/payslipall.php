@@ -49,7 +49,7 @@
                     </div>
                     <div class="box-body">
            
-    <form action="<?php echo base_url();?>payroll/add_allsallary" method="post">
+    <form action="<?php echo base_url();?>payroll/showallpayslip" method="post">
 
                            <div class="form-group col-xs-6">
                 <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
@@ -73,10 +73,10 @@
              
                 <select name="pay_year" required class="form-control">
                                 <option value=""><?php echo $this->lang->line('emp_pay_year'); ?></option>
-                                <?php for ($y=2015; $y<=2018; $y++) {
+                                <?php for ($y=2014; $y<=date("Y"); $y++) {
    
      ?>
-                                    <option value="<?php echo $y ?>" <?php echo  date("Y") == $y  ? 'selected' : ''; ?>  ><?php echo $y ?></option>
+                                    <option value="<?php echo $y ?>"  <?php echo  date("Y") == $y  ? 'selected' : ''; ?>  ><?php echo $y ?></option>
                                 <?php } ?>
                             </select>   </div>
 
