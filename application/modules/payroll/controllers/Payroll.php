@@ -134,36 +134,25 @@ class Payroll extends MX_Controller {
     }
     public function showdetails()
     {
-       $emp_id = $_GET["emp_unique_codeemp_unique_code"];
-        $pay_month= $_GET["pay_month"];
-        
-      $last_month = Date('F', strtotime($pay_month . " last month"));
-		$data['this_pay_month'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
-     $data['emp_details'] = $this->payroll_model->getemp($emp_id);
-       $data['emp_emi'] = $this->payroll_model->getemp_emi($emp_id);
+    
+      $emp_id =$_GET['emp_unique_codeemp_unique_code'];
+    
+        $data['emp_details'] = $this->payroll_model->getemp($emp_id);
       foreach ($data['emp_details']as $key => $valueca) {
         $pay_cate_id =$valueca->emp_pay_cate_id;
 
       }
       $condi =  array("pay_cate_id"=>$pay_cate_id );
-      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
-        
-    $data['emp_bank'] = $this->payroll_model->emp_bank($emp_id);
-     $data['adv'] = $this->payroll_model->advance();
-      if(count($data['this_pay_month']) == 0){
-       $data['pay_regi'] = $this->payroll_model->getpaymonth($emp_id,$last_month);
+        $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+
+       $data['pay_salary'] = $this->payroll_model->getpaymonthmaster($emp_id);
    
     //  $this->load->view("addsalary" ,$data);
          // pre($data['dataval'] );
          $data['module_name'] = "payroll";
-         $data['view_file'] = "payroll/addsalary";
-       }else{
-   $data['pay_regi'] = $this->payroll_model->getpaymonth($emp_id,$pay_month);
-   $data['module_name'] = "payroll";
-         $data['view_file'] = "payroll/wornmassage";
-
-       }
-         $this->template->index($data);
+       $data['view_file'] = "payroll/add_edit_salary";
+      
+        $this->template->index($data);
     }
     public function pay_modification()
     {
@@ -1098,13 +1087,68 @@ if(isset($_POST['pay_sa'])){
     {
 
          $data['title'] = "वेतन पर्ची क्लास 4";
-        $data['title_tab'] = "वेतन पर्ची क्लास 4";
-      $data['payall'] =$this->payroll_model->showallpayslip();
-      $data['module_name'] = "payroll";
+           $data['payall'] =$this->payroll_model->showallpayslip();
+           //pre( $data['payall']);
+      $data['module_name'] = "payroll_model";
+
         //$data['view_file'] = "payroll/showallpayslip";
         $this->load->view("payroll/showallpayslip",$data);
       //  $this->template->index($data);
     }
+    function checkmonthda()
+    {
+
+      
+  
+       $data['payall'] =$this->payroll_model->checkmonthda();
+    }
+    function autoincremrnt()
+    {
+
+      
+  
+       $data['payall'] =$this->payroll_model->autoincremrnt();
+
+   $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/autoincremrnt";
+        $this->template->index($data);
+
+    }
+    function add_incrementmonth()
+    {
+
+      $data['payall'] =$this->payroll_model->emp_cate();
+          $data['module_name'] = "payroll";
+        $data['view_file'] = "payroll/add_incrementmonth";
+        $this->template->index($data);
+    }
+    function add_month()
+    {
+      $id ="pay_id =".$this->uri->segment(3);
+      $data['pay_salary'] = $this->payroll_model->edithead($id,"ft_pay_increment_month");
+      $data['module_name'] = "payroll";
+      $data['view_file'] = "payroll/add_month";
+      $this->template->index($data);
+
+    }
+    function add_increment_month()
+    {
+
+      $data['pay_salary'] = $this->payroll_model->add_increment_month();
+      $data['module_name'] = "payroll";
+      $data['view_file'] = "payroll/add_month";
+
+      redirect("payroll/add_incrementmonth");
 
 
+    }
+    function backdatesalary()
+    {
+      $data['title'] = $this->lang->line('emp_salary_details');
+
+    //pre($data['pay_regi']);
+    $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/emp_salary_details";
+         $this->template->index($data);
+    }
 }

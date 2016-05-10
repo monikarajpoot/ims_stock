@@ -510,13 +510,44 @@ function add_allsallary()
 {
   
 
- 
-//  }
  $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary`  ');
   $rowid = $query->result();
   //where  pay_emp_unique_id = 51010886
  // pre($rowid);
+
+
+  
       foreach ($rowid  as $key => $pay) {
+
+  $query12 = $this->db->query('SELECT * FROM `ft_pay_salary_master` where salary_da_apply_month = "'.$_POST['pay_month'].'"  and  salary_cate_id ="'.$pay->pay_salary_cate_id.'" and salary_da_apply_year="'.$_POST['pay_year'].'"');
+  $rowid12 = $query12->result();
+
+if(count($rowid12) != 0){
+  foreach ($rowid12 as $key => $value1) {
+    # code...
+      $nn = $pay->pay_basic + $pay->pay_grp;
+      $da = ($nn *  $value1->salary_da)/100;
+
+       $ts =$pay->pay_basic + $pay->pay_grp + $da + $pay->pay_special + $pay->pay_hra +
+       $pay->pay_sa + $pay->pay_madical +$pay->pay_others + $pay->pay_special+ $pay->pay_ca +  $pay->pay_sp;
+
+       $tc =  $pay->pay_dpf + $pay->pay_dpf_adv + $pay->pay_gpf + $pay->pay_gpf_adv + $pay->pay_gias + $pay->pay_defined_contribution + $pay->pay_fuel_charge + $pay->pay_income_tax+
+       $pay->pay_professional_tax + $pay->pay_fuel_charge +$pay->pay_grain_adv  +$pay->pay_festival_adv + $pay->pay_house_rent + $pay->pay_other_adv + $pay->pay_house_loan + $pay->pay_car_loan ; 
+
+         $tt = $ts - $tc;
+  }
+
+}else{
+    $da =  $pay->pay_da ;
+    $ts =$pay->pay_basic + $pay->pay_grp + $da + $pay->pay_special + $pay->pay_hra +
+       $pay->pay_sa + $pay->pay_madical +$pay->pay_others + $pay->pay_special+ $pay->pay_ca +  $pay->pay_sp;
+
+       $tc =  $pay->pay_dpf + $pay->pay_dpf_adv + $pay->pay_gpf + $pay->pay_gpf_adv + $pay->pay_gias + $pay->pay_defined_contribution + $pay->pay_fuel_charge + $pay->pay_income_tax+
+       $pay->pay_professional_tax + $pay->pay_fuel_charge +$pay->pay_grain_adv  +$pay->pay_festival_adv + $pay->pay_house_rent + $pay->pay_other_adv + $pay->pay_house_loan + $pay->pay_car_loan ; 
+
+         $tt = $ts - $tc;
+
+}
 
            $currentmonth = $_POST['pay_month']; 
               $datapay = array(
@@ -526,7 +557,73 @@ function add_allsallary()
                 'pay_emp_unique_id' => $pay->pay_emp_unique_id ,
                 'pay_basic' => $pay->pay_basic ,
               'pay_grp' => $pay->pay_grp ,
-              'pay_da' => $pay->pay_da ,
+              'pay_da' => $da,
+              'pay_special' =>$pay->pay_special ,
+              'pay_hra' =>$pay->pay_hra ,
+              'pay_sa' => $pay->pay_sa ,
+              'pay_madical' => $pay->pay_madical ,
+              'pay_ca' =>  $pay->pay_ca,
+              'pay_sp' =>  $pay->pay_sp,
+              'pay_others' =>  $pay->pay_others ,
+               'pay_ca' => $pay->pay_ca,
+              'pay_sp' => $pay->pay_sp ,
+               'pay_total_sum' =>  $ts,
+               'pay_dpf' =>  $pay->pay_dpf ,
+                'pay_dpf_adv' =>  $pay->pay_dpf_adv,
+               'pay_gpf' =>  $pay->pay_gpf ,
+               'pay_gpf_adv' =>  $pay->pay_gpf_adv,
+              'pay_gias' => $pay->pay_gias ,
+              'pay_defined_contribution' => $pay->pay_defined_contribution ,
+              'pay_fuel_charge' => $pay->pay_fuel_charge ,
+              'pay_professional_tax' => $pay->pay_professional_tax ,
+              'pay_income_tax' => $pay->pay_income_tax ,
+               'pay_grain_adv' => $pay->pay_grain_adv ,
+              'pay_festival_adv' => $pay->pay_festival_adv ,
+               'pay_other_adv' => $pay->pay_other_adv,
+              'pay_house_loan' => $pay->pay_house_loan,
+              'pay_car_loan' => $pay->pay_car_loan,
+              'pay_house_rent' => $pay->pay_house_rent,
+              'pay_total_cut' => $tc,
+               'pay_total' => $tt,
+                'created_by' => $this->session->userdata('user_id'),
+               );
+			 // pre($datapay);
+		//  die();
+			   
+    $this->db->insert("ft_pay_register", $datapay);
+     
+    }
+  }
+
+
+  function checkmonthda()
+  {$year = date("Y");
+        $currentmonth = date("F");
+
+       $query = $this->db->query('SELECT * FROM `ft_pay_emp_salary` join ft_pay_salary_master on ft_pay_salary_master.salary_cate_id = ft_pay_emp_salary.pay_salary_cate_id where ft_pay_salary_master.salary_da_apply_month = "'.$currentmonth.'" and ft_pay_salary_master.salary_da_apply_year = "'.$year.'" ');
+         $rowid = $query->result();
+  
+        
+  
+      foreach ($rowid  as $key => $pay) {
+          # code...
+            $nn = $pay->pay_basic + $pay->pay_grp;
+            $da = ($nn *  $pay->salary_da)/100;
+
+             $ts =$pay->pay_basic + $pay->pay_grp + $da + $pay->pay_special + $pay->pay_hra +
+             $pay->pay_sa + $pay->pay_madical +$pay->pay_others + $pay->pay_special+ $pay->pay_ca +  $pay->pay_sp;
+
+             $tc =  $pay->pay_dpf + $pay->pay_dpf_adv + $pay->pay_gpf + $pay->pay_gpf_adv + $pay->pay_gias + $pay->pay_defined_contribution + $pay->pay_fuel_charge + $pay->pay_income_tax+
+             $pay->pay_professional_tax + $pay->pay_fuel_charge +$pay->pay_grain_adv  +$pay->pay_festival_adv + $pay->pay_house_rent + $pay->pay_other_adv + $pay->pay_house_loan + $pay->pay_car_loan ; 
+
+               $tt = $ts - $tc;
+   
+              $datapay = array(
+                'pay_salary_cate_id' => $pay->pay_salary_cate_id,
+                'pay_emp_unique_id' => $pay->pay_emp_unique_id ,
+                'pay_basic' => $pay->pay_basic ,
+              'pay_grp' => $pay->pay_grp ,
+              'pay_da' =>  $pay->pay_da ,
               'pay_special' =>$pay->pay_special ,
               'pay_hra' =>$pay->pay_hra ,
               'pay_sa' => $pay->pay_sa ,
@@ -549,22 +646,38 @@ function add_allsallary()
                'pay_grain_adv' => $pay->pay_grain_adv ,
               'pay_festival_adv' => $pay->pay_festival_adv ,
                'pay_other_adv' => $pay->pay_other_adv,
-      'pay_house_loan' => $pay->pay_house_loan,
-      'pay_car_loan' => $pay->pay_car_loan,
-      'pay_house_rent' => $pay->pay_house_rent,
-      'pay_total_cut' => $pay->pay_total_cut,
-       'pay_total' => $pay->pay_total,
-        'created_by' => $this->session->userdata('user_id'),
+              'pay_house_loan' => $pay->pay_house_loan,
+              'pay_car_loan' => $pay->pay_car_loan,
+              'pay_house_rent' => $pay->pay_house_rent,
+              'pay_total_cut' => $pay->pay_total_cut,
+               'pay_total' => $pay->pay_total_cut,
+                'created_by' => $pay->created_by,
                );
-			//   pre($datapay);
-		//	   die();
-			   
-     $this->db->insert("ft_pay_register", $datapay);
-     
+   
+         
+     $this->db->insert("ft_pay_log_emp_salary", $datapay);
 
+      $datanew = array(
+              
+               
+              'pay_da' => ceil($da),
+             'pay_total_sum' =>  ceil($ts),
+              'pay_total_cut' => ceil($tc),
+               'pay_total' => ceil($tt),
+                'updated_by' =>  $this->session->userdata('user_id'),
+                'updated_at'=> date("Y-m-d h:i:s"),
+               'no_updated'=> $pay->no_updated +1,
+               'pay_remark' => "DA Chnages"
+
+               );
+      pre($datanew);
+ $this->db->where("pay_id", $pay->pay_id);
+      $this->db->update("ft_pay_emp_salary", $datanew);
+
+     
     }
-  }
-  function edit_salary($id)
+}
+ function edit_salary($id)
   {
 
   $query = $this->db->query('SELECT * FROM `ft_pay_register` where  pay_id ='.$id);
@@ -1261,6 +1374,103 @@ function edit_fixstion()
     }
 
   }
+  function autoincremrnt()
+  {
+    $currentmonth = date("F");
+
+      $query = $this->db->query('SELECT * ,`ft_pay_emp_salary`.pay_id  pid FROM `ft_pay_emp_salary`  join ft_pay_salary_master on ft_pay_salary_master.salary_cate_id = ft_pay_emp_salary.pay_salary_cate_id  join ft_pay_increment_month on `ft_pay_emp_salary`.`pay_emp_unique_id` = `ft_pay_increment_month`.`pay_emp_unique_id` where pay_month = "'.$currentmonth.'"');
+    $rowid = $query->result();
+
+    foreach ($rowid as $key => $value) {
+      # code...
+      $dataold =array('pay_id' => $value->pay_id,
+        'pay_salary_cate_id'=> $value->pay_salary_cate_id,
+          'pay_emp_unique_id'=> $value->pay_emp_unique_id,
+          'pay_basic'=> $value->pay_basic,
+            'pay_grp'=> $value->pay_grp,
+          'pay_ca'=> $value->pay_ca,
+          'pay_da'=> $value->pay_da,
+           'pay_hra'=> $value->pay_hra,
+           'pay_sa'=> $value->pay_sa,
+           'pay_madical'=> $value->pay_madical,
+           'pay_special'=> $value->pay_special,
+           'pay_sp'=> $value->pay_sp,
+            'pay_total_sum'=> $value->pay_total_sum,
+            'pay_dpf'=> $value->pay_dpf,
+            'pay_dpf_adv'=> $value->pay_dpf_adv,
+            'pay_gpf'=> $value->pay_gpf,
+            'pay_gpf_adv'=> $value->pay_gpf_adv,
+            'pay_gias'=> $value->pay_gias,
+            'pay_house_loan'=> $value->pay_house_loan,
+            'pay_car_loan'=> $value->pay_car_loan,
+            'pay_fuel_charge'=> $value->pay_fuel_charge,
+            'pay_grain_adv'=> $value->pay_grain_adv,
+            'pay_festival_adv'=> $value->pay_festival_adv,
+            'pay_professional_tax'=> $value->pay_professional_tax,
+            'pay_income_tax'=> $value->pay_income_tax,
+            'pay_other_adv'=> $value->pay_other_adv,
+            'pay_total_cut'=> $value->pay_total_cut,
+            'pay_total'=> $value->pay_total,
+            'pay_remark'=> $value->pay_remark,
+            'created_at'=> date("Y-m-d H:i:s"),
+            'created_by'=> $this->session->userdata('user_id') ,
+            'updated_by'=> $value->updated_by,
+            'updated_at'=> $value->updated_at,
+           'no_updated'=> $value->no_updated,
+       );
+       
+         $this->db->insert("ft_pay_log_emp_salary", $dataold);
+
+
+  
+         if($value->pay_salary_cate_id != 1)
+         {
+              $basic = ($value->pay_basic + $value->pay_grp );
+              $par_val = "0.03";
+              $newbasic = ( $par_val * $basic) + $value->pay_basic ;
+              $da = ceil(($basic * $value->salary_da) / 100) ;
+               $nbasic = ceil($newbasic / 10) * 10;
+               $total_sum =  $newbasic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
+               $total = $total_sum - $value->pay_total_cut;
+       }else{
+
+
+          if($value->pay_basic>= 58930)
+          {
+           $basic =$value->pay_basic + 1280;
+          }elseif($value->pay_basic >= 67210){
+          $basic =$value->pay_basic + 1380;
+          }elseif($value->pay_basic >= 70290){
+           $basic =$value->pay_basics + 1540;
+          }
+          
+          $nbasic = ceil($basic / 10) * 10;
+            $da = ceil(($basic * $value->salary_da) / 100) ;
+          
+          $total_sum =  $basic  + $value->pay_grp + $value->pay_ca+ $da+ $value->pay_hra+ $value->pay_sa+ $value->pay_madical+ $value->pay_special+ $value->pay_others+ $value->pay_sp;
+           $total = $total_sum - $value->pay_total_cut;
+
+
+       }
+
+        $datanew =array(
+          'pay_basic'=> $basic ,
+          'pay_da'=> $da,
+           'pay_total_sum'=> $total_sum,
+            'pay_total'=> $total,
+            'pay_remark'=> "Yearly incrment",
+            'updated_by'=>  $this->session->userdata('user_id'),
+            'updated_at'=> date("Y-m-d H:i:s"),
+           'no_updated'=> $value->no_updated + 1,
+       );
+      $this->db->where("pay_id",$value->pid);
+     $this->db->update("ft_pay_emp_salary", $datanew);
+    }
+     return $rowid ;
+  } 
+
+   
+
   function salary_mastaremp()
   {
   			     $query = $this->db->query('SELECT pay_emp_unique_id FROM `ft_pay_register` where pay_arriyas =1  GROUP by pay_emp_unique_id ');
@@ -1282,7 +1492,7 @@ function edit_fixstion()
   }
   function getcate_pp($id)
   {
-             $query = $this->db->query('SELECT salary_da,salary_id FROM `ft_pay_salary_master` where salary_cate_id ='.$id);
+             $query = $this->db->query('SELECT salary_da,salary_id,no_updated FROM `ft_pay_salary_master` where salary_cate_id ='.$id);
   $rowid = $query->result();
   return $rowid ;
   }
@@ -1292,27 +1502,36 @@ function edit_fixstion()
          $query = $this->db->query('SELECT * FROM `ft_pay_salary_master` where salary_id ='.$_POST['id']);
   $rowid = $query->result();
 
-foreach ($rowid as $key => $value) {
+foreach ($rowid as $key => $value12) {
   # code...
 
      $datafixs =array(
-        'salary_cate_id'=>$value->salary_cate_id,
-          'salary_da'=> $value->salary_da,
-         'created_by'=>  $value->created_by, 
-         'salary_id'=>  $value->salary_id, 
+        'salary_cate_id'=>$value12->salary_cate_id,
+          'salary_da'=> $value12->salary_da,
+         'created_by'=>  $value12->created_by, 
+         'salary_id'=>  $value12->salary_id, 
+         'salary_da_apply_month'=> $value12->salary_da_apply_month,
+          'salary_da_apply_year'=> $value12->salary_da_apply_year,
        );
         $this->db->insert("ft_pay_log_salary_master", $datafixs);
 
          $data =array(
     
           'salary_da'=> $_POST['da'],
+          'salary_da_apply_month'=> $_POST['pay_month'],
+          'salary_da_apply_year'=> $_POST['pay_year'],
+           'updated_by'=>$this->session->userdata('user_id'),
+           'updated_at'=>date("y-m-d h:i:s"),
+          'no_updated'=>$_POST["no_updated"],
          );
          $this->db->where("salary_id",$_POST['id']);
         $this->db->update("ft_pay_salary_master", $data);
+
+ 
+    }
+ 
+  
 }
-
-
-  }
 
 function showallpayslip()
 {
@@ -1324,13 +1543,172 @@ function showallpayslip()
      $this->db->where("pay_month",$_POST['pay_month']);
      $query = $this->db->get();
             
+    // echo $this->db->last_query();
         
         return $rows = $query->result();
 
 
+}function emp_cate()
+{//SELECT * FROM `ft_pay_increment_month` join ft_employee on ft_employee.emp_unique_id = ft_pay_increment_month.`pay_emp_unique_id`
+
+$this->db->select('*');
+          $this->db->from('ft_pay_increment_month');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_increment_month.pay_emp_unique_id');
+      // $this->db->where("pay_salary_cate_id",1);
+     $query = $this->db->get();
+            
+        
+     echo $this->db->last_query();
+
+        return $rows = $query->result();
+
 }
+function add_increment_month()
+{
 
 
+ $data =array(
+    
+          'pay_month'=> $_POST['pay_month'],
+           'updated_by'=>$this->session->userdata('user_id'),
+           'updated_at'=> date("Y-m-d h:i:s"),
+           
+          'no_update'=>$_POST["no_update"],
+         );
+         $this->db->where("pay_id",$_POST['pay_id']);
+        $this->db->update("ft_pay_increment_month", $data);
+
+
+
+}function pay_salary_emp($id)
+{
+
+
+  $this->db->select('*');
+          $this->db->from('ft_pay_emp_salary');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_emp_salary.pay_emp_unique_id');
+      $this->db->where("pay_year",$_POST['pay_year']);
+       $this->db->where("pay_emp_unique_id",$id);
+     $this->db->where("pay_month",$_POST['pay_month']);
+     $query = $this->db->get();
+            
+    // echo $this->db->last_query();
+        
+        return $rows = $query->result();
+}
+function getpaymonthmaster($empid)
+{
+    $date1 = $_GET['pay_year'].'-'.$_GET['pay_month'].'-01';
+    $date2 = $_GET['pay_year_end'].'-'.$_GET['pay_month_end'].'-01';
+
+    $output = [];
+    $time   = strtotime($date1);
+    $last   = date('F|Y', strtotime($date2));
+
+    //die();
+    $this->db->select('*');
+              $this->db->from('ft_pay_emp_salary');
+       $this->db->where("pay_emp_unique_id",$empid);
+       $query = $this->db->get();
+                
+        // echo $this->db->last_query();
+         $rows = $query->result();
+
+
+    do {
+        $month = date('F|Y', $time);
+        $total = date('t', $time);
+
+        $output[] = [
+            'month' => $month,
+            'total' => $total,
+        ];
+
+        $time = strtotime('+1 month', $time);
+    } while ($month != $last);
+    //print_r($output[1]);
+   // echo count($output); //die();
+      # code...
+   for ($x = 0; $x <= count($output) ;$x++) {
+
+    $nn = explode("|", $output[$x]['month']);
+   // echo $nn[0]."monika ";
+  //  echo "<br/>";
+
+           $this->db->select('*');
+              $this->db->from('ft_pay_register');
+            $this->db->where("pay_month",$nn[0]);
+            $this->db->where("pay_year",$nn[1]);   
+          $this->db->where("pay_emp_unique_id",$empid);
+           $query23 = $this->db->get();
+                     
+        // echo $this->db->last_query();
+         $rows22 = $query23->result();
+
+    if(count($rows22) == 0)  {     
+    foreach ($rows as $key => $pay) {
+
+
+         //  $currentmonth = $_POST['pay_month']; 
+              $datapay = array(
+                'pay_salary_cate_id' => $pay->pay_salary_cate_id,
+                'pay_month' => $nn[0],
+                'pay_year' =>  $nn[1] ,
+                'pay_emp_unique_id' => $pay->pay_emp_unique_id ,
+                'pay_basic' => $pay->pay_basic ,
+              'pay_grp' => $pay->pay_grp ,
+              'pay_da' => $pay->pay_da,
+              'pay_special' =>$pay->pay_special ,
+              'pay_hra' =>$pay->pay_hra ,
+              'pay_sa' => $pay->pay_sa ,
+              'pay_madical' => $pay->pay_madical ,
+              'pay_ca' =>  $pay->pay_ca,
+              'pay_sp' =>  $pay->pay_sp,
+              'pay_others' =>  $pay->pay_others ,
+               'pay_ca' => $pay->pay_ca,
+              'pay_sp' => $pay->pay_sp ,
+               'pay_total_sum' =>  $pay->pay_total_sum,
+               'pay_dpf' =>  $pay->pay_dpf ,
+                'pay_dpf_adv' =>  $pay->pay_dpf_adv,
+               'pay_gpf' =>  $pay->pay_gpf ,
+               'pay_gpf_adv' =>  $pay->pay_gpf_adv,
+              'pay_gias' => $pay->pay_gias ,
+              'pay_defined_contribution' => $pay->pay_defined_contribution ,
+              'pay_fuel_charge' => $pay->pay_fuel_charge ,
+              'pay_professional_tax' => $pay->pay_professional_tax ,
+              'pay_income_tax' => $pay->pay_income_tax ,
+               'pay_grain_adv' => $pay->pay_grain_adv ,
+              'pay_festival_adv' => $pay->pay_festival_adv ,
+               'pay_other_adv' => $pay->pay_other_adv,
+              'pay_house_loan' => $pay->pay_house_loan,
+              'pay_car_loan' => $pay->pay_car_loan,
+              'pay_house_rent' => $pay->pay_house_rent,
+              'pay_total_cut' => $pay->pay_total_cut,
+               'pay_total' => $pay->pay_total_cut,
+                'created_by' => $this->session->userdata('user_id'),
+               );
+
+   
+         
+   $this->db->insert("ft_pay_register", $datapay);
+     
+    }
+  }
+
+}
+$this->db->select('*');
+          $this->db->from('ft_pay_register');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+   $this->db->where("pay_emp_unique_id",$empid);
+   $query11 = $this->db->get();
+            
+    // echo $this->db->last_query();
+     $rows11 = $query11->result();
+
+  return $rows11;
+
+
+}
 }
 
 ?>

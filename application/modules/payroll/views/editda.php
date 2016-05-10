@@ -61,6 +61,35 @@
                   <b id="buget"><input value="" name="DA" class="form-control"> </b>
               </div>
 
+                      <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month" name="pay_month" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div><div class="form-group">
+                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_year'); ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_year" name="pay_year" class="form-control">
+                                <option value=""><?php echo $this->lang->line('emp_pay_year'); ?></option>
+                                <?php for ($m=2016; $m >= 2014; $m--) {
+   
+     
+     ?>
+                                    <option value="<?php echo $m ?>"  ><?php echo $m ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>
 
             
 

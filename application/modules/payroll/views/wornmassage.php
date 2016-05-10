@@ -27,11 +27,9 @@
                    
                     <div class="box-body">
 
-आप <b><?php echo $pay->emp_full_name_hi;?></b> की सैलरी <b><?php echo $_GET['pay_month']?></b> महीने की भर चुके है यदि आपको इनकी महीने <b><?php echo $_GET['pay_month']?></b>  सैलरी मे कुछ परिवर्तन करना है तो निचे दिए गये परिहरति बटन पर क्लिक करे अन्यथा बेक बटन पर क्लिक करे
-					</div> <div class="box-body">
+आप <b><?php echo $pay->emp_full_name_hi;?></b> की सैलरी <b><?php echo $_GET['pay_month']?></b> महीने की भर चुके है </div> <div class="box-body">
 
-						<a class="btn btn-primary" href="<?php echo base_url();?>payroll/pay_modification/?emp_unique_codeemp_unique_code=<?php echo $_GET['emp_unique_codeemp_unique_code']?>&pay_month=<?php echo $_GET['pay_month']?>" class="button"> परिहरति </a>
-						<button class="btn  btn-warning" title="Back" onclick="goBack()">पिछले पेज में वापस जायें</button>
+					<button class="btn  btn-warning" title="Back" onclick="goBack()">पिछले पेज में वापस जायें</button>
 
 									</div>
 				</div>		

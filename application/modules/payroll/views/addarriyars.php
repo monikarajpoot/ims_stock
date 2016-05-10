@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-   <?php echo $title; ?>
+   <?php echo "एरीयर्स"; ?>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><?php echo $title; ?></li>
+        <li class="active"><?php echo "एरीयर्स" ?></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -20,7 +20,7 @@
                 <div class="box-header">
                   <!--  <h3>यह आपकी पर्सनल जानकारी है अगर इसमे किसी प्रकार की त्रुटी दिखाई दे तो हमें अवश्य सूचित करे|</h3> -->
                 </div>
-           <div class="container"><h2><?php echo $title;?></h2>
+           <div class="container"><h2><?php echo " एरीयर्स  ";?></h2>
   
 <div class="row">
         <div class="col-xs-12">
@@ -49,10 +49,10 @@
 
                <div class="col-xs-6" id="dis1" >
                                   <div class="form-group">
-                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+                <label for="exampleInputEmail1"><?php echo "वेतन महीने से " ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
                   <select name="pay_month" name="pay_month" class="form-control">
-                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <option value=""><?php echo "वेतन महीने से " ?></option>
                                 <?php for ($m=1; $m<=12; $m++) {
      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
      
@@ -61,7 +61,7 @@
                                 <?php } ?>
                             </select> 
  <select name="pay_year" name="pay_year" class="form-control">
-                                <option value=""><?php echo " एरीयर्स साल "; ?></option>
+                                <option value=""><?php echo " एरीयर्स साल से"; ?></option>
                                 <?php for ($my=2011; $my<=date("Y"); $my++) {
    
      ?>
@@ -75,10 +75,10 @@
                             <div id="dis2" >
                                 <div class="col-xs-6">
                                        <div class="form-group">
-                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+                <label for="exampleInputEmail1"><?php echo "वेतन महीने तक "; ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
                   <select name="pay_month_end" name="pay_month" class="form-control">
-                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <option value=""><?php echo "वेतन महीने तक " ?></option>
                                 <?php for ($m=1; $m<=12; $m++) {
      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
      
@@ -87,7 +87,7 @@
                                 <?php } ?>
                             </select> 
 							 <select name="pay_year_end" name="pay_year_end" class="form-control">
-                                <option value=""><?php echo " एरीयर्स साल "; ?></option>
+                                <option value=""><?php echo " एरीयर्स साल  तक "; ?></option>
                                 <?php for ($my=2011; $my<=date("Y"); $my++) {
    
      ?>

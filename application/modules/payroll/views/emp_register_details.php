@@ -1,4 +1,13 @@
+<style>
 
+table, th, td {
+    border: 1px solid #E2DFDF;
+    /* padding: 6px 5px 7px 7px; */
+}
+table, th, td {
+    border: 1px solid #E2DFDF;
+    /* padding: 6px 5px 7px 7px; */
+}</style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -20,7 +29,7 @@
                
                    
                     <div class="box-body ">
-                         <table  class="" cellpadding="0" cellspacing="0"  border="0">
+                         <table  cellpadding="0" cellspacing="0"  border="0">
  <?php  $in = 0;  foreach ($pay_regi as $key => $pay) { $in = $in +1 ; if($in == 1){
   ?> <tr>
       <th colspan="26" ><table cellpadding="0" cellspacing="0"  border="0" width="100%" border="1">
@@ -37,7 +46,7 @@
 <?php }} ?>
 
                             
-                                <tr>
+                                <tr style="font-size:12px">
                                     
                                    
                                    <th ><?php  echo " एरीयर्स / वेतन "; ?></th>

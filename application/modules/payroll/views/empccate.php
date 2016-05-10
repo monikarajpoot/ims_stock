@@ -156,7 +156,7 @@
                                    <th width="15%"><?php echo $this->lang->line('pay_amount');  ?></th>
                                      <th width="15%"></th>
                                 </tr>
-	<
+	
 	
                                     <?php $k =0; foreach ($pay_salary as $key => $pay) { $k++; 
                                       ?>

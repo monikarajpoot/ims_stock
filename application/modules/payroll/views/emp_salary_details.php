@@ -46,16 +46,51 @@
                 <input type="text" name="emp_unique_codeemp_unique_code" id="emp_unique_code" placeholder="<?php echo $this->lang->line('emp_unique_code'); ?>"  value="" class="form-control">
                 
               </div>
-                <div class="form-group">
-                <label for="exampleInputEmail1"><?php echo $this->lang->line('emp_pay_month'); ?><span class="text-danger">*</span></label>
+               
+               <div class="col-xs-6" id="dis1" >
+                                  <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo "वेतन महीने से " ?><span class="text-danger">*</span></label>
                <?php $currentmonth = date('F'); ?>
                   <select name="pay_month" name="pay_month" class="form-control">
-                                <option value=""><?php echo $this->lang->line('emp_pay_month'); ?></option>
+                                <option value=""><?php echo "वेतन महीने से " ?></option>
                                 <?php for ($m=1; $m<=12; $m++) {
      $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
      
      ?>
                                     <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+ <select name="pay_year" name="pay_year" class="form-control">
+                                <option value=""><?php echo " वेतन साल से"; ?></option>
+                                <?php for ($my=2011; $my<=date("Y"); $my++) {
+   
+     ?>
+                                    <option value="<?php echo $my ?>"  ><?php echo $my ?></option>
+                                <?php } ?>
+                            </select> 
+
+                <?php echo form_error('category_title_hin');?>
+              </div>  </div>
+              <div id="dis2" >
+                                <div class="col-xs-6">
+                                       <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo "वेतन महीने तक "; ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_month_end" name="pay_month" class="form-control">
+                                <option value=""><?php echo "वेतन महीने तक " ?></option>
+                                <?php for ($m=1; $m<=12; $m++) {
+     $month = date('F', mktime(0,0,0,$m, 1, date('Y')));
+     
+     ?>
+                                    <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
+                                <?php } ?>
+                            </select> 
+               <select name="pay_year_end" name="pay_year_end" class="form-control">
+                                <option value=""><?php echo " वेतन साल  तक "; ?></option>
+                                <?php for ($my=2011; $my<=date("Y"); $my++) {
+   
+     ?>
+                                    <option value="<?php echo $my ?>"  ><?php echo $my ?></option>
                                 <?php } ?>
                             </select> 
 
