@@ -913,7 +913,7 @@ if(isset($_POST['pay_house_rent'])){
    $this->db->where("pay_id",$_POST['pay_id']);
       $this->db->update("ft_pay_register", $datapay);
 
-      echo $this->db->last_query();
+   //   echo $this->db->last_query();
 
   }
   function edit_slary_emp1()
@@ -1155,7 +1155,7 @@ $query1 = $this->db->query("SELECT * FROM `ft_pay_salary_master` where  salary_c
    $this->db->where("pay_id",$_POST['pay_id']);
       $this->db->update("ft_pay_register", $datapay);
 
-      echo $this->db->last_query();
+    //  echo $this->db->last_query();
 
   }
 function edithead($id,$tablename)
@@ -1378,16 +1378,20 @@ function edit_fixstion()
   {
     $currentmonth = date("F");
 
-      $query = $this->db->query('SELECT * ,`ft_pay_emp_salary`.pay_id  pid FROM `ft_pay_emp_salary`  join ft_pay_salary_master on ft_pay_salary_master.salary_cate_id = ft_pay_emp_salary.pay_salary_cate_id  join ft_pay_increment_month on `ft_pay_emp_salary`.`pay_emp_unique_id` = `ft_pay_increment_month`.`pay_emp_unique_id` where pay_month = "'.$currentmonth.'"');
-    $rowid = $query->result();
+      $query = $this->db->query('SELECT * ,`ft_pay_emp_salary`.pay_id  pid FROM `ft_pay_emp_salary` join ft_employee on `ft_pay_emp_salary`.`pay_emp_unique_id` = ft_employee.emp_unique_id   join ft_pay_salary_master on ft_pay_salary_master.salary_cate_id = ft_pay_emp_salary.pay_salary_cate_id  join ft_pay_increment_month on `ft_pay_emp_salary`.`pay_emp_unique_id` = `ft_pay_increment_month`.`pay_emp_unique_id` where pay_month = "'.$currentmonth.'" ');    $rowid = $query->result();
 
-    foreach ($rowid as $key => $value) {
+ //echo $this->db->last_query();
+
+     foreach ($rowid as $key => $value) {
       # code...
-      $dataold =array('pay_id' => $value->pay_id,
+      if( $value->pay_incr_year != date("Y") )
+      {
+        $dataold =array('pay_id' => $value->pay_id,
         'pay_salary_cate_id'=> $value->pay_salary_cate_id,
           'pay_emp_unique_id'=> $value->pay_emp_unique_id,
           'pay_basic'=> $value->pay_basic,
-            'pay_grp'=> $value->pay_grp,
+          'pay_grp'=> $value->pay_grp,
+          'pay_incr_year'=> $value->pay_incr_year,
           'pay_ca'=> $value->pay_ca,
           'pay_da'=> $value->pay_da,
            'pay_hra'=> $value->pay_hra,
@@ -1423,10 +1427,10 @@ function edit_fixstion()
 
 
   
-         if($value->pay_salary_cate_id != 1)
+         if($value->pay_incr_type != 1)
          {
               $basic = ($value->pay_basic + $value->pay_grp );
-              $par_val = "0.03";
+              $par_val = "0.0".$value->pay_incr_amount ;
               $newbasic = ( $par_val * $basic) + $value->pay_basic ;
               $da = ceil(($basic * $value->salary_da) / 100) ;
                $nbasic = ceil($newbasic / 10) * 10;
@@ -1435,14 +1439,7 @@ function edit_fixstion()
        }else{
 
 
-          if($value->pay_basic>= 58930)
-          {
-           $basic =$value->pay_basic + 1280;
-          }elseif($value->pay_basic >= 67210){
-          $basic =$value->pay_basic + 1380;
-          }elseif($value->pay_basic >= 70290){
-           $basic =$value->pay_basics + 1540;
-          }
+         $basic = $value->pay_basic +  $value->pay_incr_amount;
           
           $nbasic = ceil($basic / 10) * 10;
             $da = ceil(($basic * $value->salary_da) / 100) ;
@@ -1457,6 +1454,7 @@ function edit_fixstion()
           'pay_basic'=> $basic ,
           'pay_da'=> $da,
            'pay_total_sum'=> $total_sum,
+            'pay_incr_year'=> date("Y"),
             'pay_total'=> $total,
             'pay_remark'=> "Yearly incrment",
             'updated_by'=>  $this->session->userdata('user_id'),
@@ -1465,7 +1463,7 @@ function edit_fixstion()
        );
       $this->db->where("pay_id",$value->pid);
      $this->db->update("ft_pay_emp_salary", $datanew);
-    }
+   } }
      return $rowid ;
   } 
 
@@ -1568,7 +1566,8 @@ function add_increment_month()
 
 
  $data =array(
-    
+    'pay_incr_type'=> $_POST['pay_incr_type'],
+    'pay_incr_amount'=> $_POST['pay_incr_amount'],
           'pay_month'=> $_POST['pay_month'],
            'updated_by'=>$this->session->userdata('user_id'),
            'updated_at'=> date("Y-m-d h:i:s"),
@@ -1685,6 +1684,7 @@ function getpaymonthmaster($empid)
               'pay_house_rent' => $pay->pay_house_rent,
               'pay_total_cut' => $pay->pay_total_cut,
                'pay_total' => $pay->pay_total_cut,
+               'pay_back_date' => 1,
                 'created_by' => $this->session->userdata('user_id'),
                );
 
@@ -1700,12 +1700,23 @@ $this->db->select('*');
           $this->db->from('ft_pay_register');
            $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
    $this->db->where("pay_emp_unique_id",$empid);
+    $this->db->where("pay_back_date",1);
    $query11 = $this->db->get();
             
     // echo $this->db->last_query();
      $rows11 = $query11->result();
 
   return $rows11;
+
+
+}function incrment_month()
+{
+$data =array(
+    'pay_basic'=> $_POST['pay_basic'],
+         'no_updated'=>$_POST["no_update"],
+         );
+         $this->db->where("pay_id",$_POST['pay_id']);
+        $this->db->update("ft_pay_emp_salary", $data);
 
 
 }

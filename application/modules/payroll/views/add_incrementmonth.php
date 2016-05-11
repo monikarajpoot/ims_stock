@@ -18,7 +18,7 @@
                     <h3 class="box-title"><?php //echo $title_tab_header;     ?></h3>
                 </div>
                 <div class="box-body">
-                    <?php $this->load->view('payroll_header') ?>
+                    <?php// $this->load->view('payroll_header') ?>
                 </div>
             </div>
         </div>
@@ -117,6 +117,26 @@
                                     <option value="<?php echo $month ?>" <?php echo  $currentmonth == $month  ? 'selected' : ''; ?> ><?php echo $month ?></option>
                                 <?php } ?>
                             </select> 
+
+              
+              </div>
+   <div class="form-group">
+               <label for="exampleInputEmail1"><?php echo  "Icrement Type" ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                  <select name="pay_incr_type" name="pay_incr_type" class="form-control">
+                              
+                               <option value="<?php echo 1 ?>" <?php echo  $salary->pay_incr_type == 1 ? 'selected' : ''; ?> >Fixed Amount</option>
+                                    <option value="<?php echo 0 ?>" <?php echo  $salary->pay_incr_type == 0 ? 'selected' : ''; ?>  >Percentage Amount</option>
+                             
+                            </select> 
+
+              
+              </div>
+   <div class="form-group">
+                   <label for="exampleInputEmail1"><?php echo  "Icrement Amount " ?><span class="text-danger">*</span></label>
+               <?php $currentmonth = date('F'); ?>
+                   <input type="text" name="pay_incr_amount" id=""  value="<?php echo $salary->pay_incr_amount; ?>" class="form-control">
+               
 
               
               </div>

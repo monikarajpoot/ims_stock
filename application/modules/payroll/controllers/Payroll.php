@@ -1151,4 +1151,11 @@ if(isset($_POST['pay_sa'])){
          $data['view_file'] = "payroll/emp_salary_details";
          $this->template->index($data);
     }
+    function incrment_month()
+    {
+
+      $data['pay_salary'] = $this->payroll_model->incrment_month();
+        redirect("payroll/autoincremrnt");
+
+    }
 }

@@ -35,8 +35,6 @@
                     <div class="box-header with-border">
                         <div class="row">
                                   <div class="col-xs-12 ">
-                             <a href="<?php echo base_url();?>payroll/add_adv/" >
-                                                <button type="button" class="btn  btn-primary"><?php echo $this->lang->line('add_new'); ?></button></a>
                            
                             </div>
                           
@@ -49,8 +47,10 @@
                         <table id="leave_tbl" class="table table-bordered table-striped">
                             <thead>
                                 <tr>  <th width='5%'><?php echo $this->lang->line('sno'); ?></th>
-                                    <th width='5%'><?php echo "employee uniqid"  ?></th> 
-                  <th width='5%'><?php echo "Pay da" ?></th>
+                                   <th width='5%'><?php echo "Employee Name "; ?></th>
+
+                                    <th width='5%'><?php echo "Unique code of employee "  ?></th> 
+                  <th width='5%'><?php echo "Pay Basic" ?></th>
                                 <th width='5%'><?php echo "Pay da" ?></th>    
                                     <th width='5%'><?php echo "Action"?></th>
                  
@@ -66,6 +66,7 @@
                                 foreach ($payall as $key => $salary) { ?>
                   <tr>
                                     <th width='5%5%'><?php echo $i; ?></th>
+                                     <th width="5%">  <?php echo  $salary->emp_full_name_hi ?></th>
                                     <th width="5%">  <?php echo  $salary->pay_emp_unique_id ?></th>
 
                                     <th width="5%">  <?php echo  $salary->pay_basic ?></th>
@@ -106,16 +107,16 @@
         <h4 class="modal-title">Change basic pay of <?php echo $salary->pay_emp_unique_id; ?> </h4>
       </div>
       <div class="modal-body">
-           <form action="<?php echo base_url();?>payroll/add_increment_month" method="post" >
+           <form action="<?php echo base_url();?>payroll/incrment_month" method="post" >
          <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo  "Icrement Month of employee" ?><span class="text-danger">*</span></label>
-               <input type="text" name="pay_id" id=""  value="<?php echo $salary->pay_basic; ?>" class="form-control">
+               <input type="text" name="pay_basic" id=""  value="<?php echo $salary->pay_basic; ?>" class="form-control">
                
               
               </div>
-                   <input type="hidden" name="pay_id" id=""  value="<?php echo $salary->pay_id; ?>" class="form-control">
+                   <input type="hidden" name="pay_id" id=""  value="<?php echo $salary->pid; ?>" class="form-control">
                
-                     <input type="hidden" name="no_update" id=""  value="<?php echo $salary->no_update + 1; ?>" class="form-control">
+                     <input type="hidden" name="no_update" id=""  value="<?php echo $salary->no_updated + 1; ?>" class="form-control">
                
       </div>
    
