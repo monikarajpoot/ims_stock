@@ -1155,6 +1155,261 @@ $query1 = $this->db->query("SELECT * FROM `ft_pay_salary_master` where  salary_c
    $this->db->where("pay_id",$_POST['pay_id']);
       $this->db->update("ft_pay_register", $datapay);
 
+    
+
+
+  }function edit_slary_emp12()
+  {
+
+ 
+  if(isset($_POST['pay_gradepay'])){
+
+        $pay_gradepay = $_POST['pay_gradepay'];
+
+      }else{
+    $pay_gradepay = 0;
+
+      }
+        if(isset($_POST['pay_ca'])){
+
+        $pay_ca = $_POST['pay_ca'];
+
+      }else{
+    $pay_ca = 0;
+
+      }
+        if(isset($_POST['pay_da'])){
+
+        $pay_da = $_POST['pay_da'];
+
+      }else{
+    $pay_da = 0;
+
+      }
+
+        if(isset($_POST['pay_hra'])){
+
+        $pay_hra = $_POST['pay_hra'];
+
+      }else{
+    $pay_hra = 0;
+
+      }
+
+
+        if(isset($_POST['pay_sa'])){
+
+        $pay_sa = $_POST['pay_sa'];
+
+      }else{
+    $pay_sa = 0;
+
+      }
+
+          if(isset($_POST['pay_madical'])){
+
+        $pay_madical = $_POST['pay_madical'];
+
+      }else{
+    $pay_madical = 0;
+
+      }
+
+
+            if(isset($_POST['pay_special'])){
+
+        $pay_special = $_POST['pay_special'];
+
+      }else{
+    $pay_special = 0;
+
+      }
+      if(isset($_POST['pay_sp'])){
+
+        $pay_sp = $_POST['pay_sp'];
+
+      }else{
+    $pay_sp = 0;
+
+      }
+            if(isset($_POST['pay_others'])){
+
+        $pay_others = $_POST['pay_others'];
+
+      }else{
+    $pay_others = 0;
+
+      }
+          if(isset($_POST['pay_dpf'])){
+
+        $pay_dpf = $_POST['pay_dpf'];
+
+      }else{
+    $pay_dpf = 0;
+
+      }
+
+if(isset($_POST['pay_gpf'])){
+
+        $pay_gpf = $_POST['pay_gpf'];
+
+      }else{
+    $pay_gpf = 0;
+
+      }
+       if(isset($_POST['pay_dpf_adv'])){
+
+        $pay_dpf_adv = $_POST['pay_dpf_adv'];
+
+      }else{
+    $pay_dpf_adv = 0;
+
+      }
+if(isset($_POST['pay_gpf_adv'])){
+
+        $pay_gpf_adv = $_POST['pay_gpf_adv'];
+
+      }else{
+    $pay_gpf_adv = 0;
+
+      }
+
+
+if(isset($_POST['pay_gias'])){
+
+        $pay_gias = $_POST['pay_gias'];
+
+      }else{
+    $pay_gias = 0;
+
+      }
+
+if(isset($_POST['pay_define'])){
+
+        $pay_define = $_POST['pay_define'];
+
+      }else{
+    $pay_define = 0;
+
+      }
+
+if(isset($_POST['pay_fuel_charge'])){
+
+        $pay_fuel_charge = $_POST['pay_fuel_charge'];
+
+      }else{
+    $pay_fuel_charge = 0;
+
+      }
+if(isset($_POST['pay_professional_tax'])){
+
+        $pay_professional_tax = $_POST['pay_professional_tax'];
+
+      }else{
+    $pay_professional_tax = 0;
+
+      }
+
+if(isset($_POST['pay_income_tax'])){
+
+        $pay_income_tax = $_POST['pay_income_tax'];
+
+      }else{
+    $pay_income_tax = 0;
+
+      }
+
+
+if(isset($_POST['pay_other_adv'])){
+
+        $pay_other_adv = $_POST['pay_other_adv'];
+
+      }else{
+    $pay_other_adv = 0;
+
+      }
+
+if(isset($_POST['pay_house_rent'])){
+
+        $pay_house_rent = $_POST['pay_house_rent'];
+
+      }else{
+    $pay_house_rent = 0;
+
+      }
+
+
+$query1 = $this->db->query("SELECT * FROM `ft_pay_salary_master` where  salary_cate_id =".inputcheckvaul('pay_salary_cate_id'));
+  $rowid = $query1->result();
+     
+
+      $ts = $_POST['pay_basic'] + inputcheckvaul('pay_grp') + inputcheckvaul('pay_da') + $pay_special + $pay_hra +
+       $pay_sa + $pay_madical + $pay_others + $pay_special+ $pay_ca +  $pay_sp;
+
+       $tc =  $pay_dpf + $pay_dpf_adv + $pay_gpf + $pay_gpf_adv + $pay_gias + $pay_define + $pay_fuel_charge + $pay_income_tax+
+       $pay_professional_tax + $pay_fuel_charge +inputcheckvaul('pay_grain_adv')  +inputcheckvaul('pay_festival_adv') + $pay_house_rent +
+         $pay_other_adv + inputcheckvaul('pay_house_loan') +inputcheckvaul('pay_car_loan') ; 
+
+         $tt = $ts - $tc;
+
+         $dab = (inputcheckvaul('pay_basic') + $pay_gradepay );
+        
+      //   $da  = ($dab *  $rowid[0]->salary_da)/100;
+      //   echo $_POST['pay_id']."test";
+        // die();
+
+        $datapay = array(
+                'pay_salary_cate_id' =>inputcheckvaul('pay_salary_cate_id'),
+                'pay_remark'=> inputcheckvaul('remark'),
+               'pay_basic' => inputcheckvaul('pay_basic'),
+              'pay_grp' =>inputcheckvaul('pay_grp'),
+              'pay_da' => inputcheckvaul('pay_da'),
+              'pay_special' =>$pay_special ,
+              'pay_hra' =>$pay_hra,
+              'pay_sa' => $pay_sa,
+              'pay_madical' =>$pay_madical,
+              'pay_special' =>  $pay_special,
+              'pay_others' => $pay_others ,
+               'pay_ca' => $pay_ca ,
+              'pay_sp' => $pay_sp ,
+               'pay_total_sum' =>  $ts,
+               'pay_dpf' =>  $pay_dpf ,
+                'pay_dpf_adv' => $pay_dpf_adv,
+               'pay_gpf' =>  $pay_gpf ,
+               'pay_gpf' => $pay_gpf_adv,
+              'pay_gias' => $pay_gias ,
+              'pay_defined_contribution' => $pay_define ,
+              'pay_fuel_charge' => $pay_fuel_charge ,
+              'pay_professional_tax' => $pay_professional_tax ,
+              'pay_income_tax' =>$pay_income_tax ,
+               'pay_grain_adv' => inputcheckvaul('pay_grain_adv'),
+              'pay_festival_adv' =>inputcheckvaul('pay_festival_adv') ,
+               'pay_other_adv' => $pay_other_adv,
+      'pay_house_loan' => inputcheckvaul('pay_house_loan') ,
+     'pay_car_loan' =>inputcheckvaul('pay_car_loan') ,
+      'pay_house_rent' => $pay_house_rent,
+      'pay_total_cut' => $tc,
+       'pay_total' => $tt,
+        'updated_by' => $this->session->userdata('user_id'),
+        'pay_back_date'>1,
+        'updated_at' =>date("Y-m-d H:i:s"),
+        'no_updated'=>$_POST['no_updated']
+               );
+   $this->db->where("pay_id",$_POST['pay_id']);
+      $this->db->update("ft_pay_register", $datapay);
+
+      $this->db->select('*');
+          $this->db->from('ft_pay_register');
+           $this->db->join('ft_employee', 'ft_employee.emp_unique_id =  ft_pay_register.pay_emp_unique_id');
+   $this->db->where("pay_emp_unique_id",$empid);
+    $this->db->where("pay_back_date",1);
+   $query11 = $this->db->get();
+            
+    // echo $this->db->last_query();
+     $rows11 = $query11->result();
+
+  return $rows11;
+
     //  echo $this->db->last_query();
 
   }

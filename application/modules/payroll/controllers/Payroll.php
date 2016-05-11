@@ -147,12 +147,12 @@ class Payroll extends MX_Controller {
 
        $data['pay_salary'] = $this->payroll_model->getpaymonthmaster($emp_id);
    
-    //  $this->load->view("addsalary" ,$data);
+    //  
          // pre($data['dataval'] );
          $data['module_name'] = "payroll";
        $data['view_file'] = "payroll/add_edit_salary";
-      
-        $this->template->index($data);
+      $this->load->view("add_edit_salary" ,$data);
+      //  $this->template->index($data);
     }
     public function pay_modification()
     {
@@ -864,6 +864,14 @@ $data['pay_salary'] = $this->payroll_model->edit_salary($pay_id);
      redirect("payroll/empcate/".$emp_id."/".$month);
     }
 
+function edit_slary_emp12()
+    {
+       $emp_id =$_POST['pay_salary_cate_id'];
+        $month = $_POST['pay_month'];
+      
+     $this->payroll_model->edit_slary_emp12();
+   //  redirect("payroll/empcate/".$emp_id."/".$month);
+    }
     function edit_salarymaster()
     {
      

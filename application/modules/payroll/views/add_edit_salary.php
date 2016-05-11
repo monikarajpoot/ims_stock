@@ -1,14 +1,5 @@
-
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>
-        <?php //echo $title; ?>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><?php //echo $title; ?></li>
-    </ol>
-</section>
+     <script src="<?php echo base_url(); ?>/themes/admin/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    
 
 <!-- Main content -->
 <section class="content">
@@ -16,7 +7,7 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h1 ><?php echo $emp_details[0]->emp_full_name;    ?></h1>
+                    <h1 ><?php echo $pay_salary[0]->emp_full_name;    ?></h1>
                 </div>
                 <div class="box-body">
                     <?php //$this->load->view('payroll_header') ?>
@@ -31,9 +22,7 @@
             <div class="box box-primary">
 
                <div class="box-body">
-               	  <form action="<?php echo base_url();?>payroll/add_slary_emp" method="post">
-               	  
-		
+               
 
 <table border="1" style="background-color:FFFFCC;border-collapse:collapse;border:1px solid FFCC00;color:000000;width:100%" cellpadding="3" cellspacing="3">
 
@@ -173,7 +162,14 @@
 
                                     </th>
                                     <?php }if($dataval[0]['pay_cate_da'] == 1){  ?>
-                                   <th width="15%"><?php  echo  $pay->pay_da;  ?></th>
+                                   <th width="15%"><div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
+                                    <?php  echo  $pay->pay_da;  ?></div>
+                                  <div class="username1<?php echo $pay->pay_id; ?>" style="display:none" >
+                                    <input type="numbar" name="pay_da" id="pay_others1" value="<?php echo $pay->pay_da;  ?>" >
+
+                                  </div>
+
+                                  </th>
 
                                    <?php }if($dataval[0]['pay_cate_other_add'] == 1){  ?>
                                     <th width='5%'><div class="username<?php echo $pay->pay_id; ?>" id="pay_special">
