@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Common_dashboard extends MX_Controller {
+
      function __construct() {
         parent::__construct();
         $this->load->module('template');
@@ -18,13 +19,13 @@ class Common_dashboard extends MX_Controller {
  	public function index()
     {
 		no_cache(); 
-		//print_r($this->session->all_userdata());	
-       
+		//print_r($this->session->all_userdata());		
         $this->isLoggedIn();
         $data = array();
         $data['title']          = $this->lang->line('title');
         $data['title_tab']      = $this->lang->line('emprole_all_unit_list'); 
-		if(getEmployeeSection()==8){
+		$emp_section = $this->session->userdata('emp_section_id');
+		if($emp_section == 8){
             $dispetch_files_counter =  $this->dashboard_model->getTotalFile_dispetch();
             $data['total_file']=$dispetch_files_counter['total_files_in_dis'];
             $data['pending_file']=$dispetch_files_counter['total_pending_files_in_dis']+$dispetch_files_counter['total_working_files_in_dis'];
@@ -32,14 +33,15 @@ class Common_dashboard extends MX_Controller {
         }else{
             $data['total_file']   	= $this->dashboard_model->getTotalFile();
     		$data['dispetch_file']	= $this->dashboard_model->getDispatchFile();
-    		$data['pending_file'] 	= $this->dashboard_model->getpendingFile();
+    		$data['pending_file'] 	= $data['total_file'] - $data['dispetch_file'];
     		$data['leaves'] 		= $this->leave_model->getLeaves();
     		$data['pending_files']  = $this->dashboard_model->getPendingfilesDetails();
         }
-		$setion_id 				= getEmployeeSection();
+		$setion_id 	= $emp_section;
 		//$data['notice_boards']= getNoticeBoardInformation($setion_id);
+		$data['emp_section_ids']  = $emp_section;
 		$data['userid']  = emp_session_id();
-		$data['userid_sec']  = getEmployeeSection();
+		$data['userid_sec']  = $emp_section;
 		$data['start_date'] = date('Y-m-d');
 		$data['end_date'] = date('Y-m-d');
 		$data['module_name']    = "dashboard";
@@ -50,10 +52,11 @@ class Common_dashboard extends MX_Controller {
     {
         no_cache(); 
         $this->isLoggedIn();
+		$emp_section = $this->session->userdata('emp_section_id');
         $data = array();
         $data['title']          = $this->lang->line('title');
         $data['title_tab']      = $this->lang->line('emprole_all_unit_list'); 
-        $setion_id              = getEmployeeSection();
+        $setion_id              = $emp_section;
         $data['module_name']    = "dashboard";
         $data['view_file']      = "dashboard/dashboard_detail";
         $this->template->index($data);
@@ -79,6 +82,7 @@ class Common_dashboard extends MX_Controller {
 	
 	//for search report
 	public function dashboard_report(){		
+		$emp_section = $this->session->userdata('emp_section_id');
 		$this->form_validation->set_rules('start_date', 'कृपया इसे चुने', 'required');
         $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
         if ($this->form_validation->run($this) == TRUE ) {   
@@ -88,8 +92,9 @@ class Common_dashboard extends MX_Controller {
 			$data['start_date'] = date('Y-m-d');
 			$data['end_date'] = date('Y-m-d');
 		}
+		$data['emp_section_ids']  = $emp_section;
 		$data['userid']  = $this->input->post('user_id')!= '' ? $this->input->post('user_id') : emp_session_id();
-		$data['userid_sec']  = getEmployeeSection();
+		$data['userid_sec']  = $emp_section;
 		$data['form_input'] = $this->input->post();
 		$data['module_name']    = "dashboard";
         $data['view_file']      = "dashboard/index";

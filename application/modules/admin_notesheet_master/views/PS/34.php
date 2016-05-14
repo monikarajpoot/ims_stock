@@ -5,20 +5,15 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['which_jail_1'];
 }else
 {
-	$contents .=  ' <select name="which_jail_1" ><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
+	$contents .=  ' <select name="which_jail_1" id="which_jail_1"><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
 }
-if($is_genrate == true){
-$contents .= ' '.$post_data['jail'];
-}else
-{
-	$contents .=  '<input type="text" name="jail" />';
-}
+
 $contents .= '  के ';
 if($is_genrate == true){
 $contents .= $post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  '<select name="bandi" id="bandi"><option>बंदी </option><option>बंदिनी</option></select>';
 }
 $contents .= ' क्र ';
 if($is_genrate == true){
@@ -31,7 +26,7 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  ' <select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi_name'];
@@ -51,7 +46,7 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['mukti'];
 }else
 {
-	$contents .=  ' <select name="mukti"  ><option>मुक्ति </option><option>क्षमा</option><option>दया</option></select>';
+	$contents .=  ' <select name="mukti" id="mukti"  ><option>मुक्ति </option><option>क्षमा</option><option>दया</option></select>';
 }
 
 $contents .= ' याचिका प्रकरण।</span></div>	</td></tr>';
@@ -73,52 +68,52 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  '<select name="bandi"   class="bandi" ><option>बंदी </option><option>बंदिनी</option></select>';
 }
 $contents .=  ' क्रं ';
 if($is_genrate == true){
-$contents .= ' '.$post_data['bandi_no_2'];
+$contents .= ' '.$post_data['bandi_no'];
 }else
 {
-	$contents .=  ' <input type="text" name="bandi_no_2" />';
+	$contents .=  '--------';
 } 
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  ' <select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
  if($is_genrate == true){
-$contents .= ' '.$post_data['bandi_1'];
+$contents .= ' '.$post_data['bandi_name'];
 }else
 {
-	$contents .=  ' <input type="text" name="bandi_1" />';
+	$contents .=  '------------';
 }
 if($is_genrate == true){
 $contents .= ' '.$post_data['which_jail_1'];
 }else
 {
-	$contents .=  ' <select name="which_jail_1" ><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
+	$contents .=  ' <span class="which_jail_id"></span>';
 }
 if($is_genrate == true){
-$contents .= ' '.$post_data['jail_2'];
+$contents .= ' '.$post_data['distic_1'];
 }else
 {
-	$contents .=  '<input type="text" name="jail_2" />';
+	$contents .=  '--------';
 } 
 	$contents .=  ' का म0प्र0 जेल नियमावली के नियम ';
 	if($is_genrate == true){
-$contents .= ' '.$post_data['law2'];
+$contents .= ' '.$post_data['law1'];
 }else
 {
-	$contents .=  ' <input type="text" name="law2" />';
+	$contents .=  '-----------';
 }
 $contents .=  ' के अंतर्गत चिकित्सीय आधार पर समयपूर्व ';
 if($is_genrate == true){
-$contents .= ' '.$post_data['before_time'];
+$contents .= ' '.$post_data['mukti'];
 }else
 {
-	$contents .=  '<select name="before_time" ><option>मुक्ति प्रकरण</option><option>क्षमा</option><option>दया </option></select>';
+	$contents .=  '<span class="mukti" ></span>';
 }
 
 $contents .=  ' प्रकरण प्रशासकीय विभाग द्वारा अभिमत हेतु इस विभाग को अंकित किया गया है। </p></td></tr>';
@@ -127,21 +122,21 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['which_jail_1'];
 }else
 {
-	$contents .=  ' <select name="which_jail_1" ><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
+	$contents .=   ' <span class="which_jail_id"></span>';
 }
 
 if($is_genrate == true){
-$contents .= ' '.$post_data['jail'];
+$contents .= ' '.$post_data['distic_1'];
 }else
 {
-	$contents .=  '<input type="text" name="jail" />';
+	$contents .=  '--------';
 } 
 $contents .=  ' द्वारा ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  ' <select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 $contents .=  ' को मुक्त करने की अनुशंसा ';
 if($is_genrate == true){
@@ -152,17 +147,17 @@ $contents .= ' '.$post_data['anushansha'];
 }
 $contents .=  '।  पुलिस अधीक्षक  ';
 if($is_genrate == true){
-$contents .= ' '.$post_data['police_officer'];
+	$contents .= $post_data['distic_1'];
 }else
 {
-	$contents .=  ' <input type="text" name="police_officer" />';
-} 
+$contents  .= get_distic_dd('distic_1');	
+}
  $contents .=  ' द्वारा ';
  if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 $contents .=  ' को मुक्त करने की अनुशंसा ';
 if($is_genrate == true){
@@ -171,7 +166,7 @@ $contents .= ' '.$post_data['anushansha'];
 {
 	$contents .=  ' <select name="anushansha"  ><option>की है </option><option>नही की है</option></select>';
 }
-$contents .=  'जिला दंडाधिकारी द्वारा ';
+$contents .=  '  जिला दंडाधिकारी द्वारा ';
 
 if($is_genrate == true){
 	$contents .= ' '.$post_data['officer'];
@@ -180,46 +175,46 @@ if($is_genrate == true){
 	$contents .=  '<input type="text" name="officer" />';
 }
  if($is_genrate == true){
-$contents .= ' '.$post_data['bandi_11'];
+$contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi_11"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
-$contents .=  ' को मुक्त करने की अनुशंसा ';
+$contents .=  ' को मुक्त करने की अनुशंसा  ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['anushansha_1'];
 }else
 {
-	$contents .=  ' <select name="anushansha_1"  ><option>की है </option><option>नही की है</option></select>';
+	$contents .=  ' <select name="anushansha_1"  ><option> की है  </option><option>नही की है </option></select> ';
 }
-$contents .=  '</p></td></tr>';
+$contents .=  '।</p></td></tr>';
 
 $contents .= '<tr><td><p>अधीक्षक ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['which_jail_1'];
 }else
 {
-	$contents .=  '<select name="which_jail_1" ><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
+	$contents .=   ' <span class="which_jail_id"></span>';
 }
 if($is_genrate == true){
-$contents .= ' '.$post_data['jail_3'];
+$contents .= ' '.$post_data['distic_1'];
 }else
 {
-	$contents .=  '<input type="text" name="jail_3" />';
+	$contents .=  '--------';
 } 
 $contents .=  ' से प्राप्त ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 $contents .=  ' के नामीनल रोज से प्राप्त जानकारी के अनुसार ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 $contents .=  ' द्वारा दिनांक '; 
 
@@ -275,53 +270,54 @@ if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=   ' <span class="bandi" ></span>';
 }
 $contents .=  ' क्रं';
 if($is_genrate == true){
-$contents .= ' '.$post_data['bandi_no_2'];
+$contents .= ' '.$post_data['bandi_no'];
 }else
 {
-	$contents .=  '<input type="text" name="bandi_no_2" />';
+	$contents .=  '------';
 }  
 if($is_genrate == true){
 $contents .= ' '.$post_data['bandi'];
 }else
 {
-	$contents .=  '<select name="bandi"  ><option>बंदी </option><option>बंदिनी</option></select>';
+	$contents .=  ' <span class="bandi" ></span>';
 }
 if($is_genrate == true){
-$contents .= ' '.$post_data['bandi_1'];
+$contents .= ' '.$post_data['bandi_name'];
 }else
 {
-	$contents .=  '<input type="text" name="bandi_1" />';
+	$contents .=  '---------';
 }
 if($is_genrate == true){
 $contents .= ' '.$post_data['which_jail_1'];
 }else
 {
-	$contents .=  '<select name="which_jail_1" ><option>केन्द्रीय जेल</option><option>जिला जेल</option><option>उप जेल </option></select>';
+	$contents .=   ' <span class="which_jail_id"></span>';
+		
 }
 
 if($is_genrate == true){
-$contents .= ' '.$post_data['jail_4'];
+$contents .= ' '.$post_data['distic_1'];
 }else
 {
-	$contents .=  '<input type="text" name="jail_4" />';
+	$contents .=  '--------';
 } 
 	$contents .=  ' का जेल नियमावली के नियम ';
 	if($is_genrate == true){
-$contents .= ' '.$post_data['law2'];
+$contents .= ' '.$post_data['law1'];
 }else
 {
-	$contents .=  '<input type="text" name="law2" />';
+	$contents .=  '--------';
 }
 $contents .=  ' के अंतर्गत चिकित्सीय आधार पर समयपूर्व ';
 if($is_genrate == true){
-$contents .= ' '.$post_data['before_time'];
+$contents .= ' '.$post_data['mukti'];
 }else
 {
-	$contents .=  '<select name="before_time" ><option>मुक्ति प्रकरण</option><option>क्षमा</option><option>दया </option></select>';
+	$contents .=   '<span class="mukti" ></span>';
 }
 $contents .=  ' याचिका प्रकरण अभिमत हेतु  प्रस्तुत है।</td></tr>';
 
@@ -329,7 +325,7 @@ $contents .=  ' याचिका प्रकरण अभिमत हेत�
 
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
-
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'){
 $contents .= '<tr><td><u>अनु0 अधि0  (अभि0)</u></td></tr>';
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
@@ -338,7 +334,7 @@ $contents .= '<tr><td><u>अपर सचिव  (अभि0)</u></td></tr>';
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
 
-
+}
 //print content
 //echo $contents;
 ?>   

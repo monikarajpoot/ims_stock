@@ -1,5 +1,6 @@
 <?php  $high_bench =  highcourt_bench();
 $Employee_lists_estab =  get_establishment_employees('so')  ;
+$files_year = $this->input->post('files_year') != '' ? $this->input->post('files_year') : date('Y');
 foreach($Employee_lists_estab as $esta_emp){
 	$establiment_empids[] = $esta_emp['emp_id'];
 }?>
@@ -61,10 +62,18 @@ foreach($Employee_lists_estab as $esta_emp){
 				</select>
 				<?php echo form_error('sections');?>
 			</div>                            
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <input type="text"  name="search_value" id="search_value" value="<?php echo @$this->input->post('search_value') ? $this->input->post('search_value') : ''  ?>" autocomplete="off" placeholder="Put Value"  class="form-control">
                 <?php echo form_error('search_value');?>
-            </div>                    
+            </div>   
+				<div class="col-xs-2">             
+				<select class="form-control" id="files_year" name="files_year">
+				<?php $i = '2015';
+				while($i <= date('Y')) { ?>
+					<option value="<?php echo $i ; ?>" <?php echo $files_year == $i ? 'selected' : ''; ?>><?php echo $i ;?></option>
+				<?php $i++; } ?>
+				</select>
+            </div> 
             <div class="col-xs-2">
 					<select name="building_name" class="form-control">
 					<option value="">Select</option>

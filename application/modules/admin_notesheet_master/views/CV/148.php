@@ -1,10 +1,10 @@
 <style>
 p{
-	line-height:26px;
+	line-height:24px;
 }
 </style>
 <?php 
-$contents  = '<table style="font-size:17px;  width:80%; margin:0% auto;">' ;
+$contents  = '<table style="font-size:14px;  width:100%; margin:0% auto;">' ;
 $contents .= '<tr><td align="left"><div style="margin-top:20px;"><span style="margin-left:10%;">';
 if($is_genrate == true){ 
     $contents .=  ' '.$post_data['subject'];
@@ -39,17 +39,36 @@ if($is_genrate == true){
     $contents .=  ' <input type="text" class="name_who" name="name_who" value="" placeholder="">';
 }	
 $contents .= ' से प्राप्त पत्र के साथ संलग्न याचिका की प्रति का अवलोकन कीजिये। </p></td></tr>';
-$contents .= '<tr><td><p>उपरोक्त विषयांकित प्रकरण के संबंध में यह है की विधि नियमावली के अधीन प्रस्ताव प्रशासकीय विभाग के माध्यम से प्राप्त होने पर ही कार्यवाही की जाति है?</p></td></tr>';
+$contents .= '<tr><td><p>उपरोक्त विषयांकित प्रकरण के संबंध में यह है की विधि नियमावली के अधीन प्रस्ताव प्रशासकीय विभाग के माध्यम से प्राप्त होने पर ही कार्यवाही की जाति है? ';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['content'];
+}else{
+    $contents .=  ' <input type="text" class="" size="50" name="content">';
+}
+$contents .= '</p> </td></tr>';
 $contents .= '<tr><td><p>अतः पत्र मूलतः वापस करते हुए यह लेख किया जाना उचित होगा कि प्रकरण सम्बंधित  प्रशासकीय विभाग ';
 if($is_genrate == true){
-	$contents .= ' '.$post_data['vibhag'];
+	$contents .= ' <b>'.$post_data['vibhag'].'</b>';
 }else{
     $contents .=  ' <input type="text" class="vibhag" name="vibhag" value="'.$file_department.'" placeholder="">';
 }
-$contents .= ' के माध्यम से कार्यवाही किये जाने पर ही अग्रिम कार्यवाही किया जाना संभव होगा|</p> </td></tr>';
+$contents .= ' के माध्यम से कार्यवाही किये जाने पर ही अग्रिम कार्यवाही किया जाना संभव होगा |';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['content'];
+}else{
+    $contents .=  ' <input type="text" class="" size="50" name="content">';
+}
+$contents .= '</p> </td></tr>';
+if($is_genrate == true){
+	$contents .= $post_data['extra_content'] != '' ? '<tr><td><p>'.$post_data['extra_content'].'</p></td></tr><p>' : '';
+}else{
+	$contents .= '<tr><td><textarea name="extra_content" style="margin: 0px; height: 50px; width: 98%;" placeholder="यदि आपको और डाटा जोड़ना है तो यहाँ पर लिखे|"></textarea></td></tr>';
+}
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td><u>अनुभाग अधिकारी (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव (सिविल)</u></td></tr>';
+}
 $contents .= '</table>';

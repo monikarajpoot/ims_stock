@@ -17,7 +17,7 @@
         <div class="row">          
            <div class="col-md-12">
 				<div class="box box-primary">
-					<div class="box-header with-border">
+					<div class="box-header with-border no-print">
 					  <h3 class="box-title"><?php echo $sub_title; ?></h3>
 					  <div class="box-tools pull-right">
 						<!--<a href="<?php echo base_url(); ?>efile/<?php// echo $draft_data['draft_file_id']; ?>" class="btn btn-flat btn-danger" ><i class="fa fa-compress"></i> Back</a>-->
@@ -25,55 +25,72 @@
 					  </div>
 					</div><!-- /.box-header -->
 					<div class="box-body no-padding">
-						<div class="mailbox-read-info">
+						<div class="mailbox-read-info no-print">
 							<?php $emp_id = $draft_data['draft_sender_id']; 
 							$file_details = getFiledata($draft_data['draft_file_id']);
 							?>
 							<h3><?php echo $draft_data['draft_subject']; ?></h3>
 							<h5><i class="fa fa-user"></i> <?php if($emp_id != null) { echo getemployeeName($emp_id, true).' - '. get_employee_role($emp_id); ?> <i class="fa fa-send"></i> <?php echo getemployeeName($draft_data['draft_reciever_id'], true);?> - <?php echo get_employee_role($draft_data['draft_reciever_id']); } ?> <span class="mailbox-read-time pull-right"><i data-toggle="tooltip" title="ड्राफ्ट बनाई दिनांक"><?php echo get_datetime_formate($draft_data['draft_create_date']); ?></i> - <i data-toggle="tooltip" title="ड्राफ्ट पूर्ण  या कर्यवाही दिनांक"><?php echo get_datetime_formate($draft_data['draft_update_date']); ?></i></span></h5>
 						</div><!-- /.mailbox-read-info -->
-						<div class="mailbox-controls with-border text-center">
+						<div class="mailbox-controls with-border text-center no-print">
 							<div class="btn-group">
 							</div><!-- /.btn-group -->
-							<button class="btn btn-default btn-sm" data-toggle="tooltip"  onclick="printDiv('forPrint')" title="Print"><i class="fa fa-print"></i></button>
+							<button class="btn btn-default btn-sm no-print" data-toggle="tooltip"  onclick="printDiv('forPrint')" title="Print"><i class="fa fa-print"></i></button>
 						</div><!-- /.mailbox-controls -->
 						<?php $type = $draft_data['draft_type']; 
 						$panji_number = get_panji_no($file_details[0]['file_id'],$file_details[0]['file_mark_section_id'],$file_details[0]['file_created_date']);
 						$subject = $file_d = $style = '';
 							if($type == 'n' || $type == 'odn'){ 
-							$style = 'padding:2% 1%; background-color:#CCFFCC;';
+							$style = 'padding:2% 5%; background-color:#CCFFCC;';
+							$subject = $draft_data['draft_subject'];
 							if($draft_data['notesheet_id'] == null){
 								$subject = '<p style="padding-left:15%;" id="Divheader"><b><em class="no-print">विषय:- </em>'.$draft_data['draft_subject'].'</b></p><p style="text-align: center;">------</p>';
-								$file_d = '<p style="text-align: center;"><b>पंजी क्रमांक  '.$panji_number.', <em style="margin-left:10%;"></em> भोपाल, दिनांक '.get_date_formate($file_details[0]['file_mark_section_date']).'</b></p><p style="text-align: center;">------</p>';
+								if($draft_data['draft_id'] != '616'){ // only for ps printing cS file 
+									$file_d = '<p style="text-align: center;"><b>पंजी क्रमांक  '.$panji_number.', <em style="margin-left:10%;"></em> भोपाल, दिनांक '.get_date_formate($file_details[0]['file_mark_section_date']).'</b></p><p style="text-align: center;">------</p>';
+								}
 							}
 						}else{
 							$style = 'padding:2% 5%; background-color:#eee;';					
-						}		
+							}		
 						?>
-						<div class="mailbox-read-message no-padding" id="forPrint">
-							<header class="onlyprint"></header>
+						<div class="mailbox-read-message no-padding" id="forPrint">						   
 							<div  style="<?php echo $style; ?>; ">
-								<?php echo $subject;
+								 <table width="100%"><thead class="onlyprint">
+								<?php if($subject != ''){ ?><tr><th style="padding:8% 0% 5% 15% !important;"><?php echo $subject; ?></th></tr><?php } ?>
+									</thead>
+								<tbody><tr><td>
+									<div class="no-print">
+									 <?php echo $draft_data['notesheet_id'] == null ? $subject : '' ; ?>
+									</div>						
+										<?php echo '<div class="no-print">'.$subject.'</div>';
 										echo $file_d;
-										if($type == 'n' || $type == 'odn'){
+										//if($type == 'n' || $type == 'odn'){
+										if($type == 'n'){
 										$all_drafts = get_draft_log_data($draft_data['draft_id']);	
 										foreach($all_drafts as $drafts){
 											//$span = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? '<span class="no-print" title="'.getemployeeName($drafts->draft_log_creater, true).'"><img src="'.base_url().'themes/admin/dist/img/avatar5.png" class="user-image" height="35px" alt="User Image"></span>' : '' ;
 											$span_name = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? getemployeeName($drafts->draft_log_creater, true) : '' ; 
-											echo '<div class="row" style="margin:1px;">';
+											echo '<div class="row" style="margin:1px; background-color:#CCFFCC;">';
 											echo '<div class="col-md-2 no-print"></div>';
 											echo '<div class="col-md-8 notesheet_margin">';
 											echo filter_string($drafts->draft_content); 
 											//if(get_employee_role($drafts->draft_log_creater, true) < 9 && $type == 'n'){
 											if($type == 'n' || $type == 'odn'){	
 												$verify_status =  verify_digital_sinature($drafts->draft_log_id,md5($drafts->draft_content));
+                                                $class_no = '';
+                                                $role_show_fdf = get_employee_role($drafts->draft_log_creater);
+                                                if($verify_status){
+                                                    $class_no = "class='hide'";
+                                                    $role_show_fdf = get_employee_role($drafts->draft_log_creater,false,true);
+                                                }
 												if($type == 'odn'){
 															echo '<div class="pull-right">'.$verify_status.'<br/></div>';
 												} else {
-													echo '<div class="pull-right">'.$verify_status.'<br/>
-													<b>('.getemployeeName($drafts->draft_log_creater, true).')</b><br/>
-													<b><u>'.get_employee_role($drafts->draft_log_creater).'</u></b></div><div class="clearfix"></div>';
-													if($drafts->draft_log_creater != $drafts->draft_log_sendto){
+													echo '<div class="pull-right" style="text-align: center;">'.$verify_status.'
+													<b '.$class_no.'>( '.getemployeeName($drafts->draft_log_creater, true, false).' )<br/></b>
+													<b><span>'.$role_show_fdf.'</span></b></div><div class="clearfix"></div>';
+													if($draft_data['draft_id'] != '616'){ // only for ps printing cS file
+														if($drafts->draft_log_creater != $drafts->draft_log_sendto){
 														echo '<div class="pull-left">';
 														if(check_so_on_leave($drafts->draft_log_creater,$drafts->draft_log_sendto) != null){
 															echo '<b><u>अनुभाग अधिकारी अवकाश पर </u></b>';
@@ -82,6 +99,7 @@
 														echo  get_employee_role($drafts->draft_log_sendto, true) == 3 ? 'विधि' : getSectionName($file_details[0]['file_mark_section_id']);
 														echo ')</u></b></div>';
 													}
+												}
 												}												
 												if($verify_status!=''){
 													echo '<script> $(".singed_verify").addClass("displayblock"); $(".singed_verify").text("('.DIGITALLY_SINGED_NOTE.')");</script>';
@@ -99,14 +117,18 @@
 										$cor_draft_log = get_draft_log_data($draft_data['draft_id'], true, '','');
 										$verify_status = verify_digital_sinature($cor_draft_log[0]->draft_log_id,md5($cor_draft_log[0]->draft_content));
 										echo '<div class="pull-right">&nbsp;'.$verify_status.'</div>';
-										if($verify_status!=''){
-											echo '<script> $(".singed_verify").addClass("displayblock"); $(".singed_verify").text("('.DIGITALLY_SINGED_NOTE.')");</script>';
+										//if($verify_status!=''){
+											//echo '<script> $(".singed_verify").addClass("displayblock"); $(".singed_verify").text("('.DIGITALLY_SINGED_NOTE.')");</script>';
 											//echo '<p style="position:fix; bottom:1px; font-size:8px;">नोट:- '.DIGITALLY_SINGED_NOTE.'</p>';
-										}
+										//}
 								
 									}
 								?>
+								 </td></tr></tbody>
+								<tfoot><tr><td></td></tr></tfoot>
+								</table>
 							</div>
+							
 							<!--<footer class="onlyprint">नोट:- यह पेज डिजिटली हस्ताक्षर हुआ है अतः यह इ-फाइल के द्वारा ही वेलिड है|</footer>-->
 						</div><!-- /.mailbox-read-message -->
 					</div><!-- /.box-body -->
@@ -114,12 +136,15 @@
 					  
 					</div><!-- /.box-footer -->
 					<div class="box-footer">
-						<button class="btn btn-warning" onclick="printDiv('forPrint')"><i class="fa fa-print"></i> Print</button>
+						<button class="btn btn-warning no-print" onclick="printDiv('forPrint')"><i class="fa fa-print"></i> Print</button>
+					<div class="box-tools pull-right">
+					  <button class="btn btn-flat btn-danger no-print" onclick="goBack()"><i class="fa fa-compress"></i> Back</button>
+					  </div>
 					</div><!-- /.box-footer -->
-				</div><!-- /. box -->
+					</div><!-- /. box -->
             </div><!-- /.col -->
         </div><!-- /.row -->
-		<div class="row">
+		<div class="row no-print">
             <div class="col-md-12">
 				<div class="box box-danger collapsed-box">
 					<div class="box-header with-border"  data-widget="collapse" style="cursor:pointer">
@@ -164,7 +189,7 @@
 				</div>
 			</div>
 		</div> 
-		<div class="row">
+		<div class="row no-print">
             <div class="col-md-12">
 				<div class="box box-warning collapsed-box">
 					<div class="box-header with-border"  data-widget="collapse" style="cursor:pointer">

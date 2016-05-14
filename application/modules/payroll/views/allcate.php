@@ -43,7 +43,7 @@
                     </div>
                     <div class="box-body">
 					    <div class="box-header with-border">
-                        <h3 class="box-title">कृपया  ड्रॉप डाउन मे  कोई भी माह का चयन करें</h3>                 
+                        <h3 class="box-title">कृपया  सूची मे से कोई भी माह का चयन करें</h3>                 
                     </div>
 					
                            <div class="form-group col-xs-2">

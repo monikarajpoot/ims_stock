@@ -5,13 +5,13 @@ class View_file	 extends MX_Controller {
         $this->load->module('template');
         $this->load->language('view_file','hindi');
         $this->load->model('view_file_model','view_file');
-        $this->load->model('notesheet_model');
+        $this->load->model('notesheet_model');      
         authorize();
     }
     public function index($id=null)
     {
        $section_exp = explode(',',getEmployeeSection());
-       $section_11 = array('20','18','28','16');
+       $section_11 = array('20','18','28','16','19');
        // $dreafting_sec_id = array('16');
 	   $section_id_search = $this->input->get('section_id');
         if(array_intersect($section_exp, $section_11)){
@@ -61,7 +61,7 @@ class View_file	 extends MX_Controller {
 	public function for_print($id=null)
     {
         $section_exp = explode(',',getEmployeeSection());
-        $section_11 = array('20','18','28','16');
+        $section_11 = array('20','18','28','16','19');
       //  $dreafting_sec_id = array('16');
         if(array_intersect($section_exp, $section_11)){
             redirect('view_file_legislative/index/'.$id);
@@ -279,14 +279,28 @@ class View_file	 extends MX_Controller {
 		}
     }
 	
-    public function section_da_name()
+    public function section_da_name($is_return=false)
     {
 		if(checkUserrole()==8){
 			$res_1 = $this->view_file->get_DAname(getEmployeeSection());
 		}else{			
 			$res_1 = $this->view_file->get_DAname(getEmployeeSection(),emp_session_id());
 		}
-        echo json_encode($res_1);
+		$res_1 = (array) $res_1;    
+		//print_r($res_1);die;
+		//emp_section_id
+			$section_array = array();
+			foreach($res_1 as $ky=>$res){
+					//echo $res['emp_section_id']; die;
+					$section  = $this->view_file->get_employee_alloted_section($res['emp_section_id'] );
+					$res_1[$ky]['section_name']=$section[0];
+						//print_r($section );
+			}
+		if($is_return==true){
+			return $res_1;
+		}else{
+			echo json_encode($res_1);
+		}
         exit();
     }
 
@@ -324,7 +338,12 @@ class View_file	 extends MX_Controller {
 			$dropdown='<select class="section_id" id="section_id'.$fileid.'" name="section_id['.$rowid.']">';
 			//$dropdown.='<option></option>';
 			foreach($section_array as $ky=>$val){
-				$dropdown.='<option  value="'.$val['section_id'].'">'.$val['section_name_hi'].'('.$val['section_name_en'].') </option>';
+			if($val['section_id'] == $sectionid){
+                    $select = "selected";
+                }else{
+                    $select = "";
+                }
+				$dropdown.='<option  value="'.$val['section_id'].'" '.$select.'>'.$val['section_name_hi'].'('.$val['section_name_en'].') </option>';
 			}			
 			$dropdown.='</select>';		
 		echo json_encode(array('file_creator_id'=>$file_creator_id,'sections'=>$dropdown));

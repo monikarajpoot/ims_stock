@@ -29,7 +29,7 @@ class Activity_report	 extends MX_Controller {
 		}
 		
 		$userrole = checkUserrole();
-		$section_id = getEmployeeSection();
+		$section_id = $this->session->userdata('emp_section_id');
         $section_explode =  explode(',',$section_id);
 		//pre($section_explode);
         $data = array();
@@ -61,13 +61,13 @@ class Activity_report	 extends MX_Controller {
 		}
 		
 		$userrole = checkUserrole();
-		$section_id = getEmployeeSection();
+		$section_id = $this->session->userdata('emp_section_id');
         $section_explode =  explode(',',$section_id);
 		//pre($section_explode);
         $data = array();
         $data['title'] = $this->lang->line('view_file_manue');
         $data['title_tab'] = 'Report';
-		
+		$data['emp_section_ids']  = $section_id;
 		//$data['get_section'] = get_list_with_in(SECTIONS,null,'section_id',$section_explode);
         $data['start_date'] = get_date_formate($start_date, 'Y-m-d');
         $data['end_date'] = get_date_formate($end_date, 'Y-m-d');
@@ -90,7 +90,7 @@ class Activity_report	 extends MX_Controller {
 		}
 		
 		$userrole = checkUserrole();
-		$section_id = getEmployeeSection();
+		$section_id = $this->session->userdata('emp_section_id');
         $section_explode =  explode(',',$section_id);
 		//pre($section_explode);
         $data = array();
@@ -117,7 +117,7 @@ class Activity_report	 extends MX_Controller {
     }
     public function section_da_name()
     {
-        $res_1 = $this->view_file->get_DAname(getEmployeeSection());
+        $res_1 = $this->view_file->get_DAname($this->session->userdata('emp_section_id'));
         echo json_encode($res_1);
         exit();
     }
@@ -173,7 +173,7 @@ class Activity_report	 extends MX_Controller {
 	
 	public function index_for_admin($id=null)
     {
-        $section_id = getEmployeeSection();
+        $section_id  = $this->session->userdata('emp_section_id');
         $section_explode =  explode(',',$section_id);
 		//pre($section_explode);
         $data = array();
@@ -187,7 +187,7 @@ class Activity_report	 extends MX_Controller {
 	
 	public function index_datewise_report($id=null)
     {
-		$section_id = getEmployeeSection();
+		$section_id  = $this->session->userdata('emp_section_id');
         $section_explode =  explode(',',$section_id);
 		//pre($section_explode);
         $data = array();
@@ -242,6 +242,7 @@ class Activity_report	 extends MX_Controller {
     }
 	//used for individual_reports 
 	public function individual_reports(){
+		$emp_section = $this->session->userdata('emp_section_id');
 		$emp_id = $this->input->post('user_type') != '' ? $this->input->post('user_type') : '';
 		$data = array();		
         $data['title'] = 'Report';
@@ -250,7 +251,7 @@ class Activity_report	 extends MX_Controller {
         $data['view_file'] = "activity_report/individual_reports";
 		if($emp_id == ''){
 			$data['userid']  = emp_session_id();
-			$data['userid_sec']  = getEmployeeSection();
+			$data['userid_sec']  = $emp_section;
 		} else {
 			$data['userid']  = $emp_id;
 			$data['userid_sec']  = getEmployeeSection($emp_id);
@@ -260,5 +261,21 @@ class Activity_report	 extends MX_Controller {
         $this->template->index($data);
 	}
 	
+ // used for get uncer employee name update 21-04-2016 as per induvidual report
+function get_emloyees_section(){
+		$section_id = $this->input->post('section_id');
+		$emp_role = $this->session->userdata('user_designation');
+		$tbl_files = EMPLOYEES;
+        $this->db->select($tbl_files.'.emp_id,designation_id,emp_full_name,emp_full_name_hi,emprole_name_hi,emp_detail_gender');
+		$this->db->join('ft_employee_details', $tbl_files.'.emp_id = ft_employee_details.emp_id');
+		$this->db->join('ft_emprole_master', $tbl_files.'.designation_id = ft_emprole_master.role_id');
+		$this->db->where("FIND_IN_SET('$section_id',`emp_section_id`) AND  `ft_employee`.role_id > $emp_role AND emp_status ='1' AND emp_is_retired = '0'");
+        $query = $this->db->get($tbl_files);
+       // echo   $this->db->last_query();
+        $emplyees =  $query->result_array();       
+        // $emplyees = get_list(EMPLOYEES, 'designation_id', "FIND_IN_SET('$section_id',`emp_section_id`) AND role_id > $emp_role AND emp_status ='1' AND emp_is_retired = '0'", 'ASC');
+        echo json_encode($emplyees);
+        exit();
+	}
 	
 }

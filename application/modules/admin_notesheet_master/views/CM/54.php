@@ -2,17 +2,51 @@
 $contents  = '' ;
 $contents .= '<tr><td align="center" colspan="2"><h4><u><b>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</b></u></h4></td></tr>';
 $contents .= '<tr><td class="style5" colspan="2"><table width="100%"><tr><td align="left">क्रमांक 12/'.date("y").'/'.$panji_krmank.'/21-क (आप), </td><td align="right">भोपाल, दिनांक '.date("d-m-Y").'';
-$contents .= '</td></tr></table></td></tr><tr><td class="style7 top_class" > प्रति,</td><td>&nbsp; &nbsp;<br /> शासकीय अधिवक्ता,<br /> कार्यालय महाधिवक्ता,<br /> मध्यप्रदेश न्यायालय,<br />';
+$contents .= '</td></tr></table></td></tr><tr><td class="style7 top_class" > प्रति,</td><td>&nbsp; &nbsp;</td></tr>';
+$contents .= '<tr><td></td><td> 1.  ';
 if($is_genrate == true){
     $contents .= '<span>'.$post_data['court_location'].'</span>';
 }else{
     $contents .= '<select name="court_location" class="court_location">';
-foreach($court_location2 as $row){
-    $contents .= '<option value="'.$row.'">'.$row.'</option>';
+foreach($advocate_type as $advocate){
+    $contents .= '<option value="'.$advocate.'">'.$advocate.'</option>';
 }
     $contents .= '</select>';
 }
-$contents .= ' (म. प्र.),</td></tr>';
+$contents .= '</td></tr>';
+$contents .= '<tr><td></td><td> कार्यालय महाधिवक्ता, </td></tr>';
+$contents .= '<tr><td></td><td>मध्यप्रदेश न्यायालय,   </td></tr>';
+$contents .= '<tr><td></td><td>';
+if($is_genrate == true){
+    $contents .= '<span>'.$post_data['location2'].'</span>';
+}else{
+    $contents .= '<select name="location2" class="location2">';
+foreach($court_location2 as $location){
+    $contents .= '<option value="'.$location.'">'.$location.'</option>';
+}
+    $contents .= '</select>';
+}
+ $contents .= '( म0प्र0)</td></tr>';
+ $contents .= '<tr><td>&nbsp;</td><td></td></tr>';
+$contents .= '<tr><td></td><td>2. ';
+if($is_genrate == true){
+    $contents .= '<span>'.$post_data['state_officer'].'</span>';
+}else{
+    $contents .= '<select name="state_officer" class="state_officer">';
+
+    $contents .= '<option value=""></option><option >जिला दण्डाधिकारी </option>';
+
+    $contents .= '</select>';
+}
+$contents .= '</td></tr>';
+$contents .= '<tr><td></td><td>जिला ';
+if($is_genrate == true){
+$contents .= $post_data['state_list'];
+}else
+{
+       $contents  .= get_distic_dd('state_list');
+}
+$contents .= '( म0प्र0) </td></tr>';
 $contents .= '<tr><td class="style7 top_class"  width="55px ">';
 $contents .= 'विषय:-</td><td colspan="2"> ';
 
@@ -65,7 +99,7 @@ $contents .= ' '.$file_uo_or_letter_no.' , दिनांक '.date('d-m-Y',str
 $contents .= '<br /></td></tr><tr><td align="center" class="style1 top_class" colspan="2" valign="top">';
 $contents .= '---000---';
 $contents .= '</td></tr><tr>';
-$contents .= '<tr><td></td><td class="style1" colspan="2">कृपया उपरोक्त संदर्भित पत्र का अवलोकन करें ।<br /><br />';
+$contents .= '<tr><td></td><td class="style1" colspan="2">कृपया उपरोक्त संदर्भित पत्र का अवलोकन करें । ';
 $contents .= '</td></tr>';
 $contents .= '<tr><td></td><td align="left" class="style1" valign="top" colspan="2"><p>';
 $contents .= 'एम0 सी0आर0सी0  प्रकरण क्रमांक '.$case_no1[1].'/'.$case_no1[2].' से सम्बंधित न्यायालय ';
@@ -108,9 +142,14 @@ if($is_genrate == true){
 	$contents  .= '-------- ';
 }
 
-$contents .= ' व अन्य दस्तावेजों की प्रति इस विभाग की ओर प्रस्तुत करें, तत्पश्चात् प्रकरण में अग्रिम कार्यवाही  की जावेगी । विलंब का दायित्व इस विभाग का नहीं रहेगा ।<br />';
-$contents .= '<tr><td align="right" height="60"></td></tr>';
-$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+$contents .= ' व अन्य दस्तावेजों की प्रति इस विभाग की ओर प्रस्तुत करें, तत्पश्चात् प्रकरण में अग्रिम कार्यवाही  की जावेगी । विलंब का दायित्व इस विभाग का नहीं रहेगा । </td></tr>';
+$contents .= '<tr><td align="right" height="20"></td></tr>';
+
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
@@ -143,14 +182,19 @@ $contents .= $post_data['DropDownList22'];
        $contents  .= '----------';
 }
  $contents  .= '(म0प्र0) की ओर सूचनार्थ  एवं आवश्यक कार्यवाही हेतु प्रेषित हैं ।</p></td></tr>';
- $contents .= '<tr><td align="right" height="60"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
  $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
 
 }else
 {
-     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    // $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+	$contents .= "-------";
     
 }
 

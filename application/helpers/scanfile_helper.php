@@ -155,7 +155,7 @@ function scan_file_details($scan_id = null)
  $CI = & get_instance();
      $roleid_1 = empdetails(emp_session_id());
      //$CI->session->userdata("user_role")
-     $efile_array = array(2,14);
+     $efile_array = array(2,14,10,15,17,22,11,13);
      $section_array = explode(',',$section_id);
 	 if(array_intersect($section_array ,$efile_array) || $roleid_1[0]['role_id'] < 8 || $roleid_1[0]['role_id'] == 11){
 		  return "efile";

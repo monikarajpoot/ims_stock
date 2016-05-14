@@ -67,7 +67,7 @@ if($is_genrate == true){
 	$contents .= $post_data['date1'];
 }else
 {
-	$contents .= '<input type="text" class="date1" name="date1" placeholder="dd/mm/yyyy" value="'.get_date_formate(@$file_judgment_date,'d/m/Y').'"/>';
+	$contents .= '<input type="text" class="date1" name="date1" placeholder="dd/mm/yyyy" value=""/>';
 }
  
  
@@ -76,27 +76,51 @@ if($is_genrate == true){
 	$contents .= $post_data['date2'];
 }else
 {
-	$contents .= '<input type="text" class="date1" name="date2" placeholder="dd/mm/yyyy" value="'.get_date_formate(@$file_judgment_date,'d/m/Y').'"/>';
+	$contents .= '<input type="text" class="date1" name="date2" placeholder="dd/mm/yyyy" value=""/>';
 }
  $contents .= ' को प्रकरण के संबंध में साक्ष्य हेतु न्यायालय के समक्ष   उपस्थित होने तथा उस तिथि को हुई कार्यवाही के संक्षिप्त विवरण के साथ मूल समंस की प्रति एवं नस्ती अभियोजन शाखा को लौटायी जाए।</p></td></tr>';
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ) </div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अवर सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td><div style="float:left">फा.क्रं. 8/';
 if($is_genrate == true){
 $contents .= $post_data['file_no'];
 }else
 {
-	$contents .=  '<input type="text" name="file_no" />';
+	$contents .=  '---------';
 }
 $contents .= '/';
 if($is_genrate == true){
 $contents .= $post_data['year'];
 }else
 {
-	$contents .=  '<input type="text" name="year" />';
+	$contents .=  '---------';
 }
 $contents .= '/21-क(अभि0), </div><div style="float:right">भोपाल, दिनांक   ';
 if($is_genrate == true){
@@ -122,8 +146,32 @@ $contents .= '<tr><td><div style="width:100%;"><div style="float:left; width:14%
 
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      ) </div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;"> अवर सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.@$dept_name.'</div></td></tr>';
 
 //print content

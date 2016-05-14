@@ -17,11 +17,10 @@ class Home extends MX_Controller {
      * @return void
      */
     public function index() {
-       
         if ($this->session->userdata('is_logged_in')) {
             redirect('dashboard');
         } else if ($this->session->userdata('admin_logged_in')) {
-            redirect('admin/dashboard');
+            redirect('dashboard');
         } else {
             $data['title'] = $this->lang->line('home_title');
             $data['notice'] = $this->admin_notice->fetchnoticebyid();
@@ -75,8 +74,11 @@ class Home extends MX_Controller {
                             'emp_id' => $emp_id,
                             'emp_unique_id' => $user_data[0]->emp_unique_id,
                             'emp_full_name' => $user_data[0]->emp_full_name,
+                            'emp_full_name_hi' => $user_data[0]->emp_full_name_hi,
                             //'emp_designation' => $user_data[0]->emprole_name_hi,
-                            'emp_image' => $user_data[0]->emp_image
+                            'emp_image' => $user_data[0]->emp_image,
+							'emp_first_login' => $user_data[0]->emp_first_login,
+                            'emp_section_id' => $user_data[0]->emp_section_id
                         );
                         if ($user_data[0]->role_id == 1) {
                             $data['admin_logged_in'] = TRUE;

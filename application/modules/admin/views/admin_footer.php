@@ -41,7 +41,7 @@
 
     <script src="<?php echo ADMIN_THEME_PATH; ?>bootstrap/js/multiselect_checkbox.js" type="text/javascript"></script>
 <script src="<?php echo ADMIN_THEME_PATH; ?>plugins/datatables/dataTables.tableTools.js" type="text/javascript"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         //auto focus search filed
 		$(document).ready(function () {
 			$(".input-sm").focus();
@@ -140,7 +140,7 @@
                         //alert(r_data);
                         var otpt = '<option value="">Select Supervisore</option>';
                          $.each(r_data, function( index, value ) {
-                          // console.log(value);
+							 // console.log(value);
                             otpt+= '<option value="'+value.emp_id+'">'+value.emp_full_name+' ('+value.emprole_name_en+'-'+value.emprole_name_hi+' )</option>';
                         });
                         $("#supervisor_emp_id").html(otpt);
@@ -245,7 +245,7 @@
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
         type="text/javascript"></script>
 		<?php //echo $this->uri->segment(2); ?>
-<?php if($this->uri->segment(1)=='payroll' || $this->uri->segment(1)=='admin'|| $this->uri->segment(1)=='dashboard' || $this->uri->segment(1)=='advocate' || $this->uri->segment(1)=='data_entry' ||$this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='add_scan_files' || $this->uri->segment(1)=='manage_scan_files' || end($this->uri->segments)=='file' || $this->uri->segment(1)=='admin_notesheet_master'){ ?>
+<?php if($this->uri->segment(1)=='admin'|| $this->uri->segment(1)=='payroll'|| $this->uri->segment(1)=='dashboard' || $this->uri->segment(1)=='advocate' || $this->uri->segment(1)=='data_entry' ||$this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='add_scan_files' || $this->uri->segment(1)=='manage_scan_files' || end($this->uri->segments)=='file' || $this->uri->segment(1)=='admin_notesheet_master' || $this->uri->segment(1)=='reports'){ ?>
       <link href="<?php echo ADMIN_THEME_PATH; ?>plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
       <script src="<?php echo ADMIN_THEME_PATH; ?>plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>themes/section_feilds.js" type="text/javascript"></script>
@@ -264,7 +264,7 @@
     		$('#frm_dt').datepicker();
     		$('#movement_frm_dt').datepicker();
     		$('#movement_to_dt').datepicker();
-  		  $('.ps_moniter_date').datepicker();
+  		  $('.ps_moniter_date1').datepicker();
       });
     </script>  
   <?php } ?>
@@ -283,7 +283,9 @@
 		var get_tbl = location.href.split('#');
 		var seacr = get_tbl[1];
         $('#view_table').dataTable({
-            // Disable sorting on the first column
+			 "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+			  "pageLength": 25,
+			// Disable sorting on the first column
 			"aaSorting": [],
             "oSearch": {
 				"sSearch": seacr
@@ -299,9 +301,9 @@
      function print_content() {
           window.print();
     }
-	function goBack() {
-          window.history.back();
-      }
+	// function goBack() {
+          // window.history.back();
+      // }
       $('#submit_btn').on('click', function () {
           $ret = confirm('कृपया सुनिश्चित करे की आप यह फाइल दर्ज करना चाहते हैं |');
           if($ret == true){
@@ -526,7 +528,7 @@
 			$("#file_head").html('');
 			//role_id = $('#mark_to_section :selected').val();
 			section_id= $(this).val();
-			if(section_id == '2' || section_id == '14'){
+			if(section_id == '2' || section_id == '14' || section_id == '10'){ 
 				$('.mark_csu').val('62');
 			} else{
 				$('.mark_csu').val('');
@@ -866,7 +868,7 @@
     }
 	
 	//date picker 
-<?php if($this->uri->segment(1)=='data_entry' || $this->uri->segment(1)=='payroll' ||$this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='reports' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='return_file'){ ?>
+<?php if($this->uri->segment(1)=='data_entry'  || $this->uri->segment(1)=='leave'|| $this->uri->segment(2)=='add_employee' || $this->uri->segment(2)=='edit_employee' || $this->uri->segment(2)=='manage_user' || $this->uri->segment(2)=='notesheets' || $this->uri->segment(1)=='add_file' || $this->uri->segment(2)=='add_file' || $this->uri->segment(2)=='dealing' || $this->uri->segment(2)=='file_search' || $this->uri->segment(2)=='edit_file' || $this->uri->segment(2)=='allot' || $this->uri->segment(2)=='save_dealing'|| $this->uri->segment(2)=='rti_file' || $this->uri->segment(1)=='show_file' || $this->uri->segment(1)=='view_file' || $this->uri->segment(1)=='reports' || $this->uri->segment(1)=='activity_report' || $this->uri->segment(1)=='return_file'){ ?>
 	
 	 $(document).ready(function() {
     $('#centr_table').DataTable( {
@@ -885,7 +887,52 @@ function open_file(scan_id,file_path)
      $("#open_new_tab").html('<a class="btn btn-primary" target="_blank" href="'+HTTP_PATH+'/'+file_path+'">Open PDF in new tab</a>');
 
 	 }
+	 
+	     function show_current_file()
+ {
+     $('#modal-current_file').modal('show');
+     var HTTP_PATH='<?php echo base_url(); ?>admin/admin_dashboard/show_current_file';
+    document.getElementById("show_current_file").innerHTML='<object type="text/html" data="'+HTTP_PATH+'" width="100%" height="350px"></object>';
+ }
 </script>
+
+<!--Add Remark to any file-->
+<div class="modal fade" id="remarkmodel_all_section" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+ <div class="modal-dialog">
+        <form method="post" id="receive_mark_all_section" action="<?php echo base_url('establishment').'/establishment/add_reamrk' ;?>">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i>रिमार्क लिखें </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body table-responsive">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">  
+									<p>पंजी क्रमांक:- <b><span id="panji_no">	</span></b></p>							
+									<p>विषय:- <b><span id="subject">	</span></b></p>						
+                                    <div class="form-group">
+                                        <input type="hidden" id="remark_file_id" name="file_id_remark">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..." id="modal-id" name="file_remark"></textarea>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times"></i>रद्द</button>
+                    <button id="btn-delete" onclick="return confirm_send()" type="submit" class="btn btn-primary"><i class="fa fa-check"></i>जोड़े</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- remark Modal -->
 
 <!---- open pdf file ---->
 <div class="modal fade" id="modal-scan_file" data-backdrop="static">
@@ -917,6 +964,25 @@ function open_file(scan_id,file_path)
     </div>
 </div>
 <!--- End PDF File --->
+ <!---- Show pending file ---->
+<div class="modal fade" id="modal-current_file" data-backdrop="static">
+    <div class="modal-dialog" id="div_current">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"><i class="fa fa-fw fa-arrow-right shake"></i> स्वयं को अंकित फाइलें  <a href="<?php echo base_url(); ?>reports/moniter?emp=<?php echo emp_session_id(); ?>">click to show file</a></h4>
+                </div>
+                <div class="modal-body">
+                                    <div id="show_current_file"></div>
+                </div>
+                <div class="modal-footer">
+                    <span class="text-red pull-left">Time : <?php echo date('d/m/y h:i a'); ?></span>
+                    <button type="button" class="btn no-print" data-dismiss="modal">बंद करें</button>
+                   </div>
+            </div>
+    </div>
+</div>
+<!--- Show pending file --->
 
 <script src="<?php echo base_url(); ?>themes/section_feilds.js" type="text/javascript"></script>
 <script>
@@ -925,6 +991,242 @@ $(document).find('br').each(function(){
         $(this).remove();
     }
 });
+$(function () {       
+		$('#view_table_filter .input-sm').focus();
+	 });
+ 
+
+/*Code added by 04 04 2016 */
+$(".chk_slct_file").click(function() {
+		<?php $login_emp_level=get_emp_role_levele();?>
+		var new_file_ids='';
+		var file_selected_file_ids='';
+		var emp_level= "<?php echo $login_emp_level['emprole_level']; ?>";
+		var file_total_slct_count=$("#file_total_slct_count").val();
+	    var checked = $(this).is(':checked');
+        var chkboxid = $(this).attr('id');	
+		var file_id= $(this).val();
+		file_selected_file_ids=$("#file_selected_file_ids").val();
+        if (checked) {			
+			if(file_selected_file_ids!='' && file_selected_file_ids!='0'){
+				new_file_ids = file_selected_file_ids+','+file_id;
+			}else{
+				new_file_ids = file_id;
+			}
+			$("#file_selected_file_ids").val(new_file_ids);
+			file_total_slct_count=parseInt(file_total_slct_count)+parseInt(1);			
+			$('.chkbox'+chkboxid).prop("disabled", false);  
+        } else {
+			//alert(file_selected_file_ids);
+			file_selected_file_ids_array = file_selected_file_ids.split(',');			
+			file_selected_file_ids_array = jQuery.grep(file_selected_file_ids_array, function(value) {
+			  return value != file_id;
+			});	
+			new_file_ids=file_selected_file_ids_array			
+			file_total_slct_count=parseInt(file_total_slct_count)-parseInt(1);	
+            $("#employeelist_"+chkboxid).html('');
+			$("#total_nu_radio_selected").val(file_total_slct_count);
+			$("#file_selected_file_ids").val(new_file_ids);
+			$('.chkbox'+chkboxid).prop("disabled", true); 
+        }		
+		if(file_total_slct_count==0){			
+			$("#auto_add_draft_value_ajax").prop("disabled", true);
+			$("#auto_add_draft_value").prop("disabled", true);
+			$("#auto_file_received_value").prop("disabled", true);
+		}else{
+			$("#auto_add_draft_value_ajax").prop("disabled", false);
+			$("#auto_add_draft_value").prop("disabled", false);
+			$("#auto_file_received_value").prop("disabled", false);
+		}		
+		$("#total_slct_count").val(file_total_slct_count);
+		
+    });	
+	
+	$(document).on('change', '#auto_file_received_value', function(){
+		var HTTP_PATH='<?php echo base_url(); ?>';
+		var ac_url = HTTP_PATH+"e_filelist/received_multiple_files";
+		//alert(ac_url);
+		if($(this).val()!=''){
+			$("#file_emp_mark_id").val($(this).val());
+		}
+		$("#multi_file_post_frm").attr('action',ac_url);
+		var conf = confirm('क्या आप फाइल को प्राप्त करना चाहते हैं और फाइल को आगे बढाना चाहते ? ');
+		if(conf==false){
+			return false;
+		}else{
+			$.ajax({    
+					type: 'POST',  
+					url: ac_url,  
+					data:$("#multi_file_post_frm").serialize(),  
+					dataType:'json',
+					 //beforeSend:function(xhr, settings){
+					 //settings.data += '&moreinfo=MoreData';
+					 //},
+					success:function(data){
+						alert('फाइल प्राप्त कर ली गयी हैं | ')//  json response  
+						window.location.reload(true);
+					},
+					error: function(data) { 
+						//alert(data)// if error occured
+					}
+					
+			});			
+			//$("#multi_file_post_frm" ).submit();			
+		}
+	});
+	
+	$(document).on('change', '#auto_add_draft_value_ajax', function(){		 
+		var draft_content_text = '<p>'+$(this).val()+'</p>';	
+		var HTTP_PATH='<?php echo base_url(); ?>';
+		var ac_url = HTTP_PATH+"e_filelist/add_multiple_draft";
+		$("#multi_file_post_frm").attr('action',ac_url);
+		var conf = confirm('कृपया सुनिश्चित करे कि जिन फाइल/पत्र  पर टीप  जोड़ी जा रही  हैं ।  उन फाइल/पत्र का प्राप्त होना अनिवार्य हैं! ');
+		if(conf==false){
+			return false;	
+		}else{
+			var file_selected_file_ids=$("#file_selected_file_ids").val();
+			$.ajax({    
+					type: 'POST',  
+					url: ac_url,  
+
+					data:{draft_content_text:draft_content_text,file_selected_file_ids:file_selected_file_ids},  
+					dataType:'json',
+
+
+
+					success:function(data){
+
+						if(data == 'success'){
+							alert('फाइल/पत्र  पर टीप सफलतापूर्वक जोड़ी गई। ')//  json response  
+							window.location.reload(true);
+						}						
+					},
+					error: function(data) { 
+						//alert(data)// if error occured
+					}
+			});			
+		}
+	});
+//for select chage sub file type - Rohit 25-04-2016
+//Code update by bij 12 05 2016
+<?php $emp_level_array = get_emp_role_levele(); ?>;
+var  emp_role_level = '<?php echo $emp_level_array['emprole_level'];?>';
+	$(document).ready(function() {		
+		$("#section_file_type_ddl").change(function() {		
+			var sub_type = $(this).val();	
+			var url = window.location.href ;
+			url = url.split("?")[0];
+			window.location = url+'?sstype='+sub_type;
+		});	
+		
+		$(".remarkbtn_model").click(function () {
+           var file_id = $(this).data('file_id'); // get file id
+           $('#remark_file_id').val(file_id);  //set model file_id
+           if(emp_role_level=='6' || emp_role_level=='13'){
+			var panji = $(this).closest("tr").find('td:eq(1)').text();
+            $('#panji_no').html(panji);  //set model panji nu,ber			
+			var da_path_name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+			//alert(da_path_name)
+			var subject = $(this).closest("tr").find('td:eq(2)').text();			
+            $('#subject').html(subject);  //set model subject
+		   }else{		   
+			var panji = $(this).closest("tr").find('td:eq(4)').text();
+            $('#panji_no').html(panji);  //set model panji nu,ber			
+			var da_path_name = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+			//alert(da_path_name)
+			var subject = $(this).closest("tr").find('td:eq(1)').text();			
+            $('#subject').html(subject);  //set model subject
+		   }
+		   
+        });
+	});	
+/*End*/	
 </script>
+<div id="dialog_content" class="dialog_content" style="display:none">
+	<div class="dialogModal_header">सूचना</div>
+	<div class="dialogModal_content ">
+	<b style=" font-size:27px; color:#fff;" >कृपया  लम्बित नस्तियों को समाप्त करने का प्रयास करें ।</b>
+	<br><br>
+	<a href="<?php echo base_url(); ?>individual_reports" target="‌‌_self">
+	<button type="button" data-dialogmodalbut="cancel" class="btn btn-sm  btn-info " style="color:#fff">&nbsp;  लम्बित नस्तियाँ देखे &nbsp; </button> 
+	</a>
+	</div>
+	<div class="dialogModal_footer">
+		
+		<button type="button" data-dialogmodalbut="cancel" class="btn btn-sm  btn-danger " style="color:#fff">&nbsp;  रद्द करें &nbsp;	</button>
+	</div>
+</div>
+<link type="text/css" rel="stylesheet" href="<?php echo base_url();?>themes/popModal.css">
+
+<script src="<?php echo base_url();?>themes/popModal.js"></script>
+<script>
+function _pop(url){
+$('.dialog_content').dialogModal({
+			onOkBut: function() {},
+			onCancelBut: function() {},
+			onLoad: function() {},
+			onClose: function() {},
+		});
+	}
+	
+
+function _popByHours(url, hours) {
+	//alert("url"+url+ ""+hours);
+	function createCookie(name, value, hours) {
+		//alert(hours);
+		var date = new Date();
+		date.setTime(date.getTime() + (hours * 3600 * 1000));
+		var expires = "; expires=" + date.toGMTString();
+		//alert(expires);
+		document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ')
+				c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0)
+				return c.substring(nameEQ.length, c.length);
+		}
+	}
+
+	if (!readCookie("_pop")) {
+		//alert("sulbha");
+		_pop(url);
+		createCookie("_pop",1, hours);
+	}
+}
+//_popByHours("http://google.fr", 2);
+
+ check_browser();
+    function check_browser(){
+        var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+        // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+        var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+        var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        // At least Safari 3+: "[object HTMLElementConstructor]"
+        var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
+        var isIE = /*@cc_on!@*/false || !!document.documentMode;   // At least IE6
+
+        var output = 'Detecting browsers by ducktyping:<hr>';
+        if(isChrome==true){
+            $("#voice_input").show();
+            $(".googlevoic").show();
+			
+        }else{
+            $("#voice_input").hide();
+            $(".googlevoic").hide();
+        }
+    }
+</script>
+<script>
+function goBack(){
+	window.location='<?php echo $_SERVER['HTTP_REFERER'] ?>';
+}
+</script>
+
   </body>
 </html>

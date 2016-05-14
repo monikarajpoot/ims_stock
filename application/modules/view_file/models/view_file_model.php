@@ -7,6 +7,7 @@ class View_file_model extends CI_Model {
     }
     public function getFiles($section_id,$moveup_down,$section_id_search='')
     {
+		$sub_type = '';
         if(!empty($moveup_down)) {
             $query = $this->db->query("select group_concat(under_emp_id SEPARATOR ',') as u_empid from ft_employee_hirarchi where emp_id = " . emp_session_id());
             $rr = $query->row_array();
@@ -15,6 +16,9 @@ class View_file_model extends CI_Model {
         if(isset($_GET['sn']) && $_GET['sn']=='cr') {
             $cr_empid = get_emp_by_role('9', '1');
             $cr_explod = explode(',', $cr_empid);
+        }
+		if($this->input->get('sstype') != '') {
+			$sub_type = $this->input->get('sstype');
         }
         $tbl_files = FILES;
 		$tbl4 = DEPARTMENTS;
@@ -45,6 +49,9 @@ class View_file_model extends CI_Model {
         $this->db->where('file_received_emp_id',emp_session_id());
         $this->db->where('file_hardcopy_status !=','working');
         $this->db->where('file_hardcopy_status !=','close');
+		if($sub_type != ''){
+			$this->db->where('section_file_categoty',$sub_type);
+		}
 		$this->db->order_by('file_id','desc');
 		$query = $this->db->get($tbl_files);
       //  echo $this->db->last_query();
@@ -393,7 +400,7 @@ class View_file_model extends CI_Model {
         if($year != ''){
             $this->db->where("YEAR(file_created_date)",$year);
         }
-        if($month != ''){
+        if($month != '' && $month != date('m')){ // this will add becoz display all cus file .
             $this->db->where("MONTH(file_created_date)",$month);
         }
         if($section != ''){

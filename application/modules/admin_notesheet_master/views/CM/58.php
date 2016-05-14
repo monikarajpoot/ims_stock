@@ -108,7 +108,12 @@ $contents .= ' दिन-प्रतिदिन के विलम्ब क�
 $contents .= '</p><br/><span><b>(अतिरिक्त सचिव विधि द्वारा अनुमोदित)</b></span><br /><span><b><u>संलग्न दस्तावेज :</u></b></span><br/>';
 $contents .= '<span>1-निर्णय की सत्य प्रतिलिपि,<br />2-लोक अभियोजक का मत,<br />3-साक्षियों के कथन,<br /></span></td></tr>';
 $contents .= '<tr><td align="right" colspan="3" valign="top" ><div class="law_dept"> मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार, </div></td></tr>';
-$contents .= '<tr><td align="right" height="80"></td></tr>';
+$contents .= '<tr><td align="right" height="20"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

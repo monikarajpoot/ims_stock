@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     -->
     <link href="<?php echo ADMIN_THEME_PATH; ?>dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css" />
 	<script src="<?php echo ADMIN_THEME_PATH; ?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
-   
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -65,10 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   -->
   <?php 
   authorize();
-  $emp_details = get_list(EMPLOYEES,null,array('emp_id'=>$this->session->userdata("emp_id"))); 
-  if(!empty($emp_details) && isset($emp_details)) {
-    $is_emp_first_login = $emp_details[0]['emp_first_login'];
-  }
+    $is_emp_first_login =  $this->session->userdata("emp_first_login");
 	$userrole = checkUserrole(); 
     ?>
  <body class="skin-blue sidebar-mini <?php if($userrole==3){?>sidebar-collapse<?php } ?>">
@@ -97,7 +94,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <span class="sr-only">Toggle navigation</span>
           </a>
           <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
+		  <?php  $marked_file = current_pending_files(null,true); ?>
+		   <?php if(isset($marked_file['files_no']) && $marked_file['files_no'] != '0' && !in_array($userrole, array(39,9))){ ?>          
+		  <div class="navbar-custom-menu pull-left">		  
+              <ul class="nav navbar-nav" style="font-family: cursive;">
+                  <li>
+                      <a href="javascript:void(0)" onclick="show_current_file(null,true)" title="Current Pending File..">
+                          <b><?php   echo $marked_file['files_no']; ?> <i class="fa fa-fw fa-arrow-left shake"></i></b>
+                      </a>
+                  </li>
+              </ul>
+              </div>
+			  <?php } ?>
+          <div class="navbar-custom-menu">		  
+			<ul class="nav navbar-nav" style="font-family: cursive;">
+                  <li>
+                      <a href="<?php echo base_url(); ?><?php echo in_array($userrole, array(1,2,3,4,5)) ? 'dashboard#pending_file' : 'individual_reports' ; ?>" title="Pending files">
+						<i class="fa fa-files-o"></i>
+						<span class="label label-danger blink_me" style="top:27px">लंबित नस्तियां </span>						
+                      </a>
+                  </li>
+              </ul>
               <?php $arr_ps_count = ps_monitor_marked_report(null,"today",emp_session_id());
               $emp = '';
               if($userrole = checkUserrole_by_id(emp_session_id(),true) != 3){
@@ -114,18 +131,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </ul>
               <?php } ?>
             <ul class="nav navbar-nav">
-              <?php if(!empty(get_user_supervisor())){ ?>
+              <?php $user_supervisor = get_user_supervisor();
+			  if(!empty($user_supervisor)){ ?>
                 <li class="dropdown messages-menu">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#" title="Lists of Supervisor">
                   <i class="fa fa-user"></i>
-                  <span class="label label-success" ><?php echo count(get_user_supervisor()); ?></span>
+                  <span class="label label-success" ><?php echo count($user_supervisor); ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header">Supervisor list</li>
                   <li>
                     <!-- inner menu: contains the actual data -->
                         <ul class="menu">
-                            <?php foreach(get_user_supervisor() as $row) { ?>
+                            <?php foreach($user_supervisor as $row) { ?>
                       <li><!-- start message -->
                         <a href="#">
                           <div class="pull-left">
@@ -151,8 +169,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </ul>
               </li>
             <?php } ?>
-              <?php if(!empty(getEmployeeSection())){ 
-                  $emp_sections = explode(',',getEmployeeSection());
+              <?php
+              $emp_session_section = $this->session->userdata("emp_section_id");
+              if(!empty($emp_session_section)){
+                  $emp_sections = explode(',',$emp_session_section);
                   ?>
               <li class="dropdown messages-menu">
                       <a data-toggle="dropdown" class="dropdown-toggle" href="#" title="Lists of Sections Alloted">

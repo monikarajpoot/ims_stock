@@ -1,8 +1,13 @@
+<style>
+td{
+	padding: 2px !important;
+}
+</style>
 <?php 
 $contents  = '' ;
 $contents .= '<tr><td align="center">';
 if($is_genrate == true){
-	$contents .= '<h4>'.$post_data['title_type'];
+	$contents .= '<h4 style="margin:0px;">'.$post_data['title_type'];
 } else {
 	$contents .= '<select name="title_type" class="title_type">';
 	$contents .= '<option value="BEFORE HON’BLE THE SUPREME COURT OF INDIA">BEFORE HON’BLE THE
@@ -22,7 +27,7 @@ if($is_genrate == true){
 	$contents .= '</select>';
 }
 $contents .= '</h4></td></tr>';
-$contents .= '<tr><td align="center"><h6>IN THE MATTER OF ';
+$contents .= '<tr><td align="center"><h6 style="margin:0px;">IN THE MATTER OF ';
 if($is_genrate == true){ 
 	$contents .=  @$post_data['name'];
 } else {
@@ -46,7 +51,7 @@ if($is_genrate == true){
 	$contents .= '</select>';
 }
 $contents .= '</td></tr>';
-$contents .= '<tr><td align="center">Passed in  ';
+$contents .= '<tr><td align="center"><span style="margin:0px;">Passed in  ';
 if($is_genrate == true){
 	$contents .= ' <b>'.$post_data['passed'].'</b> ';
 } else {
@@ -58,8 +63,8 @@ if($is_genrate == true){
 } else {
 	$contents .= ' <input type="text" name="num">';
 }
-$contents .= '</td></tr>';
-$contents .= '<tr><td align="center"><h5>VAKALATNAMA</h5></td></tr>';
+$contents .= '</span></td></tr>';
+$contents .= '<tr><td align="center"><h5 style="margin:0px;">VAKALATNAMA</h5></td></tr>';
 $contents .= '<tr><td align="left"><div style="float:left;">';
 if($is_genrate == true){ 
     $contents .=  $post_data['agenst'];
@@ -75,7 +80,13 @@ if($is_genrate == true){
     $contents .= '<input type="text" class="" name="agenst_name" value="'.$agenst_name.'"/></div>';
 }
 $contents .= '</div><div style="float:right;">RESPONDENT(S)/OPP PARTIES.</div></td></tr>';
-$contents .= '<tr><td align="left"><p>I '.$as_name_en.',  Additional Secretary to Govt of M.P. Law & Legislative Affairs Department, Bhopal, APPELLANT / RESPONDENT, do hereby appoint and retain';
+$contents .= '<tr><td align="left"><p>I ';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy'),'en'); 
+}else{
+     $contents .= get_officer_for_sign('add_secetroy' ,$add_secetroy ,'en', $as_id);
+}
+$contents .= ',  Additional Secretary to Govt of M.P. Law & Legislative Affairs Department, Bhopal, APPELLANT / RESPONDENT, do hereby appoint and retain';
 if($is_genrate == true){
     foreach(get_advocates_name('', $post_data['member_id']) as $row){
         $contents .= ' <b>'.$row->scm_name.'</b>';
@@ -124,13 +135,25 @@ if($is_genrate == true){
     $contents .= ' <select  class="" name="year" >';
 	$i = 1980;
 	while($i < 2020){
-		$contents .= '<option value="'.$i.'">'.$i.'</option>';
+		$selct = $i == date('Y') ? 'selected' : '';
+		$contents .= '<option value="'.$i.'" '.$selct.'>'.$i.'</option>';
 	 $i++; }
     $contents .= ' </select>';
 }
 $contents .=  '.</td></tr>';
 
-$contents .= '<tr><td align="right"><div style="width:70%; text-align:center;"><b>('.$as_name_en.')</b></div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:70%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+} 
+$contents .= '<tr><td align="right"><div style="width:70%; text-align:center;">(';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy'),'en'); 
+}else{
+     $contents .= '------------';
+}
+$contents .=  ')</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:70%; text-align:center;">Additional Secretary to Government</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:70%; text-align:center;">Plaintiff(s)/ Departments(s)/Petitioner(s)/ Appellant(s)</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:70%; text-align:center;">Respondents(s)/ Opp. Parties(s)</div></td></tr>';

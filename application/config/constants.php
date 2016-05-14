@@ -52,9 +52,11 @@ define('NOTESHEET_ABS_PATH',FCPATH.APPPATH.'modules/admin_notesheet_master/views
 
 define('ADMIN_URL','admin');
 define('EDITOR_URL',HTTP_PATH.'themes/admin/plugins/editor/');
-define('SITE_STATUS','live');
-//define('DIGITALLY_SINGED_NOTE',' डिजिटल हस्ताक्षरित');
-define('DIGITALLY_SINGED_NOTE','Digitally Signed');
+
+define('SITE_STATUS','staging');
+define('DIGITALLY_SINGED_NOTE',' डिजिटल हस्ताक्षरित');
+//define('DIGITALLY_SINGED_NOTE',' यह दस्तावेज डिजिटल हस्ताक्षरित है |');
+define('FROM_EMAIL_FOR_ORDER','suggestion@mplaw.nic.in');
 /*Tables*/
 
 /*Constant tables */

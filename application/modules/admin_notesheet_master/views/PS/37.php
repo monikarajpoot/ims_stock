@@ -33,7 +33,7 @@ $contents .= $post_data['date1'].'</div></td></tr>';
 $contents .= '</div></p></td></tr>';
 
 $contents .= '<tr><td><p> कृपया विचाराधीन पत्र का सहपत्रों सहित अवलोकन करने का कष्ट करें ।</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+//$contents .= '<tr><td>&nbsp;</td></tr>';
 
 $contents .= '<tr><td><p> आवेदक श्री ';
 if($is_genrate == true){
@@ -52,7 +52,7 @@ $contents .= $post_data['log_sevak'];
 $contents .=  ' के विरूद्ध धारा 197 के अंतर्गत आवेदन पत्र प्रस्तुत किया है। अभियोजन स्वीकृति हेतु सामान्य प्रशासन विभाग ने दिनांक  05.09.2014';
 
 $contents .= ' को एक परिपत्र जारी किया है। उक्त परिपत्र के अनुसार अभियोजन स्वीकृति की कार्यवाही प्रशासकीय विभाग द्वारा की जाना है।</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+//$contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><p> अत: प्राप्त प्रकरण मूलत: प्रशासकीय विभाग ';
 if($is_genrate == true){
 $contents .= $post_data['dept_1'];
@@ -63,11 +63,11 @@ $contents .= $post_data['dept_1'];
 $contents .=  ' की ओर आवश्यक कार्यवाही हेतु भेजा जाना प्रस्तावित है तथा विभाग द्वारा की गई कार्यवाही से आवेदक को भी सूचित किया जाना उचित होगा। 
  </p></td></tr>';
 $contents .= '<tr><td><p>आदेशार्थ प्रस्तुत।</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+//$contents .= '<tr><td>&nbsp;</td></tr>';
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td align="left"><div style="width:35%; text-align:center;"></div></td></tr>';
-
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'){
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अनु0अधि0 ( अभि0)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
@@ -76,8 +76,8 @@ $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अनु0अधि0 ( अभि0)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव ( अभि0)</u></td></tr>';
-
-$contents .= '<tr><td align="center">ज्ञापन की स्वच्छ प्रतिया हस्ताक्षरार्थ प्रस्तुत।</td></tr>';
+}
+$contents .= '<tr><td align="center">ज्ञापन की स्वच्छ प्रतिया हस्ताक्षरार्थ प्रस्तुत?</td></tr>';
 
 
 

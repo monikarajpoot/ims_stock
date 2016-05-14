@@ -25,6 +25,7 @@ class Document_path extends MX_Controller {
 			$section_id = getEmployeeSection();
 		}
         $data['notesheets_menu_list'] = get_list(NOTESHEET_MASTER_MENU, NULL, array('section_id' => $section_id));
+        $data['notesheets_menu_for_all'] = get_list(NOTESHEET_MASTER_MENU, NULL, array('section_id' => null));
         if ($id) {
             $data['file_dat_show'] = getFiledata($id);
         }

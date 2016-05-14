@@ -7,6 +7,10 @@ class File_search_model extends CI_Model {
     }
     function file_search_sectionno($searchtype = null, $value1 = null , $value2 = null) {
 		
+		$sub_type = '';
+		if($this->input->get('sstype') != '') {
+			$sub_type = $this->input->get('sstype');
+        }
         $tbl1 = FILES;
         $tbl3 = EMPLOYEES;
         $tbl6 = FILES_SECTION;
@@ -25,6 +29,9 @@ class File_search_model extends CI_Model {
             $this->db->where("$tbl6.section_number", $value2);
 
         }
+		if($sub_type != ''){
+			$this->db->where('section_file_type',$sub_type);
+		}
         $this->db->order_by("$tbl1.file_id", 'desc');
         $query = $this->db->get();
       // echo $this->db->last_query().br();
@@ -64,7 +71,7 @@ class File_search_model extends CI_Model {
         return $query->result(); 
     }
 	
-	function file_search_lists($searchtype = null, $value1 = null , $value2 = null, $bul = '', $floor = '') {
+	function file_search_lists($searchtype = null, $value1 = null , $value2 = null, $bul = '', $floor = '', $year = null) {
         $tbl1 = FILES;
         $tbl3 = EMPLOYEES;
         $tbl6 = FILES_SECTION;
@@ -87,8 +94,11 @@ class File_search_model extends CI_Model {
 		if($floor != ''){
 			$this->db->where("$tbl4.building_floor", $floor);
 		}
+		if($year != ''){
+			$this->db->where("YEAR(ft_files.file_created_date)",$year);
+		}
         $this->db->order_by("$tbl1.file_department_id", 'ASC');
-        // $this->db->order_by("$tbl4.dept_name_hi", 'ASC');
+         $this->db->order_by("$tbl4.dept_name_hi", 'ASC');
         $query = $this->db->get();
         // echo $this->db->last_query().br();
 		if($query->num_rows() > 0){

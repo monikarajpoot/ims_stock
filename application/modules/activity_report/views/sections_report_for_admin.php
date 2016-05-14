@@ -1,7 +1,7 @@
 
 <?php
 $userrole = checkUserrole();
-$usersection = getEmployeeSection();
+$usersection = $this->session->userdata('emp_section_id');
 ?>
 
 <div class="box">
@@ -21,24 +21,26 @@ $usersection = getEmployeeSection();
 			// pre fixws
 			$total_f = $grand_total = $dispach_files  = $dispached_files = 0; $i=1; 
 			$height_worked = array();
+
+
+			$query = "SELECT count(file_id) AS counts,
+				  SUM(IF((`issection_despose` = 0), 1,0)) AS not_section_dispose,
+				  SUM(IF((`issection_despose` = 1), 1,0)) AS section_dispose
+				  FROM ft_file_dispatch";
+			$query = $this->db->query($query);
+			$result = $query->row_array();
 			//Count total no of files
-				$query = $this->db->query("select count(file_id) as counts FROM ft_files ");
-				$grandtotal = $query->row_array();
-				$grand_total = $grandtotal['counts'];
+				$grand_total = $result['counts'];
 			//for dispatched out department
-				$query = $this->db->query("SELECT count(`file_id`) as files FROM `ft_file_dispatch` WHERE `issection_despose` = 0");
-				$dispatch_out = $query->row_array();
-				$dispached_files_out = $dispatch_out['files'];
+				$dispached_files_out = $result['not_section_dispose'];
 			//for dispatched in department
-				$query = $this->db->query("SELECT count(`file_id`) as files FROM `ft_file_dispatch` WHERE `issection_despose` = 1");
-				$dispatch_dept = $query->row_array();
-				$dispached_files_dept = $dispatch_dept['files'];
+				$dispached_files_dept = $result['section_dispose'];
 				$dispached_files = $dispached_files_out + $dispached_files_dept ;
 				
 			foreach($get_section as $sec){
 				if(!in_array($sec['section_id'], array('26','1','25','20','28','23','21','8','27'))){
 					$sce_id = $sec['section_id']; $from_section = '' ;
-					$section = get_list(SECTIONS,null,array('section_id' =>$sce_id ));
+					//$section = get_list(SECTIONS,null,array('section_id' =>$sce_id ));
 					
 					if($sce_id == '20'){  // for translation
 						$query = $this->db->query("select count(file_id) as counts FROM ft_files where `file_mark_section_id`='".$sce_id."' and `file_from_section_id`='16' and `file_return` !='2' and (file_hardcopy_status = 'received' or file_hardcopy_status = 'working')");
@@ -58,25 +60,28 @@ $usersection = getEmployeeSection();
 						$from_section = ' in vetting english section';
 					} else { // for others
 						
-						$query = $this->db->query("select count(file_id) as counts FROM ft_files where `file_mark_section_id`='".$sce_id."' and `file_return` !='2' and (file_hardcopy_status = 'received' or file_hardcopy_status = 'working')");
-						$res1 =  $query->row_array();
-						$query = $this->db->query("select count(file_id) as counts FROM ft_files where `file_mark_section_id`='".$sce_id."' and `file_return` !='2' and (file_hardcopy_status = 'not')");
-						$res2 =  $query->row_array();
-						$query = $this->db->query("select count(file_id) as counts FROM ft_files where `file_mark_section_id`='".$sce_id."' and `file_return` ='2'");
-						$res3 =  $query->row_array();
+						$query = "SELECT count(file_id) AS counts,
+							SUM(IF((file_hardcopy_status = 'received' or file_hardcopy_status = 'working') && file_return !='2', 1,0)) AS working,
+						    SUM(IF((file_hardcopy_status = 'not') && file_return !='2', 1,0)) AS not_recive,
+						    SUM(IF((file_return = '2'), 1,0)) AS close
+						    FROM ft_files
+						    where `file_mark_section_id`='".$sce_id."' ";
+							$query = $this->db->query($query);
+							$result = $query->row_array();
 					}
 					
-					$total = $res1['counts'] + $res2['counts'] + $res3['counts'];
-					if ($total > 0) { 
+					$total = $result['counts'];
+
+					if ($total > 0) {
 						$cls = "aqua"; 
 					}else{
 						$cls = "red"; 
 					}
 					$total_f = $total_f + $total;
-					$dispach_files = $dispach_files + $res3['counts'];
+					$dispach_files = $dispach_files + $result['close'];
 				?>
 			
-				<?php $percent_work = $total != 0 ? (int)(($res3['counts'] * 100)/$total) : 0; 
+				<?php $percent_work = $total != 0 ? (int)(($result['close'] * 100)/$total) : 0;
 				 $height_worked[$sec['section_id']] = $percent_work ; ?>
 					<div class="col-md-4 col-sm-6 col-xs-12 sections-box" data-original-title="<?php echo $sec['section_name_en'] ; ?>" data-toggle="tooltip">
 						<a href="<?php echo base_url(); ?>activity_report/fetch_data/<?php echo $sec['section_id'] ; ?>" class="">
@@ -89,7 +94,7 @@ $usersection = getEmployeeSection();
 							<div style="width: <?php echo $percent_work; ?>%" class="progress-bar"></div>
 						  </div>
 						  <span class="progress-description">
-							<?php echo $res3['counts']  ; ?> File(s) Dispatched <?php echo $from_section; ?>
+							<?php echo $result['close']  ; ?> File(s) Dispatched <?php echo $from_section; ?>
 						  </span>
 						</div><!-- /.info-box-content -->
 					  </div>
@@ -112,7 +117,7 @@ $usersection = getEmployeeSection();
 					$heading = "आपके अनुभाग में अभी तक आई फाइलें";
 				}
 			?>
-		</div>
+		</div><!-- row -->
 		<hr class="clearfix no-print "/>
 		<div class="row">
 				<br/>	
@@ -125,7 +130,7 @@ $usersection = getEmployeeSection();
 						$return =  $query->row_array();					
 						$percent_work = 100 - ($return['counts'] * 100)/$final_total; ?>
 						
-						<div class="col-md-6 col-sm-6 col-xs-12 sections-box happy" data-original-title="Dispatch" data-toggle="tooltip">
+						<div class="col-md-6 col-sm-6 col-xs-12 sections-box happy" data-original-title="Central receipt" data-toggle="tooltip">
 							<a href="<?php echo base_url(); ?>activity_report/fetch_data_cr">
 							<div class="info-box bg-green">
 							<span class="info-box-icon"><?php echo (int)$percent_work; ?>%</span>
@@ -170,12 +175,12 @@ $usersection = getEmployeeSection();
 						  </a>
 					  </div>
 					<?php } ?>
-			</div>
+			
 			<hr class="clearfix no-print "/>
 			<div class="row">
 			<br/>
 			<div class="col-xs-12">				
-				<?php if($userrole < 7 || $userrole == '11' ) {
+				<?php if($userrole < 7 || $userrole == 11 ) {
 					$maxInd = -1;
 					foreach($height_worked as $section => $percent) {
 						if($percent > $maxInd) {
@@ -242,10 +247,9 @@ $usersection = getEmployeeSection();
 					<?php } ?>
 				</div>
 				<?php } ?>
-			</div>
-		</div>	
-	</div><!-- /.box - body-->
-	</div>
+				</div>
+			</div><!-- row -->
+		</div><!-- /.body -->
 	
 	<div class="box-footer no-print">
 		<h3><?php echo $heading; ?></h3>
@@ -277,19 +281,126 @@ $usersection = getEmployeeSection();
 		  </div><!-- /.info-box -->
 		</div>
 	</div>
-	
-	<hr class="no-print clearfix"/>
-	<div class="col-md-3 col-sm-6 col-xs-12 no-print" data-original-title="अपनी रिपोर्ट देखे" data-toggle="tooltip">
-		<a href="<?php echo base_url(); ?>individual_reports">
-			<div class="info-box bg-yellow">
-				<span class="info-box-icon"><i class="fa fa-file"></i></span>
-				<div class="info-box-content">
-				  <span class="info-box-text">Individual report</span>
-				  <span class="info-box-number">Individual report</b></span>
-			
-				</div><!-- /.info-box-content -->
+</div><!-- /.print-box -->	
+</div><!-- /.box -->
+<div class="box box-warning no-print" id="pending_file">		
+	<div class="box-body">	
+		<div class="row">
+			<div class="col-md-3 col-sm-6 col-xs-12 no-print" data-original-title="अपनी रिपोर्ट देखे" data-toggle="tooltip">
+				<a href="<?php echo base_url(); ?>individual_reports">
+					<div class="info-box bg-yellow">
+						<span class="info-box-icon"><i class="fa fa-file"></i></span>
+						<div class="info-box-content">
+						  <span class="info-box-text">Individual report</span>
+						  <span class="info-box-number">Individual report</b></span>
+					
+						</div><!-- /.info-box-content -->
+					</div>
+				</a>
 			</div>
-		</a>
+		</div>
 	</div>
+</div>
+<?php 
+		$todays = date('Y-m-d');
+		$_7days = date('Y-m-d', strtotime($todays.' - 7 days'));
+		$_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
+		$emp_section = $this->session->userdata('emp_section_id');
+		
+		$uequertt = "SELECT COUNT(file_id) AS fileno,
+		SUM(IF(file_hardcopy_status = 'not' && DATE(file_update_date) <= '$_7days' , 1,0)) AS notreceive_7days, 
+		SUM(IF((file_hardcopy_status = 'received' || file_hardcopy_status = 'working') && DATE(file_update_date) <= '$_7days',1,0)) AS received_7days,
+		SUM(IF(file_hardcopy_status = 'not' && DATE(file_update_date) <= '$_10days' , 1,0)) AS notreceive_10days, 
+		SUM(IF((file_hardcopy_status = 'received' || file_hardcopy_status = 'working') && DATE(file_update_date) <= '$_10days',1,0)) AS received_10days
+		FROM ft_files 
+		WHERE file_mark_section_id in($emp_section)";	
+		$qry = $this->db->query($uequertt);
+		$result = $qry->row_array();
+				
+	
+	?>
+<div class="box box-danger no-print">	
+	<div class="box-header">
+		<h4 class="box-title">लंबित फाइलें </h4>
+		<div class="box-tools pull-right">
+			<button class="btn btn-warning" onclick="goBack()"><?php echo $this->lang->line('Back_button_label'); ?></button>
+		</div>
+	</div><!-- /.box-header -->
+	<div class="box-body">	
+		<div class="row">
+			<a href="<?php echo base_url(); ?>activity_report/file_moniter/pending_report/rec/<?php echo $_7days; ?>">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				  <div class="info-box bg-yellow">
+					<span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+					<div class="info-box-content">
+					  <span class="info-box-text">Work in progress</span>
+					  <span class="info-box-number"><?php echo $result['received_7days']; ?> Files</span>
+					  <div class="progress">
+						<div style="width: 100%" class="progress-bar"></div>
+					  </div>
+					  <span class="progress-description">
+						More than 7 days
+					  </span>
+					</div><!-- /.info-box-content -->
+				  </div><!-- /.info-box -->
+				</div>		
+			</a>
+			
+			<a href="<?php echo base_url(); ?>activity_report/file_moniter/pending_report/not/<?php echo $_7days; ?>">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				  <div class="info-box bg-yellow">
+					<span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+					<div class="info-box-content">
+					  <span class="info-box-text">Not Receive</span>
+					  <span class="info-box-number"><?php echo $result['notreceive_7days']; ?> Files</span>
+					  <div class="progress">
+						<div style="width: 100%" class="progress-bar"></div>
+					  </div>
+					  <span class="progress-description">
+						More than 7 days 
+					  </span>
+					</div><!-- /.info-box-content -->
+				  </div><!-- /.info-box -->
+				</div>		
+			</a>
+			
+			<a href="<?php echo base_url(); ?>activity_report/file_moniter/pending_report/rec/<?php echo $_10days; ?>">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				  <div class="info-box bg-red">
+					<span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+					<div class="info-box-content">
+					  <span class="info-box-text">Work in progress</span>
+					  <span class="info-box-number"><?php echo $result['received_10days']; ?> Files</span>
+					  <div class="progress">
+						<div style="width: 100%" class="progress-bar"></div>
+					  </div>
+					  <span class="progress-description">
+						More than 10 days  
+					  </span>
+					</div><!-- /.info-box-content -->
+				  </div><!-- /.info-box -->
+				</div>		
+			</a>
+			
+			<a href="<?php echo base_url(); ?>activity_report/file_moniter/pending_report/not/<?php echo $_10days; ?>">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+				  <div class="info-box bg-red">
+					<span class="info-box-icon"><i class="fa fa-files-o"></i></span>
+					<div class="info-box-content">
+					  <span class="info-box-text">Not Receive</span>
+					  <span class="info-box-number"><?php echo $result['notreceive_10days']; ?> Files</span>
+					  <div class="progress">
+						<div style="width: 100%" class="progress-bar"></div>
+					  </div>
+					  <span class="progress-description">
+						More than 10 days 
+					  </span>
+					</div><!-- /.info-box-content -->
+				  </div><!-- /.info-box -->
+				</div>		
+			</a>
+		</div>
+	</div><!-- /.body -->
+</div><!-- /.box -->
 	
 </div><!-- /.box -->

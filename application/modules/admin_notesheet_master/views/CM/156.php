@@ -1,6 +1,6 @@
 <?php 
 $contents  = '' ;
-$contents .= '<tr><td align="left"> <div style="margin-top:20px;"><span style="margin-left:10%;">';
+$contents .= '<tr><td align="left"> <div style="margin-top:20px;"><span class="no-print" style="margin-left:10%;">';
 if($is_genrate == true){ 
     $contents .=  $post_data['subject'];
 } else {
@@ -11,14 +11,16 @@ $contents .= '<tr><td align="center">--00--</td></tr>';
 $contents .= '<tr><td align="center" height="80"></td></tr>';
 
 $contents .= '<tr><td align="left"><span style="margin-left:8%"></span> प्रतिरक्षण आदेश जारी किया गया  हैं  नस्ती मूलतः आपकी ओर लौटाई जाती हैं | </td></tr>';   
-$contents .= '<tr><td align="right"><div class="officer-center" contenteditable="false">( ';
-if($is_genrate == true){
-$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
-
-}else
-{
-	$contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
-	
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right"><div class="officer-center">( ';
+if($is_genrate == true){	 
+	$contents .= get_officer_information($this->input->post('sing_user')); 
+}else{
+	$contents .= get_officer_for_sign('sing_user' ,array(2,3,4,5,7) ,'', $us_id);
 }
 
 $contents .= ' )</div></td></tr>';

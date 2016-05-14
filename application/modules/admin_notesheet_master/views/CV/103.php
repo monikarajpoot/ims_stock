@@ -1,6 +1,12 @@
-
+<style>
+p{
+	line-height:19px;
+}td{
+	padding:0px;
+}
+</style>
 <?php 
-$contents  = '<table style="font-size:15px; margin:0% auto; width:80%;">' ;
+$contents  = '<table style="font-size:12px; margin:0% auto; width:90%;">' ;
 $contents .= '<tr><td align="right"><b><u>स्पीड पोस्ट द्वारा</b></u></td></tr>';
 $contents .= '<tr><td align="center"><h5><b>फा0क्र0 4(ए)/';
 if($is_genrate == true){ 
@@ -11,8 +17,21 @@ if($is_genrate == true){
 $contents .= '/'.date("Y").'/'.$file_number.'/21-क(सि.)</b></h5></td></tr>';
 $contents .= '<tr><td align="center"><u><h5>'.$dept_name.'</h5></u></td></tr>';
 $contents .= '<tr><td align="left"><b>प्रेषकः-</b></td></tr>';
-$contents .= '<tr><td align="left"><span style="margin-left:8%">'.$as_name.'</span></td></tr>';
-$contents .= '<tr><td align="left"><span style="margin-left:8%">अतिरिक्त सचिव विधि,</span></td></tr>';
+$contents .= '<tr><td align="left"><span style="margin-left:8%">';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy')); 
+}else{
+	 $contents .= get_officer_for_sign('add_secetroy' ,$add_secetroy ,'', $as_id);
+}
+$contents .= '</span></td></tr>';
+$contents .= '<tr><td align="left"><span style="margin-left:8%">';
+if($is_genrate == true){	
+    $contents .=   get_officer_dign($this->input->post('add_secetroy'));
+}
+else {
+	 $contents .= '-------';
+	}
+$contents .= ', विधि</span></td></tr>';
 $contents .= '<tr><td align="left"><b>प्रति,</b></td></tr>';
 if($is_genrate == true){
     foreach(get_advocates_name('', $post_data['member_id']) as $row){
@@ -33,42 +52,47 @@ if($is_genrate == true){
 } else {
     $contents .= ' <input type="text" class="date1" name="date1" placeholder="dd/mm/yyyy" value="'.$today.'"/></td></tr>';
 } 
-$contents .= '<tr><td><div style="float:left; width:14%"><b>विषय:- </b></div><p style="text-indent: 0;">';
+$contents .= '<tr><td><table><tr><td style="width:7%; vertical-align: top;"><b>विषय:- </b></td><td>';
 if($is_genrate == true){ 
     $contents .=  $post_data['subject'];
 } else {
     $contents .= '<textarea name="subject" rows="" columns="">'.$file_subject.'</textarea>';
 }
-$contents .= '</p></td></tr>';
+$contents .= '</td></tr></table></td></tr>';
 
 $contents .= '<tr><td align="center">--------------</td></tr>';
 $contents .= '<tr><td align="left"><b>महोदय,</b></td></tr>';
 $contents .= '<tr><td align="left"><p>उपरोक्त विषयांतर्गत  प्रकरण में म०प्र० शासन की ओर से माननीय उचचतम न्यायलय नई दिल्ली में पैरवी करें |</p></td></tr>';
 $contents .= '<tr><td><div style="float:left; width:17%"><b>संलग्न :-</b></div><p style="text-indent:0;"> वकालतनामा | </p></td></tr>';
 
-
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">भवदीय,</div></td></tr>';
- $contents .= '<tr><td align="right">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(<b>'.$as_name.'</b>)</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अतिरिक्त सचिव</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy')); 
+}else{
+	$contents .= '-------';
+}
+$contents .= ')</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">';
+if($is_genrate == true){	
+    $contents .=   get_officer_dign($this->input->post('add_secetroy'));
+}
+else {
+	 $contents .= '-------';
+	}
+$contents .= '</div></td></tr>';$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="center">//2//</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+
 $contents .= '<tr><td align="left"><div style="float:left;">पृ0 क्रमांक 4(ए)/';
 if($is_genrate == true){ 
     $contents .=  $post_data['number'];
 } else {
-    $contents .= '<input type="text" class="" name="number"  value=""/>';
+    $contents .= '-------';
 }
 $contents .= '/'.date("Y").'/'.$file_number.'/21-क(सि.)</div><div style="float:right;">भोपाल, दिनांक ';
 if($is_genrate == true){ 
@@ -85,18 +109,30 @@ $contents .= '<tr><td><p>1- सचिव, म.प्र. शासन, <b>'.$fil
         $contents .= ' '.$row->scm_name_hi.'</span>,';
     }
 } else {
-    $contents .= ' <select name="member_id">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= '-------------';
 }
- $contents .= ' अधिवक्ता नई दिल्ली में संपर्क कर आवश्यक कार्यवाही करे |   </td></tr>';
+ $contents .= ', नई दिल्ली में संपर्क कर आवश्यक कार्यवाही करे |   </td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">भवदीय,</div></td></tr>';
- $contents .= '<tr><td align="right">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(<b>'.$as_name.'</b>)</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अतिरिक्त सचिव</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy')); 
+}else{
+	$contents .= '-------';
+}
+$contents .= ')</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">';
+if($is_genrate == true){	
+    $contents .=   get_officer_dign($this->input->post('add_secetroy'));
+}
+else {
+	 $contents .= '-------';
+	}
+$contents .= '</div></td></tr>';$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '</table>';
 ?>   
 

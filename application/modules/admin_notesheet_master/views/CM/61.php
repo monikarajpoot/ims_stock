@@ -46,8 +46,10 @@ if($is_genrate == true){
 $contents .= ' को आवश्यक निर्देश देने बाबत् नस्ती इस विभाग को प्रशासकीय स्वीकृति के साथ भेजी है ।</p></td></tr>';
 
 $contents .= '<tr><td colspan="2"><p class="text-justify shift-left" >अत: यदि मान्य हो तो प्रशासकीय विभाग के प्रस्तावानुसार पक्ष-समर्थन करने हेतु निर्देश जारी करना प्रस्तावित है । </p><br/></td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td colspan="2"><div><u>अनुभाग अधिकारी (आप.) </u> </div><br/><br/><br/></td></tr>';
 $contents .= '<tr><td colspan="2"><div><u>अति. सचिव </u> </div><br/></td></tr>';
+}
 $contents .= '<tr><td colspan="2"><br /><br/><br/><div  style="text-align:justify" ></div><br/></td></tr>';
 
 ?>

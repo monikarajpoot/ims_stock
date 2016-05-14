@@ -126,12 +126,18 @@ class Dealing_manage_files extends MX_Controller {
 			if(in_array(checkUserrole(),show_dealing_asst_list())){
                $file_hardcopy_status='working'; 
             }else{ $file_hardcopy_status='received';  $is_da='n';  }
+			if($this->input->post('file_mark_section_id') == 11){
+				$section_file_type = $this->input->post('section_file_categoty');
+			} else{
+				$section_file_type = $this->input->post('section_file_type') != '' ? $this->input->post('section_file_type') : '' ;
+			}
             $data_dealing = array(
 				'file_uo_or_letter_no'      => $this->input->post('file_uo_number'),
 				'file_uo_or_letter_date'    => $file_uo_date,
                 'case_parties'              => $this->input->post('party_petition')."-विरुद्ध- ".$this->input->post('Party_name_respondent'),
                 'courts_name_location'      => $this->input->post('courts_name_location'),
                 'file_subject'              => $this->input->post('file_subject'),
+				'file_subject_en'           => $this->input->post('file_subject_en'),
                 //  'file_progress_status_id' => '25', // Work in progress by Officer (remark_master)
                 //   'file_form'             => $this->input->post('from_id'),
                 'file_head_id'              => $this->input->post('file_head')==''?0:$this->input->post('file_head'),
@@ -142,7 +148,7 @@ class Dealing_manage_files extends MX_Controller {
                 'court_bench_id'            => $this->input->post('court_bench')==''?0:$this->input->post('court_bench'),
                 'file_judgment_date'        => $judg_dt,
                 'file_department_name'      => $this->input->post('file_department_name'),
-				'section_file_categoty'      => $this->input->post('section_file_categoty')
+				'section_file_categoty'      => $section_file_type, 
             );
             if($_FILES['file_upload']){
                 $file_upload = uploadalltypeFile('file_upload' , './uploads/documents_file/' );

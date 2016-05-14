@@ -57,8 +57,22 @@ $contents .= '<tr><td><p>शुभकामनाओं सहित ।</p></td
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td align="right"><div style="width:35%; text-align:center;">भवदीय,</div></td></tr>';
 
-$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;">('.@$name_bh.' )</div></td></tr>';
+//$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;">('.@$name_bh.' )</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;" contenteditable="false">(';
+if($is_genrate == true){	 
+	$contents .= get_officer_information($this->input->post('sing_user')); 
+}else{
+	$contents .= get_officer_for_sign('sing_user' ,array(2,3,4,5,7) ,'', $as_id);
+}
 
+$contents .= ')</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;" contenteditable="false">';
+if($is_genrate == true){
+	$contents .=   get_officer_dign($this->input->post('sing_user'));
+}else{
+	$contents .= '-------';
+}
+$contents .= '</div></td></tr>';
 
 $contents .= '<tr><td>प्रति ,</td></tr>';
 $contents .= '<tr><td><span style="margin-left:10%">';

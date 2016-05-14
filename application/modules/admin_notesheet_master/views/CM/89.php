@@ -120,7 +120,11 @@ $contents .= '<span>1-निर्णय की सत्य प्रतिल�
 $contents .= '<tr><td align="right" height="60"></td></tr>';
 $contents .= '<tr><td colspan="2">&nbsp;</td></tr>';
 $contents .= '<tr><td colspan="2" align="right"><div class="law_dept">मध्यप्रदेश के राज्यपाल के नाम से आदेशानुसार , </div></td></tr>';
-$contents .= '<tr><td align="right" height="60"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

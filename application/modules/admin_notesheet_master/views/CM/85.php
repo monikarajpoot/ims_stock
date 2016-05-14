@@ -58,7 +58,11 @@ $contents .= "<input type='text' name='aganist' >";
    
 }
 $contents .= ' विरुद्ध मध्यप्रदेश एवं अन्य में आवश्यक कार्यवाही उपरांत एस0एल0पी0 नहीं करने का निर्णय लिया गया हैा </p></td></tr>';
-$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div  style="width:70%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div style="width:70%; text-align:center;">( ';
 if($is_genrate == true){
 $contents .= $post_data['avar_secetroy'];
@@ -109,7 +113,11 @@ $contents .= $post_data['state_1'];
 
 $contents .= ' (म०प्र०) की ओर सूचनार्थ एवं अग्रेषित |</div></td></tr>';
 
-$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div style="width:70%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div style="width:70%; text-align:center;">( ';
 if($is_genrate == true){
 $contents .= $post_data['avar_secetroy'];
@@ -119,6 +127,7 @@ $contents .= $post_data['avar_secetroy'];
 	
 }
 $contents .= ' )</div></td></tr>';
+
 $contents .= '<tr><td colspan="3" align="right"><div style="width:70%; text-align:center;">';
 if($is_genrate == true){
     $contents .= '<span>'.$post_data['dsin'].'</span>';

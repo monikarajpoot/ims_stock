@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'ims_stock';
+$db['default']['username'] = 'dbadmin';
+$db['default']['password'] = 'password';
+$db['default']['database'] = 'db_ftms_eoffice_dev_18';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = 'ft_';
 $db['default']['pconnect'] = TRUE;

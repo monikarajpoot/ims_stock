@@ -1,7 +1,7 @@
 <?php $role = checkUserrole(); ?>
 <?php $pa_permissions=array();
 	  $pa_permissions= check_pa_is_any_permission(null,null); /*Get Logged in user permissions*/
-        $section= getEmployeeSection();
+        $section =  $this->session->userdata('emp_section_id');
         $section_array= explode(',',$section);
 ?>
 <?php if($section == 12){ ?>
@@ -32,9 +32,9 @@
 <?php } else if ($role == '9'){
     ?>
     <li class=""><a href="<?php echo base_url();?>add_file"><i class="fa fa-plus"></i> <span><?php echo $this->lang->line('add_files');?></span> <span class="fa fa-fw fa-arrow-circle-left blink_fast text-yellow"></span></a></li>
-	<!--<li class=""><a href="<?php echo base_url();?>scan_files"><i class="fa fa-plus"></i> <span>Upload Scan files</span> <span class="fa fa-fw fa-arrow-circle-left blink_fast text-yellow"></span></a></li>-->
-    <li class=""><a href="<?php echo base_url();?>add_scan_files"><i class="fa fa-plus"></i>नई - ई- फ़ाइल जोड़ें <span class="fa fa-fw fa-arrow-circle-left blink_fast text-yellow"></span></a></li>
-    <!-- <li class=""><a href="<?php echo base_url();?>dashboard/show_file"><i class="fa fa-th"></i> <span>File List</span></a></li>-->
+	<!--<li class=""><a href="<?php// echo base_url();?>scan_files"><i class="fa fa-plus"></i> <span>Upload Scan files</span> <span class="fa fa-fw fa-arrow-circle-left blink_fast text-yellow"></span></a></li>-->
+    <!--<li class=""><a href="<?php// echo base_url();?>add_scan_files"><i class="fa fa-plus"></i>नई - ई- फ़ाइल जोड़ें <span class="fa fa-fw fa-arrow-circle-left blink_fast text-yellow"></span></a></li>-->
+    <!-- <li class=""><a href="<?php// echo base_url();?>dashboard/show_file"><i class="fa fa-th"></i> <span>File List</span></a></li>-->
     <li class=""><a href="<?php echo base_url();?>show_file/ALL" title="Display All Files"><i class="fa fa-file-text"></i> <span><?php echo $this->lang->line('all_files');?></span></a></li>
     <li class=""><a href="<?php echo base_url();?>return_file"><i class="fa fa-share"></i> <span><?php echo $this->lang->line('return_files');?></span></a></li>
 <?php

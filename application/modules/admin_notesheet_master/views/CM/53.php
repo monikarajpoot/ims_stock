@@ -70,8 +70,13 @@ $contents .= $file_type == 'f' ? 'यू.ओ. क्रमांक': false;
 $contents .= ' /'.$file_uo_or_letter_no.'  दिनांक '.$file_uo_or_letter_date1. ' .</td><tr/>';
 $contents .= '<tr><td>महोदय, </td><td  colspan="2"></td></tr>';
 $contents .= '<tr><td colspan="3"><p class="shift-left">माननीय उच्च न्यायालय के आदेश की प्रमाणित प्रति तथा शासकीय अधिवक्ता के अभिमत की प्रति संलग्न कर अनुरोध है कि उक्त आदेश के विरूद्ध माननीय उच्चतम न्यायालय में विशेष अनुमति याचिका प्रस्तुत करें तथा विशेष अनुमति याचिका प्रस्तुत किये जाने की कार्यवाही की सूचना शीघ्र इस विभाग को भेजें । मामले के प्रभारी अधिकारी द्वारा आपसे संपर्क नहीं किया जाता है तो तत्काल इस विभाग को सूचित करें ।विलंब की दशा में संबंधित कार्यालय एवं उसके उत्तरदायी अधिकारी का विलंब माफी हेतु शपथ-पत्र प्राप्त कर विलंब माफी के आवेदन-पत्र सहित एस.एल.पी. प्रस्तुती की कार्यवाही अविलंब करें तथा इस विभाग को सूचना दी जावें |';
-$contents .= '<input class="no-print" type="button" name="show_hide" id="show_hide"  value="hide ">';
+if($_POST['slp_ddiv']== 'show_text' || $_POST['slp_ddiv']== 'hide_text'){}else{
+	$contents .= '<input class="no-print" type="button" name="show_hide" id="show_hide"  value="hide ">';
 $contents .= '<input class="no-print" class="hide_cls" type="button" name="hide_show" id="hide_show"  value="show">';
+}
+if($_POST['slp_ddiv']== 'show_text' || $_POST['slp_ddiv']== 'hide_text'){}else{
+$contents .= "<div class='slp_div_text_input' style='float:left' ><input type='hidden' name='slp_ddiv' value='show_text' ></div>";
+}
 if($is_genrate == true &&  $_POST['date_2'] != '' ){
 $contents .= '<u>एस. एल. पी. का प्रस्ताव इस कार्यालय को दिनांक ';
 if($is_genrate == true){
@@ -85,11 +90,16 @@ if($is_genrate == true){
 
 }
 else{
-	 $contents .="<div class='slp_div'><u>एस. एल. पी. का प्रस्ताव इस कार्यालय को दिनांक   <input type='text' name='date_2' class='date1' >  को प्राप्त हुआ था |  एस. एल. पी.  की अवधि दिनांक <input type='text' name='date_3'  class='date1'>को समाप्त हो गई हैं | इसलिये विलम्ब  को स्पष्ट करने का उत्तरदायित्व त्रुटिकर्ता का रहेगा | त्रुटिकर्ता धारा 5 लिमिटेशन एक्ट का शपथ-पत्र में दिन-प्रतिदिन के विलंब को स्पष्ट करते हए माननीय सर्वोच्च न्यायालय में  आवेदन पत्र प्रस्तुत करेगा, विलंव का दायित्व विधि विभाग का नहीं रहेगा| </u></div>";
+	// $contents .="<div class='slp_div'><u>एस. एल. पी. का प्रस्ताव इस कार्यालय को दिनांक   <input type='text' name='date_2' class='date1' >  को प्राप्त हुआ था |  एस. एल. पी.  की अवधि दिनांक <input type='text' name='date_3'  class='date1'>को समाप्त हो गई हैं | इसलिये विलम्ब  को स्पष्ट करने का उत्तरदायित्व त्रुटिकर्ता का रहेगा | त्रुटिकर्ता धारा 5 लिमिटेशन एक्ट का शपथ-पत्र में दिन-प्रतिदिन के विलंब को स्पष्ट करते हए माननीय सर्वोच्च न्यायालय में  आवेदन पत्र प्रस्तुत करेगा, विलंव का दायित्व विधि विभाग का नहीं रहेगा| </u></div>";
 }
 
 $contents .= ' <span id="show_content"> </span></p></td><tr/>';
 $contents .= '<tr><td>संलग्न:- </td><td>वकालतनामा एवं न्यायालय के आदेश की प्रमाणित प्रति एवं प्राप्त अभिलेख । </td></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div height="50" class="officer-center"  contenteditable="false">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('secetroy')); 

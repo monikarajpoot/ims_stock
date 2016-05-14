@@ -1,6 +1,8 @@
 <?php
 $temp_type = $this->input->get('temp') != '' ? $this->input->get('temp') : '';
 $file_s = $this->input->get('fs') != '' ? $this->input->get('fs') : '';
+$file_id =  '';
+$url = 'admin_notesheet_master/view_file_notesheet/' ;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -27,8 +29,9 @@ $file_s = $this->input->get('fs') != '' ? $this->input->get('fs') : '';
                     </div>
                 </div><!-- /.box-header -->
                     <div class="box-body" align="center">
-                        <?php if (isset($file_dat_show)) { ?>
-                            <p>
+                         <?php if (isset($file_dat_show)) { 
+							$file_id = $file_dat_show[0]['file_id'];?>
+                             <p>
 								पंजी क्रमांक :- <b><?php  echo get_panji_no($file_dat_show[0]['file_id'],$file_dat_show[0]['file_mark_section_id'],$file_dat_show[0]['file_created_date']);  ?></b><br/>
                                 File Date :-  <?php echo $file_dat_show[0]['file_uo_or_letter_date'] ?><br/>
                                 File Subject :-  <?php echo $file_dat_show[0]['file_subject'] ?>
@@ -52,7 +55,7 @@ $file_s = $this->input->get('fs') != '' ? $this->input->get('fs') : '';
                             <div class="col-md-5 col-xs-12">
                                 <?php
                                 $i = 1;
-                                //pre($notesheets_menu_list);
+                               // pre($notesheets_menu_list);
                                 $count = count($notesheets_menu_list);
                                 if (isset($notesheets_menu_list) && !empty($notesheets_menu_list)) {
                                     foreach ($notesheets_menu_list as $key => $docdata) {
@@ -85,7 +88,7 @@ $file_s = $this->input->get('fs') != '' ? $this->input->get('fs') : '';
                                                         foreach ($notesheets as $nkey => $nvalue) {
                                                             ?>
                                                             <?php if (isset($file_dat_show)) { 
-                                                                $url = 'admin_notesheet_master/view_file_notesheet/' ;
+                                                             
                                                                 $file_id = $file_dat_show[0]['file_id'];
                                                                 $target = 'target="_blank"';
                                                                 } else {
@@ -128,9 +131,42 @@ $file_s = $this->input->get('fs') != '' ? $this->input->get('fs') : '';
                                     ?>
                                 <?php } else {
                                         echo 'No notesheet found!'; 
-                                     }?>
+                                     }	 // if all section have same notsheet
+									 if (isset($notesheets_menu_for_all) && !empty($notesheets_menu_for_all)) {
+										foreach ($notesheets_menu_for_all as $key => $docdata) { ?>
+											<div class="panel panel template no-padding  margin" >
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#notesheetmenu_<?php echo $docdata['notesheet_menu_id']; ?>">
+															<?php echo $docdata['notesheet_menu_title_hi']; ?>
+														</a>
+													</h4>
+												</div>
+												<div id="notesheetmenu_<?php echo $docdata['notesheet_menu_id']; ?>" class="panel-collapse collapse">
+													<div class="panel-body">
+														<?php
+														if($this->input->get('type')){
+															$notesheets = $this->notesheet_model->get_all_notesheets($docdata['notesheet_menu_id'],$this->input->get('type'));
+														}else{
+															$notesheets = $this->notesheet_model->get_all_notesheets($docdata['notesheet_menu_id']);
+														}
+														
+														if (isset($notesheets) && !empty($notesheets)) {
+															foreach ($notesheets as $nkey => $nvalue) { ?>
+															
+															<a href="<?php echo base_url().$url; ?><?php echo $nvalue['notesheet_id'] . '/0/' . $file_id.'/'.$file_s; ?>" class="btn bg-olive btn-flat margin"  >
+                                                                    <?php echo $nvalue['notesheet_title']; ?>
+                                                                </a>
+																<?php } ?>
+															<?php } ?>
+													 </div>
+												</div>
+											</div>
+										<?php } ?>
+									<?php } ?>
                             </div>
-                        </div> <!-- accordion -->
+						</div>
+					</div> <!-- accordion -->
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>

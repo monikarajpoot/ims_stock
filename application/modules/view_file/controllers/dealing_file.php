@@ -10,7 +10,7 @@ class Dealing_file extends MX_Controller{
     public function index($val = null)
     {
 		$section_exp = explode(',',getEmployeeSection());
-        $section_11 = array('16','20','18','28');
+        $section_11 = array('16','20','18','28','19');
         if(array_intersect($section_exp, $section_11)){
                 redirect('view_file_legislative/dealing_file/index/'.$val);
         }else {
@@ -70,9 +70,61 @@ class Dealing_file extends MX_Controller{
             'fmove_from_unit_id'        => getunitid($p_empdetails[0]['role_id'])==''?0:getunitid($p_empdetails[0]['role_id']),
             'file_return'            => $file_dt->file_return,
         );
+
+		   /*start add this on draft */
+        if($file_dt->final_draft_id != '') {
+            $logged_emp_is_permission = get_list_with_column(EMPLOYEE_PERMISSION_ALLOTED, 'emp_id_assign_by,emp_id_assign_to,epa_section_id,epa_designation_id', null, array('emp_id_assign_to' => $this->session->userdata("emp_id"), 'epa_module_name' => 'files'));
+            $notesheet_id = get_draft($file_dt->final_draft_id, 'n');
+            if($notesheet_id != ''){
+            $draft_id = $notesheet_id['draft_id'];
+            $query_draft = $this->db->get_where(DRAFT, array('draft_id' => $draft_id, 'draft_file_id' => $file_id, 'draft_type' => 'n'), '1');
+            $draft_data_data = $query_draft->row_array();
+            $draft_reciver = $draft_data_data['draft_reciever_id'];
+            /*$draft_log = $this->db->get_where(DRAFT_LOG, array('draft_log_draft_id' => $draft_id, 'draft_log_creater' => $draft_reciver, 'draft_log_sendto' => $draft_reciver, 'draft_log_dispaly_status' => '0'), '1');
+            $draft_log_data = $draft_log->row_array();
+            $draftid_log = $draft_log_data['draft_log_id'];*/
+
+            $draftid_log =  get_last_log_id($draft_id, $draft_reciver);
+
+
+            if ($draft_reciver == emp_session_id()) {
+                $draft_content = 'देखा गया |';
+            } elseif ($logged_emp_is_permission['emp_id_assign_by'] == $draft_reciver) {
+                $draft_content = 'अनुभाग अधिकारी अवकाश पर |';
+            }
+
+            $data_draft = array(
+                'draft_sender_id' => emp_session_id(),
+                'draft_reciever_id' => $mark_emp_id,
+                'draft_content_text' => escape_str($draft_content),
+            );
+            $log_data_draft = array(
+                'draft_log_creater' => emp_session_id(),
+                'draft_log_sendto' => $mark_emp_id,
+                'draft_log_create_date' => date('Y-m-d H:i:s'),
+                'draft_log_draft_id' => $draft_id,
+                'draft_log_file_id' => $file_id,
+                'draft_log_section_id' => $file_dt->file_mark_section_id,
+                'draft_content' => escape_str($draft_content),
+                'draft_log_sublogin_creater' => $this->session->userdata("emp_id"),
+                'draft_final' => 0,
+            );
+            if ($draftid_log != '' && $draftid_log != null && $draft_reciver == $this->session->userdata("emp_id")){
+
+            }else{
+                updateData(DRAFT, $data_draft, array('draft_id' => $draft_id));
+                if($draftid_log != ''){
+                    updateData(DRAFT_LOG, array('draft_log_dispaly_status' => '1' ), array('draft_log_id' => $draftid_log));
+                }
+                insertData($log_data_draft, DRAFT_LOG);
+            }
+        }
+        }
+        /*start add this on draft */
+
         $res1 = updateData(FILES, $file_data, array('file_id' => $file_id));
         if ($res1) {
-            update_efile($mark_emp_id); // use for add draft
+            update_efile($file_id,$mark_emp_id); // use for add draft
             insertData($filelog_data, FILES_LOG);
             insertData($form_data_move1, FILES_MOVEMENT);
             $this->session->set_flashdata('message', '<u>FIleID : ' . $file_id . '</u> Successfully Sent');
@@ -265,7 +317,7 @@ class Dealing_file extends MX_Controller{
     public function notesheet_files($id = null, $notesheet_id = '', $section_id = '')
     {
         $section_exp = explode(',',getEmployeeSection());
-        $section_11 = array('16','20','18','28');
+        $section_11 = array('16','20','18','28','19');
         if(array_intersect($section_exp, $section_11)){
             redirect('attached/file_doc_legis/'.$id);
         }else {

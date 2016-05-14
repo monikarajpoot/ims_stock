@@ -157,6 +157,7 @@
 
 						FROM ft_files 
 						WHERE (date(file_created_date) >= '$start_date' and date(file_created_date) <= '$end_date')
+						AND createfile_empid IN ($emps)
 						GROUP by `createfile_empid`
 						ORDER BY fileno DESC");
                      

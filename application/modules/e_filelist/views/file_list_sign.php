@@ -4,13 +4,18 @@ foreach($Employee_lists_estab as $esta_emp){
     $establiment_empids[] = $esta_emp['emp_id'];
     $this->load->helper('text');	
 }
-$login_emp_level=get_emp_role_levele();
+$empid= emp_session_id();
+//$login_emp_level=get_emp_role_levele();
+$userrole = checkUserrole();
+$emp_section = explode(',',$this->session->userdata('emp_section_id'));
+$sub_sec_file_type = $this->input->get('sstype') != '' ? $this->input->get('sstype') : '';
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        <?php echo $title; ?>
-    </h1>
+		<h1>
+			<?php echo $title; ?>
+			<?php echo $sub_sec_file_type != '' ? '('.get_civil_file_type($sub_sec_file_type).')' : ''; ?>
+       </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active"><?php echo $title; ?></li>
@@ -38,7 +43,7 @@ $login_emp_level=get_emp_role_levele();
     <div class="row" id="divname">
         <div class="col-md-12">
             <div class="box">
-                <div class="box-header">
+                <div class="box-header">					
                 </div>
                 <div class="box-body">
                     <form method="post" action="<?php echo base_url(); ?>e-files/efile_sign" class="no-print">
@@ -47,7 +52,8 @@ $login_emp_level=get_emp_role_levele();
                         </div>
                         <div class="col-xs-2">
                             <select name="sections" class="form-control">
-                                <?php $empssection = empdetails(emp_session_id());
+                                <?php $empssection = empdetails($empid);
+								$empdetails =  $empssection;
                                 foreach(explode(",",$empssection[0]['emp_section_id'])  as $empsec){ ?>
                                     <option value="<?php echo $empsec ?>" <?php echo @$this->input->post('sections') == $empsec ? "selected" : false?>><?php echo getSection($empsec) ; ?></option>
                                 <?php  }?>
@@ -86,7 +92,17 @@ $login_emp_level=get_emp_role_levele();
                     <div class="box-header">
                         <div style="float:left"><h3 class="box-title no-print"><?php echo $title_tab;?></h3></div>
                         <div style="float:right">
+						<?php if(in_array(2,$emp_section) || in_array(10,$emp_section)) {?>
+						<select  id="section_file_type_ddl" name="section_file_type_ddl" class="form-control btn btn-sm btn-info " style="width:150px;font-size:16px;text-align:left">
+							<option value="">फ़ाइल के प्रकार का चयन करें</option>
+							<?php foreach(get_civil_file_type() as $ky => $dname){ ?>
+								<option value="<?php echo $ky; ?>" <?php echo ($sub_sec_file_type != '' && $ky == $sub_sec_file_type) ? 'selected' : ''; ?>><?php echo $dname; ?> </option>				
+							<?php } ?> 
+						</select>
+						<?php } ?>	
+						<?php if( ($login_emp_level['emprole_level'] == 6 || $login_emp_level['emprole_level'] <= 5) && $userrole!='25' ){ ?>
                             <button disabled id="sign_button"  type="button" class="btn btn-primary no-print">हस्ताक्षर करें </button>
+						<?php } ?>
                             <button onclick="printContents('divname')" class="btn btn-primary no-print">Print</button>
                             <button class="btn btn-warning no-print" title="Back" onclick="goBack()"><?php echo $this->lang->line('Back_button_label'); ?></button>
                         </div>
@@ -105,8 +121,7 @@ $login_emp_level=get_emp_role_levele();
                                 </strong>
                                 <br/>
                             </div>
-                        <?php }
-                        $empdetails =  empdetails(emp_session_id());?>
+                        <?php } ?>
                         <table id="view_table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -119,25 +134,25 @@ $login_emp_level=get_emp_role_levele();
                             </tr>
                             </thead>
                             <tbody>
-                            <?php  $j=0; $i=1; foreach ($get_files as $key => $files) {?>
+                            <?php $j=0; $i=1; foreach ($get_files as $key => $files) {?>
                                 <tr class="row-gap" alt="<?php echo $j; ?>" id="rowid<?php echo $j; ?>">
                                     <td class="no-print" title="<?php echo $files->file_id;?>">
-                                        <?php echo $i;?>
+                                        <?php echo $i; $file_cr_no = getfilesec_id_byfileid($files->file_id,'1'); ?>
 										<br/>
-											CR-<?php echo @getfilesec_id_byfileid($files->file_id,'1') ? getfilesec_id_byfileid($files->file_id,'1') : 'N/A';?>
+											CR-<?php if(isset($file_cr_no) && $file_cr_no!=''){ echo $file_cr_no;}else{ 'N/A';} ?>
                                         <br/>
                                         <input type="checkbox" class="slct_file" id="<?php echo $files->file_id; ?>" name="ck_file_id[<?php echo $j;?>]" value="<?php echo $files->file_id; ?>"/>
-                                        <?php   $empid= emp_session_id();
+                                        <?php   
                                                 $draft_detail= get_final_draft($empid,$files->file_id);
                                         ?>
                                     </td>
                                     <td style="width:350px;" class="no-print" title="<?php echo strip_tags($draft_detail['draft_content']);?>">
                                         <?php echo word_limiter(strip_tags($draft_detail['draft_content'], 20)); ?>
                                         <textarea readonly id="signing_content" name="signing_content[<?php echo $j;?>]" style="visibility:hidden;"> <?php echo urlencode(base64_encode($draft_detail['draft_content'])); //echo encryption('encode',$draft_data['draft_content'])   ?></textarea>
-										<input type="hidden" name="draft_log_id[<?php echo $j;?>]" value="<?php echo get_last_log_id($files->draft_id,emp_session_id(),0)?>"/>
+										<input type="hidden" name="draft_log_id[<?php echo $j;?>]" value="<?php echo get_last_log_id($files->draft_id,$empid,0)?>"/>
                                     </td>
                                     <td style="width:190px">
-                                       <?php if(emp_session_id() != 2){ ?>
+                                       <?php if($empid != 2){ ?>
                                         <input type="radio" required alt="<?php echo $j;?>" id="<?php echo $files->file_id; ?>" name="up_down[<?php echo $j;?>]" value="1" class="file_updown send_file_uper_officer radiobtn<?php echo $files->file_id; ?>" disabled/> उच्च अधिकारी
                                         <br/>
 									   <?php } ?>
@@ -147,9 +162,9 @@ $login_emp_level=get_emp_role_levele();
 										<input type="hidden" value="0" class="total_select_radio_buton_count"  id="total_select_radio_buton_count<?php echo $files->file_id; ?>"/>
 										<br/>
 										<?php 
-											$order_detail = get_generat_order_in_file(emp_session_id(),$files->file_id,'o'); //Check order generated or not
+											$order_detail = get_generat_order_in_file($empid,$files->file_id,'o'); //Check order generated or not
 											//echo count($order_detail);
-											if(isset($order_detail) && is_array($order_detail)){
+											if(isset($order_detail) && is_array($order_detail) && count($order_detail)>0){
 												foreach($order_detail as $order_draft_details){
 												//pre($order_draft_details);
 												//echo $order_draft_details['draft_id'];
@@ -162,38 +177,47 @@ $login_emp_level=get_emp_role_levele();
 											} ?>
 										<?php 	
 										
-											$other_dept_notsheet_detail = get_generat_order_in_file(emp_session_id(),$files->file_id,'odn'); //Check order generated or not
+											$other_dept_notsheet_detail = get_generat_order_in_file($empid,$files->file_id,'odn'); //Check order generated or not
 											//pre($order_detail); 											
-											if(isset($other_dept_notsheet_detail) && is_array($other_dept_notsheet_detail)){
+											if(isset($other_dept_notsheet_detail) && is_array($other_dept_notsheet_detail) && count($other_dept_notsheet_detail)>0){
 										?>	<br/><br/>
 											<span title="अगर आप नस्ती पर जोड़ी  गई  अन्य  विभाग नोटशीट पर हस्ताक्षर करना चाहते हे तो चेकबॉक्स पर क्लिक करें.">
 											<input disabled class="chkbox<?php echo $files->file_id; ?>" type="checkbox" value="<?php echo $other_dept_notsheet_detail[0]['draft_id'] ?>" name="file_other_dpt_nt_id[<?php echo $j;?>]"/>
 										 	<b> <?php echo draft_type('odn') ?> <a href="<?php echo base_url();?>draft/draft/draft_viewer/<?php echo $other_dept_notsheet_detail[0]['draft_id'] ?>/1"><i class="fa fa-search"></i></a></b>
 											</span>
-										<?php } ?>
+										<?php } ?>										
+										<br/>
+										<?php 
+											$ot_order_detail = get_generat_order_in_file($empid,$files->file_id,'ot'); //Check  other order generated or not
+											
+											if(isset($ot_order_detail) && is_array($ot_order_detail) && count($ot_order_detail)>0){
+												foreach($ot_order_detail as $ot_order_draft_details){												
+										?>	
+											<label title="अगर आप नस्ती पर जोड़ें गए आदेश पर हस्ताक्षर करना चाहते हे तो चेकबॉक्स पर क्लिक करें." >
+											<input disabled type="checkbox"  class="file_updown chkbox<?php echo $files->file_id; ?>" value="<?php echo $ot_order_draft_details['draft_id'] ?>" name="file_order_id[]"/>
+										 	<b> नस्ती पर जोड़ा गया अन्य आदेश   </b> <a href="<?php echo base_url();?>draft/draft/draft_viewer/<?php echo $ot_order_draft_details['draft_id'] ?>/1"><i class="fa fa-search"></i></a>
+											</label>
+										<?php 	}
+										} ?>
                                     </td>
                                     <td><a href="<?php echo base_url()."view_file/viewdetails/".$files->file_id ;?>" data-toggle="tooltip" data-original-title="View details">
-										<?php echo @getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type) ? getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type) : 'N/A'; ?><span style='font-size: 12px'><?php echo getSectionName($files->file_mark_section_id) ? ' - '.getSectionName($files->file_mark_section_id) : false ?><span> </a>
+											<?php  $loop_file_ids = getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);
+											   if(isset($loop_file_ids) && $loop_file_ids!=''){ echo $loop_file_ids;}else{ echo 'N/A';}	
+												$section_name=getSectionName($files->file_mark_section_id); 
+											?>
+												<span style='font-size: 12px'><?php echo '- '.$section_name; ?></span> </a>
 										   <br/>
-												<?php $rrt = all_getfilesec_id_byfileid($files->file_id);
-												foreach($rrt as $rrt1){
-													if($rrt1['section_id'] != $files->file_mark_section_id && $rrt1['section_id'] != '1'){
-													$sechi = explode('(',getSection($rrt1['section_id']));
-													echo "<b>".$rrt1['section_number'] ."</b> - <span style='font-size: 12px'>".$sechi['0']."</span><br/>";
-												}} ?>	
-												
 											<div id="set_new_sect<?php echo $files->file_id; ?>">
 												<select name="section_id[<?php echo $j;?>]" id="section_id<?php echo $files->file_id; ?>" class="section_id">
 													<option value="<?php echo $files->file_mark_section_id; ?>"><b class="big_font"><?php echo $sec_name = getSection($files->file_mark_section_id,null);?><b></option>
 												</select>
 											</div>											
                                             <input type="hidden" name="file_status[<?php echo $j;?>]" value="<?php echo $files->file_status; ?>" />
-                                            <input type="hidden" name="file_param1[<?php echo $j;?>]" value="<?php echo md5($draft_detail['draft_content']);?>" />
-                                            <input type="hidden" name="file_param2[<?php echo $j;?>]" value="<?php echo get_last_log_id($files->draft_id,emp_session_id(),0)?>" /> <!--draft Log id-->
+                                            <input type="hidden" name="file_param1[<?php echo $j;?>]" value="<?php echo md5(trim($draft_detail['draft_content']));?>" />
+                                            <input type="hidden" name="file_param2[<?php echo $j;?>]" value="<?php echo get_last_log_id($files->draft_id,$empid,0)?>" /> <!--draft Log id-->
                                             <input type="hidden" name="file_param3[<?php echo $j;?>]" value="<?php echo $login_emp_level['emprole_level'];?>" /><!--emp level-->
-                                            <input type="hidden" name="file_param4[<?php echo $j;?>]" value="<?php echo emp_session_id();?>" /><!--emp login id-->
-											<input type="hidden" name="file_draft_id[<?php echo $j;?>]" value="<?php echo $files->draft_id; ?>" id="file_draft_id<?php echo $files->file_id; ?>"/>										   
-																					   
+                                            <input type="hidden" name="file_param4[<?php echo $j;?>]" value="<?php echo $empid;?>" /><!--emp login id-->
+											<input type="hidden" name="file_draft_id[<?php echo $j;?>]" value="<?php echo $files->draft_id; ?>" id="file_draft_id<?php echo $files->file_id; ?>"/>										   																				   
 								   </td>
                                     <td title="<?php echo $file_sub = $files->file_subject; ?>"><?php $file_sub = $files->file_subject;
                                             echo word_limiter($file_sub, 20);
@@ -230,8 +254,8 @@ $login_emp_level=get_emp_role_levele();
 				return false;
 			}
 		}else{
-			if(total_select_count>=5){
-				alert('एक बार में 5 अधिक फाइलो को डिजिटल हस्ताक्षर नहीं कर सकते !')
+			if(total_select_count>=10){
+				alert('एक बार में 10 अधिक फाइलो को डिजिटल हस्ताक्षर नहीं कर सकते !')
 				$(".radiobtn"+chkboxid).prop("checked", false);
 				return false;
 			}

@@ -23,7 +23,9 @@ $lang['add_file'] =  'फ़ाइल जोड़ें';
 $lang['default_message'] =  'नई फाइल को जोड़ने के लिए ये फॉर्म भरे!';
 
 $lang['label_type'] =  'दस्तावेज के प्रकार';
+
 $lang['label_subject'] =  'विषय';
+$lang['label_subject‌_en'] =  'विषय अंग्रेजी में ';
 $lang['label_uo_number'] =  'यू.ओ.क्र.';
 $lang['label_uo_date'] =  'यू.ओ.क्र. दिनांक';
 $lang['label_from'] =  'From';
@@ -53,7 +55,7 @@ $lang['button_update'] =  'Update';
 
 //31 july RP
 $lang["file_head"]= htmlentities("हेड्स");
-$lang["File_section_no"]= htmlentities("पंजी क्रमांक (file section no.)");
+$lang["File_section_no"]= htmlentities("पंजी क्रमांक (section registration no.)");
 $lang['label_letterno_number'] =  'पत्र क्रमांक';
 $lang['label_letterno_date'] =  'पत्र दिनांक';
 $lang["appeal_petition"]= htmlentities("न्यायालय जिसके आदेश के विरुद्ध अपील / याचिका की गयी");

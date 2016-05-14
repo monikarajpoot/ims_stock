@@ -1,9 +1,14 @@
+<?php
+	$emp_section = explode(',',$this->session->userdata('emp_section_id'));
+	$sub_sec_file_type = $this->input->get('sstype') != '' ? $this->input->get('sstype') : '';
+?>
 <link href="<?php echo ADMIN_THEME_PATH; ?>plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        <?php echo $title; ?>
-    </h1>
+     <h1>
+		<?php echo $title; ?>
+		<?php echo $sub_sec_file_type != '' ? '('.get_civil_file_type($sub_sec_file_type).')' : ''; ?>
+	</h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active"><?php echo $title; ?></li>
@@ -34,6 +39,14 @@
 						  <a class="text-red" href="<?php echo base_url();?>moniter/files?sort=rj_cr" style="padding:0px 7px 0px 0px"><i class="fa fa-square">&nbsp;CR Reject</i></a>
 					</div>
 				   <div style="float:right">
+					   <?php if(in_array(2,$emp_section) || in_array(10,$emp_section)) {?>
+						<select  id="section_file_type_ddl" name="section_file_type_ddl" class="form-control btn btn-sm btn-info " style="width:150px;font-size:16px;text-align:left">
+							<option value="">फ़ाइल के प्रकार का चयन करें</option>
+								<?php foreach(get_civil_file_type() as $ky => $dname){ ?>
+									<option value="<?php echo $ky; ?>" <?php echo ($sub_sec_file_type != '' && $ky == $sub_sec_file_type) ? 'selected' : ''; ?>><?php echo $dname; ?> </option>				
+								<?php } ?>
+						</select> 
+						<?php } ?>
                         <!--<button class="btn btn-block btn-info"><?php// echo $this->lang->line('view_file_mark');?></button>-->
                         <!--<a class="btn btn-info"><?php// echo $this->lang->line('view_file_mark');?></a>-->
 						<button onclick="printContents('divname')" class="btn btn-primary no-print">Print</button>

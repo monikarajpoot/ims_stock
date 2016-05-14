@@ -128,7 +128,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times"></i>रद्द करें</button>
-                    <button id="btn-delete" onclick="return confirm_send()" type="submit" class="btn btn-primary send_btn autoclick"><i class="fa fa-check"></i>भेजें</button>
+                          <button id="btn-delete" onclick="return confirm_send()" type="submit" class="btn btn-primary send_btn autoclick <?php if(($this->uri->segment(1)=='e-files')|| ($this->uri->segment(1)=='efile')){ echo " disabled"; }?>"><i class="fa fa-check"></i>भेजें</button>
                 </div>
             </div>
         </form>
@@ -197,7 +197,11 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         <input type="hidden" id="cr_return" name="file_id1">
-                                        <textarea class="form-control" rows="3" placeholder="Enter ..." id="modal-id" name="file_remark"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..." id="file_remark-id" name="file_remark"></textarea>
+ <br/>
+                                        यदि यह फाइल आपके अनुभाग की नही है तो कृपया सम्बंधित अनुभाग का चयन करें |
+                                        <div id="section_name_nm"></div>
+                                    
                                     </div>
 									<div class="form-group pull-right">
 											<input type="checkbox" id="physical_file_receive" name="file_status[]" class="physical_file" value="p" >Physical File
@@ -591,6 +595,27 @@ function receive_with_status(file,file_status){
             });
         });
 
+        $(".sections_name").click(function () {
+            var file_id = $(this).val();
+            var HTTP_PATH='<?php echo base_url(); ?>';
+            $.ajax({
+                type: "POST",
+                url: HTTP_PATH + "view_file/section_off_nm",
+                datatype: "json",
+                async: false,
+             //   data: {file_id: file_id},
+                success: function(data) {
+                    var r_data = JSON.parse(data);
+                    var otpt1 = '<select class="form-control" id="section_name_nm_id" name="section_name_nm_id">';
+                    otpt1 += '<option value="">Select</option>';
+                    $.each(r_data, function( index, value ) {
+                        otpt1 += '<option value="'+value.section_id+'" >'+value.section_name_hi+'</option>';
+                    });
+                    otpt1 += '</select>';
+                    $("#section_name_nm").html(otpt1);
+                }
+            });
+        });
         //Get user name
         $(".rty6").click(function () {
 			$(".signdata").hide();
@@ -611,6 +636,7 @@ function receive_with_status(file,file_status){
                     var r_data = JSON.parse(data);
                     var otpt = '<select class="form-control Da_name_r" name="Da_name" required=""><option value=""> चयन करें </option> ';
                     $.each(r_data, function( index, value ) {
+						var secname = value.section_name;
 						 if(value.emp_detail_gender=='m'){
                             var fword_en='Shri';
                             var fword_hi='श्री';
@@ -619,7 +645,7 @@ function receive_with_status(file,file_status){
                             var fword_en='shushri';
                             var fword_hi='सुश्री';
                         }
-                        otpt += '<option value="'+value.emp_id+'">'+fword_hi+' '+value.emp_full_name_hi+'</option>';
+                         otpt += '<option value="'+value.emp_id+'">'+fword_hi+' '+value.emp_full_name_hi+' ('+secname+')</option>';
                     });
                     otpt += '</select>';
                     $("#emp_byfile5").html(otpt);
@@ -1068,7 +1094,7 @@ $(function () {
 				$(".Da_name_r").prop('required', true);
 			}
 		});
-	}
+		}
     //add apend div for multiple dispatch
     $(document).ready(function () {
         var counter = 0;
@@ -1120,5 +1146,24 @@ $(function () {
             }
         });
 	
+    }); 
+ function check_dispetch_file(file_type){
+        //alert(file_type);
+        if(file_type == 'नस्ती'){
+            $(".suspense_slip_div").show();
+            $( "#btn-delete" ).removeClass( "disabled" );
+        }else{
+            $(".suspense_slip_div").hide();
+            $( "#btn-delete" ).removeClass( "disabled" );
+        }
+    }
+	$('#section_name_nm').change(function(){
+        var  section_name_nm_id = $('#section_name_nm_id option:selected').val();
+        var  section_name_nm_text = "यह फाइल "+$('#section_name_nm_id option:selected').text()+" शाखा  से सम्बंधित है |";
+        if(section_name_nm_id != ''){
+            $('#file_remark-id').val(section_name_nm_text);
+        }else{
+            $('#file_remark-id').val('');
+        }
     });
 </script>

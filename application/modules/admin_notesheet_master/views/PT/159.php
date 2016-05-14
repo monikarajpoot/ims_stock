@@ -32,29 +32,15 @@ if($is_genrate == true){
     $contents .= '</select>';
 }
 $contents .= ' को अवमानना प्र.क्र. '.$case_no.'  विरूद्ध  ' .$case_parties.'में म0प्र0 शासन द्वारा नियुक्त पैनल अधिवक्ताओं में से किसी एक अधिवक्ता को पैरवी करने के लिये नियुक्त करने हेतु निर्देशित करता है।  </p></td></tr>';
-$contents .= '<tr><td align="right" colspan="3"><p class="shift-left" >इस संबंध में फीस इत्यादि का भुगतान इस विभाग के आदेश क्र. फा.क्र. 17(ई) 93/04/21-ब(दो)  दिनांक ';
-if($is_genrate == true){
-$contents .= get_date_formate($post_data['date2'],'d/m/Y');
-}else
-{
-	$contents .=  '<input type="text" class="date1" name="date2" value="13-04-2010" placeholder="dd/mm/yyyy" />';
-}
-$contents .=  ' के (पैरा-2) व्दारा बताये गये नियमों के अनुसार रूपये-';
-if($is_genrate == true){
-    $contents .= $post_data['advocate_type'];
-}else{
-    $contents .= '<input type="text" name="fee1" value="5000/-" placeholder="number">';
-    }
-'/- एवं अन्य व्यय हेतु रूपये-';
-if($is_genrate == true){
-    $contents .= $post_data['advocate_type'];
-}else{
-    $contents .= '<input type="text" name="fee2" value="एवं अन्य व्यय हेतु रूपये-500/- " placeholder="number" sizze="40">';
-    }
-$contents .= '/- प्रशासकीय विभाग व्दारा किया जायेगा।   </p></td></tr>';
+$contents .= '<tr><td align="right" colspan="3"><p class="shift-left" >इस संबंध में फीस इत्यादि का भुगतान इस विभाग के आदेश क्र. फा.क्र. 17(ई) 93/04/21-ब(दो)  दिनांक 13-04-2010';
+$contents .=  ' के (पैरा-2) व्दारा बताये गये नियमों के अनुसार 5000/- रूपये- एवं अन्य व्यय हेतु रूपये-500/- ';
+$contents .= ' प्रशासकीय विभाग व्दारा किया जायेगा।   </p></td></tr>';
 $contents .= '<tr><td align="right" colspan="3">मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</td></tr>';
-
-$contents .= '<tr><td align="right" height="40"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
@@ -126,7 +112,29 @@ $contents .= '<select name="court_location" class="court_location">';
 	$contents .= '</select>';
 }
 $contents .= ' की ओर आवश्यक कार्यवाही हेतु अग्रेषित । </td></tr>';
-$contents .= '<tr><td align="right">2. </td><td  colspan="2">सचिव, म.प्र. शासन, '.$file_department.', भोपाल की ओर उनके यू.ओ.क्र. '.$file_uo_or_letter_no .', दिनांक '.$file_uo_or_letter_date.' के संदर्भ में नस्ती सहित भेजकर लेख है कि प्रकरण के प्रभारी को निर्देश दे कि वह तत्काल ';
+$contents .= '<tr><td align="right" vertical-align="top">2. </td><td  colspan="2">';
+if($is_genrate == true){
+	$contents .= $post_data['send_at'].', ';
+}else{
+	$contents .=  '<select name="send_at">';	
+	$contents .=  '<option value="सचिव">सचिव</option>';
+	$contents .=  '<option value="प्रमुख सचिव">प्रमुख सचिव</option>';
+	$contents .=  '<option value="संचालक">संचालक</option>';
+	$contents .=  '<option value=""></option>';
+	$contents .=  '</select>';
+}
+if($is_genrate == true && ($post_data['send_at'] == 'सचिव' || $post_data['send_at'] == 'प्रमुख सचिव')){
+	$contents .=  'म0प्र0 शासन,‍ ';
+}else{
+	$contents .=  '';
+}
+$contents .=  ' '.$file_department.', ';
+if($is_genrate == true && ($post_data['send_at'] == 'सचिव' || $post_data['send_at'] == 'प्रमुख सचिव')){
+	$contents .=  'मंत्रालय ';
+}else{
+	$contents .=  '';
+}
+$contents .= ' भोपाल की ओर उनके यू.ओ.क्र. '.$file_uo_or_letter_no .', दिनांक '.$file_uo_or_letter_date.' के संदर्भ में नस्ती सहित भेजकर लेख है कि प्रकरण के प्रभारी को निर्देश दे कि वह तत्काल ';
 if($is_genrate == true){   
 $contents .= $post_data['court_type'];
 }else{
@@ -139,14 +147,18 @@ $contents .= $post_data['court_location'];
 $contents .= '---------';
 } 
 $contents .= ' के समक्ष 	प्रत्यावर्तन प्रस्तुत कर उसकी एक प्रति इस विभाग को संदर्भ सहित ‍भिजवाने का कष्ट करें। </td></tr>';
-$contents .= '<tr><td align="right" height="40"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
 
 }else
 {
-     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+     $contents .= '-------';
     
 }
 

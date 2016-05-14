@@ -257,6 +257,11 @@ class Dealing_file extends MX_Controller{
                     'file_unit_level' => getunitid($m_empdetails[0]['role_id'])==''?0:getunitid($m_empdetails[0]['role_id']),
 					'multi_user_receiver_id' => (isset($daids)?$daids:'0') ,
                 );
+				
+				if($file_dt->file_mark_section_id == '19'){
+                    unset($file_data['multi_user_receiver_id']);
+                }
+				
                 $sectionid = getusersection(emp_session_id());
                 //    $Dealingass = get_list(EMPLOYEES, null, array('emp_id' => $this->input->post('Da_name')));
                 $filelog_data = array(

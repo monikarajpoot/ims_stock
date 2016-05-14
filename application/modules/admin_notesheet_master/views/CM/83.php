@@ -1,7 +1,7 @@
 <?php
 $contents  = '' ;
 $contents .= '<tr><td align="right" colspan="3"><u>स्पीड-पोस्ट द्वारा</u></td></tr>';
-$contents .= '<tr><td align="center" colspan="3"><h2><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</u></h2></b></td></tr>';
+$contents .= '<tr><td align="center" colspan="3"><h3><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</u></h3></b></td></tr>';
 $contents .= '<tr><td colspan="3"><table width="100%"><tr><td>क्रमांक 12/';
 if($is_genrate == true){
     $contents .= $post_data['head'];
@@ -43,8 +43,11 @@ $contents .= '<tr><td align="center" colspan="3" valign="top">';
 $contents .= '---0---';
 $contents .= '</td></tr>';
 $contents .= '<tr><td></td><td colspan="2"><p>उपरोक्त रिट याचिका में अनावेदक म०प्र०शासन की ओर से पक्ष समर्थन / प्रतिरक्षण करने का कष्ट करे |</p></td></tr>';
-$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right" height="80"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
@@ -98,14 +101,20 @@ $contents .= $post_data['state_1'];
 
 $contents .= '( म०प्र०) की ओर सूचनार्थ एवं आवश्यक कार्यवाही हेतु प्रेषित |</div></td></tr>';
 $contents .= '<tr><td colspan="2">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right" height="80"></td></tr>';
+$contents .= '<tr><td align="right" height="30"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
  $contents .= '<tr><td colspan="3" align="right"><div contenteditable="false"  class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
 
 }else
 {
-     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    // $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+	$contents .= "-------";
     
 }
 

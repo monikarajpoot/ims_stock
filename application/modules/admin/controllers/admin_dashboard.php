@@ -205,4 +205,8 @@ class Admin_dashboard extends MX_Controller {
             return false;
         }
     }
+	   public function show_current_file() {
+        no_cache();
+        $this->load->view('show_current_file');
+    }
 }

@@ -11,14 +11,9 @@ $username = "dbadmin";
 $password = "password";
 //echo '<pre>';
 //print_r($_REQUEST);
-if($_REQUEST['other']=='live'){
-	$dbname = "db_eoffice";
-} else {
-	$dbname = "db_ftms_eoffice_26";	
-}
+$dbname = "db_ftms_eoffice_dev_18";	
 /*Database Setting*/
 // Create connection
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
@@ -60,8 +55,8 @@ $date = date('Y-m-d H:i:s');
 			$md5_sign_data=$file_data['file_param1']; 			
 			//$post_data=utf8_decode(base64_decode($file_data['signing_content'])); 
 			$post_data=$file_data['signing_content']; 
-			
-						$url = "http://10.115.254.213/manage_file/efile_updates/multi_file_send_upper_officer/$file_id/$rmk1/$mark_emp_id/$section_id/$file_status/$draft_log_id/$loggined_in_userId";
+						$file_status=safe_b64encode($file_status);
+						$url = "http://10.115.254.213/eoffice_dev/manage_file/efile_updates/multi_file_send_upper_officer/$file_id/$rmk1/$mark_emp_id/$section_id/$file_status/$draft_log_id/$loggined_in_userId";
 						$ch = curl_init();
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -88,8 +83,9 @@ $date = date('Y-m-d H:i:s');
 			$md5_sign_data=$file_data['file_param1'];
 			
 			$signature= $file_data['sign_data'];	
+			$file_status=safe_b64encode($file_status);
 			if($user_level==6){						
-						$url = "http://10.115.254.213/view_file/efile_dealing/multi_file_sent_to_da/$file_id/$mark_emp_id/$section_id/$file_status/$draft_log_id/$loggined_in_userId";
+						$url = "http://10.115.254.213/eoffice_dev/view_file/efile_dealing/multi_file_sent_to_da/$file_id/$mark_emp_id/$section_id/$file_status/$draft_log_id/$loggined_in_userId";
 						$ch = curl_init();
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -100,7 +96,7 @@ $date = date('Y-m-d H:i:s');
 						$response = curl_exec($ch);
 						curl_close($ch);
 			}else{ 
-						$url = "http://10.115.254.213/manage_file/efile_updates/multi_return_file/$file_id/$mark_emp_id/$loggined_in_userId/$section_id/$rmk1/$draft_log_id";
+						$url = "http://10.115.254.213/eoffice_dev/manage_file/efile_updates/multi_return_file/$file_id/$mark_emp_id/$loggined_in_userId/$section_id/$rmk1/$draft_log_id";
 						$ch = curl_init();
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -132,5 +128,41 @@ $date = date('Y-m-d H:i:s');
 		} else {	
 			echo "Error: " . $insert_sql . "<br>" . $conn->error;
 		}		
+}
+function safe_b64encode($string) {
+	$data = base64_encode($string);
+	$data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
+	return $data;
+}
+function escape_str($str, $like = TRUE)
+{
+	$str=trim($str);
+	$ci = & get_instance();
+    if (is_array($str))
+    {
+        foreach ($str as $key => $val)
+        {
+            $str[$key] = $ci->escape_str($val, $like);
+        }
+
+        return $str;
+    }
+
+    if (function_exists('mysqli_real_escape_string') AND is_object($ci->conn_id))
+    {
+        $str = mysqli_real_escape_string($ci->conn_id, $str);
+    }
+    else
+    {
+        $str = addslashes($str);
+    }
+
+    // escape LIKE condition wildcards
+    if ($like === TRUE)
+    {
+        $str = str_replace(array('%', '_'), array('\\%', '\\_'), $str);
+    }
+
+    return $str;
 }
 ?>

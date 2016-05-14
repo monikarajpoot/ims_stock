@@ -52,8 +52,14 @@
                             <tbody>
                             <?php $i=1; foreach ($get_files as $key => $files) { ?>
                                 <tr>
+								
                                     <td><?php echo $i;?> <span style="display:none">(<?php echo $this->lang->line('file_no'); ?> : <?php echo $files->file_id;?>)</span></td>
-									<td><a href="<?php echo base_url()."view_file/viewdetails/".$files->file_id ;?>" data-toggle="tooltip" data-original-title="View details"> <?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);?></a></td>
+									<td style="font-size:16px;"><a href="<?php echo base_url()."view_file/viewdetails/".$files->file_id ;?>" data-toggle="tooltip" data-original-title="View details"> 
+											<span class="label label-success" title="शाखा पंजी क्र.">
+												<?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);?>
+											</span>
+										</a>
+									</td>
                                     <td><?php echo $files->file_subject;?>
 									<br><?php if(!empty($files->scan_id) && $files->scan_id !='N;'){
 										show_scan_file($files->scan_id);

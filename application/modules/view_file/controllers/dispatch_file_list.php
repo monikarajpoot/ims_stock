@@ -27,6 +27,7 @@ class Dispatch_file_list extends MX_Controller {
         $this->form_validation->set_rules('search_value','search_value', 'trim|required|xss_clean');
         $this->form_validation->set_rules('sections','sections', 'trim|required|xss_clean');
         if ($this->form_validation->run($this) === TRUE){
+		$year = $this->input->post('files_year') != '' ? $this->input->post('files_year') : date('Y');			
             $search_value = $this->input->post('search_value');  
             $sections = $this->input->post('sections');           
             $building_name = $this->input->post('building_name');           
@@ -44,7 +45,7 @@ class Dispatch_file_list extends MX_Controller {
             }
               
             foreach($search_values as $s_value){
-               $response = $this->file_search->file_search_lists(1, $sections, $s_value, $building_name, $building_floor);
+               $response = $this->file_search->file_search_lists(1, $sections, $s_value, $building_name, $building_floor, $year);
                 if($response != false){
 					 $data['get_files'][] = $response;
 				}

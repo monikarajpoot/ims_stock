@@ -31,9 +31,15 @@ $file_number = getfilesec_id_byfileid($file_id, $file_mark_section_id, $file_typ
 //notesheet details
 $notesheet_id = $notesheet_details[0]->notesheet_id;
 $section_id = $notesheet_details[0]->section_id;
+
+if($section_id == 0){
+	$section_name = 'Common';
+} else{
+	$section_name = getSection($section_id, true);
+}
 $notesheet_title = $notesheet_details[0]->notesheet_title;
 $doc_type = $notesheet_details[0]->doc_type;
-$section_name = getSection($section_id, true);
+//$section_name = getSection($section_id, true);
 $case_parties = $file_details[0]['case_parties'];
 $case_parties1 = explode("-",$case_parties);
 
@@ -86,15 +92,18 @@ $standing_counsil_memebers = get_advocates_name(array('advocate_type' => 'sc'));
 
 $standing_counsil_memebers_hc = get_advocates_name(array('advocate_type' => 'hc'));
 
+// madystam adhivakta
+$madhyastam_adhivkta = get_advocates_name(array('advocate_post_type' => 'ma'));
 $state_list  = get_state_list();
-
 $advocate_type = array(
     //'',
-	'मान0  उच्चतम  न्यायालय',
 	'अतिरिक्त महाधिवक्ता',
     'महाधिवक्ता',
 	'रजिस्ट्रार',
     'डिप्टी रजिस्ट्रार',
+	'मान0  उच्चतम  न्यायालय',
+	'मान0  अपीलीय प्राधिकारी',
+	'शासकीय  महाधिवक्ता',
 	''
 );
 $court_type = array(
@@ -102,6 +111,7 @@ $court_type = array(
 	'मान0  उच्च न्यायालय',
     'मान0 उच्च न्यायालय खण्डपीठ',
 	'मान0  उच्चतम  न्यायालय',
+	'उपादान ',
 );
 $court_location = array(
     //'',
@@ -213,7 +223,7 @@ if($this->uri->segment(6)){
 }else{
 	$file_status = '' ;
 }
-$url = base_url().'admin_notesheet_master/notesheet_generate/'.$controller.'/'.$notesheet_id.'/'.$section_id.'/'.$file_id.$file_status.$type;
+$url = base_url().'admin_notesheet_master/notesheet_generate/'.$controller.'/'.$notesheet_id.'/'.$file_mark_section_id.'/'.$file_id.$file_status.$type;
 //$url = base_url().'admin_notesheet_master/notesheet_generate/'.$controller.'/'.$notesheet_id.'/'.$section_id.'/'.$file_id.$type;
 
 
@@ -221,7 +231,7 @@ $url = base_url().'admin_notesheet_master/notesheet_generate/'.$controller.'/'.$
 //if($is_genrate == true && isset($post_data['isnotesheet']) && $post_data['isnotesheet'] == 'yes'){
 if($doc_type == 'n'){
     $style = 'width:100%; background-color:#CCFFCC; margin:0 auto;';
-    $width = 'width:70%; margin:0 auto;';
+    $width = 'width:68%; margin:0 auto;';
     //$type_style = 'background-color:#CCFFCC;';
 } else if($doc_type != 'n'){
     $style = 'width:100%; background-color:#eee; margin:0 auto;';
@@ -269,20 +279,29 @@ $structure_postfix = '</table></body></html>';
 					 <?PHP if($this->input->post('secetroy')){?>
                    <input type="hidden" name="officer_id" id="officer_id" value="<?php echo $this->input->post('secetroy') ?>" >
                     <?php } ?>
+					<?PHP if($this->input->post('sing_user')){?>
+                   <input type="hidden" name="officer_id" id="officer_id" value="<?php echo $this->input->post('sing_user') ?>" >
+                    <?php } ?>
 						<div class="box-body" id="forPrint" style="<?php echo $style; ?>">
-                        <div  <?php echo  $is_genrate == true ? ' contenteditable="true"' : ''; ?>  style="<?php echo $width; ?>" class="show_content" >
+
+
+
+                        <div <?php echo $is_genrate == true ? 'contenteditable="true"' : '' ; ?>	style="<?php echo $width; ?>" class="show_content" >
+
+
                             <?php require($section_name . '/' . $notesheet_id . '.php');
-                            $final_contents = $structure_prefix.$contents.$structure_postfix;
-                            ?>
-							<?php if(($section_id != 14) && ( $this->uri->segment(4) != 152)){ ?>
-                            <input type="hidden" value="<?php echo $this->encrypt->encode($final_contents) ; ?>" name="contents">
-							<?php } ?>
-							
-                            <?php if($is_genrate == true){
-                                echo $final_contents;
-                            } else {
-                                echo $final_contents;
-                            }
+								$final_contents = $structure_prefix.$contents.$structure_postfix;
+
+
+
+
+
+
+								if($is_genrate == true){
+									echo $final_contents;
+								} else {
+									echo $final_contents;
+								}
                             ?>
                         </div>
                     </div><!-- /.box-body -->
@@ -290,11 +309,7 @@ $structure_postfix = '</table></body></html>';
                         <?php if($is_genrate == true){  ?>
                             <div class="sticky sticky_class no-print">
                                 <label><input type="checkbox" name="isupdate" value="yes" title="संसोधित करना">संशोधित करना</label>
-								<?php if(($section_id == 14) || ( $this->uri->segment(4) == 152)){ ?>
-							   <button type="button" onclick="save_notesheet();"  class="btn btn-primary margin" value="" name="savepdf">Save and Continue</button> 
-								<?php }else { ?>
-                                 <button type="submit" onclick="return confirm('Ready for generate..');"  class="btn btn-primary margin" value="" name="savepdf">Save and Continue</button> 
-                               <?php } ?>
+							    <button type="button" onclick="save_notesheet();" id="btnsave_content" class="btn btn-primary margin" value="" name="savepdf">Save and Continue</button> <!--data-loading-text="Saving..."-->
                                 <button type="button" onclick="goBack()" class="no-print btn btn-warning margin">Back or Edit</button>
                                 <button type="button" onclick="printDiv('forPrint')" class="no-print btn bg-maroon margin">Print Content</button>
                             </div>
@@ -316,13 +331,15 @@ $structure_postfix = '</table></body></html>';
 <script>
 function save_notesheet(){
 
+ 
 	var conf = confirm('कपया सुनिश्चित करें कि आप इसे सुरक्षित करना चाहते है | ') ;
 	
 	if(conf == false ){
 		return false;
 	}
-	var content1 = $('.show_content').html().trim();;
-	
+	$('#btnsave_content').button('loading');
+	var content1 = $('.show_content').html().trim();
+	content1 = encrypt('encode',content1);
 	//alert(content1)	;
 	var d_type = "<?php echo $this->input->get('type') ?>"; 
 	var file_id = "<?php echo $this->uri->segment(6) ?>"; 
@@ -345,13 +362,22 @@ function save_notesheet(){
 
 					window.location="<?php echo base_url(); ?>attached/file_doc/1";
 					}else{
+						setInterval(function(){ 
 						window.location="<?php echo base_url(); ?>efile/"+file_id;
+							}, 3000);
+						//window.location="<?php echo base_url(); ?>efile/"+file_id;
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					//alert("some error"+textStatus);
-  }
+					}
 			});
 }
 </script>
 
+
+<style>
+
+.shift-top-note{ margin-top:20px !important; }
+.shift-left-note{     margin-left: 10% !important; }
+</style>

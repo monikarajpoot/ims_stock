@@ -2,7 +2,7 @@
 $contents  = '' ;
 $contents .= '<tr><td colspan="2" align="right"><u>स्पीड पोस्ट द्वारा</u></td></tr>';
 $contents .= '<tr>';
-$contents .= '<td colspan="2"><div align="center"><b><h4><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</u></h4></b></div></td></tr><tr><td colspan="2"><table width="100%"><tr><td align="left">क्रमांक  ';
+$contents .= '<td colspan="2"><div align="center"><h4><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल </u></h4></div></td></tr><tr><td colspan="2"><table width="100%"><tr><td align="left">क्रमांक  ';
 $contents .= '6/'.$panji_krmank.'/'.date("y").'/ 21-क(आप),';
 $contents .= '</td><td align="right">भोपाल , दिनांक '.date("d-m-Y").'</td></tr></table></td></tr>';
 
@@ -24,9 +24,6 @@ if($is_genrate == true){
     }
     $contents .= '</select></td></tr>';
 }
-	
-
-$contents .= '<tr><td  colspan="2" >&nbsp;</td></tr>';
 $contents .= '<tr><td valign="top" class="top_class">विषय:- </td><td valign="top" class="top_class">';
 $contents .= 'माननीय न्यायालय, ';
 if($is_genrate == true){
@@ -45,11 +42,9 @@ $contents .= $post_data['dhara'];
 {
 	$contents .=  '<input type="text" name="dhara"  />';
 }
-
 $contents .= ' में पारित दोषमुक्ति निर्णय दिनांक '.$file_judgment_date1.'  ';
-$contents .= 'के विरूद्ध अपील प्रस्तुत किये जाने बावत् । &nbsp;</div>&nbsp;';
-$contents .= '</td></tr><tr><td  valign="top">';
-
+$contents .= 'के विरूद्ध अपील प्रस्तुत किये जाने बावत् । ';
+$contents .= '</td></tr>';
 $contents .= '<tr><td valign="top" class="top_class"> संदर्भ:- </td><td>महानिरिक्षक  (प0)  विशेष पुलिस स्थापना,लोकायुक्त कार्यालय, भोपाल (म0प्र0) के पत्र क्रं. '.$file_uo_or_letter_no.'  अप0क्र0  ';
 if($is_genrate == true){
 $contents .= $post_data['crime_no'];
@@ -69,13 +64,18 @@ $contents .= $post_data['crimanal_name'];
 $contents .= ' दोषमुक्ति के विरुद्ध मध्यप्रदेश उच्च न्यायालय खंडपीठ ग्वालियर के समक्ष अपील प्रस्तुत करने का निर्णय लिया गया है | अत: आप राज्य शासन द्वारा लिये गये निर्णय के अनुसार दं.प्र.सं. की धारा 378 के अंतर्गत मध्यप्रदेश उच्च न्यायालय खंडपीठ ग्वालियर के समक्ष अपील प्रस्तुत करें कार्यवाही की सुचना शीघ्र विधि विभाग को प्रेषित करें |</p></td></tr>';
 
 
-$contents .= '<br /><br /></td></tr>';
+$contents .= '<br /></td></tr>';
 $contents .= '<tr><td colspan="2" ><b>(सचिव विधि द्वारा अनुमोदित)</b></td></tr>';
 $contents .= '<tr><td colspan="2" ><u>संलग्न दस्तावेज :</u></td></tr>';
 $contents .= '<tr><td colspan="2" >1-निर्णय की सत्य प्रतिलिपि,<br>2-लोकायुक्त कार्यालय का मत,<br> 3-साक्षीयों के कथनों की मत,</td></tr>';
 
 $contents .= '<tr><td colspan="2" align="right">मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</td></tr>';
-$contents .= '<tr><td align="right" height="80"></td></tr>';
+
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

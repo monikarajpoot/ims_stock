@@ -20,6 +20,8 @@ class Admin_notice_master extends MX_Controller {
     }
     public function manage_notice($id=null){
         $data = array();
+		$login_user_role = checkUserrole();
+		$login_user_section = getEmployeeSection();
         $data['title'] = "All Notices";
         $data['title_tab'] = "Notices";
         $data['get_notice_type']=get_list(NOTICE_BOARD_TYPE,'notice_id',null);
@@ -65,6 +67,9 @@ class Admin_notice_master extends MX_Controller {
          {
              $data['notice_section_id'] = null;
          }
+		if($login_user_role=='37' && $login_emp_section='7,25'){  /*IT SO incharge */
+		  $data['emp_id'] =$this->session->userdata("emp_id");
+	    }
          if($_FILES['notice_attachment']){
              // pr($_FILES['notice_attachment']);
              $image_name = uploadalltypeFile('notice_attachment' , './uploads/notice/' );

@@ -1,7 +1,7 @@
 <?php
 $contents  = '' ;
-$contents .= '<tr><td align="right" colspan="3"><b><u>स्पीड पोस्ट</u></b>';
-$contents .= '<tr><td align="center" colspan="3"><b><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</u></b>';
+$contents .= '<tr><td align="right" colspan="3" style="line-"><b><u>स्पीड पोस्ट</u></b>';
+$contents .= '<tr><td align="center" colspan="3"><h4 style=""><u>मध्यप्रदेश शासन, विधि एवं विधायी कार्य विभाग, भोपाल</u></h4>';
 $contents .= '</td></tr><tr><td colspan="3"><table width="100%"><tr><td>क्र 6/';
 if($is_genrate == true){
     $contents .= $post_data['head'];
@@ -44,7 +44,7 @@ if($is_genrate == true){
     }
     $contents .= '</select>';
 }
-$contents .= ' (म.प्र.),<br /><br /></td><td>&nbsp;</td></tr>';
+$contents .= ' (म.प्र.),<br /></td><td>&nbsp;</td></tr>';
 $contents .= '<tr><td valign="top" class="top_class"> ';
 $contents .= 'विषय:-</td><td colspan="2" valign="top"><div id="dv1">';
 $contents .= 'माननीय न्यायालय, ';
@@ -65,9 +65,8 @@ if($is_genrate == true){
 }
 
 $contents .= ' में पारित सजावृद्धि निर्णय दिनांक '.$file_judgment_date1.'  ';
-$contents .= 'के विरूद्ध अपील प्रस्तुत किये जाने बावत् । &nbsp;</div>&nbsp;';
+$contents .= 'के विरूद्ध अपील प्रस्तुत किये जाने बावत् । </div>';
 $contents .= '</td></tr><tr><td  valign="top" class="top_class">';
-$contents .= '<div></div>';
 $contents .= 'संदर्भ:-</td><td colspan="2">कार्यालय कलेक्टर एवं जिला दण्डाधिकारी, जिला '. $district_name_hi.' (म.प्र.) ';
 $contents .= $file_type == 'l' ? 'पत्र क्रमांक': false;
 $contents .= $file_type == 'f' ? 'यू.ओ. क्रमांक': false;
@@ -101,12 +100,12 @@ if($is_genrate == true){
 
 $contents .= ' को विधि विभाग में प्राप्त हुआ है । अपील प्रस्तुत करने की परिसीमा अवधि दिनांक  ';
 if($is_genrate == true){
-    $contents .= $post_data['apeel_date'];
+    $contents .= $post_data['limit_date'];
 }else{
-    $contents .= '<input name="text2" type="text" id="date2"/>';
+    $contents .= '<input name="limit_date" type="text" id="date2"/>';
 }
 
-$contents .= ' तक हैं ।<br />';
+$contents .= ' तक हैं । ';
 $contents .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; अत: आप राज्य शासन द्वारा लिये गये निर्णय के अनुसार दं.प्र.सं. की धारा 377 के अंतर्गत मध्यप्रदेश उच्च न्यायालय ';
 if($is_genrate == true){
     $contents .= '<span>'.$post_data['court_location2'].'</span>';
@@ -115,23 +114,28 @@ if($is_genrate == true){
 }
 $contents .= ' के समक्ष दिनांक&nbsp;';
 if($is_genrate == true){
-    $contents .= $post_data['apeel_date'];
+    $contents .= $post_data['inform_date'];
 }else{
-    $contents .= '<input name="text3" type="text" id="date3"/>';
+    $contents .= '<input name="inform_date" type="text" id="date3"/>';
 }
 
 $contents .= ' तक अपील प्रस्तुत करने की समुचित कार्यवाही करें । यदि नियत दिनांक ';
 if($is_genrate == true){
-    $contents .= $post_data['apeel_date'];
+    $contents .= $post_data['over_date'];
 }else{
-    $contents .= '<input name="text4" type="text" id="date4"/>';
+    $contents .= '<input name="over_date" type="text" id="date4"/>';
 }
 
 $contents .= ' तक अपील प्रस्तुत नहीं की जाती है तो दिन-प्रतिदिन विलम्ब का कारण दर्शित करते हुए विलम्ब माफी हेतु आवेदन पत्र से समर्थित हो, सहित अपील प्रस्तुत की जाये तथा कार्यवाही ';
-$contents .= 'की सूचना शीघ्र विधि विभाग को प्रेषित करें ।<br /><br /><b>( सचिव विधि द्वारा अनुमोदित)</b><br /><b><u>संलग्न दस्तावेज :</u></b><br /> 1-निर्णय की सत्य प्रतिलिपि,<br />';
-$contents .= '2-लोक अभियोजक का मत,<br />3-साक्षियों के कथन,<br /></p></td></tr><tr>';
+$contents .= 'की सूचना शीघ्र विधि विभाग को प्रेषित करें ।<br /><b>( सचिव विधि द्वारा अनुमोदित)</b><br /><b><u>संलग्न दस्तावेज :</u></b><br /> 1-निर्णय की सत्य प्रतिलिपि,<br />';
+$contents .= '2-लोक अभियोजक का मत,<br />3-साक्षियों के कथन, </p></td></tr><tr>';
 $contents .= '<td align="right" colspan="3"><b> मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</b>&nbsp;&nbsp;</td></tr><tr>';
-$contents .= '<tr><td align="right" height="80"></td></tr>';
+$contents .= '<tr><td align="right" height="10"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

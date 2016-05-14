@@ -64,9 +64,9 @@ class File_search extends MX_Controller {
             $this->form_validation->set_rules('search_value','search_value', 'trim|required|xss_clean');
             $this->form_validation->set_rules('sections','sections', 'trim|required|xss_clean');
 			$cr_section_ids= get_cr_emp_id(1);
-			if(in_array(emp_session_id(),$cr_section_ids['id_array'])){
+			/*if(in_array(emp_session_id(),$cr_section_ids['id_array'])){ // this condition comment its create problem when file mark presonal.
 				$this->form_validation->set_rules('mark_sections','mark_sections', 'trim|required|xss_clean');
-			}
+			}*/
         } else if($search_type == 4)
         {
             $this->form_validation->set_rules('frm_dt','frm_dt', 'trim|required|xss_clean');
@@ -112,11 +112,11 @@ class File_search extends MX_Controller {
                 }  
                   
                 foreach($search_values as $s_value){
-					if(getEmployeeSection() == 1){
+					/*if(getEmployeeSection() == 1){ // this condition comment its create problem when file mark presonal.
 						$data['get_files'][] = $this->file_search->file_search_sectionno_cr($search_type, $sections, $s_value);
-					} else {
+					} else {*/
 						$data['get_files'][] = $this->file_search->file_search_sectionno($search_type, $sections, $s_value);
-                    }
+                    //}
                 }               
             }
             if($search_type == 3 || $search_type == 6 || $search_type == 8 || $search_type == 2) {

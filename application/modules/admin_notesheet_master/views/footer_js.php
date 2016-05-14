@@ -1,4 +1,26 @@
-<?php if($this->uri->segment(3) != 'generate_notesheet' && $this->uri->segment(2)!='view_file_notesheet'){ ?>
+<?php if($this->uri->segment(4) == 17)
+{ ?>
+<script type="text/javascript" src="<?php echo base_url()?>themes/ckeditor/ckeditor.js"></script>
+<!-- 
+	Attach the editor on the textareas
+-->
+<script type="text/javascript">
+   
+
+    //for ck editor
+    CKEDITOR.replace('compose_textarea',
+        {
+            // uiColor: '#00c0ef',
+            height : 600,
+            // toolbar : 'MyToolbar'
+        }
+    );
+
+   
+   
+</script>
+<?php } ?>
+<?php if($this->uri->segment(3) != 'generate_notesheet' && $this->uri->segment(2)!='view_file_notesheet' ||  $this->uri->segment(3)== 167){ ?>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="<?php echo EDITOR_URL ?>ckeditor.js"></script>
 	<script src="<?php echo EDITOR_URL ?>theme/adapters/jquery.js"></script>
@@ -55,6 +77,14 @@
 <script src="<?php echo ADMIN_THEME_PATH; ?>plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
+	$( ".out_of_date" ).change(function() {
+			
+			if($(this).val() == 'विलम्ब' ){
+				$( "#late_receive" ).addClass( "show" ).removeClass("hide");
+			}else{
+				$( "#late_receive" ).addClass("hide").removeClass( "show" );
+			}
+		});
         //Date DOB
         $('.date1').datepicker();
         $('#file_uo_date').datepicker();
@@ -88,12 +118,16 @@
 		$(document).ready(function () {
 		
 
+			var slp_div = $(".slp_div").text();
+			$("#show_hide").hide();
 			$("#show_hide").click(function() {
 				//alert("show content");
 				$("#show_content").text('');
 				//$("#hide_btn").hide();
-				
-				$(".slp_div").hide();
+
+				 $(".slp_div").text('');
+				 $(".slp_div_text_input").html('<input type="hidden" name="slp_ddiv" value="hide_text" > ' );
+				 $(".slp_div").hide();
 				$("#show_hide").hide();
 				$("#hide_show").show();
 			})	
@@ -101,11 +135,12 @@
 				//alert("hide content");
 				$("#show_content").html("<u>एस. एल. पी. का प्रस्ताव इस कार्यालय को दिनांक   <input type='text' name='date_2'  class='date1'>  को प्राप्त हुआ था |  एस. एल. पी.  की अवधि दिनांक <input type='text' name='date_3'  class='date1'>को समाप्त हो गई हैं | इसलिये विलम्ब  को स्पष्ट करने का उत्तरदायित्व त्रुटिकर्ता का रहेगा | त्रुटिकर्ता धारा 5 लिमिटेशन एक्ट का शपथ-पत्र में दिन-प्रतिदिन के विलंब को स्पष्ट करते हए माननीय सर्वोच्च न्यायालय में  आवेदन पत्र प्रस्तुत करेगा, विलंव का दायित्व विधि विभाग का नहीं रहेगा| </u>");
 
+			    $(".slp_div_text_input").html('<input type="hidden" name="slp_ddiv" value="show_text" > ' );
 				$("#show_content").text();
 				//$("#hide_btn").show();
 				$("#show_hide").show();
 				$("#hide_show").hide();
-			})				
+			})	
 		});	
 		//civil auto select all 98
 		$(document).ready(function () {
@@ -194,10 +229,11 @@
 				var newRow = $("<tr>");
 				var cols = "";
 	  
-				cols += '<td><input type="text" class="date1" name="anukrmank[]' + counter + '"></td>';
-				cols += '<td><input type="text"  name="name_pk[]' + counter + '" value=""></td>';
+				cols += '<td><input type="text" class="date1" name="anukrmank[]' + counter + '"><br/><input type="text" class="date1" name="anukrmank_date[]' + counter + '"></td>';
+				cols += '<td><textarea name="name_pk[]' + counter + '" rows="5"  cols="20"></textarea></td>';
 				cols += '<td><input type="text" name="want_price[]' + counter + '"></td>';
 			    cols += '<td><input type="text" name="order_price[]' + counter + '"></td>';
+			    cols += '<td><input type="text" name="total_price[]' + counter + '"></td>';
 				
 				cols += '<td><input type="button" class="ibtnDel"  value="Delete"></td>';
 				newRow.append(cols);
@@ -205,8 +241,8 @@
 				$("table.petition").append(newRow);
 				counter++;
 				$('.total_row').val(counter);
-			});
-
+			}); 
+ 
 			$("table.petition").on("click", ".ibtnDel", function (event) {
 				$(this).closest("tr").remove();
 				
@@ -256,8 +292,14 @@
 		});
 
 		
-
-		
-		
-   
+	$("#which_jail_1").change(function() {
+		$('.which_jail_id').text($(this).val());
+   });
+   $("#bandi").change(function() {
+		$('.bandi').text($(this).val());
+   });
+    $("#mukti").change(function() {
+		$('.mukti').text($(this).val());
+   });
+	
 </script>

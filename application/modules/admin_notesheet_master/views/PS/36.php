@@ -8,6 +8,7 @@ $contents .= $post_data['file_no'];
 {
 	$contents .=  '<input type="text" name="file_no" />';
 }
+$contents .=  '/';
 if($is_genrate == true){
 $contents .= $post_data['year'];
 }else
@@ -82,22 +83,46 @@ $contents .= '<tr><td><p>उक्त प्रकरण के संबंध 
 $contents .= '<tr><td><p>अत: आप संबंधित भारसाधक लोक अभियोजक/सहायक लोक अभियोजक को सलाह दें कि वे लोकहित में अपने स्वविवेक का प्रयोग करते हुए दंड प्रक्रिया संहिता की धारा 321 के उपबंधो के अधीन न्यायालय की अनुमति से उक्त प्रकरण को वापस लेने हेतु आवश्यक कार्यवाही करें ।</p></td></tr>';
 $contents .= '<tr><td><p>इस संबंध में की गई कार्यवाही से इस विभाग को तथा गृह विभाग को तत्काल अवगत कराऍ ।</p></td></tr>';
 $contents .= '<tr><td align="right">मध्य प्रदेश के राज्यपाल के नाम से तथा आदेशानुसार </td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( '.@$as_name.' )</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;"> अपर सचिव</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td><div style="float:left">पृ.फा.क्रं. 12/';
 if($is_genrate == true){
 $contents .= $post_data['file_no'];
 }else
 {
-	$contents .=  '<input type="text" name="file_no" />';
+	$contents .=  '--------';
 }
+$contents .=  '/';
 if($is_genrate == true){
 $contents .= $post_data['year'];
 }else
 {
-	$contents .=  '<input type="text" name="year" />';
+	$contents .=  '--------';
 }
 $contents .= 'पं.क्रं.  '.@$file_number.'/'.date("Y").'/21-क(अभि), </div><div style="float:right">भोपाल, दिनांक   ';
 if($is_genrate == true){
@@ -128,8 +153,32 @@ $contents .= '<tr><td align="left"><div style="width:10%; float:left">3- </div><
 
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( '.@$as_name.' )</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;"> अपर सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 
 //print content

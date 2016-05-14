@@ -8,6 +8,7 @@ $contents .= $post_data['srno'];
 {
 	$contents .=  '<input type="text"  name="srno" />';
 }
+$contents .=  '/';
 if($is_genrate == true){
 $contents .= $post_data['year_letter'];
 }else
@@ -87,22 +88,48 @@ $contents .= $post_data['date1'];
 
 $contents .= '<tr><td><p>उपरोक्त  मामले माननीय सर्वोच्च न्यायालय द्वारा पारित आदेश W.P.नं. 48/14 की छायाप्रति संलग्न भेजकर अनुरोध है कि माननीय सर्वोच्चय न्यायालय द्वारा पारित आदेश में पूर्व पारित अंतरिम आदेश को W.P.( किमि.) 48/14 के अंतिम निराकरण तक जारी रहने के पारित आदेश के अनुसार कार्यवाही की अनुशंसा की जाती है ।</p></td></tr>';
 
+/*code1*/
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;">( '.@$as_name.'  )</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;"> अपर सचिव</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;">'.$dept_name.'</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
+/*code End*/
+$contents .= '<tr><td  colspan="3" align="right"><div contenteditable="false" class="officer-center">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td><div style="float:left">पृ0क्र0  07/';
 if($is_genrate == true){
 $contents .= $post_data['srno'];
 }else
 {
-	$contents .=  '<input type="text"  name="srno" />';
+	$contents .=  '--------';
 }
+$contents .=  '/';
 if($is_genrate == true){
 $contents .= $post_data['year_letter'];
 }else
 {
-	$contents .=  '<input type="text"  name="year_letter" />';
+	$contents .=  '--------';
 }
 $contents .= '/ पं. क्रं. '.@$file_number.'/21-क(अभि ),</div><div style="float:right">भोपाल, दिनांक   ';
 if($is_genrate == true){
@@ -138,9 +165,35 @@ if($is_genrate == true){
 $contents .=  get_distic_dd('jail_state_4');
 }
 $contents .=  ' की ओर सूचनार्थ प्रेषित ।</p></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;">( '.@$as_name.'   )</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;"> अपर सचिव </div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:75%; text-align:center;">'.$dept_name.'</div></td></tr>';
+/*code1*/
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
+/*code End*/
+$contents .= '<tr><td  colspan="3" align="right"><div contenteditable="false" class="officer-center">'.$dept_name.'</div></td></tr>';
 
 //print content
 //echo $contents;

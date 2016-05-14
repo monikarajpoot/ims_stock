@@ -15,10 +15,13 @@
     </body>
     <?php $this->load->view('admin_notesheet_master/footer_js.php'); ?>
 </html>
+<script src="<?php echo base_url(); ?>themes/e_file_style.js" type="text/javascript"></script>
+
 <script>
 function save_notesheet(){
 
-	var content1 = $('.show_content').html();  
+	var content1 = $('.show_content').html(); 
+	content1 = encrypt('encode',content1);
 	var file_log_id = "<?php echo $this->uri->segment(4) ?>"; 
 	var HTTP_PATH='<?php echo base_url(); ?>';
             $.ajax({

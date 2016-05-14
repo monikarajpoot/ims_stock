@@ -74,7 +74,12 @@ $contents .= '<td></td><td align="left"  valign="top" colspan="2">';
 $contents .= '<p class="text-justify shift-left">संदर्भ हेतु कृपया अपने&nbsp;<span id="Label9">पत्र क्रमांक '.$file_uo_or_letter_no.'     दिनांक  '.$file_uo_or_letter_date1.'   का अवलोकन करने का कष्ट करें । राज्य शासन ने विषयांकित में अब कोई अग्रिम कार्यवाही नहीं करने का निश्चय करते हुये नस्तीबद्ध किया है ।</p>';
 $contents .= '</td></tr><tr><td></td><td align="right"  colspan="2">';
 $contents .= '<b>मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</b></td></tr>';
-$contents .= '<tr><td  colspan="3"  align="right" height="40"></td></tr>';
+
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div contenteditable="false"  class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
@@ -119,15 +124,19 @@ $contents  .= get_distic_dd('distic_1');
 }
 $contents .= ' की ओर सूचनार्थ अग्रेषित |</div></td></tr>';
 $contents .= '</td></tr><tr><td align="right" colspan="3" ></td></tr>';
-$contents .= '<tr><td align="right" height="40"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
  $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
 
 }else
 {
-     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
-    
+      // $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+	$contents .= "-------";
 }
 
 $contents .= ' )</div></td></tr>';

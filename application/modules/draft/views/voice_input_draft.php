@@ -40,7 +40,7 @@
   .interim {
     color: gray;
   }
-  .info {
+  .info_1 {
     font-size: 14px;
     text-align: center;
     color: #777;
@@ -83,6 +83,21 @@
     padding: 0;
   }
 </style>
+ <?php if($this->uri->segment(2)=='voic_input'){?>
+ <!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+		   <?php echo $title; ?>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active"><?php echo $title; ?></li>
+		</ol>
+	</section>
+
+    <!-- Main content -->
+    <section class="content">
+ <?php } ?>	
 <div id="info">
   <p id="info_start">माइक्रोफ़ोन आइकन पर क्लिक करें और फिर बोलें। <br/>(Click on the microphone icon and begin speaking.)</p>
   <p id="info_speak_now">अब बोलें (Speak now.)</p>
@@ -109,8 +124,8 @@
 </div>
 <div id="results">
   <!--<span id="final_span" class="final"></span>-->
-  <lable>आपके द्वारा बोला गया कंटेंट</lable>
-  <textarea id="final_span" class="final" style="margin: 0px; width: 509px; height: 350px;"></textarea>
+  <lable>आपके द्वारा बोला गया कंटेंट</lable>  
+  <textarea id="final_span" class="final" <?php if($this->uri->segment(2)=='voic_input'){?> style="margin:0px;width:1131px;height:379px;" <?php }else { ?>style="margin: 0px; width: 509px; height: 350px;" <?php } ?> ></textarea>
   <br/>
   <lable>आपके द्वारा बोला जा रहा कंटेंट: </lable><br/>
   <span id="interim_span" class="interim"></span>
@@ -118,8 +133,11 @@
 </div>
 <div class="center">
   <div class="left">
-    <button id="copy_button" class="button" onclick="copyButton()">कॉपी और पेस्ट</button>
-    <div id="copy_info" class="info">
+  <?php if($this->uri->segment(2)=='voic_input'){ /*Its use for draft/voic_input*/?>
+	<br/>
+	<?php } ?>
+    <button id="copy_button" class="btn btn-primary" onclick="copyButton()">कॉपी और पेस्ट</button> &nbsp;
+    <div id="copy_info" class="info_1">
       Press Control-C to copy text.<br>(Command-C on Mac.)
     </div>
   </div>  
@@ -129,6 +147,12 @@
     <select id="select_dialect"></select>
   </div>
 </div>
+ <?php if($this->uri->segment(2)=='voic_input'){?>
+	<div class="box-footer">
+		<button type="button" id="btn_clear" class="btn btn-danger"><i class="fa fa-times"></i>  डाटा क्लियर करे</button>
+	</div>
+</section>
+ <?php } ?>
 <script>
 var img_path = '<?php echo base_url();?>themes/site/images/';
 var langs =
@@ -331,4 +355,37 @@ function showButtons(style) {
   copy_info.style.display = 'none';
   //email_info.style.display = 'none';
 }
+
+ <?php if($this->uri->segment(2)=='voic_input'){?>
+	 $(document).ready(function(){
+		$("#for-print").animate({ scrollTop: $('#for-print').prop("scrollHeight")}, 1000);
+        $("#edit").show();
+        $("#typewithtext").hide();
+        $('#voice_input').click(function(){
+            $(".text_editor").hide();
+            $("#typewithtext").show();
+        });
+        $('#btn_close').click(function(){
+            $(".text_editor").show();
+            $("#typewithtext").hide();
+        });
+        $('#btn_close_paste').click(function(){
+            $(".text_editor").show();
+            $("#typewithtext").hide();
+			var final_old = CKEDITOR.instances.compose_textarea.getData();
+            var final_new = $("#final_span").val();
+            var final_data = final_old+' '+final_new;
+            CKEDITOR.instances['compose_textarea'].setData(final_data);
+			$("#final_span").val('');
+        }); 
+		$('#btn_clear').click(function(){ 
+			var ret =  confirm('सुनिश्चित कर ले आप बोला हुआ डाटा डिलीट करना चाहते है'); 
+			if(ret == true){
+				$("#final_span").val('');
+			} else{
+				return false;
+			}
+        });
+    });
+<?php } ?>
 </script>

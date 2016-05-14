@@ -37,13 +37,8 @@ class scan_dealing_manage_files extends MX_Controller {
         $data['module_name']        = "scan_files";
 		$emp_id = $this->session->userdata('emp_id');
 		$emp_details = empdetails($emp_id);
-		$emp_section_id = $emp_details[0]['emp_section_id'];
-		 if( $emp_section_id == 15 ){
-			  $data['view_file']          = "scan_files/dealing_manage_file_prosecution";
-		 }
-		 else{
+		$emp_section_id = $emp_details[0]['emp_section_id'];		
 			 $data['view_file']          = "scan_files/scan_dealing_manage_file"; 
-		 }
    
         $this->template->index($data);
     }
@@ -130,6 +125,11 @@ class scan_dealing_manage_files extends MX_Controller {
 					$scanfile_ids[] = $scan_ids;
 				}
 			}
+			if($this->input->post('file_mark_section_id') == 11){
+				$section_file_type = $this->input->post('section_file_categoty');
+			} else{
+				$section_file_type = $this->input->post('section_file_type') != '' ? $this->input->post('section_file_type') : '';
+			}
 			//pr($scanfile_ids );
 			//print_r($scanfile_ids);die;
             $data_dealing = array(
@@ -139,6 +139,7 @@ class scan_dealing_manage_files extends MX_Controller {
                 'case_parties'              => $this->input->post('party_petition')."-विरुद्ध- ".$this->input->post('Party_name_respondent'),
                 'courts_name_location'      => $this->input->post('courts_name_location'),
                 'file_subject'              => $this->input->post('file_subject'),
+				'file_subject_en'           => $this->input->post('file_subject_en'),
                 //  'file_progress_status_id' => '25', // Work in progress by Officer (remark_master)
                 //   'file_form'             => $this->input->post('from_id'),
                 'file_head_id'              => $this->input->post('file_head')!=''?$this->input->post('file_head'):0,
@@ -149,7 +150,7 @@ class scan_dealing_manage_files extends MX_Controller {
                 'court_bench_id'            => $this->input->post('court_bench')!=''?$this->input->post('court_bench'):0,
                 'file_judgment_date'        => $judg_dt!=''?$judg_dt:'0000-00-00',
                 'file_department_name'      => $this->input->post('file_department_name'),
-				'section_file_categoty'      => $this->input->post('section_file_categoty')
+				'section_file_categoty'      => $section_file_type
             );
 			if(count($scanfile_ids)>0){
 								$file_details = get_scan_file_deatils($id);

@@ -138,7 +138,7 @@ function is_date($str) {
         return true;
     } else {
         return false;
-    }
+		}
 }
 
 function str_rand($length = 8, $seeds = 'alphanum') {
@@ -251,7 +251,7 @@ function get_list($table_name, $orderby ='', $condition ='', $order_by = 'DESC' 
     $query = $CI->db->get();
     $data = $query->result_array();
     return $data;
-}
+	}
 function get_list_with_in($table_name, $orderby,$column,$dataarray) {
 	$CI = & get_instance();
 	$CI->db->where_in($column,$dataarray);
@@ -473,6 +473,27 @@ function getNoticeBoardInformation($setion_id = '') {
     return $rows;
 }
 
+function getNoticeBoardInformation_from_est($setion_id='',$empid=151) {
+    
+	$CI = & get_instance();
+	$notice_board = NOTICE_BOARD;
+    $role = checkUserrole();
+    $CI->db->select('notice_id,notice_subject,notice_description,notice_attachment,notice_remark,notice_created_date,notice_from_date,notice_to_date,notice_is_active');
+    
+    if($setion_id!= '') {
+        $CI->db->where('emp_id', emp_session_id());
+        $CI->db->or_where('notice_section_id', $setion_id);
+	}else if($empid!=''){
+		$CI->db->where(array('emp_id'=>$empid,'notice_is_active'=>1,'notice_trash'=>0));
+	}
+    $CI->db->from($notice_board);
+	$CI->db->order_by('notice_id','desc');
+    $query = $CI->db->get();
+    $rows = $query->result_array();
+    return $rows;
+}
+
+
 function getState($state_id) {
     $CI = & get_instance();
     $CI->db->select('state_name_hi');
@@ -493,7 +514,7 @@ function getCity($city_id) {
     if($city_id){
          $CI->db->where('city_id',$city_id);
     }
-	$CI->db->order_by('city_name', 'ASC');
+	//$CI->db->order_by('state_name_hi', 'ASC');
     $query = $CI->db->get();
     $row = $query->row();
     return $row->city_name;
@@ -509,7 +530,7 @@ function checkEmployeeRetired($value) {
 
 function getSection($sectionid = null,$isshort = false) {
     $CI = & get_instance();
-    $CI->db->select('*');
+    $CI->db->select('section_name_hi,section_name_en,section_short_name,section_code');
     $CI->db->where('section_id', $sectionid);
     $CI->db->from(SECTIONS);
     $query = $CI->db->get();
@@ -552,19 +573,28 @@ function getFileType($value) {
     }
 }
 
-function getemployeeName($emp_id, $ishindi = false) {
+function getemployeeName($emp_id, $ishindi = false, $isgender = true) {
     $CI = & get_instance();
     $CI->db->select('emp_full_name, emp_full_name_hi');
     $CI->db->from(EMPLOYEES);
     $CI->db->where('emp_id', $emp_id);
     $query = $CI->db->get();
     $row = $query->row();
-	if($ishindi == true){
-		return get_employee_gender($emp_id).' '.$row->emp_full_name_hi;
-	} else {
-		return get_employee_gender($emp_id, false).' '.$row->emp_full_name;
-	}
-    
+    if($isgender == false){
+        if($ishindi == true){
+            return $row->emp_full_name_hi;
+        } else {
+            return $row->emp_full_name;
+        }
+    }else{
+        if($ishindi == true){
+            return get_employee_gender($emp_id).' '.$row->emp_full_name_hi;
+        } else {
+            return get_employee_gender($emp_id, false).' '.$row->emp_full_name;
+        }
+    }
+
+
 }
 
 function get_employee_gender($emp_id, $ishindi = true) {   
@@ -1007,7 +1037,7 @@ function employee_grad_pay() {
 
 function empdetails($emp_id) {
     $CI = & get_instance();
-    $CI->db->select('*');
+    $CI->db->select('emp_id,role_id,designation_id,emp_unique_id,emp_full_name,emp_full_name_hi,emp_email,emp_mobile_number,emp_section_id,emp_is_retired,emp_is_parmanent');
     $CI->db->where('emp_id', $emp_id);
     $CI->db->from(EMPLOYEES);
     $query = $CI->db->get();
@@ -1034,7 +1064,7 @@ function getemployeeRole($role_id = null) {
     }
 }
 
-function get_employee_role($emp_id, $id = false) {
+function get_employee_role($emp_id, $id = false , $iseng = false) {
     $CI = & get_instance();
     $CI->db->where(EMPLOYEES.'.emp_id', $emp_id);
     $CI->db->join(EMPLOYEES, EMPLOYEES . ".role_id = " . EMPLOYEEE_ROLE . ".role_id");
@@ -1044,12 +1074,35 @@ function get_employee_role($emp_id, $id = false) {
 	if($id == true){
 		return $row->role_id;
 	} else {
-    return $row->emprole_name_hi;
+        if($iseng == true){
+            return $row->emprole_name_en;
+        }else{
+            return $row->emprole_name_hi;
+        }
 }
 }
 
 
 function get_user_details($id = '', $column_name = '*') {
+    $CI = & get_instance();
+    $tbl_emp = EMPLOYEES;
+    $tbl_emp_detail = EMPLOYEE_DETAILS;
+    $tbl_emp_role = EMPLOYEEE_ROLE;
+    $CI->db->select($column_name);
+    $CI->db->from($tbl_emp);
+    $CI->db->join($tbl_emp_detail, "$tbl_emp.emp_id = $tbl_emp_detail.emp_id");
+    $CI->db->join($tbl_emp_role, "$tbl_emp.designation_id = $tbl_emp_role.role_id");
+    $emp_id = $id == '' ? emp_session_id() : $id;
+    $CI->db->where("$tbl_emp.emp_id", $emp_id);
+    $query = $CI->db->get();
+    if ($query->num_rows() == 1) {
+        //print_r($query->result());die;
+        return $query->result();
+    } else {
+        return FALSE;
+    }
+}
+function get_user_details_with_name($id = '', $column_name) {
     $CI = & get_instance();
     $tbl_emp = EMPLOYEES;
     $tbl_emp_detail = EMPLOYEE_DETAILS;
@@ -2137,7 +2190,7 @@ function get_section_employee($section_id, $role_id = ''){
 	/*Begin 19-09-2015 Bij*/
 	function get_prosecution_file_type(){
 		return array(
-		'प्रकरण वापसी'=>'प्रकरण वापसी','दया याचिका'=>'दया याचिका','समंस'=>'समंस','अभियोजन स्वीकृति'=>'अभियोजन स्वीकृति','विधानसभा'=>'विधानसभा','अभ्यावेदन'=>'अभ्यावेदन','Writ'=>'Writ','सुचना का अधिकार' => 'सुचना का अधिकार');
+		'प्रकरण वापसी'=>'प्रकरण वापसी','दया याचिका'=>'दया याचिका','समंस'=>'समंस','अभियोजन स्वीकृति'=>'अभियोजन स्वीकृति','विधानसभा'=>'विधानसभा','अभ्यावेदन'=>'अभ्यावेदन','Writ'=>'रिट','सुचना का अधिकार' => 'सूचना का अधिकार');
 	}
 	/*End 19-09-2015 Bij*/
 	
@@ -2167,6 +2220,37 @@ function get_section_employee($section_id, $role_id = ''){
 			4 => 'किताब',
 		);
 	}
+	
+	/* Add rohit 25-04-2016 */
+	function get_civil_file_type($type = null){
+		$file_type =  array(
+			1 => 'प्रतिरक्षण',
+			2 => 'अपील',
+			3 => 'सामान्य',
+		);
+		if($type != ''){
+			if(array_key_exists($type, $file_type)){
+				return $file_type[$type];
+			}
+		} else {
+			return $file_type;
+		}
+	}
+	function get_petition_file_type($type = null){
+		$file_type =  array(
+			1 => 'प्रतिरक्षण',
+			2 => 'अपील',
+			3 => 'सामान्य',
+		);
+		if($type != ''){
+			if(array_key_exists($type, $file_type)){
+				return $file_type[$type];
+			}
+		} else {
+			return $file_type;
+		}
+	}
+	
 	/*End 19-09-2015 sulbha*/
 	function get_state_list(){
         $CI = & get_instance();
@@ -2204,18 +2288,33 @@ function get_section_employee($section_id, $role_id = ''){
 		
 	}
 	
-	/* file message -Rohit*/
-	function file_not_receive_message($name, $role){
-		 return "<span class='text-danger'>".$role." <b>".get_emp_gender($name)." ".$name."</b> की ओर से प्राप्त नहीं की गई|</span>";
+	/* file message -Rohit modify by raginee 15 april 2016*/
+	function file_not_receive_message($name, $role , $emp_gender = null){
+	if($emp_gender != null){
+	if($emp_gender == 'm'){ $gender = 'श्री'; } if($emp_gender == 'f'){	$gender ='सुश्री'; }
+		return "<span class='text-danger'>".$role." <b>".$gender." ".$name."</b> की ओर से प्राप्त नहीं की गई|</span>";
+	}else{ return "<span class='text-danger'>".$role." <b>".get_emp_gender($name)." ".$name."</b> की ओर से प्राप्त नहीं की गई|</span>";}
 	}
-	function file_closed_receive_message($name, $role, $type){
-		  return "<span class='text-info'>".$role." <b>".get_emp_gender($name)." ".$name."</b> के द्वारा बंद किया गया|</span>";
+
+	function file_closed_receive_message($name, $role, $type , $emp_gender = null){
+	if($emp_gender != null){
+	if($emp_gender == 'm'){ $gender = 'श्री'; } if($emp_gender == 'f'){	$gender ='सुश्री'; }
+	return "<span class='text-info'>".$role." <b>".$gender." ".$name."</b> के द्वारा बंद किया गया|</span>";
+	}else{ return "<span class='text-info'>".$role." <b>".get_emp_gender($name)." ".$name."</b> के द्वारा बंद किया गया|</span>"; }
 	}
-	function file_receive_message($name, $role){
-		 return "<span class='text-success'>".$role." <b>".get_emp_gender($name)." ".$name."</b> की ओर से प्राप्त  की गई|</span>";
+
+	function file_receive_message($name, $role , $emp_gender = null){
+	if($emp_gender != null){
+		if($emp_gender == 'm'){ $gender = 'श्री'; } if($emp_gender == 'f'){	$gender ='सुश्री'; }
+	return "<span class='text-success'>".$role." <b>".$gender." ".$name."</b> की ओर से प्राप्त  की गई|</span>";
+	}else{ return "<span class='text-success'>".$role." <b>".get_emp_gender($name)." ".$name."</b> की ओर से प्राप्त  की गई|</span>"; }
 	}
-	function file_working_message($name, $role){		
-		 return "<span class='text-warning'>".$role." <b>".get_emp_gender($name)." ".$name."</b> के द्वारा कार्य किया जा रहा है</span>";
+
+	function file_working_message($name, $role , $emp_gender = null){
+	if($emp_gender != null){
+		if($emp_gender == 'm'){ $gender = 'श्री'; } if($emp_gender == 'f'){	$gender ='सुश्री'; }
+	return "<span class='text-warning'>".$role." <b>".$gender." ".$name."</b> के द्वारा कार्य किया जा रहा है</span>";
+	}else{ return "<span class='text-warning'>".$role." <b>".get_emp_gender($name)." ".$name."</b> के द्वारा कार्य किया जा रहा है</span>"; }
 	}
 	
 	function get_emp_gender($name){
@@ -2264,11 +2363,11 @@ function get_section_employee($section_id, $role_id = ''){
 			'16' => '56', // drafting -> ps
 			'17' => '51',
 			'18' => '56', // vetting english -> ps
-			'19' => '61',
+			'19' => '59', //61
 			'20' => '60', // translation -> ad
 			'21' => '51',
 			'22' => '51',
-			'23' => '51',
+			'23' => '60', //ad
 			'25' => '51',
 			'26' => '51',
 			'27' => '59',
@@ -2288,7 +2387,8 @@ function get_section_employee($section_id, $role_id = ''){
 	}
 	
 	/* Send sms -Rohit */
-	function send_sms($mobile_numbers, $content) { 
+	function send_sms($mobile_numbers, $content) {
+
            function post_to_url($url, $data) {
            $fields = '';
            foreach($data as $key => $value) { 
@@ -2325,9 +2425,10 @@ function get_section_employee($section_id, $role_id = ''){
             
         );
 
-        $ret = post_to_url("http://msdgweb.mgov.gov.in/esms/sendsmsrequest", $data);
+      //  $ret = post_to_url("http://msdgweb.mgov.gov.in/esms/sendsmsrequest", $data);
+        $ret = '';
 		if($ret) { 
-			echo  'Mesdsage send successfully!';
+			echo  'Mesdsage send successfully!';			
 		}
     }
 function section_section_name() {
@@ -2522,11 +2623,11 @@ function so_by_roleandsection() {
         '16' => '37', // drafting -> incharge
         '17' => '8',
         '18' => '37', // vetting english -> incharge
-        '19' => '15',
+        '19' => '37', // 15
         '20' => '14', // AD
         '21' => '8',
         '22' => '8',
-        '23' => '8',
+        '23' => '14', // AD
         '25' => '8',
         '26' => '8',
         '27' => '37',
@@ -3077,9 +3178,6 @@ function scan_file_upload($filename, $path ,$title) {
             'path' => $upload_data['file_path'],
             'name' => $title.'_'.$upload_data['file_name'],
         );
-//        echo $upload_data['file_name'];
-
-       // die();
         return $upload_data['file_name'];
 
     }
@@ -3295,6 +3393,20 @@ function ps_mark_file(){
         'o' => 'अन्य',
     );
 }
+
+function safe_b64encode($string) {
+	$data = base64_encode($string);
+	$data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
+	return $data;
+}
+function safe_b64decode($string) {
+        $data = str_replace(array('-', '_'), array('+', '/'), $string);
+        $mod4 = strlen($data) % 4;
+        if ($mod4) {
+            $data .= substr('====', $mod4);
+        }
+        return base64_decode($data);
+}	
 /////////code add by Monika
 function getsum($tablename,$condi ,$column) 
 {
@@ -3315,6 +3427,9 @@ function sumcolumn($fl ,$id, $month)
     $state_name = $query->row_array();
     //print_r($state_name); 
   // echo $CI->db->last_query();  
+
+
+
     return $state_name;
 }
 function sumcolumn_one_emp($fl ,$id,$uid)
@@ -3331,6 +3446,10 @@ function sumcolumn_one_emp($fl ,$id,$uid)
         
         
     return $state_name;
+
+
+
+
 }
 function deffentcolum($uid,$cm ,$pm,$fileid)
 {
@@ -3341,4 +3460,39 @@ function deffentcolum($uid,$cm ,$pm,$fileid)
     $state_name = $query->row_array();
    //print_r($state_name);
     return $state_name;
+
+}
+
+function current_pending_files($empid = null , $only_count = false) {
+    $CI = & get_instance();
+    $userid_1 = emp_session_id();
+    $curr_date = date('Y-m-d');
+    $sql = "SELECT count(file_id) as files_no";
+    if($only_count == false) {
+        $sql .= ", SUM(IF(date(file_update_date) != '$curr_date', 1,0)) as old_file, SUM(IF(date(file_update_date) = '$curr_date', 1,0)) as today_file , SUM(IF(file_hardcopy_status != 'not', 1,0)) as received, SUM(IF(file_hardcopy_status = 'not', 1,0)) AS noterceived  ,SUM(IF(final_draft_id != '', 1,0)) AS efile";
+    }
+    $sql .= " FROM `ft_files` WHERE file_hardcopy_status!='close' and `file_received_emp_id`='$userid_1'";
+    $query_file = $CI->db->query($sql);
+    //$query_file = $CI->db->query("SELECT count(file_id) as files_no , SUM(IF(date(file_update_date) != '$curr_date', 1,0)) as old_file, SUM(IF(date(file_update_date) = '$curr_date', 1,0)) as today_file , SUM(IF(file_hardcopy_status != 'not', 1,0)) as received, SUM(IF(file_hardcopy_status = 'not', 1,0)) AS noterceived  ,SUM(IF(final_draft_id != '', 1,0)) AS efile FROM `ft_files` WHERE file_hardcopy_status!='close' and `file_received_emp_id`='$userid_1'");
+    //echo $CI->db->last_query();
+    $marked_file = $query_file->row_array();
+    return $marked_file;
+}
+
+//for cr type cr for csu type csu
+function enable_dispose($list = null){
+	$enable_array = array('cr','csu');   //'' for null 
+    $list_array = explode(',',$list);
+	if(array_intersect($list_array ,$enable_array)){
+		return true;
+	}
+}
+function get_file_remak($task,$fileid,$login_id){
+	$CI = & get_instance();
+	$tbl = 'ft_'.FILES_LOG;
+	if($task=='single_file_log'){
+		$sql_log = "SELECT flog_other_remark FROM $tbl where to_emp_id=$login_id and from_emp_id=$login_id and file_id=$fileid and flog_other_remark!='' and flog_type=1 order by flog_id desc";
+		$file_log = get_row($sql_log);
+		return $file_log;
+	}
 }

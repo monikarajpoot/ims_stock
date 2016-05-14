@@ -1,14 +1,11 @@
 <?php
-
 class File_moniter_activity extends CI_Model {
-
     function __construct() {
         parent::__construct();
     }
-
     public function getFiles($section_id = null ,$status = null ,$empid = null, $s_date = null, $e_date = null, $on = null)
-    {
-		$section_id = explode(',', $section_id);
+    {			
+		$section_id = explode(',', $section_id);		
         $action ='';
 		$lvl='';
 		if(isset($_GET['a'])){
@@ -32,9 +29,10 @@ class File_moniter_activity extends CI_Model {
 			$query9	 = $this->db->query($sql);
 			return $section_dispose= $query9->result();
 		}else if($lvl=='sent_dipatch_section'){
-			$sql="SELECT * FROM `ft_files` as files inner join ft_file_dispatch as file_dispetch on file_dispetch.file_id= files.file_id and issection_despose=0 WHERE files.file_mark_section_id IN ($section_id) AND (files.file_hardcopy_status = 'close') AND files.file_return = '2'";
+			$where = "file_mark_section_id IN(".implode(',',$section_id).") ";
+			$sql="SELECT * FROM `ft_files` as files inner join ft_file_dispatch as file_dispetch on file_dispetch.file_id= files.file_id and issection_despose=0 and $where AND (files.file_hardcopy_status = 'close') AND files.file_return = '2'";
 			$query9	 = $this->db->query($sql);
-			return $section_dispose= $query9->result();
+			
 		}else if($lvl=='list_all_dipatch_section_files'){
 			$sql="select * FROM ft_files where `file_return` ='2'";
 			$query9	 = $this->db->query($sql);
@@ -44,6 +42,7 @@ class File_moniter_activity extends CI_Model {
 			$sectionid=null;
 			return total_work_by_officer_emp('list_of_all_files_deals_by_user',$empid,$sectionid);
 		}else{
+				
 				$tbl_files = FILES;
 				$this->db->select('*');
 				if(@$_GET['secid']==21){
@@ -57,16 +56,21 @@ class File_moniter_activity extends CI_Model {
 				if($status == 'received'){
 					//$where1 = "(file_hardcopy_status ='received')";
 					$where1 = "(file_hardcopy_status ='received' or file_hardcopy_status ='working')";
+					$where1 .= "and file_mark_section_id IN(".implode(',',$section_id).") ";
 				}else if($status == 'working'){
 					//$where1 = "(file_hardcopy_status ='working')";
 					$where1 = "(file_hardcopy_status ='received' or file_hardcopy_status ='working')";
+					$where1 .= "and file_mark_section_id IN(".implode(',',$section_id).") ";
 				}else if($status == '2' && $action=='dispetch'){
 					//echo 'add';
 					$where1 = "(file_hardcopy_status!='close')";
+					//$where1 .= "and file_mark_section_id IN(".implode(',',$section_id).") ";
 				}else if($status == '2' && $action=='dispose'){
 					$where1 = "(file_hardcopy_status = 'close')";
+					//$where1 .= "and file_mark_section_id IN(".implode(',',$section_id).") ";
 				}else{
-					$where1 = "file_hardcopy_status ='not'";
+					$where1 = "file_hardcopy_status ='not' ";
+					$where1 .= "and file_mark_section_id IN(".implode(',',$section_id).") ";
 					if($lvl=='section'){
 						$where1.="and file_received_emp_id not in($file_officer_ids)";
 					}else if($lvl=='officer'){
@@ -88,12 +92,16 @@ class File_moniter_activity extends CI_Model {
 						$this->db->where("file_hardcopy_status", $status);	
 					}
 				}else{
-
+				
 					if(@$_GET['secid']==21){
 						//$this->db->where(array('ps_moniter_date!='=>'','ps_moniter_date!='=>'0000-00-00'));
 						$where = "ps_moniter_date !='' && ps_moniter_date!='0000-00-00' AND file_received_emp_id='$empid' && file_hardcopy_status!='close'";
 					}else{
-                        $where = "file_mark_section_id IN(".implode(',',$section_id).") AND file_received_emp_id='$empid' && file_hardcopy_status!='close'";
+                        if(isset($_GET['secid'])){
+                            $where = "file_mark_section_id IN(".implode(',',$section_id).") AND file_received_emp_id='$empid' && file_hardcopy_status!='close'";
+                        }else{
+                            $where = "file_received_emp_id = '$empid' && file_hardcopy_status!='close'";
+                        }
 					}
 					$this->db->where($where);
 					if($status != null) {
@@ -106,15 +114,13 @@ class File_moniter_activity extends CI_Model {
 				if($s_date == null && $e_date != null){
 					$this->db->where("date(file_update_date) <= '$e_date'");
 				}
-				$this->db->order_by('file_id','desc');
+				$this->db->order_by('file_update_date','asc');
 				$query = $this->db->get($tbl_files);
 				$result = $query->result();
 				//pre($result);
-				//echo $this->db->last_query();
+				 //echo $this->db->last_query();
 				return $result;
 		}
-       // echo $this->db->last_query();
-
     }
 
 	public function getFiles_log($empid = null, $s_date = null, $e_date = null, $action = null,  $status = null)
@@ -185,7 +191,7 @@ class File_moniter_activity extends CI_Model {
 			$this->db->where("(date(file_created_date) >= '$s_date' && date(file_created_date) <= '$e_date')");
 		}
 		
-		$this->db->order_by('file_id','desc');
+		$this->db->order_by('file_update_date','asc');
 		$query = $this->db->get($tbl_files);
 		$result = $query->result();
 		//pre($result);

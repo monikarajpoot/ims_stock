@@ -72,25 +72,27 @@ foreach($Employee_lists_estab as $esta_emp){
 									foreach(explode(",",$empssection[0]['emp_section_id'])  as $empsec){ ?>
 										<option value="<?php echo $empsec ?>" <?php echo @$this->input->post('sections') == $empsec ? "selected" : false?>><?php echo getSection($empsec) ; ?></option>
 									<?php  }?>
+									<?php if(getEmployeeSection() != 1){ ?>
 										<option value="1" <?php echo @$this->input->post('sections') == '1' ? "selected" : false?>><?php echo getSection('1') ; ?></option>
-										<option value="8" <?php echo @$this->input->post('sections') == '8' ? "selected" : false?>><?php echo getSection('8') ; ?></option>
+									<?php } ?>
+									<option value="8" <?php echo @$this->input->post('sections') == '8' ? "selected" : false?>><?php echo getSection('8') ; ?></option>
 								
 								</select>
 								<?php echo form_error('sections');?>
 							</div>
-							<?php $cr_section_ids= get_cr_emp_id(1);?>
-							<?php if(in_array(emp_session_id(),$cr_section_ids['id_array'])){?>
-							<div class="col-xs-2" id="dis4_1" <?php echo @$this->input->post('search_type') == '1' ? "style='display: block'" : "style='display: none'"?>>
-								<?php $other_section=get_list_orderwise(SECTIONS,array('col'=>'section_name_en','order'=>'asc'),array('section_id !='=>1,'section_id !='=>26),null); ?>
+							<!--<?php// $cr_section_ids= get_cr_emp_id(1);?>
+							<?php// if(in_array(emp_session_id(),$cr_section_ids['id_array'])){?>
+							<div class="col-xs-2" id="dis4_1" <?php// echo @$this->input->post('search_type') == '1' ? "style='display: block'" : "style='display: none'"?>>
+								<?php// $other_section=get_list_orderwise(SECTIONS,array('col'=>'section_name_en','order'=>'asc'),array('section_id !='=>1,'section_id !='=>26),null); ?>
 								<select name="mark_sections" id="search_mark_sections" class="form-control">
 									<option value="">अन्य सेक्शन का चयन करें</option>
-									<?php foreach($other_section  as $empsec){ ?>
-										<option value="<?php echo $empsec['section_id'] ?>" <?php echo @$this->input->post('mark_sections') == $empsec['section_id'] ? "selected" : false?>><?php echo getSection($empsec['section_id']) ; ?></option>
-									<?php  }?>
+									<?php// foreach($other_section  as $empsec){ ?>
+										<option value="<?php// echo $empsec['section_id'] ?>" <?php// echo @$this->input->post('mark_sections') == $empsec['section_id'] ? "selected" : false?>><?php// echo getSection($empsec['section_id']) ; ?></option>
+									<?php // }?>
 								</select>
-								<?php echo form_error('mark_sections');?>
+								<?php// echo form_error('mark_sections');?>
 							</div>
-							<?php } ?>
+							<?php// } ?>-->
         <div class="col-xs-3" id="dis1" <?php echo @$this->input->post('search_type') != '5' && $this->input->post('search_type') != '9' && $this->input->post('search_type') != '10' && $this->input->post('search_type') != '7' && $this->input->post('search_type') != '4'  && $this->input->post('search_type') != '11' && $this->input->post('search_type') != '12' ? "style='display: block'" : "style='display: none'"?>>
                                 <input type="text"  name="search_value" id="search_value" value="<?php echo @$this->input->post('search_value') ? $this->input->post('search_value') : ''  ?>" autocomplete="off" placeholder="Put Value"  class="form-control">
                                 <?php echo form_error('search_value');?>

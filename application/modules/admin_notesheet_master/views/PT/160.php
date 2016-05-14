@@ -110,29 +110,11 @@ $contents .= ' का अवलोकन कीजिए| </p></td></tr>';
 
 $contents .='<tr><td><p>प्रशासकीय विभाग ने विषयांकित प्रकरण में  ';
 if($is_genrate == true){
-	$contents .= ' '.$post_data['court_type_1'].', ';
-	$contents .= ' '.$post_data['court_location_1'];
+	$contents .= ' '.$post_data['court_type'].', ';
+	$contents .= ' '.$post_data['court_location'];
 } else {
-	$contents .= ' <select name="court_type_1" class="court_type">';
-	foreach($court_type as $row){
-		if(($emp_allot_seet == 1 && $row == 'मान0  उच्च न्यायालय' ) || ($emp_allot_seet == 2 && $row == 'मान0 उच्च न्यायालय खण्डपीठ' ) || ($emp_allot_seet == 3 && $row == 'मान0 उच्च न्यायालय खण्डपीठ' )  )
-		{
-			$contents .= '<option value="'.$row.'" selected>'.$row.'</option>';
-		}else{
-			$contents .= '<option value="'.$row.'">'.$row.'</option>';
-		}
-	}
-	$contents .= '</select>';
-	$contents .= ' <select name="court_location_1" class="court_location">';
-	foreach($court_location as $row){
-		if(($emp_allot_seet == 1 && $row == 'जबलपुर, मध्यप्रदेश' ) || ($emp_allot_seet == 2 && $row == 'ग्वालियर, मध्यप्रदेश' ) || ($emp_allot_seet == 3 && $row == 'इंदौर, मध्यप्रदेश' )  ){
-			$contents .= '<option value="'.$row.'" selected>'.$row.'</option>';
-		}
-		else{
-			$contents .= '<option value="'.$row.'">'.$row.'</option>';
-		}
-	}
-	$contents .= '</select>';
+	$contents .= ' ----------, ';
+	$contents .= ' ----------';
 }
 
 $contents .=' द्वारा पारित आदेश दिनांक  ';
@@ -143,10 +125,10 @@ $contents .= ' <input type="text" class="date1" name="date6" placeholder="dd/mm/
 } 
 $contents .= ' के विरूद्ध  ';
 if($is_genrate == true){
-	$contents .= ' '.$post_data['court_type'];
-	$contents .= ' '.$post_data['court_location'];
+	$contents .= ' '.$post_data['court_type1'];
+	$contents .= ' '.$post_data['court_location1'];
 } else {
-	$contents .= ' <select name="court_type" class="court_type">';
+	$contents .= ' <select name="court_type1" class="court_type">';
 	foreach($court_type as $row){
 		if(($emp_allot_seet == 1 && $row == 'मान0  उच्च न्यायालय' ) || ($emp_allot_seet == 2 && $row == 'मान0 उच्च न्यायालय खण्डपीठ' ) || ($emp_allot_seet == 3 && $row == 'मान0 उच्च न्यायालय खण्डपीठ' )  )
 		{
@@ -156,7 +138,7 @@ if($is_genrate == true){
 		}
 	}
 	$contents .= '</select>';
-	$contents .= ' <select name="court_location" class="court_location">';
+	$contents .= ' <select name="court_location1" class="court_location">';
 	foreach($court_location as $row){
 		if(($emp_allot_seet == 1 && $row == 'जबलपुर, मध्यप्रदेश' ) || ($emp_allot_seet == 2 && $row == 'ग्वालियर, मध्यप्रदेश' ) || ($emp_allot_seet == 3 && $row == 'इंदौर, मध्यप्रदेश' )  ){
 			$contents .= '<option value="'.$row.'" selected>'.$row.'</option>';
@@ -280,7 +262,7 @@ $avadhi_date =  date('Y-m-d',strtotime($file_judgment_date1.' +90 days'));
 $file_mark_section_date_diff =  date('Y-m-d',strtotime($file_mark_section_date));
 $days_delay = day_difference_dates($avadhi_date, $file_mark_section_date_diff);
 if($is_genrate == true){
-	$contents .=  ' <b>'.get_date_formate($post_data['date7'],'d/m/Y').'</b>';
+	$contents .=  ' <b>'.$post_data['date7'].'</b>';
 }else{	
 	$contents .= ' <input type="text" class="date1" name="date7" placeholder="dd/mm/yyyy" value="'.$avadhi.'"/>';
 }

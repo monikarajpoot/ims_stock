@@ -577,6 +577,7 @@ function advocate_posttype_array($key = ''){
 							'pra'=>'प्राइवेट अधिवक्ता ' ,
 							'loa'=>'लोकायुक्त अधिवक्ता' ,
 							'eow'=>'EOW अधिवक्ता ' ,
+							'ma'=>'माध्यस्थम  अधिवक्ता ' ,
 							);
 					if($key != ''){
 						if(array_key_exists($key ,$advocate_post )){

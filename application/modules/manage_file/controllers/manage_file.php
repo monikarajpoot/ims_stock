@@ -161,6 +161,7 @@ class Manage_file extends MX_Controller {
     public function return_file()
     {
         $file_id = $this->input->post('fileids');
+        $ps_mark_file   = $this->input->post('ps_file_mark');
         $filedetails =  getFileDetails($file_id);
         $empdetails = empdetails(emp_session_id());
         $empdetails_m = empdetails($this->input->post('emp_id'));
@@ -225,7 +226,10 @@ class Manage_file extends MX_Controller {
 			'file_status' => isset($f_status_s)?$f_status_s:$filedetails->file_status  ,
             );
         }
-        $checkUserdesignation = checkUserdesignation();		
+        if(isset($ps_mark_file) && $ps_mark_file != '') {
+            $file_data['ps_mark_file'] = isset($ps_mark_file) ? $ps_mark_file : null;
+        }
+        $checkUserdesignation = checkUserdesignation();
 		$psmonitdate = '';
         if(isset($ps_moniter_date) && $this->input->post('ps_moniter_date') != ''){
         $psmonitdate = "( पी .एस. मॉनिटर दिनांक : ".date('d-m-Y',strtotime($this->input->post('ps_moniter_date')))." )";  }
@@ -633,7 +637,7 @@ class Manage_file extends MX_Controller {
             'file_hardcopy_status' => 'close',
             'file_update_date' => date('Y-m-d H:i:s'),
         );
-
+		/*
 		//  add id on scan id col in file table and generate pdf
         if($drafts != null || $drafts != 0){
             $orders = get_draft($drafts, 'n', true, true);  // get all orders from lists
@@ -675,7 +679,7 @@ class Manage_file extends MX_Controller {
             }
         }
 		// end of add id on scan id col in file table and generate pdf 
-		
+		*/
 	    $mobile_no =  $this->input->post('mobile_number') ;
 
         $file_data_log11 = array(
@@ -770,7 +774,7 @@ class Manage_file extends MX_Controller {
             'section_id' => $filedetails->file_mark_section_id,
             'to_emp_id' => emp_session_id(),
             'from_emp_id' => emp_session_id(),
-            'flog_other_remark' => $this->input->post('filedis_msg') .', File is Successfully Dispose by '.$dispatchno,
+            'flog_other_remark' => $this->input->post('filedis_msg') .', File is Successfully Disposed.', //$dispatchno
             'flog_ip_address' => gethostbyname(gethostbyaddr($_SERVER['REMOTE_ADDR'])),
             'flog_browser_id' => $_SERVER['HTTP_USER_AGENT'],
             'fvlm_id' => '1', // 1 for close file 
@@ -1102,7 +1106,7 @@ class Manage_file extends MX_Controller {
                 'to_emp_id' => $filedetails->createfile_empid,
                 'from_emp_id' => $filedetails->file_received_emp_id,
                // 'flog_other_remark' => $this->input->post('rmk1')."File return to CR",
-				'flog_other_remark' => $this->input->post('file_remark')." ,File return to CR",              
+				'flog_other_remark' => $this->input->post('file_remark')."  , यह फाइल अवाक शाखा को वापस की गई |",              
 			  'flog_ip_address' => gethostbyname(gethostbyaddr($_SERVER['REMOTE_ADDR'])),
                 'flog_browser_id' => $_SERVER['HTTP_USER_AGENT'],
                 'sublogin' => $this->session->userdata('emp_id'),
@@ -1356,7 +1360,6 @@ if($this->input->post('physical_file'))
         }else{
             redirect($_SERVER['HTTP_REFERER']);
         }
-
     }
 	public function ajax_file_reopen()
     {
@@ -1425,4 +1428,141 @@ if($this->input->post('physical_file'))
          
     }
 	
+	public function multiple_file_receive_sectionno($fileids = '')
+    {
+        if($fileids !='') {
+			foreach($fileids as $fileid){			
+			//pr($fileid);
+				$rrty = $_SERVER['HTTP_REFERER'];
+				$rty1 = explode("/",$rrty);
+				$empdetails =  empdetails(emp_session_id());			
+				$filedetails =  getFileDetails($fileid);			
+				if($empdetails[0]['role_id'] == 8 || in_array("today",$rty1) || $empdetails[0]['role_id'] == 37 || $empdetails[0]['role_id'] == 14 || $empdetails[0]['role_id'] == 15 || $filedetails->file_mark_section_id == '7') //this condition only for section officer .
+				{               
+					$sectionid2 = $filedetails->file_mark_section_id;                
+					$check_sec = getfilesec_id_byfileid($filedetails->file_id,$filedetails->file_mark_section_id);
+					if(!isset($check_sec) && $check_sec == null)
+					{
+						$sectionno = $this->manage_model->plusone_fileno($filedetails->file_mark_section_id);
+						if ($sectionno != 0) {  $section_number = $sectionno; } else {  $section_number = '1'; }
+						$file_section = array(
+							'section_id' => $filedetails->file_mark_section_id,
+						  //  'section_id' => $sectionid2,
+							'section_number' => $section_number,
+							'file_id'       => $fileid,  
+							'file_type'   => $filedetails->file_type,
+							'file_mark_date' => date('Y-m-d H:i:s'),
+							'file_created_date' => date('Y-m-d H:i:s'),
+							'file_update_date' => date('Y-m-d H:i:s'),
+						);		
+					}
+				}
+				$carry_empname = '';           			
+				$f_status_s=$filedetails->file_status;
+				$res = filereceive_byofficer($fileid,$carry_empname,$sectionid2,$f_status_s);
+				if($res)
+				{
+					if($empdetails[0]['role_id'] == 8  || in_array("today",$rty1) || $empdetails[0]['role_id'] == 37 || $empdetails[0]['role_id'] == 14 || $empdetails[0]['role_id'] == 15 || $filedetails->file_mark_section_id == '7') {
+						if(!isset($check_sec) && $check_sec == null) {
+							insertData($file_section, FILES_SECTION);						
+						}
+					}
+									
+				}
+			}
+			return $res;
+        }else{
+			return false;
+		}
+    }
+	public function multi_file_receive_sectionno_mark_da($fileids,$Da_name_id)
+    {
+		if($fileids !='') {
+			foreach($fileids as $fileid)
+			{				
+				echo $fileid;
+				$rrty = $_SERVER['HTTP_REFERER'];
+				$rty1 = explode("/",$rrty);
+				$empdetails =  empdetails(emp_session_id());				
+				$filedetails =  getFileDetails($fileid);
+				if($empdetails[0]['role_id'] == 8 || in_array("today",$rty1) || $empdetails[0]['role_id'] == 37 || $empdetails[0]['role_id'] == 14 || $empdetails[0]['role_id'] == 15) //this condition only for section officer .
+				{
+					$check_sec = getfilesec_id_byfileid($filedetails->file_id,$filedetails->file_mark_section_id,$filedetails->file_type);
+					if(!isset($check_sec) && $check_sec == null)
+					{
+						$sectionno = $this->manage_model->plusone_fileno($filedetails->file_mark_section_id);
+						if ($sectionno != 0) {  $section_number = $sectionno; } else {  $section_number = '1'; }
+						$file_section = array(
+							'section_id' => $filedetails->file_mark_section_id,
+							'section_number' => $section_number,
+							'file_id'       => $fileid,
+							'file_type'   => $filedetails->file_type,
+							'file_mark_date' => date('Y-m-d H:i:s'),
+							'file_created_date' => date('Y-m-d H:i:s'),
+							'file_update_date' => date('Y-m-d H:i:s'),
+						);
+					}
+				}           
+				$carry_empname = '';
+				//pre($filedetails);
+				$file_status =$filedetails->file_status;
+				//echo 'bok-'.$fileid.'==='.$carry_empname.'--'.$file_status;
+				//echo '<br/>';
+				$res = filereceive_byofficer($fileid,$carry_empname,'',$file_status);
+				//pr($res);
+				//echo $res;die;
+				if($res)
+				{
+					if($empdetails[0]['role_id'] == 8  || in_array("today",$rty1) || $empdetails[0]['role_id'] == 37 || $empdetails[0]['role_id'] == 14 || $empdetails[0]['role_id'] == 15) {
+						if(!isset($check_sec) && $check_sec == null) {
+							insertData($file_section, FILES_SECTION);
+								$m_empdetails = empdetails($Da_name_id); // marked emp
+								$p_empdetails = empdetails(emp_session_id()); // login emp
+								$file_data = array(
+									'file_received_emp_id' =>$Da_name_id,
+									'file_sender_emp_id' => emp_session_id(),
+									'file_progress_status_id' => '22', // File/Letter is sending to Dealing Assistant . (remark_master)
+									'file_hardcopy_status' => 'not', // only two value will be save received/not
+									'file_level_id' => '30',                               
+								);
+								$filelog_data = array(
+									'file_id'       => $fileid,
+									'section_id'    => $filedetails->file_mark_section_id,
+									'to_emp_id'     => $Da_name_id,
+									'from_emp_id'   => emp_session_id(),
+									'flog_remark'   => 'File/Letter is send to Dealing Assistant',                               
+									'flog_ip_address'   => gethostbyname(gethostbyaddr($_SERVER['REMOTE_ADDR'])),
+									'flog_browser_id'   => $_SERVER['HTTP_USER_AGENT'],
+									'emp_degignation_id' => checkUserdesignation()	,									
+								);
+
+								$form_data_move1 = array(
+									'fmove_file_id'  => $fileid,
+									'fmove_current_user_id'     => $Da_name_id,
+									'fmove_previous_user_id'    => emp_session_id(),
+									'fmove_to_unit_id'          => getunitid($m_empdetails[0]['role_id'])==''?0:getunitid($m_empdetails[0]['role_id']),
+									'fmove_from_unit_id'        => getunitid($p_empdetails[0]['role_id'])==''?0:getunitid($p_empdetails[0]['role_id']),
+									'file_return'            => $filedetails->file_return,
+								);
+								$res1 = updateData(FILES, $file_data, array('file_id' => $fileid));
+								if ($res1) {
+									insertData($filelog_data, FILES_LOG);
+									insertData($form_data_move1, FILES_MOVEMENT);
+									//$this->session->set_flashdata('message', '<span style="font-size: 18px">'.emp_gender($m_empdetails[0]['emp_id']).' '.$m_empdetails[0]['emp_full_name_hi'].'  को अंकित की गई है , जिसका   <b><u>पंजी क्रमांक : '. $section_number .'</u> है |</b></span><span style="float:right">File id : ' . $fileid . '</span>');
+								}
+						}else{
+								echo modules::run('view_file/dealing_file/multi_file_sent_to_da',$fileid,$Da_name_id,$filedetails->file_mark_section_id,$filedetails->file_status);
+								//multi_file_sent_to_da($file_id,$mark_emp_id,$section_id,$f_status_s)
+						
+						}
+						
+					}
+				}
+			}
+			//return $fileid;
+        }else{
+            return false;
+        }
+
+    }
 }

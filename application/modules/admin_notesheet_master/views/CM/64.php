@@ -35,10 +35,11 @@ $contents .= ' , को प्रेषित विचाराधीन';
 $contents .= ' पत्र के संदर्भ में वकालतनामा व प्रतिरक्षण के लिए आदेश जारी किया जाना उचित होगा । </td></tr>';
 $contents .= '<tr><td align="left" colspan="2"><p class="shift-left">अनुमोदित होने पर वकालतनामा व आदेश की प्रतिलिपि हस्ताक्षर प्रस्तुत है ।';
 $contents .= ' </p></td></tr>';
-
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td colspan="2"><div><u>अनु. अधि. (आप.) </u> </div><br/><br/><br/></td></tr>';
 $contents .= '<tr><td colspan="2"><div><u>अवर सचिव (आप.) </u> </div><br/><br/><br/></td></tr>';
 $contents .= '<tr><td colspan="2"><div><u>अति. सचिव (आप.)  </u> </div></td></tr>';
+}
 $contents .= '<tr><td colspan="2"><br /><br/><br/><div  style="text-align:justify" ></div><br/></td></tr>';
 
 ?>

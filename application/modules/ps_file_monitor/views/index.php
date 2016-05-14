@@ -65,8 +65,8 @@
                     <th><?php echo $this->lang->line('view_file_uo_letter_date'); ?></th>
 
                     <th><?php echo $this->lang->line('view_file_mark_section_id'); ?></th>
-                    <th>प्रतिक्रिया  तारीख</th>
-                    <th>मॉनिटर निशान तारीख</th>
+                    <th>मॉनिटर निशान दिनांक</th>
+                    <th>प्रतिक्रिया  दिनांक</th>
                     <th class="no-print"><?php echo $this->lang->line('date'); ?></th>
                     <th class="no-print"><?php echo $this->lang->line('filestatus'); ?></th>
                     <th class="no-print">कार्यवाही</th>
@@ -110,8 +110,8 @@
 							<td><?php echo date_format(date_create($files->file_uo_or_letter_date), 'd/m/y'); ?></td>
                        
 							<td><?php echo @getSection($files->file_mark_section_id) ? getSection($files->file_mark_section_id) : 'N/A'; ?></td>
-							<td><b title="Monitor date"><?php echo date_format(date_create($files->ps_moniter_date), 'd/m/y'); ?></b></td>
 							<td title="Mark monitor date"><?php echo date_format(date_create($files->ps_mark_monitor_date), 'd/m/y'); ?></td>
+							<td><b title="Monitor date"><?php echo date_format(date_create($files->ps_moniter_date), 'd/m/y'); ?></b></td>
 							<td class="no-print"><?php echo date_format(date_create($files->file_update_date), 'd/m/y'); ?>
 								(<?php if($files->file_hardcopy_status == 'not'){ echo $this->lang->line('mark_date');} else { echo $this->lang->line('received_date');} ?>)
 							</td>

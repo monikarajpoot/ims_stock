@@ -29,16 +29,16 @@ $contents .= $file_department;
 $contents .= ' की नस्ती का अवलोकन करें।</p></td></tr>';
 $contents .= '<tr><td><p>उपरोक्त विषयांकित प्रकरण में प्रशासकीय विभाग ने  नेशनल  ग्रीन  ट्रीब्युनल सेन्ट्रल जोन भोपाल में शासन की ओर से पक्ष-समर्थन करने हेतु नस्ती इस विभाग को प्रेषित की है। नेशनल ग्रीन  ट्रीब्युनल सेन्ट्रल जोन भोपाल में शासन की ओर से पक्ष समर्थन करने हेतु ';
 if($is_genrate == true){ 
-    $contents .=  @$post_data['name2'];
+    $contents .=  '<b>'.@$post_data['name2'].'</b>';
 } else {
     $contents .= '<input type="text" class="" name="name2" /></div>';
 }
 $contents .= ' अधिवक्ता नियुक्त है ।</p></td></tr>';
 $contents .= '<tr><td><p>उपरोक्त विषयांकित प्रकरण में मध्यप्रेश शासन की ओर से पक्ष-समर्थन करने हेतु ';
 if($is_genrate == true){ 
-    $contents .=  @$post_data['name2'];
+    $contents .=  '<b>'.@$post_data['name2'].'</b>';
 } else {
-    $contents .= '<input type="text" class="" name="name2" /></div>';
+    $contents .= '------------';
 }
 $contents .= ' अधिवक्ता की नियुक्ति शासन द्वारा प्रचलित नियमों के अनुसार उनके फीस का भुगतान प्रशासकीय विभाग द्वारा किये जाने का उल्लेख करते हुये नियुक्त किया जाना उचित होगा।</p></td></tr>';
 if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){

@@ -42,6 +42,11 @@ $contents .= '<tr><td class="style2" colspan="2">&nbsp;</td>';
 $contents .= '<tr><td></td><td><br> उपरोक्त प्रकरण में मध्यप्रदेश राज्य की ओर से प्रतिरक्षण करें और की गई कार्यवाही से विभाग को सूचित करें । <br><br></td></tr>';
 $contents .= '<tr><td></td><td align="left"><b><u>संलग्न दस्तावेज:-</u></b><br>1-वकालतनामा</td></tr>';
 $contents .= '<tr><td colspan="2">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('secetroy')); 

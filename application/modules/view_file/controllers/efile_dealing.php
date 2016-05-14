@@ -8,6 +8,7 @@ class Efile_dealing extends MX_Controller{
     }	
 	public function multi_file_sent_to_da($file_id,$mark_emp_id,$section_id,$f_status_s,$draft_log_id,$loggined_in_userId)
     {
+		$f_status_s = safe_b64decode($f_status_s);
         $file_dt =  getFileDetails($file_id);
         $m_empdetails = empdetails($mark_emp_id); // marked emp		
         $p_empdetails = empdetails($loggined_in_userId); // login emp

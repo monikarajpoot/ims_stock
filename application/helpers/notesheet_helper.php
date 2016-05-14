@@ -1,17 +1,23 @@
 <?php
-function get_officer_for_sign($name , $designation = null, $language = null ,$us_id = null)
+function get_officer_for_sign($name , $designation = null, $language = null ,$us_id = null, $attr = null)
 {
-
 	$CI = & get_instance();
 	//$CI->db->select('emp_full_name_hi');
 	$CI->db->where('emp_status',1);
-	$CI->db->where('designation_id',$designation);
+	if(is_array($designation)){
+		//$designation = implode(',',$designation);
+		$CI->db->where_in('designation_id', $designation);
+	}else {
+		$CI->db->where('designation_id',$designation);
+	}
 	$CI->db->where('emp_is_retired',0);
+	$CI->db->order_by('designation_id','desc');
 	$query = $CI->db->get(EMPLOYEES);
+	//echo $CI->db->last_query();
 	$results = $query->result();
-	$dropdown = '<select name="'.$name.'" class="'.$name.'" id="'.$name.'">'."\n";
+	$dropdown = '<select name="'.$name.'" class="'.$name.'" id="'.$name.'"  '.$attr.' >'."\n";
 	$selected = '';
-	$dropdown .= "<option value=''> --Select-- </option>";
+	$dropdown .= '<option value = "" > --Select-- </option>';
 	//pre($results );
 	foreach($results as $result){
 		$selected = '';

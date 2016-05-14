@@ -42,7 +42,7 @@ $files_user = $this->input->post('files_user') != '' ? $this->input->post('files
                                     <option value="">Select Month</option>
 							<?php $i = '01';
 							foreach(all_month() as $i => $months) { ?>
-								<option value="<?php echo $i ; ?>" <?php echo $files_month == $i ? 'selected' : ''; ?>><?php echo $months ;?></option>
+								<option value="<?php echo $i ; ?>" <?php echo $files_month == $i ? 'selected' : ''; ?>><?php echo $months ;?> <?php echo $files_month == $i ? '(All File View)' : false; ?></option>
 							<?php $i++; } ?>
 							</select>
 						</div>
@@ -194,7 +194,9 @@ $files_user = $this->input->post('files_user') != '' ? $this->input->post('files
                                         if($checkrole == 9 && $files->file_mark_section_id != '' && $files->file_mark_section_id != '100'){ ?>
                                             <a  onclick="return confirm('Are you sure you want Mark this file without Added any Pdf')"  href="<?php echo base_url(); ?>scan_files/file_direct_mark/<?php echo $files->file_id ; ?>"><button value=""  class="btn btn-block btn-sm btn-twitter" data-toggle="tooltip" data-original-title="Send to officer">File Direct Mark</button></a>
                                         <?php   } ?>
-
+									<?php if (enable_dispose('csu') == true ){  ?>
+											<button onclick="open_model_dispose(<?php echo $files->file_id; ?>)" class="btn btn-sm btn-block btn-danger rty1" value="<?php echo $files->file_id; ?>" data-toggle="tooltip" data-original-title="Dispose in section"><i class="fa fa-sort-down"></i> नस्ती को बंद करें</button>
+										<?php  } ?>
                               <?php } ?>
                             </td>
                         </tr>
@@ -219,6 +221,13 @@ function open_model_cr(file){
 	$('#modal-return_to_cr').modal('show');
 	$('#cr_return').val(file5);
 	$('#form_submit_cr').attr('action','<?php echo base_url()?>manage_file/reject_crto_section/'+file5);
+}
+
+//for section dipose by CR
+function open_model_dispose(file){
+	var file_dis = file;
+	$('#modal-dis').val(file_dis);
+	$('#modal-dispose_file').modal('show');
 }
 /*
 //year select
@@ -275,3 +284,35 @@ $(function () {
     </div>
 </div>
 <!--End-->
+
+<!-- Model for dispose file in section -->
+<div class="modal fade" id="modal-dispose_file" data-backdrop="static">
+    <div class="modal-dialog">
+        <form action="<?php echo base_url() ;?>manage_file/dispatch_for_close_byso" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-fw fa-edit"></i> Enter Remark </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body table-responsive">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input type="hidden" id="modal-dis" name="filedis_id">                                    
+                                    <div class="form-group">
+                                    <textarea class="form-control" rows="3" placeholder="आप फाइल को Dispose क्यूँ करना चाहते है कृपया जरुर लिखें|" id="modal-id" name="filedis_msg" required>यह फाइल CR-  से पुनः दर्ज हो गयी है|</textarea>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                    <button id="btn-delete" type="submit" class="btn btn-primary send_btn"><i class="fa fa-check"></i> Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

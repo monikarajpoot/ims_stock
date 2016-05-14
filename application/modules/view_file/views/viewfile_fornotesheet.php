@@ -2,12 +2,15 @@
 <?php
 $file_from = file_from_type();
 $high_bench =  highcourt_bench();
+$emp_section = explode(',',$this->session->userdata('emp_section_id'));
+$sub_sec_file_type = $this->input->get('sstype') != '' ? $this->input->get('sstype') : '';
 ?>
 <?php if($this->uri->segment(1)=='efile' && $this->uri->segment(2)!=''){ /*this is use for view e-file*/ ?>
 <?php }else{ ?>
     <section class="content-header">
         <h1>
             <?php echo $title; ?>
+            <?php echo $sub_sec_file_type != '' ? '('.get_civil_file_type($sub_sec_file_type).')' : ''; ?>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -24,6 +27,14 @@ $high_bench =  highcourt_bench();
                 <div class="box-header">
                     <div style="float:left"><h3 class="box-title"><?php echo $title_tab;?></h3></div>
                     <div style="float:right">
+					<?php if(in_array(2,$emp_section) || in_array(10,$emp_section)) {?>
+					<select  id="section_file_type_ddl" name="section_file_type_ddl" class="form-control btn btn-sm btn-info " style="width:150px;font-size:16px;text-align:left">
+						<option value="">फ़ाइल के प्रकार का चयन करें</option>
+							<?php foreach(get_civil_file_type() as $ky => $dname){ ?>
+								<option value="<?php echo $ky; ?>" <?php echo ($sub_sec_file_type != '' && $ky == $sub_sec_file_type) ? 'selected' : ''; ?>><?php echo $dname; ?> </option>				
+							<?php } ?>
+					</select> 
+					<?php } ?>
                         <!--<button class="btn btn-block btn-info"><?php echo $this->lang->line('view_file_mark');?></button>-->
                         <button onclick="printContents('divname')" class="btn btn-primary no-print">Print</button>
                         <button class="btn btn-warning" onclick="goBack()" data-toggle="tooltip" data-original-title="Back"><?php echo $this->lang->line('Back_button_label'); ?></button>
@@ -75,7 +86,11 @@ $high_bench =  highcourt_bench();
                                 </td>
                                 <td><?php echo $files->file_uo_or_letter_no; ?> (<?php echo getFileType($files->file_type) ;?>)</td>
                                 <td><?php echo date_format(date_create($files->file_uo_or_letter_date), 'd/m/y'); ?></td>
-                                <td><span class="label label-success" title="शाखा पंजी क्र."><?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);?></span></td>
+                                <td style="font-size:18px;">
+									<a href="<?php echo base_url()."view_file/viewdetails/".$files->file_id ;?>" data-toggle="tooltip" data-original-title="View details">
+									<span class="label label-success" title="शाखा पंजी क्र."><?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);?></span>
+									</a>
+									</td>
                                 <td><?php echo getSection($files->file_mark_section_id); ?></td>
                                 <td><?php
                                     if(isset($files->file_Offer_by )){
@@ -110,7 +125,7 @@ $high_bench =  highcourt_bench();
                                     {
 										
                                         $is_draft_detail=null;
-                                        $is_draft_detail = is_notehseet_finalized($files->file_id,emp_session_id(),null,'loggedin_usr_draf_added');
+                                        $is_draft_detail = is_notehseet_finalized($files->file_id,emp_session_id(),null,'loggedin_usr_draf_added',true);
                                         $senderemp = empdetails($files->file_received_emp_id);
                                         $efile = show_efile_section(getEmployeeSection());
 
@@ -135,7 +150,7 @@ $high_bench =  highcourt_bench();
                                         }
                                        // echo   ($files->file_hardcopy_status == 'working' || $files->file_hardcopy_status == 'received' ) && emp_session_id() == $files->file_received_emp_id  && $files->file_return == '1' ? '<a onclick="return confirm_send()" href="'.base_url().'manage_file/dispatch_file_byso/'.$files->file_id.'" class="btn btn-block btn-sm btn-instagram rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Send to Dispatch">जावक शाखा में भेजें</a> ' : false;
 
-										echo   ($files->file_hardcopy_status == 'working' || $files->file_hardcopy_status == 'received' ) && emp_session_id() == $files->file_received_emp_id  && $files->file_return == '1' ? '<a onclick="send_despetch_section('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" class="btn btn-sm btn-success btn-block rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Send to Dispatch">जावक शाखा में भेजें</a> ' : false;
+										echo   ($files->file_hardcopy_status == 'working' || $files->file_hardcopy_status == 'received' ) && emp_session_id() == $files->file_received_emp_id ? '<a onclick="send_despetch_section('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" class="btn btn-sm btn-success btn-block rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Send to Dispatch">जावक शाखा में भेजें</a> ' : false; // && $files->file_return == '1' 
                                         echo   $files->file_hardcopy_status != 'not' && emp_session_id() == $files->file_received_emp_id   ? '<button onclick="open_model_dispose('.$files->file_id.')" class="btn btn-sm btn-block btn-danger rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Dispose in section"><i class="fa fa-sort-down"></i> शाखा में Dispose</button> ' : false;
                                         //for S.O. on leave sent to direct officer
                                         if((isset($is_draft_detail['draft_status']) && ($is_draft_detail['draft_status']==3 || $is_draft_detail['draft_status']==2)) || (($this->uri->segment(1)=='view_file'|| $this->uri->segment(1)=='attached') && strtolower($files->file_status)=='p')){
@@ -153,6 +168,7 @@ $high_bench =  highcourt_bench();
                                             echo '<a href="'.base_url().'e-files/inbox#'.$files->file_subject.'" class="badge bg-light-blue" >अंकित ई-फ़ाइलें (Inbox)</a>पर कार्यवाही करें !' ;
                                         }
                                     }
+									echo ($files->file_hardcopy_status == 'received' || $files->file_hardcopy_status == 'working' ) && emp_session_id() == $files->file_received_emp_id ? '<button type="button" class="btn btn-sm btn-primary btn-block remarkbtn_model" data-file_id="'.$files->file_id.'" data-toggle="modal" data-target="#remarkmodel_all_section" data-toggle="tooltip" data-original-title="Add to remark">रिमार्क जोड़े</button> ' : false;
                                     ?>
                                 </td>
                             </tr>

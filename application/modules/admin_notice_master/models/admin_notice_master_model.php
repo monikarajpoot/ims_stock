@@ -7,6 +7,8 @@ class Admin_notice_master_model extends CI_Model {
     }
     public function fetchnoticebyid($noticeid='')
     {
+		$login_user_role = checkUserrole();
+		$login_user_section = getEmployeeSection();	
         $tbl_notice = NOTICE_BOARD;
         $tbl_notice_type = NOTICE_BOARD_TYPE;
         $tbl_section = SECTIONS;
@@ -16,8 +18,11 @@ class Admin_notice_master_model extends CI_Model {
         $this->db->join($tbl_section, "$tbl_notice.notice_section_id = $tbl_section.section_id",'left');
         $trash_status = '0';
         if($noticeid){
-        $this->db->where("$tbl_notice.notice_id", $noticeid);
-        }
+			$this->db->where("$tbl_notice.notice_id", $noticeid);
+        }else if($login_user_role=='37' && $login_emp_section='7,25'){  /*IT SO incharge */
+			$this->db->where("$tbl_notice.emp_id",$this->session->userdata("emp_id"));
+			
+		}
         $this->db->where("$tbl_notice.notice_trash", $trash_status);
 		$this->db->order_by('notice_id','DESC');
         $query = $this->db->get();

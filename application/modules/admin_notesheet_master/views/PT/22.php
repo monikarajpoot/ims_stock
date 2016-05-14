@@ -36,7 +36,7 @@ if($is_genrate == true){
     $contents .=  ' '.getSection($post_data['section']);
 } else {
 	$contents .= ' <select name="section" class="section">';
-	$sections = get_list(SECTIONS,'','');
+	$sections .= get_list(SECTIONS,'','');
 	foreach($sections as $row){
 		$contents .= '<option value="'.$row['section_id'].'">'.$row['section_name_hi'].'('.$row['section_name_en'].')</option>';
 	}

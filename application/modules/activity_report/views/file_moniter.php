@@ -6,7 +6,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><?php echo $title; ?></li>
+        <li class="active"><?php echo $title; $checkUserrole = checkUserrole(); ?></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -68,20 +68,21 @@
                     <tbody>
                     <?php $i=1; foreach ($get_files as $key => $files) { 
 					$diff=date_diff(date_create($files->file_update_date),date_create(date("Y-m-d")));
-                                $checkdate = $diff->format("%a");?>
+					$diff=date_diff(date_create($files->file_update_date),date_create(date("Y-m-d")));
+                             $checkdate = $diff->format("%a") ;?>
                         <?php
 							//echo $files->file_hardcopy_status.'->'.$files->file_return;
-                            if(checkUserrole() == 3 &&  $files->ps_moniter_date == '' ){}
-                            else if(checkUserrole() == 3 && match_date_from_current($files->ps_moniter_date) == 1 && $files->file_hardcopy_status!='close' && $files->file_return!=2)
+                            if($checkUserrole == 3 &&  $files->ps_moniter_date == '' ){}
+                            else if($checkUserrole == 3 && match_date_from_current($files->ps_moniter_date) == 1 && $files->file_hardcopy_status!='close' && $files->file_return!=2)
                                 { $bgcolor= "background-color:rgb(236, 202, 202);color:#000 !important;"; }
-                            else if(checkUserrole() == 3 && match_date_from_current($files->ps_moniter_date) == 2 && $files->file_hardcopy_status!='close' && $files->file_return!=2)
+                            else if($checkUserrole == 3 && match_date_from_current($files->ps_moniter_date) == 2 && $files->file_hardcopy_status!='close' && $files->file_return!=2)
                                 { $bgcolor="background-color:#f48a44;color:#000;color:#000 !important;"; }
-                            else if(checkUserrole() == 3 && match_date_from_current($files->ps_moniter_date) == 3 && $files->file_hardcopy_status!='close' && $files->file_return!=2 )
+                            else if($checkUserrole == 3 && match_date_from_current($files->ps_moniter_date) == 3 && $files->file_hardcopy_status!='close' && $files->file_return!=2 )
                                 { $bgcolor="background-color:#70DB70;color:#000 !important;";}?>
                         <tr <?php
-                                if($checkdate >= '3' && $checkdate <= '7' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='background-color:#FBFBDE' data-toggle='tooltip' data-original-title='३ दिन से अधिक विलंब'";
-                                } else if($checkdate >= '7' && $checkdate <= '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='background-color:#FFE7BA' data-toggle='tooltip' data-original-title='७ दिन से अधिक विलंब'";
-                                } else if($checkdate >= '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='background-color:#FFA4A4' data-toggle='tooltip' data-original-title='१० दिन से अधिक विलंब'";}
+                                if($checkdate >= '3' && $checkdate <= '7' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='cursor:pointer;background-color:#FBFBDE' data-toggle='tooltip' data-original-title='३ दिन से अधिक विलंब'";
+                                } else if($checkdate >= '7' && $checkdate < '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='cursor:pointer;background-color:#FFE7BA' data-toggle='tooltip' data-original-title='७ दिन से अधिक विलंब'";
+                                } else if($checkdate >= '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='cursor:pointer; background-color:#FFA4A4' data-toggle='tooltip' data-original-title='१० दिन से अधिक विलंब'";}
                                 ?>
 						onClick="showcomp(<?php echo $files->file_id; ; ?>)" data-toggle="tooltip" data-original-title="Click to view in detail" style="cursor:pointer;<?php echo isset($bgcolor)?$bgcolor:''; ?>">
                         <td><?php echo $i;?> <span style="display:none">(<?php echo $this->lang->line('file_no'); ?> : <?php echo $files->file_id;?>)</span></td>
@@ -97,17 +98,18 @@
                         <td><b class="blink_fast"><?php echo date_format(date_create($files->ps_moniter_date), 'd/m/y'); ?></b></td>
                         <?php } ?>
                         <td><?php echo date_format(date_create($files->file_update_date), 'd/m/y'); ?>
-                            (<?php if($files->file_hardcopy_status == 'not'){ echo $this->lang->line('mark_date');} else { echo $this->lang->line('received_date');} ?>)
+                            (<?php if($files->file_hardcopy_status == 'not'){ echo $this->lang->line('mark_date');} else{ echo $this->lang->line('received_date');} ?>)
                         </td>
-                            <td><?php
+                            <td>
+								<div <?php
+                                if($checkdate >= '3' && $checkdate <= '7' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "style='background-color:#FBFBDE' data-toggle='tooltip' data-original-title='३ दिन से अधिक विलंब'";
+                                } else if($checkdate >= '7' && $checkdate < '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "class='blink_me' style='background-color:#FFE7BA' data-toggle='tooltip' data-original-title='७ दिन से अधिक विलंब'";
+                                } else if($checkdate >= '10' && $files->file_hardcopy_status!='close' && $files->file_return!=2) { echo "class='blink_me' style='background-color:#FFA4A4' data-toggle='tooltip' data-original-title='१० दिन से अधिक विलंब'";}
+                                ?>>
+								<?php
                                 $filereceiver = get_user_details($files->file_received_emp_id);
                                 if ($filereceiver)
                                 {
-                                    /*if($files->file_hardcopy_status == 'not') {
-                                        echo "<span style='color:#dd4b39' >Not Received by <b>".ucfirst($filereceiver[0]->emp_full_name)."</b><br/>(".$filereceiver[0]->emprole_name_hi.")</span>";
-                                    } else {
-                                        echo "<span style='color:#00a65a' >Received by <b>".ucfirst($filereceiver[0]->emp_full_name)."</b><br/>(".$filereceiver[0]->emprole_name_hi.")</span>";
-                                    } */
 									if($files->file_hardcopy_status == 'not') {
 												echo file_not_receive_message($filereceiver[0]->emp_full_name_hi,$filereceiver[0]->emprole_name_hi);
 											} else if($files->file_hardcopy_status == 'close') {
@@ -117,7 +119,15 @@
 											} else if($files->file_hardcopy_status == 'working'){
 												echo file_working_message($filereceiver[0]->emp_full_name_hi,$filereceiver[0]->emprole_name_hi);
 											}
-								} ?></td>
+								} ?>								
+								</div>								
+								<?php if($files->file_hardcopy_status!='close' && $files->file_return!=2 && ($files->file_hardcopy_status == 'received' || $files->file_hardcopy_status == 'working')){ 
+											 $file_log_remark= get_file_remak('single_file_log',$files->file_id,$files->file_received_emp_id);											 
+											if($file_log_remark['flog_other_remark']!=''){
+											 echo $remark='<p class="text-green"><b style="color:#367fa9">रिमार्क : </b>'.$file_log_remark['flog_other_remark'].'</p>';											
+											}
+										}?> 
+								</td>
                         </tr>
                         <?php $i++; } ?>
                     </tbody>

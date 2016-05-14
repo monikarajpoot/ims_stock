@@ -56,7 +56,11 @@ if($is_genrate == true){
 $contents .= '|</td></tr>';
 $contents .= '<tr><td align="center">----</td></tr>';
 $contents .= '<tr><td><p>उपरोक्त प्रकरण में अनावेदक म.प्र. शासन की ओर से प्रत्यावर्तन प्रस्तुत कर पक्षसमर्थन/प्रतिरक्षण करने का कष्ट करें।</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td align="right"><div style="width:50%; text-align:center;" contenteditable="false" >(';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
@@ -84,20 +88,44 @@ $contents .= get_date_formate($post_data['date1'],'d/m/Y').'</div></td></tr>';
 	$contents .=  '<input type="text" class="date1" name="date2" value="'.$today.'" placeholder="dd/mm/yyyy" />';
 }
 $contents .= '<tr><td>प्रतिलिपि:-</td></tr>';
-$contents .=  '<tr><td><p>सचिव, म0प्र0 शासन,‍ ';
-$contents .=  ' '.$file_department;
-$contents .=  ', मंत्रालय भोपाल की ओर उनके यू0ओ0क्र0 '.$file_uo_or_letter_no.', दिनांक  ';
+$contents .=  '<tr><td><p>';
+if($is_genrate == true){
+	$contents .= $post_data['send_at'].', ';
+}else{
+	$contents .=  '<select name="send_at">';	
+	$contents .=  '<option value="सचिव">सचिव</option>';
+	$contents .=  '<option value="प्रमुख सचिव">प्रमुख सचिव</option>';
+	$contents .=  '<option value="संचालक">संचालक</option>';
+	$contents .=  '<option value=""></option>';
+	$contents .=  '</select>';
+}
+if($is_genrate == true && ($post_data['send_at'] == 'सचिव' || $post_data['send_at'] == 'प्रमुख सचिव')){
+	$contents .=  'म0प्र0 शासन,‍ ';
+}else{
+	$contents .=  '';
+}
+$contents .=  ' '.$file_department.', ';
+if($is_genrate == true && ($post_data['send_at'] == 'सचिव' || $post_data['send_at'] == 'प्रमुख सचिव')){
+	$contents .=  'मंत्रालय ';
+}else{
+	$contents .=  '';
+}
+$contents .=  ' भोपाल की ओर उनके यू0ओ0क्र0 '.$file_uo_or_letter_no.', दिनांक  ';
 $contents .=  ' '.get_date_formate($file_uo_or_letter_date,'d/m/Y');
 $contents .= '  के संदर्भ में नस्ती सहित म.प्र. शासन विधि विभाग नियमावली के नियम- 136 के अधीन आवश्यक कार्यवाही हेतु अग्रेषित। इस प्रकरण में प्रभारी अधिकारी को तत्काल निर्देश दीजिये कि वे प्रकरण से संबंधित अभिलेख तथा अन्य कागजात के साथ शासकीय अधिवक्ता से संपर्क करें। ';
 $contents .= '</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td align="right"><div style="width:50%; text-align:center;"  contenteditable="false" >(';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 
 
 }else
 {
-	 $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+	 $contents .= '-------';
 	
 }
 $contents .= ')</div></td></tr>';

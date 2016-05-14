@@ -53,7 +53,11 @@ $contents .= '---000---';
 $contents .= '</td></tr><tr><td></td><td colspan="2">';
 $contents .= '<p class="text-justify shift-left">उपरोक्त विषयक संदर्भित पत्र के संबंध में लेख है कि अपील दायर करने में हुये विलंब के संबंध में दायित्व निर्धारण तथा विलंब के कारण के परीक्षण हेतु, अपील दायर करने में हुये विलंब के संबंध में अपने अभिमत समेत दायित्व के निर्धारण एवं विलंब के कारण को दर्षित करते हुये सुसंगत दस्तावेज एवं विवरण विधि विभाग में गठित समीक्षा सेल को उपलब्ध कराया जाना सुनिष्चित करें। </p></td></tr><tr>';
 $contents .= '<td align="right" colspan="3"><b> मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</b>&nbsp;&nbsp;</td></tr><tr>';
-$contents .= '<tr><td align="right" height="80"  colspan="3" ></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

@@ -38,6 +38,7 @@ class E_filelist extends MX_Controller {
 		$data['title_tab'] = $this->lang->line('title');		
 		$data['view_file'] = "view_file/viewfile_fornotesheet";
 		$views = show_view_as_lvl();
+		
 		$data['view_file'] = "$views";
 		$data['view_left_sidebar'] = 'admin/left_sidebar';
         $this->template->index($data);
@@ -97,11 +98,13 @@ class E_filelist extends MX_Controller {
 	public function efile_sign(){
 
 		$emp_role_lvl= get_emp_role_levele();
+		$data['login_emp_level']=$emp_role_lvl;
 		$data['title'] = 'फाइल पर  हस्ताक्षर';
         $data['title_tab'] ='फाइल पर  हस्ताक्षर'  ;
         //echo modules::run('module/view_file/index',$id=null);
 		//$data['total_count_files']=json_decode($this->ajax_count_inbox(true),true);
-        $data['get_files'] = $this->efile_model->geteFiles($section_explode=null, $moveup_down=null,$section_id_search=null,'working');
+        //$data['get_files'] = array(0);
+        $data['get_files'] = $this->efile_model->geteFiles_working($section_explode=null, $moveup_down=null,$section_id_search=null,'working');
 		$notesheet_id=null;
 		$data['notesheet_id'] = $notesheet_id;
 		$data['section_id']=getEmployeeSection();
@@ -350,7 +353,7 @@ class E_filelist extends MX_Controller {
             $i++;
         }
         //manage_file/Sendfile_upperofficer/14137;
-		pr($post_data_array);
+		//pr($post_data_array);
         foreach($post_data_array as $ky=>$file_data){
             $user_level = get_emp_role_levele();
 
@@ -382,4 +385,49 @@ class E_filelist extends MX_Controller {
         $this->session->set_flashdata('message', 'File Send to Successfully');
         redirect($_SERVER['HTTP_REFERER']);
     }
+	public function received_multiple_files(){
+		//pre($this->input->post());
+		$file_emp_mark_id = $this->input->post('file_emp_mark_id');
+		$file_selected_file_ids = $this->input->post('file_selected_file_ids');
+		$today_sec_permission = $this->input->post('today_sec_permission');
+		$file_ids_array = explode(',',$file_selected_file_ids);
+		//pr($file_ids_array);
+		//foreach($file_ids_array as $val){
+			if(emp_session_id()==$file_emp_mark_id && $today_sec_permission !='today'){
+				$not_recived_files = $this->efile_model->get_not_recieved_files($file_selected_file_ids);
+				$file_ids_array = explode(',',$not_recived_files);
+				echo modules::run('manage_file/multiple_file_receive_sectionno',$file_ids_array);
+			}else{
+				echo modules::run('manage_file/multi_file_receive_sectionno_mark_da',$file_ids_array,$file_emp_mark_id);
+			}
+		//}
+		//modules::run('manage_file/multi_file_receive_sectionno_mark_da',$file_emp_mark_id);
+		//receive_file_sectionno($fileid = '')
+	}
+	public function add_multiple_draft(){
+		//pr($this->input->post());
+	
+	//echo "ghj  ".$draft_content_text = $this->input->post('draft_content_text');die;
+	$file_selected_file_ids = $this->input->post('file_selected_file_ids');
+	$save_draft = 'save_draft';
+	$file_ids_array = explode(',',$file_selected_file_ids);
+			//pr($file_ids_array);
+		foreach($file_ids_array as $val){
+			$file_data = get_draft_from_file($val);
+			//pr($file_data);
+			$draft_id = $file_data['final_draft_id'];
+			$subject = $file_data['file_subject'];
+			$file_receive = $file_data['file_hardcopy_status']; 
+			
+			if($file_receive == 'received')
+			{
+				$responce = modules::run('draft/draft/auto_add_multiple_draft', $val,$subject ,$draft_id 	,$draft_content_text ,$save_draft);
+			}
+			
+		}
+		if($responce){
+					echo json_encode("success");
+				}
+	}
+	
 }

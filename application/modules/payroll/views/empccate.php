@@ -8,21 +8,53 @@
 	<?php $emp_id = $this->uri->segment("3"); if($emp_id == 1){ ?>
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का न्यायिक सेवा  अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32">
+      <h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का न्यायिक सेवा  
+        अधिकारियों का वेतन पत्रक कम्प्यूटर देयक क्रमांक 
+        <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>   दिनांक 
+          <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?>  ऑफिस देयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>   दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?> </h2></td>
   
     </tr>
     <?php }elseif($emp_id == 4){ ?>
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का चतुर्थ श्रेणी कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?>
+     2016 का चतुर्थ श्रेणी कर्मचारियों का वेतन विवरण पत्रक
+       कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>   
+            दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिस देयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
         <?php }elseif($emp_id == 2){ ?>
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 
+      2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक
+         <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक  
+        <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?> ऑफिस देयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  
+        <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
 
@@ -30,15 +62,78 @@
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , दुितीय एवं तृतीय आधि. /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , 	
+द्वितीय एवं तृतीय अधि . /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिस देयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
+	   <?php }elseif($emp_id == 9){ ?>
 
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , 	
+द्वितीय एवं तृतीय अधि . /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिस देयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
+  
+    </tr>
+   <?php }elseif($emp_id == 10){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , 	
+द्वितीय एवं तृतीय अधि . /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
+  
+    </tr>
+   <?php }elseif($emp_id == 11){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , 	
+द्वितीय एवं तृतीय अधि . /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
+  
+    </tr>
+	   <?php }elseif($emp_id == 12){ ?>
+
+
+  <tr style="text-align:center">
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का प्रथम , 	
+द्वितीय एवं तृतीय अधि . /  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
+  
+    </tr>
+	
 <?php }elseif($emp_id == 7 ){ ?>
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: 29-2014 न्याय  प्रशासन 3428 चतुर्थ श्रेणी कर्मचारियों का माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: 29-2014 न्याय  प्रशासन 3428 चतुर्थ श्रेणी कर्मचारियों का माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
 
@@ -46,7 +141,12 @@
 
 
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: श्री दिनेश कुमार कुमरे  का वेतन 29-2014 से आहरण अंशदायी होने के कारन पृथक से बनाया जा रहा है | वेतन माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: श्री दिनेश कुमार कुमरे  का वेतन 29-2014 से आहरण अंशदायी होने के कारन पृथक से बनाया जा रहा है | वेतन माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
 
@@ -55,13 +155,23 @@
 
   <tr style="text-align:center">
     <td colspan="32"><h2>विषय: माँग संख्या 29-2014 न्याय प्रशासन 114-3428 महाधिवक्ता कायार्लय  वेतन देयक तृतीय श्रेणी कर्मचारी का 
-   माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+   माह <?php echo $this->uri->segment("4");?> 2016 वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>        दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
 
     <?php }elseif($emp_id == 8 ){ ?>
   <tr style="text-align:center">
-    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक <?php echo @$pay_bill[0]->pbill_computer_no; ?>   दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  आफिस देयक क्रमांक  <?php echo @$pay_bill[0]->pbill_office_no; ?>    दिनांक  <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));?></h2></td>
+    <td colspan="32"><h2>विषय: माह <?php echo $this->uri->segment("4");?> 2016 का  परिभाषहित अशंदान  कर्मचारियों का वेतन विवरण पत्रक  कम्प्यूटर देयक क्रमांक   <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_computer_no; }?>   दिनांक   <?php echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date)); ?>  ऑफिसदेयक क्रमांक  <?php if(count($pay_bill)== 0){echo "---";}
+        else{echo @$pay_bill[0]->pbill_office_no; }?>     दिनांक  <?php if(count($pay_bill)== 0){ 
+            echo "---";
+          }else{ echo date("d-m-Y",strtotime(@$pay_bill[0]->pbill_vocher_date));
+        } ?></h2></td>
   
     </tr>
 

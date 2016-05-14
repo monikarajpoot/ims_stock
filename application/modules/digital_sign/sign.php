@@ -9,11 +9,8 @@ $loginempid_serverid = $_REQUEST['emp_id'];
 $loginempid_serverid_array = explode(',',$loginempid_serverid);
 $draft_log_creator_id = $loginempid_serverid_array[0];
 $request_host= $loginempid_serverid_array[1];
-if($request_host==1){
-	$dbname = "db_eoffice";
-} else {
-	$dbname = "db_ftms_eoffice_26";	
-}
+$dbname = "db_ftms_eoffice_dev_18";	
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
@@ -56,7 +53,7 @@ $date = date('Y-m-d H:i:s');
 //Insert
 if($signature !=''){
 	 $ds_local_data=$_REQUEST['other'];
-		$insert_sql = "INSERT INTO ft_digital_signature(ds_signature,ds_signed_data,ds_public_key,ds_verification_status,ds_emp_name,ds_draft_log_id,ds_create_datetime,ds_emp_id,ds_local_data,ds_file_id)VALUES('".$signature."','".$s_c_data."','".$public_key."','".$verification_status."','".$emp_name."',".$draft_log_id.",'".$date."',".$draft_log_creater.",'".$ds_local_data."',$file_id)";
+		$insert_sql = "INSERT INTO ft_digital_signature(ds_signature,ds_signed_data,ds_public_key,ds_verification_status,ds_emp_name,ds_draft_log_id,ds_create_datetime,ds_emp_id,ds_local_data,ds_file_id)VALUES('".$signature."','".escape_str($s_c_data)."','".$public_key."','".$verification_status."','".$emp_name."',".$draft_log_id.",'".$date."',".$draft_log_creater.",'".$ds_local_data."',$file_id)";
 	if ($conn->query($insert_sql)===TRUE) {
 		echo 1; //success
 		exit;
@@ -65,5 +62,37 @@ if($signature !=''){
 		echo "Error: " . $insert_sql . "<br>" . $conn->error;
 		exit;
 	}
+}
+
+function escape_str($str, $like = TRUE)
+{
+	$str=trim($str);
+	$ci = & get_instance();
+    if (is_array($str))
+    {
+        foreach ($str as $key => $val)
+        {
+            $str[$key] = $ci->escape_str($val, $like);
+        }
+
+        return $str;
+    }
+
+    if (function_exists('mysqli_real_escape_string') AND is_object($ci->conn_id))
+    {
+        $str = mysqli_real_escape_string($ci->conn_id, $str);
+    }
+    else
+    {
+        $str = addslashes($str);
+    }
+
+    // escape LIKE condition wildcards
+    if ($like === TRUE)
+    {
+        $str = str_replace(array('%', '_'), array('\\%', '\\_'), $str);
+    }
+
+    return $str;
 }
 ?>

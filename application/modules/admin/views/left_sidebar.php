@@ -1,17 +1,14 @@
 <?php $userrole = checkUserrole();
-$efile = show_efile_section(getEmployeeSection());?>
-<?php
-$section_exp = explode(',',getEmployeeSection());
+$emp_section = $this->session->userdata('emp_section_id');
+$efile = show_efile_section($emp_section);
+$section_exp = explode(',',$emp_section);
 //echo $section_exp;
 if(in_array('7',$section_exp) && $userrole != 1 && $userrole >= 8 && $userrole != 11 && $userrole != 13 && $userrole != 25 ) {
     $this->load->view('left_sidebar_es');
-} else{ ?>
-
-<!-- Left side column. contains the logo and sidebar -->
-<?php
-$emp_details= get_list(EMPLOYEES,null,array('emp_id'=>$this->session->userdata("emp_id")));
-$is_emp_first_login = $emp_details[0]['emp_first_login'];
+} else{
+	$is_emp_first_login = $this->session->userdata('emp_first_login');
 ?>
+<!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar hidden-print">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -27,7 +24,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                 <?php } ?>
             </div>
             <div class="pull-left info">
-                <p><?php echo ucfirst($this->session->userdata('emp_full_name')); ?></p>
+                <p><?php echo $this->session->userdata('emp_full_name_hi'); ?></p>
                 <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i><?php echo $this->session->userdata('emp_unique_id'); ?> </a>
                 <a href="#"><?php echo getemployeeRole($this->session->userdata('user_designation')); ?></a><br/>
@@ -73,7 +70,10 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
             <?php //if (in_array($userrole, array(1,3,4,5)) ){ ?>
                 <li <?php if ($this->uri->segment(1) == 'dashboard') { echo 'class="active"'; } ?>>
                <a href="<?php echo base_url(); ?>dashboard" data-original-title="Dashboard" data-toggle="tooltip"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-                </li>
+			   </li>
+			    <li class="googlevoic">
+					<a href="<?php echo base_url();?>draft/voic_input" target="_blank" ><i class="fa fa-volume-up"></i> <span>हिंदी /इंग्लिश बोलें</span></a>										
+			   </li>
             <?php //} ?>
           
             <?php if (in_array($userrole, array(1,3,4,5)) ){?>
@@ -89,7 +89,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                 </li>
             <?php } ?>
 			<?php $upper_officer=array('3','4','5','6','7');?>
-			<?php if(in_array($this->session->userdata('user_role'),$upper_officer)){ ?>
+			<?php if(in_array($userrole,$upper_officer)){ ?>
 			<li <?php if ($this->uri->segment(1) == 'pa' OR $this->uri->segment(1) == 'pa') { echo 'class="active"'; } ?>>
 				<a href="<?php echo base_url();?>pa/list" title="Show Personal Assistant List"><i class="fa fa-file-text"></i>
 					<span>
@@ -129,7 +129,7 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                 <li <?php if ($this->uri->segment(1) == 'draft') { echo 'class="active"'; } ?>>
                     <a href="<?php echo base_url(); ?>draft" data-original-title="Draft" data-toggle="tooltip"><i class="fa fa-file-word-o"></i> <span>ड्राफ्ट</span></a>
                 </li>
-				<?php if($emp_role_levele['emprole_level'] == 6 || $emp_role_levele['emprole_level'] <= 5 ){ ?>
+				<?php if( ($emp_role_levele['emprole_level'] == 6 || $emp_role_levele['emprole_level'] <= 5) && $userrole!='25' ){ ?>
 				<li title="Not Active">
                     <a href="<?php echo base_url(); ?>e-files/efile_sign" data-original-title="Draft" data-toggle="tooltip"><i class="fa fa-file-word-o"></i> <span>फ़ाइल पर हस्ताक्षर जोड़ें  </span><span class="label label-primary pull-right" id="total_eworking"><?php if(isset($count_efiles) && !empty($count_efiles)){echo $count_efiles[0];}else{ echo 0;}?></span></a>
                 </li>

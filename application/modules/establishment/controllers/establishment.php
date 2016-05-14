@@ -118,15 +118,22 @@ class Establishment extends MX_Controller {
             redirect($_SERVER['HTTP_REFERER']);
         }
 
-    }
-	
+    }	
 	//for add remark every level
-	function add_reamrk(){
+	function add_reamrk(){			
 		$fileid = $this->input->post('file_id_remark');
 		$remark = $this->input->post('file_remark');
+		if($fileid!=''){
+		 $sql="select file_id,file_mark_section_id,file_from_section_id from ft_files where file_id=$fileid";
+		 $fil_sectionId_array = get_row($sql);
+		 $fil_sectionId = $fil_sectionId_array['file_mark_section_id'];
+		}else{
+			$fil_sectionId=7;
+		}
 		$filelog_data = array(
 			'file_id'       => $fileid,
-			'section_id'    => 7,
+			'flog_type'    => 1,
+			'section_id'    => $fil_sectionId,
 			'to_emp_id'     => emp_session_id(),
 			'from_emp_id'   => emp_session_id(),
 			'flog_remark'   => 'This is add by establishment file movement',
@@ -140,9 +147,4 @@ class Establishment extends MX_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
-
-
-
-
-
 }

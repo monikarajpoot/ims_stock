@@ -1,14 +1,13 @@
-<?php 
-$contents = '';
+<?php
+$contents  = '' ;
+$contents .= '<tr><td>';
+$contents .= '<tr><td><div style="margin-top:20px;"><span style="margin-left:10%;">'.$file_subject.'</span></div>';
+$contents .= '<br />पंजी क्रमांक '.$panji_krmank.'/21-क(आप.),<div style="float:right">दिनांक '.$file_mark_section_date.'</div></td></tr>';
+$contents .= '<tr><td align="center" colspan="2">&nbsp; &nbsp;-------------------------------&nbsp;&nbsp;</td></tr>';
 $contents .= '<tr><td colspan="2" align="left">हेड क्रं. 6/';
-if($is_genrate == true){
-    $contents .= $post_data['head'];
-}else{
-	$contents .= '<input name="head" placeholder="head" type="text" />';
-}
+$contents .= @$this->input->post('head') ? $this->input->post('head') : '<input name="head" placeholder="file no" type="text" />';
 $contents .= '/'.date("Y");
-$contents .= '</td></tr>';
-$contents .= '<tr><td colspan="2">';
+$contents .= '<br /><br />';
 if($is_genrate == true){
     $contents .= $post_data['dropdown1'];
 }else{
@@ -28,15 +27,15 @@ if($is_genrate == true){
 }else{
     $contents .= '<input type="text" name="dt1" class="date1"/>';
 }
-$contents .= ' को प्राप्त हुआ । </td></tr> <tr><td colspan="2">अपील प्रस्ताव के संबंध में नस्ती के परीक्षण के लिए जानकारी निम्नानुसार है :-<br /></td></tr>';
-$contents .= '<tr><td colspan="2"> 1. न्यायालय का पूर्ण नाम जिसके विरूद्ध अपील प्रस्तुत की जानी है ।';
+$contents .= ' को प्राप्त हुआ ।<br /><br />अपील प्रस्ताव के संबंध में नस्ती के परीक्षण के लिए जानकारी निम्नानुसार है :-<br /><br />';
+$contents .= '<div>1. न्यायालय का पूर्ण नाम जिसके विरूद्ध अपील प्रस्तुत की जानी है ।';
 if($is_genrate == true){
     $contents .= $post_data['dt2'];
 }else{
     $contents .= '<input type="text" name="dt2"/></div><br/>';
 }
-$contents .= '<br /></td></tr> <tr><td colspan="2"><br />2. म0प्र0 शासन विरूद्ध '.$case_parties1[0].'</span>&nbsp;के मामले में अपील प्रस्तावित की गई है ।</div><br />';
-$contents .= '</td></tr> <tr><td colspan="2"> 3. ';
+$contents .= '<br /><div><br />2. म0प्र0 शासन विरूद्ध '.$case_parties1[0].'</span>&nbsp;के मामले में अपील प्रस्तावित की गई है ।</div><br />';
+$contents .= '<div>3. ';
 if($is_genrate == true){
     $contents .= $post_data['case_hindi'];
 }else{
@@ -47,7 +46,7 @@ if($is_genrate == true){
     $contents .= '</select>';
 }
 $contents .= '  प्रकरण क्रं '.$case_no1[1].'/'.$case_no1[2].'</div><br />';
-$contents .= '</td></tr> <tr><td colspan="2"> 4. ';
+$contents .= '<div>4. ';
 if($is_genrate == true){
     $contents .= $post_data['dosh_mukti'];
 }else{
@@ -58,7 +57,7 @@ if($is_genrate == true){
     $contents .= '</select>';
 }
 $contents .= ' के निर्णय की दिनांक  '.$file_judgment_date1.'</div><br />';
-$contents .= '</td></tr> <tr><td colspan="2"> 5. ';
+$contents .= '<div>5. ';
 if($is_genrate == true){
     $contents .= $post_data['dosh_mukti'];
 }else{
@@ -71,14 +70,14 @@ if($is_genrate == true){
     $contents .= '<input type="text" name="dt3" class="date1"/>';
 }
 $contents .= ' के अंतर्गत पारित किया गया है |</div><br />';
-$contents .= '</td></tr> <tr><td colspan="2"> 6. ';
+$contents .= '<div>6. ';
 if($is_genrate == true){
     $contents .= $post_data['dosh_mukti'];
 }else{
     $contents .= '__';
 }
-$contents .= ' निर्णय की प्रमाणित प्रतिलिपि संलग्न है, जो ध्वज-ए है </td></tr> <tr><td colspan="2">';
-$contents .= ' 7. साक्षियों के कथनों की प्रतिलिपि संलग्न  ';
+$contents .= ' निर्णय की प्रमाणित प्रतिलिपि संलग्न है, जो ध्वज-ए है </div><br />';
+$contents .= '<div>7. साक्षियों के कथनों की प्रतिलिपि संलग्न  ';
 if($is_genrate == true){
     $contents .= $post_data['dropdown2'];
 }else{
@@ -87,8 +86,8 @@ if($is_genrate == true){
     $contents .= '<option>नहीं है </option>';
     $contents .= '</select>';
 }
-$contents .= ' |</td></tr> <tr><td colspan="2">';
-$contents .= ' 8. ';
+$contents .= ' |</div><br />';
+$contents .= '<div>8. ';
 if($is_genrate == true){
     $contents .= $post_data['dosh_mukti'];
 }else{
@@ -103,8 +102,8 @@ if($is_genrate == true){
     $contents .= '<option>नहीं है </option>';
     $contents .= '</select>';
 }
-$contents .= ' । </td></tr> <tr><td colspan="2">';
-$contents .= '9. ';
+$contents .= ' ।</div><br />';
+$contents .= '<div>9. ';
 if($is_genrate == true){
     $contents .= $post_data['dosh_mukti'];
 }else{
@@ -125,8 +124,8 @@ if($is_genrate == true){
 }else{
     $contents .= '<input type="text" name="dt4" class="date1"/>';
 }
-$contents .= ' </td></tr> <tr><td colspan="2"> ';
-$contents .= ' 10. प्रकरण अवधि बाह्य प्राप्त  ';
+$contents .= ' </div><br />';
+$contents .= '<div class="cls1">10. प्रकरण अवधि बाह्य प्राप्त  ';
 if($is_genrate == true){
     $contents .= $post_data['dropdown5'];
 }else{
@@ -135,4 +134,7 @@ if($is_genrate == true){
     $contents .= '<option>नहीं हुआ है </option>';
     $contents .= '</select>';
 }
-$contents .= ' । </td></tr> <tr><td colspan="2"> <u>अनुभाग अधिकारी (आप.) </u><br /><br /> <u>अपर सचिव (आप.) </u><br /></td></tr>';
+$contents .= ' । </div><br /><br /> <u>अनुभाग अधिकारी (आप.) </u><br /><br /> <u>अपर सचिव (आप.) </u><br /></td></tr>';
+?>
+
+

@@ -126,9 +126,9 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
                          <li><a href="<?php echo base_url(); ?>payroll/addallsallary"><i class="fa fa-folder-o"></i> वेतन जोड़ें </a></li>
-                         <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> एरीयर्स जोड़ें </a></li>
+                         <li><a href="<?php echo base_url(); ?>payroll/payarriyars"><i class="fa fa-folder-o"></i> एरीयस जोड़ें </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/allcate"><i class="fa fa-folder-o"></i> वेतन मास्टर </a></li>
-                    <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटोत्राी  </a></li>
+                    <li><a href="<?php echo base_url(); ?>payroll/paydiduction"><i class="fa fa-folder-o"></i> वेतन कटोती  </a></li>
                     <li><a href="<?php echo base_url(); ?>payroll/paybillno"><i class="fa fa-folder-o"></i> बिल नंबर जोड़ें </a></li>
    
                    

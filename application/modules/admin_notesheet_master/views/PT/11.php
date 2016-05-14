@@ -21,7 +21,14 @@ if($is_genrate == true){
     }
     $contents .= '</select>';
 }
-$contents .= ', नई दिल्ली को नेशनल ग्रीन ट्रिब्यूनल, सेन्ट्रल जोन दिल्ली में प्रस्तुत याचिका क्रं० ';
+if($is_genrate == true){
+		$contents .= ', '.$post_data['location'] ;
+} else {
+	$contents .= ' <select name="location">';
+	$contents .= '<option value="नई दिल्ली">नई दिल्ली</option>';
+	$contents .= '<option value="भोपाल">भोपाल</option>';
+}
+$contents .= ',  को नेशनल ग्रीन ट्रिब्यूनल, सेन्ट्रल जोन दिल्ली में प्रस्तुत याचिका क्रं० ';
 if($is_genrate == true){
 	$contents .= ' '.$post_data['yachika_no'] .'/';
 }else{
@@ -40,23 +47,17 @@ if($is_genrate == true){
 }
 $contents .= ' में म०प्र० शासन की और से पैरवी करने हेतु  ' ;
 if($is_genrate == true){
-    foreach(get_advocates_name('', $post_data['member_id1']) as $row){
-        $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi;
+    foreach(get_advocates_name('', $post_data['member_id']) as $row){
+        $contents .= ' <b>'.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi.'<b>';
     }
 } else {
-    $contents .= ' <select name="member_id1">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= ' ----------';
 }
 if($is_genrate == true){
 		$contents .= ', '.$post_data['location'] ;
-    } else {
-		$contents .= ' <select name="location">';
-        $contents .= '<option value="नई दिल्ली">नई दिल्ली</option>';
-		$contents .= '<option value="भोपाल">भोपाल</option>';
-    }
+} else {
+	$contents .= '------------';
+}
 $contents .= '</select>';
 
 $contents .= ' को नियुक्त किया जाता है ।';
@@ -65,7 +66,11 @@ $contents .= '<tr><td><p> इस सम्बंध में फीस का �
 $contents .= '<tr><td><p>हस्ताक्षरयुक्त वकालतनामा संलग्न कर भेजा जा रहा है |</p></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td align="right">मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td align="right"><div style="width:50%; text-align:center;" contenteditable="false" >(';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('add_secetroy')); 
@@ -99,38 +104,44 @@ $contents .=  ', मंत्रालय भोपाल की ओर उन�
 $contents .=  ' '.get_date_formate($file_uo_or_letter_date,'d/m/Y');
 $contents .=  ' के संदर्भ में नस्ती सहित अग्रेषित। कृपया प्रकरण के प्रभारी अधिकारी को निर्देश दें कि वें ';
 if($is_genrate == true){
-    foreach(get_advocates_name('', $post_data['member_id2']) as $row){
-        $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi;
+    foreach(get_advocates_name('', $post_data['member_id']) as $row){
+        $contents .= ' <b>'.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi.'</b>';
     }
 } else {
-    $contents .= ' <select name="member_id2">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= '----------';
 }
-$contents .= ', नई दिल्ली  से संपर्क कर न्यायालय के समक्ष प्रत्यावर्तन प्रस्तुत कर आवश्यक कार्यवाही करें एवं उसकी एक प्रति इस विभाग को सन्दर्भ सहित भेजे ।';
+if($is_genrate == true){
+		$contents .= ', '.$post_data['location'] ;
+} else {
+	$contents .= '------------';
+}
+$contents .= ',   से संपर्क कर न्यायालय के समक्ष प्रत्यावर्तन प्रस्तुत कर आवश्यक कार्यवाही करें एवं उसकी एक प्रति इस विभाग को सन्दर्भ सहित भेजे ।';
 $contents .= '<tr><td><p>2- ';
 if($is_genrate == true){
-    foreach(get_advocates_name('', $post_data['member_id4']) as $row){
-        $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi;
+    foreach(get_advocates_name('', $post_data['member_id']) as $row){
+        $contents .= ' <b>'.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi.'</b>';
     }
 } else {
-    $contents .= ' <select name="member_id4">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= '-------';
 }
-$contents .= ', नई दिल्ली की और सूचनार्थ एवं आवश्यक कार्यवाही हेतु अग्रेषित।</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+if($is_genrate == true){
+		$contents .= ', '.$post_data['location'] ;
+} else {
+	$contents .= '------------';
+}
+$contents .= ', की और सूचनार्थ एवं आवश्यक कार्यवाही हेतु अग्रेषित।</p></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:50%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td align="right"><div style="width:50%; text-align:center;" contenteditable="false">(';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('add_secetroy')); 
 
 }else
 {
-	 $contents .= get_officer_for_sign('add_secetroy' ,$add_secetroy ,'', $as_id);
+	 $contents .= '-------';
 	
 }
 

@@ -19,7 +19,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
         <li class="active">Dashboard</li>
       </ol> -->
 </section>
-
+ 
 <!-- Main content -->
 <section class="content">
 <?php if($role_id == 1 || $role_id == 3 || $role_id == 4 || $role_id == 5 ) { ?>
@@ -32,7 +32,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">अवकाश</span>
 				  <span class="info-box-number">अवकाश स्वीकृत</b></span>
 				  <div class="progress">
-					<div style="width: <?php  if(isset($res3['counts'] )){ echo($res3['counts'] * 100)/$total; }else { echo "0"; }?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -47,7 +47,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">कैमरा</span>
 				  <span class="info-box-number">कैमरा स्क्रीन देखें </b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;}?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -62,7 +62,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">बायोमेट्रिक </span>
 				  <span class="info-box-number">बायोमेट्रिक देखें</b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width:100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -77,7 +77,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">रिपोर्ट्स</span>
 				  <span class="info-box-number">सभी प्रकार की रिपोर्ट देखें</b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -93,7 +93,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">अंकित फाइलें देखें</span>
 				  <span class="info-box-number">स्वयं को अंकित फाइलें देखें</b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -108,7 +108,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">स्थापना</span>
 				  <span class="info-box-number">विभाग की स्थापना देखें </b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -123,7 +123,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">खोजें</span>
 				  <span class="info-box-number">सभी अनुभाग की फ़ाइले खोंजे</b></span>
 				  <div class="progress">
-					<div style="width: <?php if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -139,7 +139,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				  <span class="info-box-text">मॉनिटर</span>
 				  <span class="info-box-number">फाइल मॉनिटर करें</b></span>
 				  <div class="progress">
-					<div style="width: <?php  if(isset($res3['counts'])){ echo ($res3['counts'] * 100)/$total; } else{ echo "0" ;} ?>%" class="progress-bar"></div>
+					<div style="width: 100%" class="progress-bar"></div>
 				  </div>
 				  <span class="progress-description"></span>
 				</div><!-- /.info-box-content -->
@@ -150,59 +150,101 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 	</div>
     <?php echo modules::run('activity_report/index_for_admin',null); ?>
 <?php }  else { 
-	if($role_id == 8) {?>   
-<div class="no-print">	
+	if($role_id == 8) {
+	//header( "Location: ".base_url()."reports" );
+		?>    
+<div class="row no-print">  
+	 <?php  if(show_view_as_lvl()!='404'){
+             $is_file_alloted= check_ps_monitor_file_is_alloted('count',$this->session->userdata("emp_id"));?>
+			<a href="<?php echo base_url(); ?>ps_file_monitor?empid=<?php echo $this->session->userdata("emp_id"); ?>">
+				<div class="col-md-3 col-sm-6 col-xs-12" data-original-title="स्वयं को अंकित फाइलें देखें" data-toggle="tooltip">
+					<div class="info-box bg-yellow">
+						<span class="info-box-icon"><i class="fa fa-fw fa-eye"></i></i></span>
+						<div class="info-box-content">
+						  <span class="info-box-text"> पी .एस. मॉनिटर फ़ाइलें</span>
+						  <span class="info-box-number">स्वयं को अंकित फाइलें देखें</b></span>
+						  <div class="progress">
+							<div style="width: 100%" class="progress-bar"></div>
+						  </div>
+						  <span class="progress-description"></span>
+						</div><!-- /.info-box-content -->
+				  </div>
+				</div>
+			</a>
+			<?php } ?>
+			<a href="<?php echo base_url(); ?>reports">
+				<div class="col-md-3 col-sm-6 col-xs-12" data-original-title="" data-toggle="tooltip">
+					<div class="info-box bg-blue">
+						<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
+						<div class="info-box-content">
+						  <span class="info-box-text">रिपोर्टिंग</span>
+						  <span class="info-box-number">फाइल रिपोर्टिंग</b></span>
+						  <div class="progress">
+							<div style="width: 100%" class="progress-bar"></div>
+						  </div>
+						  <span class="progress-description"></span>
+						</div><!-- /.info-box-content -->
+				  </div>
+				</div>
+			</a>
+		<!--<div class="no-print">
         <div class="row">           
             <div class="col-lg-4 col-xs-6">                
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3><?php echo isset($total_file) ? $total_file : ''; ?></h3>
-                        <p><?php echo $this->lang->line('dashboard_number_file'); ?> in section</p>
+                        <h3><?php //echo isset($total_file) ? $total_file : ''; ?></h3>
+                        <p><?php //echo $this->lang->line('dashboard_number_file'); ?> in section</p>
                     </div>
                         
-                     <?php if(getEmployeeSection()==8 && isset($emp_section)){ ?>
-                        <a href="<?php echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=not&lvl=list_all_dipatch_section_files" class="small-box-footer">
+                     <?php //if($emp_section_ids == 8 && isset($emp_section)){ ?>
+                        <a href="<?php //echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=not&lvl=list_all_dipatch_section_files" class="small-box-footer">
                             Click to view file list <i class="fa fa-arrow-circle-right"></i>
                         </a>
-                    <?php }else{?> 
-                        <a href="<?php echo base_url().'view_file'; ?>" class="small-box-footer">
+                    <?php //}else{?> 
+
+                        <a href="<?php// echo base_url().'view_file'; ?>" class="small-box-footer">
                             More info <i class="fa fa-arrow-circle-right"></i>
                         </a>
-                    <?php } ?>
+                    <?php //} ?>
+
                 </div>
             </div>
-            <div class="col-lg-4 col-xs-6">                
+<div class="col-lg-4 col-xs-6">                
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3><?php echo isset($pending_file) ? $pending_file : '' ?></h3>
-                        <p><?php echo $this->lang->line('dashboard_pending_file'); ?> in section</p>
+                        <h3><?php //echo isset($pending_file) ? $pending_file : '' ?></h3>
+                        <p><?php//echo $this->lang->line('dashboard_pending_file'); ?> in section</p>
                     </div>
-                    <?php if(getEmployeeSection()==8 && isset($emp_section)){ ?>
-                        <a href="<?php echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=not&lvl=section_dis" class="small-box-footer">
+                    <?php //if($emp_section_ids ==8 && isset($emp_section)){ ?>
+                        <a href="<?php //echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=not&lvl=section_dis" class="small-box-footer">
                             Click to view file list <i class="fa fa-arrow-circle-right"></i>
                         </a>
-                    <?php }else{?> 
-                    <a href="<?php echo base_url().'activity_report/fetch_data/'.getEmployeeSection(); ?>" class="small-box-footer">
+                    <?php //}else{?> 
+
+                    <a href="<?php //echo base_url().'activity_report/fetch_data/'.$emp_section_ids; ?>" class="small-box-footer">
                         Click to view file list <i class="fa fa-arrow-circle-right"></i>
                     </a>
-                    <?php } ?>
+                    <?php// } ?>
+
                 </div>
             </div>
             <div class="col-lg-4 col-xs-6">               
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3><?php echo isset($dispetch_file) ? $dispetch_file : '' ?></h3>
-                        <p><?php echo $this->lang->line('dashboard_dispatch_file'); ?> in section</p>
+                        <h3><?php //echo isset($dispetch_file) ? $dispetch_file : '' ?></h3>
+                        <p><?php //echo $this->lang->line('dashboard_dispatch_file'); ?> in section</p>
                     </div>
-                   <?php if(getEmployeeSection()==8 && isset($emp_section)){ ?>
-                        <a href="<?php echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=2&lvl=dis_sec_cloase_file" class="small-box-footer">
+                   <?php //if($emp_section_ids ==8 && isset($emp_section)){ ?>
+                        <a href="<?php //echo base_url().'reports/moniter?secid='.$emp_section; ?>&s=2&lvl=dis_sec_cloase_file" class="small-box-footer">
                            Click to view file list <i class="fa fa-arrow-circle-right"></i>
                         </a>
-                    <?php } else { ?>
-                       <a href="<?php echo base_url().'activity_report/fetch_data/'.getEmployeeSection(); ?>" class="small-box-footer">
+                    <?php //} else { ?>
+
+                       <a href="<?php //echo base_url().'activity_report/fetch_data/'.$emp_section_ids; ?>" class="small-box-footer">
                             Click to view file list <i class="fa fa-arrow-circle-right"></i>
                         </a>
-                    <?php } ?>
+                    <?php //} ?>
+
                 </div>
             </div>
 			<!--
@@ -221,9 +263,10 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
             </div>
 			-->
         </div>
-	</div>
         <!-- =========================================================== -->
 <?php }} ?>
+
+<div style="clear:both"></div>
 
 <?php if(!isset($start_date)){$start_date=date('Y-m-d');}if(!isset($end_date)){$end_date=date('Y-m-d');} ?>
 <div class="row">		
@@ -248,7 +291,19 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 				
 				<table class="table table-condensed text-center">
 					<?php 
-						$query_log = $CI->db->query("SELECT count(distinct(ft_files.file_id)) as marked 
+
+					// $query = "SELECT count(distinct(ft_files.file_id)) AS worked,
+						// count(IF((file_hardcopy_status = 'not'), 1,0)) AS not_recv,
+						// count(IF((file_hardcopy_status = 'received'), 1,0)) AS received
+						// FROM ft_file_logs join ft_files on ft_files.file_id = ft_file_logs.file_id
+						// where to_emp_id = '$userid'
+						// and (date(`flog_created_date`) >= '$start_date'
+						// and date(`flog_created_date`) <= '$end_date') ";
+						// $query = $this->db->query($query);
+						// $result = $query->row_array();
+						// pre($result);
+
+						$query_log = $CI->db->query("SELECT count(distinct(ft_files.file_id)) as marked
 						FROM ft_file_logs join ft_files on ft_files.file_id = ft_file_logs.file_id
 						where to_emp_id = '$userid' 
 						and (date(`flog_created_date`) >= '$start_date' 
@@ -339,7 +394,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 	
 			<div class="col-md-12" >	
 				<!--File Mergion and Re-open-->
-				<?php $login_usr_section = explode(',',getEmployeeSection()); ?>
+				<?php $login_usr_section = explode(',',$emp_section_ids); ?>
 				<?php if(checkUserrole()!=9 && $login_usr_section[0] != 8){ ?>
 				<div class="box box-primary">
 					<div class="box-header">

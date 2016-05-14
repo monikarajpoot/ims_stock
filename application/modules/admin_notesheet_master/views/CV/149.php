@@ -53,23 +53,18 @@ $contents .= '<tr><td align="left"><p>उपरोक्त विषयां�
 $contents .= '<tr><td align="left"><p>अतः प्राप्त पत्र मूलतः वापस करते हुए लेख किया जाता है कि प्रस्ताव प्रशासकीय विभाग ('.$file_department.' )  के माध्यम से इस विभाग को भिजवाये |</p> </td></tr>';
 
 $contents .= '<tr><td>संलग्न :- उपरोक्तानुसार</td></tr>';
-$contents .= '<tr><td align="right">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right" style="line-height:15px;"><div style="width:60%; text-align:center;">(';
 
 if($is_genrate == true){
-	$contents .= $post_data['usname'];
-} else {
-	$contents .= ' <select name="usname" class="usname">';
-	foreach(user_byrole_section(null,7) as $key => $name){
-		$usname = $name['emp_full_name_hi'];
-		$slected = $us_name == $usname ? "selected" : "";
-		$contents .= '<option value="'.$usname.'" '.$slected.'>'.$usname.'</option>';
-	}
-	$contents .= '</select>';	
+	$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+}else{
+	 $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect , '', $us_id);
 }
-
-$contents .= ')</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अवर सचिव</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td></td></tr>';
 $contents .= '<tr><td><tr><td><u>प्रतिलिपि:</u></td></tr>';
@@ -77,7 +72,7 @@ $contents .= '<tr><td align="left"><div style="float:left;">पृ. क्रम
 if($is_genrate == true){ 
     $contents .=  $post_data['number'];
 } else {
-    $contents .= '<input type="text" class="" name="number"  value=""/>';
+    $contents .= '-------';
 }
 $contents .= '/'.date("Y").'/'.$file_number.'/21-क(सि.)</div><div style="float:right;">भोपाल, दिनांक ';
 if($is_genrate == true){ 
@@ -89,21 +84,18 @@ $contents .=  '</td></tr>';
 $contents .= '<tr><td><p>1- सचिव, म.प्र. शासन, '.$file_department.', भोपाल की ओर सूचनार्थ प्रेषित |';
  $contents .= ' प्रस्तुत कराना सुनिश्चित करे,  तथा की गई कार्यवाही की सूचना इस विभाग को भेजे |   ';
 $contents .= '.</p></td></tr>';
-$contents .= '<tr><td align="right">&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right" style="line-height:15px;"><div style="width:60%; text-align:center;">(';
 
 if($is_genrate == true){
-	$contents .= $post_data['usname'];
-} else {
-	$contents .= ' <select name="usname" class="usname">';
-	foreach(user_byrole_section(null,7) as $key => $name){
-		$usname = $name['emp_full_name_hi'];
-		$slected = $us_name == $usname ? "selected" : "";
-		$contents .= '<option value="'.$usname.'" '.$slected.'>'.$usname.'</option>';
-	}
-	$contents .= '</select>';	
+	$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+}else{
+	 $contents .= '-----------';
 }
-
 $contents .= ')</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अवर सचिव</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';

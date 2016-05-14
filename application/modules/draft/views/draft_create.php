@@ -41,8 +41,13 @@ if(isset($draft_id) && $draft_id != ''  ){
                         <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
                     </div>
                 </div><!-- /.box-header -->
-                <form method="post" name="save_draft" action="<?php echo base_url(); ?>draft/draft/save_draft_file<?php echo $url; ?>">
-                    <div class="box-body">
+			<?php if($this->uri->segment(4)== 'n'){?>
+               <form method="post" name="save_draft" action="<?php echo base_url(); ?>draft/draft/save_draft_file<?php echo $url; ?>">
+				<?php }else{
+				?>
+				<form method="post" name="save_draft" action="<?php echo base_url(); ?>draft/generate_draft/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?><?php echo $url; ?>">
+			  <?php
+			} ?><div class="box-body">
                         <div class="form-group">
                             <label>विषय</label>
                             <textarea  name="draft_subject" id="draft_subject" class="form-control" style="height:75px" required><?php echo  $subject; ?></textarea>
@@ -63,13 +68,21 @@ if(isset($draft_id) && $draft_id != ''  ){
                                         <div  style="<?php echo $style; ?>; "  >
                                             <?php
                                             if($draft_data['draft_type'] == 'n'){
-                                                $all_drafts = get_draft_log_data($draft_data['draft_id'], false, '','draft_log_creater');
-                                                foreach($all_drafts as $drafts){
+												//$all_drafts = get_draft_log_data($draft_data['draft_id'], false, '','draft_log_creater');
+                                                $all_drafts = get_draft_log_data($draft_data['draft_id']);
+												foreach($all_drafts as $drafts){
                                                     echo filter_string($drafts->draft_content);
+													$class_no = '';
+													$role_show_fdf = get_employee_role($drafts->draft_log_creater);
+													$verify_status =  verify_digital_sinature($drafts->draft_log_id,md5($drafts->draft_content));
+													if($verify_status){
+													$class_no = "class='hide'";
+													 $role_show_fdf = get_employee_role($drafts->draft_log_creater,false,true);
+														}
                                                     //if(get_employee_role($drafts->draft_log_creater, true) < 9){
-                                                    echo '<div class="pull-right">'.verify_digital_sinature($drafts->draft_log_id).'<br/>
-													<b>'.getemployeeName($drafts->draft_log_creater, true).'</b><br/>
-													(<b><u>'.get_employee_role($drafts->draft_log_creater).'</u></b>)</div><div class="clearfix"></div>';
+                                                    echo '<div class="pull-right" style="text-align: center;">'.$verify_status.'
+													<b '.$class_no.'>'.getemployeeName($drafts->draft_log_creater, true).'<br/></b>
+													(<b>'.$role_show_fdf.'</b>)</div><div class="clearfix"></div>';
                                                     if($drafts->draft_log_creater != $drafts->draft_log_sendto){
                                                        echo '<div class="pull-left">';
 														if(check_so_on_leave($drafts->draft_log_creater,$drafts->draft_log_sendto) != null){
@@ -80,6 +93,7 @@ if(isset($draft_id) && $draft_id != ''  ){
 														echo ')</u></b></div>';
                                                     }
                                                     //}
+													echo '<div class="clearfix"></div>';
                                                     echo '<hr class="no-print"/>';
                                                 }
                                             } else {
@@ -95,19 +109,39 @@ if(isset($draft_id) && $draft_id != ''  ){
                         </div>
                         <div class="form-group text_editor" id="text_editor">
                             <label>ई-<?php echo draft_type($draft_type); ?><?php echo $this->lang->line("hand_sheet"); ?></label>
-                            <textarea id="compose_textarea" name="draft_content_text" class="form-control" style="height: 500px" required><?php echo $content ; ?></textarea>
+                              <textarea id="compose_textarea" name="draft_content_text" class="form-control" style="height: 500px" required><?php echo !empty($this->session->userdata('draft_content_text'))? $this->session->userdata('draft_content_text'):$content  ; ?></textarea>
                             <input type="hidden" value="" name="final_content" id="final_content"/>
                             <?php echo form_error('draft_content_text'); ?>
                         </div>
-
-                    </div><!-- /.box-body -->
+<?php if($this->uri->segment(4)!= 'n'){?>
+						<?php 
+							$req = 'required="required"';
+							if(!empty($this->session->userdata('sing_user') ) ){
+								echo  get_officer_for_sign('sing_user',array(2,3,4,5,7) ,'', $this->session->userdata('sing_user'),$req);  
+							}else{
+								echo  get_officer_for_sign('sing_user',array(2,3,4,5,7) ,'', '',$req);  
+							}
+							 echo get_officer_dign($this->input->post('sing_user'));
+							?>
+							</div>
+					
+						<div class="form-group "  >
+						 <input type="text" name="department_mp" value ="मध्यप्रदेश शासन विधि और विधायी कार्य विभाग, भोपाल " >
+					    </div>
+						<div class="form-group "  >
+						 <textarea  name="send_department" value =" " col="5" row="5"></textarea>
+					    </div>
+<?php } ?>
+					</div><!-- /.box-body -->
                     <div class="box-footer text_editor">
                         <div class="pull-right">
                             <input type="hidden" name="file_id" value ="<?php echo isset($file_data[0]['file_id']) ? $file_data[0]['file_id'] : ''; ?>" >
+                            <input type="hidden" name="Section_id1" value ="<?php echo isset($file_data[0]['file_mark_section_id']) ? $file_data[0]['file_mark_section_id'] : ''; ?>" >
                             <input type="hidden" name="log_id" value ="<?php echo $log_id; ?>" >
                             <input type="hidden" name="draft_type" value ="<?php echo isset($draft_type) ? $draft_type : ''; ?>" >
-                            <button type="submit" name="btnadddraft" value="add_draft" onClick="return confirm('कृपया सुनिश्चित कर ले की आप ड्राफ्ट पुनः एडिट के किये सहेज रहे है');" class="btn btn-primary"><i class="fa fa-pencil"></i><?php echo $this->lang->line("btn_save_draft_to_file"); ?></button>
-                            <button type="submit" name="btnadddraft" value="save_draft" onClick="return confirm('कृपया सुनिश्चित कर ले यह  ड्राफ्ट फाइल पर जोड़ रहे है');" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->lang->line("btn_add_draft_to_file"); ?></button>
+                            <!--<button type="submit" name="btnadddraft" value="add_draft" onClick="return confirm('कृपया सुनिश्चित कर ले की आप ड्राफ्ट पुनः एडिट के किये सहेज रहे है');" class="btn btn-primary"><i class="fa fa-pencil"></i><?php// echo $this->lang->line("btn_save_draft_to_file"); ?></button>-->
+                            
+							<button type="submit" name="btnadddraft" value="save_draft" onClick="return confirm('कृपया सुनिश्चित कर ले यह  ड्राफ्ट फाइल पर जोड़ रहे है');" class="btn btn-primary"><i class="fa fa-pencil"></i> <?php echo $this->lang->line("btn_add_draft_to_file"); ?></button>
                         </div>
                         <a href="<?php echo base_url();?>efile/<?php echo $file_data[0]['file_id'];?>" class="btn btn-danger"><i class="fa fa-file"></i> <?php echo $this->lang->line("btn_goto_efile"); ?></a>
                         <a href="javascript:void(0);" id="voice_input"  class="btn btn-warning"><i class="fa  fa-microphone"></i>  <?php echo $this->lang->line("btn_hindi_english"); ?></a>
@@ -237,7 +271,21 @@ if(isset($draft_id) && $draft_id != ''  ){
         }
     );
 
+	function put_content(){	
+		var res = confirm('कृपया सुनिश्चित कर ले यह  ड्राफ्ट फाइल पर जोड़ रहे है');
+		if(res==false){
+			return false;
+		}
+		var data = CKEDITOR.instances.compose_textarea.getData();
+			//alert(data);
+		content1 = encrypt('encode',data);
+		//alert(content1);
+		//document.getElementById('compose_textarea').value = data;
+		//CKEDITOR.instances['compose_textarea'].setData(data)
+		$("#final_content").val(content1);
+	}
     $(document).ready(function(){
+		$("#for-print").animate({ scrollTop: $('#for-print').prop("scrollHeight")}, 1000);
         $("#edit").show();
         $("#typewithtext").hide();
         $('#voice_input').click(function(){
@@ -266,21 +314,21 @@ if(isset($draft_id) && $draft_id != ''  ){
 			}
         });
     });
-    check_browser();
-    function check_browser(){
-        var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-        // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
-        var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
-        var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-        // At least Safari 3+: "[object HTMLElementConstructor]"
-        var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
-        var isIE = /*@cc_on!@*/false || !!document.documentMode;   // At least IE6
+    // check_browser();
+    // function check_browser(){
+        // var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+        // // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+        // var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+        // var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        // // At least Safari 3+: "[object HTMLElementConstructor]"
+        // var isChrome = !!window.chrome && !isOpera;              // Chrome 1+
+        // var isIE = /*@cc_on!@*/false || !!document.documentMode;   // At least IE6
 
-        var output = 'Detecting browsers by ducktyping:<hr>';
-        if(isChrome==true){
-            $("#voice_input").show();
-        }else{
-            $("#voice_input").hide();
-        }
-    }
+        // var output = 'Detecting browsers by ducktyping:<hr>';
+        // if(isChrome==true){
+            // $("#voice_input").show();
+        // }else{
+            // $("#voice_input").hide();
+        // }
+    // }
 </script>

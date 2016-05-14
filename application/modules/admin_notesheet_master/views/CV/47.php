@@ -4,7 +4,7 @@ p{
 }
 </style>
 <?php 
-$contents  = '<table style="font-size:17px;  width:80%; margin:0% auto;">' ;
+$contents  = '<table style="font-size:14px;  width:100%; margin:0% auto;">' ;
 $contents .= '<tr><td align="left"><div style="margin-top:20px;"><span style="margin-left:10%;">';
 if($is_genrate == true){ 
     $contents .=  ' '.$post_data['subject'];
@@ -39,7 +39,13 @@ if($is_genrate == true){
 }else{
     $contents .=  '<input type="text" class="" name="number" value="'.$file_number.'" required>';
 }
-$contents .= '  में अनावेदक म०प्र० शासन की ओर से पक्ष-समर्थन करने हेतु अधिवक्ता की नियुक्ति की जाए | </p> </td></tr>';
+$contents .= '  में अनावेदक म०प्र० शासन की ओर से पक्ष-समर्थन करने हेतु अधिवक्ता की नियुक्ति की जाए | ';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['content'];
+}else{
+    $contents .=  ' <input type="text" class="" size="50" name="content">';
+}
+$contents .= '</p> </td></tr>';
 $contents .= '<tr><td><p>अब यदि मान्य हो तो प्रशासकीय विभाग के प्रस्तावानुसार विषयांकित प्रकरण में राज्य के स्थाई अधिवक्ता, ';
 if($is_genrate == true){
     foreach(get_advocates_name('', $post_data['member_id']) as $row){
@@ -52,11 +58,24 @@ if($is_genrate == true){
     }
     $contents .= '</select>';
 }
-$contents .= '  को पक्ष-समर्थन करने हेतु निर्देश के साथ वकालतनामा जारी किया जाना उचित होगा  एवं अनुमोदन पश्चात् वकालतनामा एवं आदेश की प्रतिया हश्ताक्षरार्थ प्रस्तुत है।| </p> </td></tr>';
+$contents .= '  को पक्ष-समर्थन करने हेतु निर्देश के साथ वकालतनामा जारी किया जाना उचित होगा  एवं अनुमोदन पश्चात् वकालतनामा एवं आदेश की प्रतिया हश्ताक्षरार्थ प्रस्तुत है।| ';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['content1'];
+}else{
+    $contents .=  ' <input type="text" class="" size="50" name="content1">';
+}
+$contents .= '</p> </td></tr>';
+if($is_genrate == true){
+	$contents .= $post_data['extra_content'] != '' ? '<tr><td><p>'.$post_data['extra_content'].'</p></td></tr><p>' : '';
+}else{
+	$contents .= '<tr><td><textarea name="extra_content" style="margin: 0px; height: 50px; width: 98%;" placeholder="यदि आपको और डाटा जोड़ना है तो यहाँ पर लिखे|"></textarea></td></tr>';
+}
 $contents .= '<tr><td>&nbsp;</td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td><u>अनुभाग अधिकारी (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अति. सचिव (सिविल)</u></td></tr>';
+}
 $contents .= '</table>';

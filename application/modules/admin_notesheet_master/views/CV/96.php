@@ -4,7 +4,7 @@ p{
 }
 </style>
 <?php 
-$contents  = '<table style="font-size:17px;  width:80%; margin:0% auto;">' ;
+$contents  = '<table style="font-size:14px;  width:90%; margin:0% auto;">' ;
 $contents .= '<tr><td align="right"><b><u>स्पीड पोस्ट द्वारा</b></u></td></tr>';
 $contents .= '<tr><td align="center">फा0क्र0 4(ए)/';
 if($is_genrate == true){ 
@@ -15,8 +15,21 @@ if($is_genrate == true){
 $contents .= '/'.$file_number.'/'.date("Y").'/21-क(सि)</td></tr>';
 $contents .= '<tr><td align="center"><u><h3>'.$dept_name.'</h3></u></td></tr>';
 $contents .= '<tr><td align="left">प्रेषकः-</td></tr>';
-$contents .= '<tr><td align="left"><span style="margin-left:8%">'.$as_name.'</span></td></tr>';
-$contents .= '<tr><td align="left"><span style="margin-left:8%">अतिरिक्त सचिव विधि,</span></td></tr>';
+$contents .= '<tr><td align="left"><span style="margin-left:8%">';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy')); 
+}else{
+	 $contents .= get_officer_for_sign('add_secetroy' ,$add_secetroy ,'', $as_id);
+}
+$contents .= '</span></td></tr>';
+$contents .= '<tr><td align="left"><span style="margin-left:8%">';
+if($is_genrate == true){	
+    $contents .=   get_officer_dign($this->input->post('add_secetroy'));
+}
+else {
+	 $contents .= '-------';
+	}
+$contents .= ', विधि</span></td></tr>';
 $contents .= '<tr><td align="left">प्रति,</td></tr>';
 if($is_genrate == true){
     foreach(get_advocates_name('', $post_data['member_id']) as $row){
@@ -38,14 +51,14 @@ if($is_genrate == true){
 } else {
     $contents .= ' <input type="text" class="date1" name="date1" placeholder="dd/mm/yyyy" value="'.$today.'"/></td></tr>';
 } 
-$contents .= '<tr><td><div style="float:left; width:45px;">विषय:- </div><p style="text-indent: 0;">';
+$contents .= '<tr><td><table><tr><td style="width:7%; vertical-align: top;"><b>विषय:- </b></td><td>';
 if($is_genrate == true){ 
     $contents .=  $post_data['subject'];
 } else {
     $contents .= '<textarea name="subject" rows="" columns="">'.$file_subject.'</textarea>';
 }
-$contents .= '</p></td></tr>';
-$contents .= '<tr><td><div style="float:left; width:45px;">सन्दर्भ:- </div><p style="text-indent: 0;">प्रशासकीय विभाग ';
+$contents .= '</td></tr></table></td></tr>';
+$contents .= '<tr><td><table><tr><td style="width:7%; vertical-align: top;"><b>सन्दर्भ:- </b></td><td>प्रशासकीय विभाग ';
 if(isset($file_department)){
 $splitdept = explode(' ',$file_department);
 if(in_array('विभाग' , $splitdept)){
@@ -54,21 +67,39 @@ if(in_array('विभाग' , $splitdept)){
 	$contents .= $file_department.' विभाग' ;
 }
 }
-$contents .= ' के यू0ओ0क्र0 '.$file_uo_or_letter_no.' , दिनांक  '.get_date_formate($file_uo_or_letter_date,'d/m/Y').'</p></td></tr>';
+$contents .= ' के यू0ओ0क्र0 '.$file_uo_or_letter_no.' , दिनांक  '.get_date_formate($file_uo_or_letter_date,'d/m/Y').'</td></tr></table></td></tr>';
 $contents .= '<tr><td align="center">--------------</td></tr>';
 $contents .= '<tr><td align="left">महोदय,</td></tr>';
 $contents .= '<tr><td align="left"><p>इस विभाग द्वारा पूर्व में जारी आदेश क्रमांक 4(ए)/';
 if($is_genrate == true){ 
     $contents .=  $post_data['number'];
 } else {
-    $contents .= '<input type="text" class="" name="number"  value=""/></div>';
+    $contents .= '--------';
 }
 $contents .= '/'.$file_number.'/'.date("Y").'/21-क(सि)';
 $contents .= ' दिनांक '.get_date_formate($today,'d/m/Y').'   को निरस्त करते हुए, उपरोक्त विषयांतर्गत प्रकरण में म.प्र. शासन की ओर से माननीय उच्चतम न्यायालय, नई दिल्ली मे  पैरवी करें| </p></td></tr>';
-$contents .= '<tr><td align="left">संलग्न:-वकालतनामा </td></tr>';
+$contents .= '<tr><td align="left">संलग्न:- वकालतनामा </td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">भवदीय,</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">('.$as_name.')</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अतिरिक्त सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(';
+if($is_genrate == true){
+	$contents .=  get_officer_information($this->input->post('add_secetroy')); 
+}else{
+	$contents .= '-------';
+}
+$contents .= ')</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">';
+if($is_genrate == true){	
+    $contents .=   get_officer_dign($this->input->post('add_secetroy'));
+}
+else {
+	 $contents .= '-------';
+	}
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td></td></tr>';
 $contents .= '<tr><td><tr><td><u>प्रतिलिपि:</u></td></tr>';
@@ -82,19 +113,15 @@ if(in_array('विभाग' , $splitdept)){
 }
 }
 
-$contents .='  भोपाल की ओर उनके    यू.ओ.क्र  '.$file_uo_or_letter_no.' दिनांक '.get_date_formate($file_judgment_date,'d/m/Y').' के संदर्भ में उनकी विभागीय नस्ती के साथ भेजकर अनुरोध है कि प्रकरण में प्रभारी अधिकारी को निर्देश दे कि वे तत्काल';
+$contents .='  भोपाल की ओर उनके    यू.ओ.क्र  '.$file_uo_or_letter_no.' दिनांक '.get_date_formate($file_judgment_date,'d/m/Y').' के संदर्भ में उनकी विभागीय नस्ती के साथ भेजकर अनुरोध है कि प्रकरण में प्रभारी अधिकारी को निर्देश दे कि वे तत्काल ';
 if($is_genrate == true){
     foreach(get_advocates_name('', $post_data['member_id']) as $row){
-        $contents .= ' '.$row->scm_name_hi.'</span>,';
+        $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi.'</span>,';
     }
 } else {
-    $contents .= ' <select name="member_id">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= '-------';
 }
- $contents .= ' अधिवक्ता नई दिल्ली से संपर्क कर आवश्यक कार्यवाही करें |  </td></tr>';
+ $contents .= ' , नई दिल्ली से संपर्क कर आवश्यक कार्यवाही करें |  </td></tr>';
 $contents .= '</table>';
 ?>   
 

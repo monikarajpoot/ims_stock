@@ -26,6 +26,7 @@ class Dealing_file_model extends CI_Model {
             $this->db->where('file_return !=', '1');
             $this->db->where('file_hardcopy_status !=', 'working');
         }
+		$this->db->where('file_hardcopy_status !=', 'close');
 		$where = "(FIND_IN_SET('" . emp_session_id() . "', multi_user_receiver_id) or file_received_emp_id = ".emp_session_id().")";
         $this->db->where($where);
         $this->db->order_by('file_id','desc');

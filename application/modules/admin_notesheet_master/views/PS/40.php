@@ -100,9 +100,32 @@ $contents .= $post_data['state_11'];
 }
 $contents .=  ' को सूचित कराने का कष्ट करें । </p></td></tr>';
 
-$contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( '.$us_name .')</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">अवर सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 $contents .= '<tr><td><div style="float:left">पृ.क्र. 1060/15/21-क(अभि),	</div><div style="float:right">भोपाल, दिनांक   ';
 if($is_genrate == true){
@@ -126,8 +149,32 @@ $contents .=  ' म0 प्र0  की ओर सूचनार्थ प्�
 
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">( '.$us_name .') )</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:60%; text-align:center;"> अवर सचिव</div></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
+
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
+if($is_genrate == true){
+$contents .=  get_officer_information($this->input->post('avar_secetroy')); 
+
+}else
+{
+     $contents .= get_officer_for_sign('avar_secetroy' ,$uber_sect ,'', $us_id);
+    
+}
+
+$contents .= ' )</div></td></tr>';
+$contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">';
+
+if($is_genrate == true){    
+    $contents .=   get_officer_dign($this->input->post('avar_secetroy'));
+}
+else {
+     $contents .= '-------';
+    }
+$contents .= '</div></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">'.$dept_name.'</div></td></tr>';
 
 //print content

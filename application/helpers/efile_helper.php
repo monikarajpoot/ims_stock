@@ -33,7 +33,7 @@ function get_draft($id, $type = null, $not = false, $all = false){
         } else {
             $ci->db->where_in('draft_id', $id1);
         }
-        $ci->db->order_by('draft_create_date', 'DESC');
+        $ci->db->order_by('draft_create_date', 'ASC');
         $query = $ci->db->get();
       //  echo $ci->db->last_query();
         if ($all == true) {
@@ -80,7 +80,7 @@ function get_draft_log_data($id, $last = false, $limit = null, $group_by = null)
 
 function get_last_log_id($id, $emp_id, $draft_final = 0){
 	$ci = & get_instance();
-	$ci->db->select('*');
+	$ci->db->select('draft_log_id,draft_log_creater,draft_log_create_date,draft_log_draft_id,draft_log_file_id,draft_log_section_id,draft_log_sendto,draft_content,draft_final');
 	$ci->db->from(DRAFT_LOG);      
 	$ci->db->where('draft_log_draft_id',$id);
     if($draft_final != 0 && $draft_final == 1){
@@ -197,10 +197,9 @@ function update_filedata($file_id, $draft_id){
 	$res = updateData(FILES, array('final_draft_id' => $ids), array('file_id' => $file_id));
 	return $res;
 }
-
 function escape_str($str, $like = TRUE)
 {
-	//pr($str);
+	$str=trim($str);
 	$ci = & get_instance();
     if (is_array($str))
     {
@@ -355,12 +354,17 @@ function generate_PDF($contents, $file_name, $pdfAbspath, $redirect = null ){
 		return false;
 	}
 }
-function is_notehseet_finalized($fileid,$empid,$draftid,$task){
+function is_notehseet_finalized($fileid,$empid,$draftid,$task,$isnotesheet = false){
 	$ci = & get_instance();
 	$ci->db->select('draft_creater_emp_id,draft_sender_id,draft_reciever_id,draft_is_finalize,draft_status');
 	$ci->db->from(DRAFT);
+    if($isnotesheet == true){
+        $ci->db->where(array('draft_type'=>'n'));
+    }
 	if($task=='loggedin_usr_draf_creator'){
 		$ci->db->where(array('draft_file_id'=>$fileid,'draft_creater_emp_id'=>$empid)); 	
+	}else if($task=='file_creator_id'){
+		$ci->db->where(array('draft_file_id'=>$fileid)); 	
 	}else if($task=='loggedin_usr_draf_added'){
 		$ci->db->where(array('draft_file_id'=>$fileid,'draft_sender_id'=>$empid)); 	
 	}
@@ -388,6 +392,24 @@ function get_final_draft($empid,$fileid){
 	return $draft_detail;	
 }
 
+function get_final_draft_content($empid,$fileid){
+	$ci = & get_instance();
+	$ci->db->select('draft_id');
+	$ci->db->from(DRAFT);	
+	$ci->db->where(array('draft_file_id'=>$fileid,'draft_sender_id'=>$empid,'draft_reciever_id'=>$empid,'draft_status'=>3)); 		
+	$query = $ci->db->get();	
+	$draft_detail = $query->row_array();
+	/*Get draft detail from draft log table*/
+	$ci->db->select('draft_log_id,draft_content,draft_log_creater,draft_log_sendto');
+	$ci->db->from(DRAFT_LOG);	
+	$ci->db->where(array('draft_log_draft_id'=>$draft_detail['draft_id'],'draft_log_sendto'=>$empid)); 		
+	$ci->db->order_by('draft_log_id','desc');
+	$log_query = $ci->db->get();	
+	$draft_detail_log = $log_query->row_array();
+	$draft_detail= $draft_detail_log;		
+	/*Get draft detail from draft log table*/
+	return $draft_detail_log;	
+}
 function verify_digital_sinature($log_id,$draft_content = null){
 	//echo '<br/>d log id- '.$log_id;
 	$log_data = get_draft_log($log_id);
@@ -416,10 +438,11 @@ function verify_digital_sinature($log_id,$draft_content = null){
 		$response = curl_exec($ch);
 		curl_close($ch);
 		//pre($response);
-		$show_data = $result['ds_emp_name'].' on '.get_datetime_formate($result['ds_create_datetime']);
+		$show_data = '<b>'.$result['ds_emp_name'].'</b> <br/> <span style="font-size:12px;">'.get_datetime_formate($result['ds_create_datetime']).'</span>';
+		$show_data_title = ''.$result['ds_emp_name'].' on '.get_datetime_formate($result['ds_create_datetime']);
 		if($response == '"success"'){
 			//$return  = '<img src="'.base_url().'images/verify_sign.png" height="25px" width="30px" title="Signed by: '.$show_data.'"> <div style="font-size:10px">Digitally Signed By</div>' ;
-			$return  = '<img src="'.base_url().'images/verify_sign.png" height="25px" width="30px" title="Signed by: '.$show_data.'"> <div style="font-size:10px">Digitally Signed By <br/><span class="onlyprint">'.$result['ds_emp_name'].'</span></div>' ;
+			$return  = '<img src="'.base_url().'images/verify_sign.png" height="25px" width="30px" title="Signed by: '.$show_data_title.'"> <div style="font-size:12px; margin:0px; text-align: center">Digitally Signed By <br/><span style="font-size:14px">'.$show_data.'</span></div>' ;
 		} else { 
 			$return  = '<img src="'.base_url().'images/cross_signed.jpg" height="25px" width="30px" title="Error: Data wrong or tempered">' ;
 		}
@@ -427,7 +450,6 @@ function verify_digital_sinature($log_id,$draft_content = null){
 	} else {
 		return false;
 	}
-
 }
 function verify_logid_sinature($log_id){
     $ci = & get_instance();
@@ -485,10 +507,38 @@ function decode_signed_data($ds_signed_data){
 		return html_entity_decode($string, ENT_COMPAT, 'UTF-8');
 }
 
-function single_file_digitally_sign_or_not($draft_log_id){	
+function single_file_digitally_sign_or_not($draft_log_id,$is_return=false){	
 		$draft_sign_list = get_list_with_in('ft_digital_signature',null,'ds_draft_log_id',$draft_log_id);
 		//pre($draft_sign_list);
-		echo count($draft_sign_list);
+		if($is_return==true){
+			return count($draft_sign_list);
+		}else{
+			echo count($draft_sign_list);
+		}
 		//echo json_encode($post_data_array_b);	
 	}
+// for genrate pdf	
+function genrate_unicode_pdf($contents, $file_name, $pdfAbspath, $mode = 'F'){
+	include_once APPPATH.'/third_party/mpdf60/mpdf.php';
+	$pdfpath = $pdfAbspath.'/'.$file_name.'.pdf';
+	ini_set("memory_limit","128M");
+	$mpdf = new mPDF(); 
+	$mpdf->WriteHTML($contents);
+	if($mode == 'F'){
+		$return = $mpdf->Output($pdfpath, $mode);
+	}else if($mode == 'D'){
+		$return =  $mpdf->Output($file_name, $mode);
+	} else {
+		$return =  'Please select mode!!!!';
+	}	
+	return $return;
+	exit;
+}
 /*End 12 03 2016*/
+
+function get_draft_from_file($file_id = ''){
+	$ci = & get_instance();
+    $query = $ci->db->get_where(FILES ,array('file_id'=>$file_id));
+	return $query->row_array();
+	
+}

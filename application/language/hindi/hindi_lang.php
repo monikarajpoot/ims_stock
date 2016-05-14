@@ -140,7 +140,7 @@ $lang["view_all_employee"] = htmlentities("शासकीय सेवको �
 
 //31 july RP
 $lang["file_head"] = htmlentities("हेड्स");
-$lang["File_section_no"] = htmlentities("पंजी क्रमांक (file section no.)");
+$lang["File_section_no"] = htmlentities("पंजी क्रमांक (section registration no.)");
 $lang['label_letterno_number'] = 'पत्र क्रमांक';
 $lang['label_letterno_date'] = 'पत्र दिनांक';
 $lang["appeal_petition"] = htmlentities("न्यायालय जिसके आदेश के विरुद्ध अपील / याचिका की गयी");

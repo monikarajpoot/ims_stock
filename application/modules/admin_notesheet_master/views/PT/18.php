@@ -16,15 +16,11 @@ $contents .= ', नई दिल्ली के फीस  देयकों �
 $contents .= '<tr><td align="center">---------</td></tr>';
 $contents .= '<tr><td align="left"><p>  ';
 if($is_genrate == true){
-    foreach(get_advocates_name('', $post_data['member_id1']) as $row){
+    foreach(get_advocates_name('', $post_data['member_id']) as $row){
          $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi;
     }
 } else {
-    $contents .= ' <select name="member_id1">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= '<option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= ' ----------';
 }
 $contents .= ', नई दिल्ली  ने पैरवी उपरांत कुल राशि रू0  ';
 if($is_genrate == true){ 
@@ -41,15 +37,11 @@ if($is_genrate == true){
 $contents .= ' भुगतान योग्य हैं |</td></tr>';
 $contents .= '<tr><td align="left"><p>अतः   ';
 if($is_genrate == true){
-    foreach(get_advocates_name('', $post_data['member_id2']) as $row){
+    foreach(get_advocates_name('', $post_data['member_id']) as $row){
          $contents .= ' '.$row->scm_name_hi.', '.$row->scm_post_hi.', '.$row->scm_court_name_hi;
     }
 } else {
-    $contents .= ' <select name="member_id2">';
-    foreach($standing_counsil_memebers as $row){
-        $contents .= ' <option value="'.$row->scm_id.'">'.$row->scm_name_hi.'</option>';
-    }
-    $contents .= '</select>';
+    $contents .= '-------------';
 }
 $contents .= ', नई दिल्ली अधिवक्ता को रु0 '; 
 if($is_genrate == true){ 

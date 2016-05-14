@@ -1,7 +1,7 @@
 <?php 
 $contents  = '' ;
 
-$contents .= '<tr><td align="right"><div style="margin-top:150px">अर्द्ध शास.पत्र क्रं. ';
+$contents .= '<tr><td align="right"><div style="margin-top:200px">अर्द्ध शास.पत्र क्रं. ';
 if($is_genrate == true){
 $contents .= $post_data['gove_half_1'];
 }else
@@ -43,7 +43,14 @@ $contents .= '<tr><td><p>कृपया सामान्य प्रशा�
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><p>शुभकामनाओं सहित।</p></td></tr>';
 $contents .= '<tr><td align="right"><div style="width:35%; text-align:center;">	भवदीय</div></td></tr>';
-$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;"> (आर.के.वणी)</div></td></tr>';
+$contents .= '<tr><td align="right"><div style="width:35%; text-align:center;" contenteditable="false">(';
+if($is_genrate == true){	 
+	$contents .= get_officer_information($this->input->post('sing_user')); 
+}else{
+	$contents .= get_officer_for_sign('sing_user' ,array(2,3,4,5,7) ,'', $as_id);
+}
+
+$contents .= ')</div></td></tr>';
 $contents .= '<tr><td>प्रति ,</td></tr>';
 $contents .= '<tr><td><span style="margin-left:5%">';
 if($is_genrate == true){

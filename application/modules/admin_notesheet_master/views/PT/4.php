@@ -49,13 +49,18 @@ if($is_genrate == true){
 	$contents .= '</select>';
 	$contents .= ' <select name="court_location" class="court_location">';
 	foreach($court_location as $row){
-		$contents .= '<option value="'.$row.'">'.$row.'</option>';
+		if(($emp_allot_seet == 1 && $row == 'जबलपुर, मध्यप्रदेश' ) || ($emp_allot_seet == 2 && $row == 'ग्वालियर, मध्यप्रदेश' ) || ($emp_allot_seet == 3 && $row == 'इंदौर, मध्यप्रदेश' )  ){
+			$contents .= '<option value="'.$row.'" selected>'.$row.'</option>';
+		}
+		else{
+			$contents .= '<option value="'.$row.'">'.$row.'</option>';
+		}
 	}
 	$contents .= '</select>';
 }
 $contents .= ' को आवश्यक निर्देश प्रदान किया जाना प्रस्तावित है।</p></td></tr>';
 $contents .= '<tr><td><p>आदेश की स्वच्छ प्रतियां एवं प्रशासकीय विभाग की नस्ती पर अंकित टीप हस्ताक्षरार्थ प्रस्तुत है।</p></td></tr>';
-if($this->uri->segment(6) == 'p'){
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'){
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अनुभाग अधिकारी (याचिका)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';

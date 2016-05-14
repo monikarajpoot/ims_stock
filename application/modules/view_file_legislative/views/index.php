@@ -1,8 +1,6 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        <?php echo $title; ?>
-    </h1>
+    <h1><?php echo $title; $emp_session_id= emp_session_id(); ?></h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard (legislative)</a></li>
         <li class="active"><?php echo $title; ?></li>
@@ -41,7 +39,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
 						 <form method="post">
-                        <?php $empssection = empdetails(emp_session_id());
+                        <?php $empssection = empdetails($emp_session_id);
 							$alloted_section = $empssection[0]['emp_section_id'];
 							$allot_section = explode( ',',$alloted_section );
 							if(count($allot_section) > 1){
@@ -61,7 +59,7 @@
 						<table id="view_table" class="table table-bordered table-striped display">
                             <thead>
                             <tr>
-                                <th><?php echo $this->lang->line('sno'); ?>test</th>
+                                <th><?php echo $this->lang->line('sno'); ?></th>
                                 <th><?php echo $this->lang->line('section_no1'); ?></th>
                                 <th><?php echo $this->lang->line('view_file_subject'); ?></th>
                                 <th><?php echo $this->lang->line('uo/letter_no'); ?></th>
@@ -83,7 +81,7 @@
                                 } else if($checkdate >= '7' && $checkdate <= '10') { echo "style='background-color:#FFE7BA' data-toggle='tooltip' data-original-title='७ दिन से अधिक विलंब'";
                                 } else if($checkdate >= '10') { echo "style='background-color:#FFA4A4' data-toggle='tooltip' data-original-title='१० दिन से अधिक विलंब'";}
                                 ?>>
-                                    <td><?php echo $i;?> (<?php echo $this->lang->line('file_no'); ?> : <?php echo $files->file_id;?>)</td>
+                                    <td alt="<?php echo $files->file_id;?>"><?php echo $i;?></td>
                                     <td><?php
                                         // echo @getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type) ? getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type) : 'N/A';
                                         $rrt = all_getfilesec_id_byfileid($files->file_id);
@@ -131,7 +129,7 @@
                                         foreach($multi_rece as $multi) {
                                             if ($multi != $files->file_received_emp_id) {
                                                 $multi_nm = getemployeeName($multi);
-                                echo $multi_nm;
+											echo $multi_nm;
                                                 echo " , ";
                                             }
                                         }
@@ -144,22 +142,23 @@
                                         <?php
                                         $senderemp = empdetails($files->file_sender_emp_id);
 										$multi_nm = explode(',',$files->multi_user_receiver_id);
-                                        echo $files->file_hardcopy_status == 'not' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) != '1' ? '<button onclick="open_model3('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" value="'.$files->file_id.'" class="btn btn-block btn-sm btn-twitter"><span class="blink_fast">'.$this->lang->line('receive_file').'</span></button> <a data-toggle="tooltip" data-original-title="वापस पिछले इस्तर पे भेजें" onclick="return confirm_reject()" href="'.base_url().'manage_file/send_file_return/'.$files->file_id.'" class="btn btn-block btn-sm btn-instagram" data-toggle="tooltip" data-original-title="Reject">'.$this->lang->line('reject').'</a>' : false;
-                                        echo $files->file_hardcopy_status == 'not' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) == '1' ? '<a onclick="return confirm_receive()" href="'.base_url().'manage_file_legislative/receive_file_sectionno/'.$files->file_id.'" class="btn btn-block btn-twitter"><span class="blink_fast" data-toggle="tooltip" data-original-title="Receive">'.$this->lang->line('receive_file').'</span></a>' : false; // file receive from dealing assistant
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $files->file_return != '1' & $this->uri->segment(3) == '' ? '<a href="'.base_url().'dashboard/dealing_legis/'.$files->file_id.'" class="btn btn-sm btn-block btn-twitter" data-toggle="tooltip" data-original-title="Modify"><i class="fa fa-fw fa-edit"></i> बदलाव करें</a>' : false;
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model6('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" class="btn btn-sm btn-twitter btn-block rty6" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Mark to DA">सहायक को अंकित करें</button>' : false;
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model2('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-sm btn-block btn-twitter upperuser" data-toggle="tooltip" data-original-title="Send to officer">अधिकारी को भेजें</button> ' : false;
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) != '' ? '<button onclick="section_section('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-sm btn-block btn-twitter sections_nm" data-toggle="tooltip" data-original-title="Section to Section movement">Section to Section</button> ' : false;
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $files->file_return == '1' && $this->uri->segment(3)!='' ? '<a onclick="return confirm_send()" href="'.base_url().'manage_file_legislative/dispatch_file_byso/'.$files->file_id.'" class="btn btn-sm btn-instagram btn-block rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Send to Dispatch">जावक शाखा में भेजें</a> ' : false;
-                                        echo   $files->file_hardcopy_status == 'received' && (emp_session_id() == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model_dispose('.$files->file_id.')" class="btn btn-sm btn-block btn-danger rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Dispose in section">शाखा में Dispose</button> ' : false;
-
+                                        echo $files->file_hardcopy_status == 'not' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) != '1' ? '<button onclick="open_model3('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" value="'.$files->file_id.'" class="btn btn-block btn-sm btn-twitter"><span class="blink_fast">'.$this->lang->line('receive_file').'</span></button> <a data-toggle="tooltip" data-original-title="वापस पिछले इस्तर पे भेजें" onclick="return confirm_reject()" href="'.base_url().'manage_file/send_file_return/'.$files->file_id.'" class="btn btn-block btn-sm btn-instagram" data-toggle="tooltip" data-original-title="Reject">'.$this->lang->line('reject').'</a>' : false;
+                                        echo $files->file_hardcopy_status == 'not' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) == '1' ? '<a onclick="return confirm_receive()" href="'.base_url().'manage_file_legislative/receive_file_sectionno/'.$files->file_id.'" class="btn btn-block btn-twitter"><span class="blink_fast" data-toggle="tooltip" data-original-title="Receive">'.$this->lang->line('receive_file').'</span></a>' : false; // file receive from dealing assistant
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $files->file_return != '1' & $this->uri->segment(3) == '' ? '<a href="'.base_url().'dashboard/dealing_legis/'.$files->file_id.'" class="btn btn-sm btn-block btn-twitter" data-toggle="tooltip" data-original-title="Modify"><i class="fa fa-fw fa-edit"></i> बदलाव करें</a>' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model6('.$files->file_id.',&#39;'.$files->file_status.'&#39;)" class="btn btn-sm btn-twitter btn-block rty6" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Mark to DA">सहायक को अंकित करें</button>' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model2('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-sm btn-block btn-twitter upperuser" data-toggle="tooltip" data-original-title="Send to officer">अधिकारी को भेजें</button> ' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $this->uri->segment(3) != '' ? '<button onclick="section_section('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-sm btn-block btn-twitter sections_nm" data-toggle="tooltip" data-original-title="Section to Section movement">Section to Section</button> ' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) && $files->file_return == '1' && $this->uri->segment(3)!='' ? '<a onclick="return confirm_send()" href="'.base_url().'manage_file_legislative/dispatch_file_byso/'.$files->file_id.'" class="btn btn-sm btn-instagram btn-block rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Send to Dispatch">जावक शाखा में भेजें</a> ' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && ($emp_session_id == $files->file_received_emp_id || in_array(emp_session_id(),$multi_nm)) ? '<button onclick="open_model_dispose('.$files->file_id.')" class="btn btn-sm btn-block btn-danger rty1" value="'.$files->file_id.'" data-toggle="tooltip" data-original-title="Dispose in section">शाखा में Dispose</button> ' : false;
+										
                                         $section_exp = explode(',',getEmployeeSection());
                                         $section_11 = array('28');
                                         if(array_intersect($section_exp, $section_11)){
 
 
                                         }
-                                        echo   $files->file_hardcopy_status == 'received' && emp_session_id() == $files->file_received_emp_id && ($files->file_level_id == '31' || $files->file_return == '1') && ($this->uri->segment(3)=='1' || $this->uri->segment(1)=='today') ? '<button onclick="open_model5('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-block btn-sm btn-instagram" data-toggle="tooltip" data-original-title="Return to CR">अवाक शाखा में भेजें</button> ' : false;
+                                        echo   $files->file_hardcopy_status == 'received' && $emp_session_id == $files->file_received_emp_id && ($files->file_level_id == '31' || $files->file_return == '1') && ($this->uri->segment(3)=='1' || $this->uri->segment(1)=='today') ? '<button onclick="open_model5('.$files->file_id.')" value="'.$files->file_id.'"  class="btn btn-block btn-sm btn-instagram" data-toggle="tooltip" data-original-title="Return to CR">अवाक शाखा में भेजें</button> ' : false;
+										echo   ($files->file_hardcopy_status == 'received' || $files->file_hardcopy_status == 'working' ) && emp_session_id() == $files->file_received_emp_id ? '<button type="button" class="btn btn-sm btn-primary btn-block remarkbtn_model" data-file_id="'.$files->file_id.'" data-toggle="modal" data-target="#remarkmodel_all_section" data-toggle="tooltip" data-original-title="फाइल से  सम्बंधित रिमार्क जोड़ें ">रिमार्क जोड़े</button> ' : false;
                                         ?>
                                         <input type="hidden" class="mark_sec" value="<?php echo $files->file_mark_section_id ; ?>">
                                     </td>
@@ -631,4 +630,3 @@
         clear: both;
     }
 </style>
-

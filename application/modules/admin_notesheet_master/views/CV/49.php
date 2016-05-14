@@ -4,7 +4,7 @@ p{
 }
 </style>
 <?php 
-$contents  = '<table style="font-size:17px;  width:80%; margin:0% auto;">' ;
+$contents  = '<table style="font-size:14px;  width:100%; margin:0% auto;">' ;
 $contents .= '<tr><td align="left"><div style="margin-top:20px;"><span style="margin-left:10%;">';
 if($is_genrate == true){ 
     $contents .=  ' '.$post_data['subject'];
@@ -47,7 +47,7 @@ $contents .= ' याचिका प्रस्तुत करने हे�
 if($is_genrate == true){
 	$contents .= get_date_formate($post_data['date2'],'d/m/Y');
 }else{
-    $contents .=  '<input type="text" class="date1" name="date2" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '<input type="text" class="date1" name="date2" value="'.$file_judgment_date1.'" placeholder="dd/mm/yyyy" required>';
 }
 $contents .= ' के अनुसार नकल दिनांक ';
 if($is_genrate == true){
@@ -70,12 +70,25 @@ if($is_genrate == true){
 	$contents .= '<option value="थी">थी</option>';
 	$contents .= '</select>';
 }
-$contents .= '|</p> </td></tr>';
+$contents .= '|';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['content'];
+}else{
+    $contents .=  ' <input type="text" class="" size="50" name="content">';
+}
+$contents .= '</p> </td></tr>';
 $contents .= ' <tr><td><p>अत: नस्ती उच्च स्तर पर मतार्थ एवं आदेशार्थ प्रस्तुत है।</p> </td></tr>';
+if($is_genrate == true){
+	$contents .= $post_data['extra_content'] != '' ? '<tr><td><p>'.$post_data['extra_content'].'</p></td></tr><p>' : '';
+}else{
+	$contents .= '<tr><td><textarea name="extra_content" style="margin: 0px; height: 50px; width: 98%;" placeholder="यदि आपको और डाटा जोड़ना है तो यहाँ पर लिखे|"></textarea></td></tr>';
+}
 $contents .= '<tr><td>&nbsp;</td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td><u>अनुभाग अधिकारी (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अति. सचिव (सिविल)</u></td></tr>';
+}
 $contents .= '</table>';

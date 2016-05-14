@@ -1,3 +1,6 @@
+<style>
+#loading-image{display:none;}
+</style>
 <?php
 $userrole = checkUserrole();
 $CI = & get_instance();
@@ -34,27 +37,28 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 			<div class="col-md-12">	
 				<form role="form" method="post" action="<?php echo base_url('individual_reports')?>"  enctype="multipart/form-data">			
 					<table class="table table-condensed text-center">
-					<?php  $section_emps = explode(',',getEmployeeSection());  $emplyees = array();
-					if($userrole < '9' || in_array($userrole, array('11','15','14'))){ 
-					foreach($section_emps  as $emp){
-						$emplyees[] = get_list(EMPLOYEES, 'emp_full_name_hi', "FIND_IN_SET('$emp',`emp_section_id`) AND role_id > $userrole AND emp_status ='1' AND emp_is_retired = '0'", 'ASC');
-					}
-					?>
+					<?php  $section_emps = explode(',',$this->session->userdata('emp_section_id'));  ?>
 						<tr>
-							<td>
-								<select name="user_type" class="form-control">
-									<option value="">कर्मचारी चुने</option>
-									<?php  foreach($emplyees as $key => $values) { 
-									 foreach($values as $key1 => $value) { ?>
-											<option value="<?php echo $value['emp_id']; ?>" <?php echo ((isset($form_input['user_type']) && $form_input['user_type'] == $value['emp_id']) || $value['emp_id'] == $userid) ? 'selected' : '';  ?>><?php echo getemployeeName($value['emp_id'], true); ?> - <?php echo get_employee_role($value['emp_id']); ?> </option>
-									<?php } }?>
+							<td width="30%">
+								<select name="emp_section_name" class="form-control" id="emp_sections">
+									<option value="">अनुभाग  चुने</option>
+									<?php  foreach($section_emps as $values) { ?>
+											<option value="<?php echo $values; ?>" <?php echo (isset($form_input['emp_section']) && $form_input['emp_section'] == $values) ? 'selected' : '';  ?>> <?php echo getSection($values); ?> </option>
+									<?php }?>
 								</select>
 							</td>
+							<td width="30%">
+								<div id="loading-image">Fetching section employees....</div>
+								<select name="user_type" class="form-control" id="employee_list_section">
+									<option value="">कर्मचारी चुने</option>									
+								</select>
+							</td width="30%">
 							<td>
 								<button type="submit" class="btn btn-primary" >खोजे</button>
 							</td>
 						</tr>
-					 <?php } ?>
+					 <?php //}  
+					// pr('h');?>
 					</table>
 				</form>
 				<table class="table table-condensed text-center">
@@ -125,8 +129,8 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 							<tr>
 								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&s_date=<?php echo $today ?>&e_date=<?php echo $_3days ?>" ><?php echo $files_deals->notreceive; ?></a></td>
 								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&s_date=<?php echo $_3days ?>&e_date=<?php echo $_7days ?>" ><?php echo $files_deals->notreceive_3days; ?></a></td>
-								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&s_date=<?php echo $_7days ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->notreceive_7days; ?></a></td>
-								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->notreceive_10days; ?></a></td>
+								<td <?php echo $files_deals->notreceive_7days > 0 ? 'style="background:#fb8888;"' : ''; ?>><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&s_date=<?php echo $_7days ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->notreceive_7days; ?></a></td>
+								<td <?php echo $files_deals->notreceive_10days > 0 ? 'style="background:red;"' : ''; ?>><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=not&emp=<?php echo $userid; ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->notreceive_10days; ?></a></td>
 								
 							</tr>
 							</table>
@@ -139,8 +143,8 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 							<tr>
 								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&s_date=<?php echo $today ?>&e_date=<?php echo $_3days ?>" ><?php echo $files_deals->received; ?></a></td>
 								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&s_date=<?php echo $_3days ?>&e_date=<?php echo $_7days ?>" ><?php echo $files_deals->received_3days; ?></a></td>
-								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&s_date=<?php echo $_7days ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->received_7days; ?></a></td>
-								<td><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->received_10days; ?></a></td>
+								<td <?php echo $files_deals->received_7days > 0 ? 'style="background:#fb8888;"' : ''; ?>><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&s_date=<?php echo $_7days ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->received_7days; ?></a></td>
+								<td <?php echo $files_deals->received_10days > 0 ? 'style="background:red;"' : ''; ?>><a data-toggle="tooltip" data-original-title="Click Here For Display Files" href="<?php echo base_url(); ?>reports/moniter?secid=<?php echo $emp_section ?>&s=received&emp=<?php echo $userid; ?>&e_date=<?php echo $_10days ?>" ><?php echo $files_deals->received_10days; ?></a></td>
 							</tr>
 							</table>
 						</td>
@@ -173,7 +177,7 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
 						</td>-->
 					</tr>
 					<?php unset($total); } ?>
-				</table>
+				</table> 
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.box-body -->
@@ -199,6 +203,43 @@ $_10days = date('Y-m-d', strtotime($todays.' - 10 days'));
             });
             return false;
         }
+		
+		$(document).ready(function(){	
+			$('#loading-image').hide();	
+			$("#emp_sections").change(function () {
+				$('#loading-image').show();
+				var section_id = $(this).val();				
+				var HTTP_PATH = '<?php echo base_url(); ?>';
+				$.ajax({
+					type: "POST",
+					url: HTTP_PATH + "activity_report/get_emloyees_section",
+					datatype: "json",
+					 async: false,
+					 data: {section_id: section_id},
+					 success: function(data) {
+					   var r_data = JSON.parse(data);
+					  // console.log(r_data);
+					   var otpt = '<option value="">Select employee/Section</option>';                    
+							$.each(r_data, function( index, value ) {
+								console.log(value);
+								if(value.emp_detail_gender=='m'){
+									var fword_en='Shri';
+									var fword_hi='श्री';
+								}else if(value.emp_detail_gender=='f'){
+									var fword_en='shushri';
+									var fword_hi='सुश्री';
+								}
+								otpt += '<option value="'+value.emp_id+'">'+fword_hi+' '+value.emp_full_name_hi+'('+value.emprole_name_hi+')</option>';
+							});
+						
+							$("#employee_list_section").html(otpt);
+						},
+							complete: function(){
+							$('#loading-image').hide();
+						}
+				});
+			});
+		});
 </script>
 <script>
     function showpage(comp1)

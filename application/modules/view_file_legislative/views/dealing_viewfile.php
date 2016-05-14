@@ -53,7 +53,11 @@
                             <?php $i=1; foreach ($get_files as $key => $files) { ?>
                                 <tr>
                                     <td><?php echo $i;?> (<?php echo $this->lang->line('file_no'); ?> : <?php echo $files->file_id;?>)</td>
-									<td><?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id,$files->file_type);?></td>
+									<td>
+										<a href="<?php echo base_url()."view_file/viewdetails/".$files->file_id ;?>" data-toggle="tooltip" data-original-title="View details">
+										<?php echo getfilesec_id_byfileid($files->file_id,$files->file_mark_section_id);?>
+										</a>
+										</td>
                                     <td><?php echo $files->file_subject;?>
 										 <br><?php if(isset($files->file_status) && $files->file_status != ''){ show_file_status($files->file_status);}?>
 									</td>
@@ -93,20 +97,20 @@
                                                 echo "<span style='color:#00a65a' >Work in Progress by<b> ".ucfirst($filereceiver[0]->emp_full_name)." , ".$filereceiver[0]->emprole_name_hi."</b></span>";
                                             } */
 										}
-if($files->multi_user_receiver_id !=null){
-                                    $multi_rece = explode(',',$files->multi_user_receiver_id);
-                                    if($files->multi_user_receiver_id != null && $files->multi_user_receiver_id != '' && in_array($files->file_received_emp_id,$multi_rece)){                                               echo " तथा ";
+										if($files->multi_user_receiver_id !=null){
+											$multi_rece = explode(',',$files->multi_user_receiver_id);
+											if($files->multi_user_receiver_id != null && $files->multi_user_receiver_id != '' && in_array($files->file_received_emp_id,$multi_rece)){                                               echo " तथा ";
 
-                                        foreach($multi_rece as $multi) {
-                                            if ($multi != $files->file_received_emp_id) {
-                                                $multi_nm = getemployeeName($multi);
-												echo $multi_nm;
-                                                echo " , ";
-                                            }
-                                        }
-                                        echo " को अंकित की गई है |";
-                                    }
-                                    }
+												foreach($multi_rece as $multi) {
+													if ($multi != $files->file_received_emp_id) {
+														$multi_nm = getemployeeName($multi);
+														echo $multi_nm;
+														echo " , ";
+													}
+												}
+												echo " को अंकित की गई है |";
+											}
+										}
 										?></td>
                                     <td width="175px">
                                         <div class="btn-group">
@@ -118,6 +122,7 @@ if($files->multi_user_receiver_id !=null){
                                             <?php } else if($files->file_hardcopy_status == 'received' && $files->file_return == '1'){  ?>
                                                 <a href="<?php echo base_url() ?>manage_file_legislative/dealing_manage_files/return_file_so/<?php echo $files->file_id ;?>/2" onclick="return confirm_send()" class="btn btn-block btn-sm btn-success" data-toggle="tooltip" data-original-title="Send to SO">एस. ओ. को भेंजे</a>
                                             <?php } ?>
+											<?php echo   $files->file_hardcopy_status == 'received' && emp_session_id() == $files->file_received_emp_id ? '<button type="button" class="btn btn-sm btn-primary btn-block remarkbtn_model" data-file_id="'.$files->file_id.'" data-toggle="modal" data-target="#remarkmodel_all_section" data-toggle="tooltip" data-original-title="फाइल से  सम्बंधित रिमार्क जोड़ें ">रिमार्क जोड़े</button> ' : false;?>
                                         </div>
                                     </td>
                                 </tr>

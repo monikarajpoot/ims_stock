@@ -17,12 +17,25 @@
 <div class="row">
     <div class="col-md-12">
         <div class="alert alert-info">
-            <h4 class="text-center" style="color:red;"><?php echo $this->lang->line('notice'); ?>:</h4> 
-            <marquee behavior="alternate" class="text-center" scrollamount="1">
-                <b style="color:blue;">   
-               यह पोर्टल केवल फाइल के लिए है | यदि आप अवकाश का आवेदन  करना चाहते है तो <a href="http://10.139.229.25/ftms/">अवकाश</a> इस लिंक पर क्लिक करें'|
-			   </b>			   
-            </marquee>
+           <!-- <h4 class="text-center" style="color:red;"><?php// echo $this->lang->line('notice'); ?>:</h4> 
+			<?php// $est_noticed = getNoticeBoardInformation_from_est(); ?>
+			<?php// if(count($est_noticed) >0){ ?>
+				<div style="width:auto;">
+				<marquee behavior="alternate" class="text-center" scrollamount="1">
+					<img src="<?php// echo base_url(); ?>/themes/site/images/gif-new.gif"/>
+					<b style="color:blue;" title="<?php// echo $est_noticed[0]['notice_description'];?>">   
+						<?php// echo $est_noticed[0]['notice_subject'];?>
+						<?php// if($est_noticed[0]['notice_attachment']!=''){?>
+							<a title="Download" target="_blank" href="uploads/notice/<?php// echo $est_noticed[0]['notice_attachment'];?>"><span class="glyphicon glyphicon-paperclip"></span></a>
+						<?php// } ?>
+
+				   </b>			   
+				</marquee><br/>
+				</div>
+			<?php// } ?>-->
+            <marquee behavior="alternate" scrollamount="2">
+                <b style="color:blue;"><span style="font-size: 18px;">THIS IS TESTING SERVER...</span></b>			   
+            </marquee>			
         </div>
     </div> 
    <div class="col-md-12 text-center">

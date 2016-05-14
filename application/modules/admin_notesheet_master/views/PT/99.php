@@ -50,7 +50,11 @@ if($is_genrate == true){
 	$contents .= '</select>';	
 }
 $contents .= ' की ओर से प्राप्त पत्र '.$file_uo_or_letter_n.' एवं आदेश की मूलतः प्रति आवश्यक कार्यवाही किये जाने हेतु संलग्न है|</p></td></tr>';
-$contents .= '<tr><td>&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right"><div  style="width:60%; text-align:center;">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td>&nbsp;</td></tr>';
+}
 $contents .= '<tr><td align="right"><div style="width:60%; text-align:center;">(<b>';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

@@ -59,6 +59,7 @@ $contents .= '<tr><td><p>आदेशार्थ |</td></tr>';
 
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td></td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'){
 $contents .= '<tr><td>&nbsp;</div></td></tr>';
 $contents .= '<tr><td><u>अनु0 अधि0</u></td></tr>';
 
@@ -67,7 +68,7 @@ $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव</u></td></tr>';
 
-
+}
 
 //print content
 //echo $contents;

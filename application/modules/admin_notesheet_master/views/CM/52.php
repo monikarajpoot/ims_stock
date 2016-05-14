@@ -39,6 +39,11 @@ $contents .= '<p> &nbsp;&nbsp;उपरोक्त प्रकरण में
 $contents .= '<br /><br /></td></tr>';
 $contents .= '<tr><td align="left" colspan="2"><u>संलग्न दस्तावेज:-</u><br />1-वकालतनामा</td></tr>';
 $contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('secetroy')); 

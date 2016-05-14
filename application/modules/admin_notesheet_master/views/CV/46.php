@@ -4,7 +4,7 @@ p{
 }
 </style>
 <?php 
-$contents  = '<table style="font-size:17px;  width:80%; margin:0% auto;">' ;
+$contents  = '<table style="font-size:14px;  width:100%; margin:0% auto;">' ;
 $contents .= '<tr><td align="left"><div style="margin-top:20px;"><span style="margin-left:10%;">';
 if($is_genrate == true){ 
     $contents .=  ' '.$post_data['subject'];
@@ -26,28 +26,34 @@ $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td align="center"> -------000------- </td></tr>';
 $contents .= '<tr><td><p>कृपया प्रशासकीय विभाग की नस्ती पर अंकित टीप ';
 if($is_genrate == true){
-	$contents .= get_date_formate($post_data['date1'],'d/m/Y');
+	$contents .= '<b>'.get_date_formate($post_data['date1'],'d/m/Y').'</b>';
 }else{
-    $contents .=  '<input type="text" class="date1" name="date1" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '<input type="text" class="date1" name="date1" value="'.$file_uo_or_letter_date.'" placeholder="dd/mm/yyyy" required>';
 }
 $contents .= ' का अवलोकन करें। </p></td></tr>';
-$contents .= '<tr><td><p>प्रशासकीय विभाग ने उपरोक्त विषयक प्रकरण क्रमांक  '.$case_no.' के निर्णय दिनांक ';
+$contents .= '<tr><td><p>प्रशासकीय विभाग ने उपरोक्त विषयक प्रकरण क्रमांक  ';
 if($is_genrate == true){
-	$contents .= get_date_formate($post_data['date5'],'d/m/Y');
+	$contents .= '<b>'.$post_data['case_no'].'</b>';
 }else{
-    $contents .=  '<input type="text" class="date1" name="date5" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '<input type="text" class="" name="case_no" value="'.$case_no.'" placeholder="dd/mm/yyyy" required>';
+}
+$contents .= ' के निर्णय दिनांक ';
+if($is_genrate == true){
+	$contents .= '<b>'.get_date_formate($post_data['judgment_date1'],'d/m/Y').'</b>';
+}else{
+    $contents .=  '<input type="text" class="date1" name="judgment_date1" value="'.$file_judgment_date1.'" placeholder="dd/mm/yyyy" required>';
 }
 $contents .= ' की छाया प्रतिलिपि भेजकर इस विभाग द्वारा ';
 if($is_genrate == true){
 $contents .= ' '.$post_data['writappel2'];
 }else{
-$contents .= ' <select name="writappel2"><option>अपील</option><option>रिट</option></select>';
+$contents .= ' <select name="writappel2"><option>अपील</option><option>रिट याचिका</option><option>रिट अपील</option></select>';
 }
-$contents .= ' याचिका प्रस्तुत करने हेतु मत चाहा है। निर्णय दिनांक ';
+$contents .= ' प्रस्तुत करने हेतु मत चाहा है। निर्णय दिनांक ';
 if($is_genrate == true){
-	$contents .= get_date_formate($post_data['date2'],'d/m/Y');
+	$contents .= '<b>'.get_date_formate($post_data['judgment_date1'],'d/m/Y').'</b>';
 }else{
-    $contents .=  '<input type="text" class="date1" name="date2" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '---------';
 }
 $contents .= ' के अनुसार  ';
 /*if($is_genrate == true){
@@ -55,15 +61,19 @@ $contents .= ' के अनुसार  ';
 }else{
     $contents .=  '<input type="text" class="date1" name="date3" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
 }*/
+$avadhi  = date('d/m/Y',strtotime($file_judgment_date1.' +90 days'));
+$avadhi_date =  date('Y-m-d',strtotime($file_judgment_date1.' +90 days'));
+$file_mark_section_date_diff =  date('Y-m-d',strtotime($file_mark_section_date));
+$days_delay = day_difference_dates($avadhi_date, $file_mark_section_date_diff);
 $contents .= ' अवधि दिनांक ';
 if($is_genrate == true){
-	$contents .= get_date_formate($post_data['date4'],'d/m/Y');
+	$contents .= '<b>'.$post_data['avadhi'].'</b>';
 }else{
-    $contents .=  '<input type="text" class="date1" name="date4" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '<input type="text" class="date1" name="avadhi" value="'.$avadhi.'" placeholder="dd/mm/yyyy" required>';
 }
 $contents .= '  तक उपलब्ध ';
 if($is_genrate == true){
-	$contents .= ''.$post_data['title_loc'];
+	$contents .= '<b>'.$post_data['title_loc'].'</b>';
 } else {
 	$contents .= ' <select name="title_loc" class="title_loc">';
 	$contents .= '<option value="है">है</option>';
@@ -72,17 +82,22 @@ if($is_genrate == true){
 }
 $contents .= '|</p> </td></tr>';
 $contents .= '<tr><td><p>प्रशासकीय विभाग द्वारा प्रेषित नस्ती दिनांक  ';
+if($is_genrate == true){
+	$contents .= '<b>'.$post_data['section_date'].'</b>';
+}else{
+    $contents .=  '<input type="text" class="date1" name="section_date" value="'.$file_mark_section_date.'" placeholder="dd/mm/yyyy" required>';
+}
 $contents .= ' को प्राप्त हुई जिसमे अवधि दिनांक  ';
 if($is_genrate == true){
-	$contents .= get_date_formate($post_data['avadhidate'],'d/m/Y');
+	$contents .= '<b>'.$post_data['avadhi'].'</b>';
 }else{
-    $contents .=  '<input type="text" class="date1" name="avadhidate" value="'.$today.'" placeholder="dd/mm/yyyy" required>';
+    $contents .=  '--------';
 }
 $contents .= ' तक थी जिसमे कुल दिवस   ';
 if($is_genrate == true){
-	$contents .= $post_data['dayskul'];
+	$contents .= '<b>'.$post_data['days_delay'].'</b>';
 }else{
-    $contents .=  '<input type="text" class="" name="dayskul" value="" placeholder="" >';
+    $contents .=  '<input type="text" class="" name="days_delay" value="'.$days_delay.'" placeholder="" >';
 }
 $contents .= ' का विलंब हुआ|  प्रशासकीय विभाग से प्राप्त हुई नस्ती में विलंब  के जोखिम का उत्तरदायित्व प्रशासकीय विभाग पर रहेगा| </p> </td></tr>';
 //$contents .= '<tr><td><p> अतः रिट अपील/ एस. एल. पी. हेतु परीक्षनार्थ/ आदेशार्थ प्रस्तुत है|</p> </td></tr>';
@@ -104,18 +119,17 @@ if($is_genrate == true){
 } 
 $contents .= '  में ';
 if($is_genrate == true){
-	$contents .= ''.$post_data['title_type'];
+	$contents .= '<b>'.$post_data['writappel2'].'</b>';
 } else {
-	$contents .= ' <select name="title_type" class="title_type">';
-	$contents .= '<option value="रिट याचिका">रिट याचिका</option>';
-	$contents .= '<option value="अपील">अपील</option>';
-	$contents .= '</select>';
+	$contents .= '--------';
 }
 $contents .= '  करने के निर्देश जारी करना प्रस्तावित है।</p> </td></tr>';
-/*$contents .= '<tr><td>&nbsp;</td></tr>';
+$contents .= '<tr><td>&nbsp;</td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td><u>अनुभाग अधिकारी (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव (सिविल)</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
-$contents .= '<tr><td><u>अति. सचिव (सिविल)</u></td></tr>';*/
+$contents .= '<tr><td><u>अति. सचिव (सिविल)</u></td></tr>';
+}
 $contents .= '</table>';

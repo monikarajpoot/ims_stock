@@ -128,7 +128,29 @@ class Draft extends MX_Controller {
 		$this->template->index($data);
 	}
 	
-	
+		function generate_draft($id = null ,  $type){
+			$content = base64_decode($this->input->post('final_content'));
+		$data['title']    =  'e-'.draft_type($type);
+		$data['sub_title']    =  'e-'.draft_type($type);
+		$data['draft_type']    = $type;
+		$data['sing_user'] = $this->input->post('sing_user');
+		$data['officer_dign'] = get_officer_dign($this->input->post('sing_user'));
+		$data['department_mp'] = $this->input->post('department_mp');
+		$data['send_department'] = $this->input->post('send_department');
+		$data['draft_content_text'] = $this->input->post('draft_content_text');
+		$this->session->set_userdata('draft_content_text',$this->input->post('draft_content_text'));
+		$this->session->set_userdata('sing_user',$this->input->post('sing_user'));
+		$this->session->set_userdata('send_department',$this->input->post('send_department'));
+		
+		$data['module_name']    = "draft";
+        $data['view_file']      = "temporary_draft";
+		$data['add_draft']    = true;
+		$data['search_file']  = true;
+		$data['file_data'] =  getFiledata($this->input->post('file_id'));
+		$data['title']    =   $this->lang->line('draft_create');
+		$data['sub_title']    =  $this->lang->line('draft_sub_create');
+        $this->template->index($data);
+	}
 	function save_draft($id = ''){
 		$this->form_validation->set_rules('sender_id','sender_id', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('draft_subject','draft_subject', 'trim|required|xss_clean');
@@ -149,8 +171,7 @@ class Draft extends MX_Controller {
 				'draft_reciever_id' => $this->input->post('sender_id'),				
 				'draft_is_finalize' => 0,  //0 for draft working in process
 				'draft_create_date' => date('Y-m-d h:i:s'),
-			);
-			
+			);			
 			if($btnadddraft == 'send_draft'){
 				$data_draft = array(
 					'draft_status' => 3, // finished  at user level and send to upper level
@@ -204,11 +225,23 @@ class Draft extends MX_Controller {
 	}
 	
 	function save_draft_file($d_id = null){
+		$is_ajax_return = $this->input->post('is_ajax_return') != '' ? $this->input->post('is_ajax_return') : false;
+		if($is_ajax_return){
+			$draft_content_text = base64_decode($this->input->post('draft_content_text'));
+			$this->session->set_userdata('sing_user','');
+			$this->session->set_userdata('draft_content_text','');
+		} else {
+			$draft_content_text =  $this->input->post('draft_content_text');
+		}
 		$this->form_validation->set_rules('draft_subject','draft_subject', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('draft_type','draft_type', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('draft_content_text','draft_content_text', 'trim|required|xss_clean');
         $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
         $d_log_id = $this->input->post('log_id') ? $this->input->post('log_id') : null;
+        $section_id1 = $this->input->post('Section_id1') ? $this->input->post('Section_id1') : null;
+
+        $file_ids = $this->input->post('file_id') ? $this->input->post('file_id') : null;
+
 	   if($this->form_validation->run($this) === TRUE) {
 			$btnadddraft = $this->input->post('btnadddraft');	
 			
@@ -217,10 +250,11 @@ class Draft extends MX_Controller {
 				'draft_sender_id' => emp_session_id(),
 				'draft_reciever_id' => emp_session_id(),
 				'draft_subject' => $this->input->post('draft_subject'),
-				'draft_content_text' => escape_str($this->input->post('draft_content_text')),
+				'draft_content_text' => escape_str($draft_content_text),
 				'draft_type' => $this->input->post('draft_type'),
 				'draft_is_finalize' => 0,  //0 for draft working in process
 				'draft_create_date' => date('Y-m-d H:i:s'),
+				'order_generat_officer_id' => $this->input->post('officer_id') != '' ? $this->input->post('officer_id') : 0 ,
 			);
 			
 			if($btnadddraft == 'save_draft'){
@@ -234,13 +268,22 @@ class Draft extends MX_Controller {
 			}
 			$final_data = array_merge($data, $data_draft);
 			//pr($final_data);
-			if($d_id == null){
-				$data_draft_creater = array(
-					'draft_creater_emp_id' => emp_session_id(),
-				);
+			if($d_id == null && empty($d_id)){
+				$query_draft = $this->db->get_where(DRAFT, array('draft_file_id' => $file_ids, 'draft_type' => 'n'), '1');
+				$draft_data = $query_draft->row_array();
+                if($query_draft->num_rows() > 0 && $this->input->post('draft_type') == 'n'){
+				$res = updateData(DRAFT, $final_data, array('draft_id' =>$draft_data['draft_id'] ));
+				$d_id = $draft_data['draft_id'];
+
+				}else{
+
+				$data_draft_creater = array('draft_creater_emp_id' => emp_session_id());
 				$full_final_data = array_merge($data_draft_creater, $final_data);
 				$d_id = insertData_with_lastid($full_final_data, DRAFT);
-			} else {				
+
+				}
+
+			} else {
 				$res =  updateData(DRAFT, $final_data, array('draft_id' =>$d_id ));
 			}
 			
@@ -249,7 +292,9 @@ class Draft extends MX_Controller {
 				'draft_log_sendto' => emp_session_id(),
 				'draft_log_create_date' => date('Y-m-d H:i:s'),
 				'draft_log_draft_id' => $d_id,
-				'draft_content' => escape_str($this->input->post('draft_content_text')),
+                'draft_log_file_id' => $this->input->post('file_id'),
+                'draft_log_section_id' => $section_id1,
+                'draft_content' => escape_str($this->input->post('draft_content_text')),
                 'draft_log_sublogin_creater' => $this->session->userdata("emp_id"),
 			);
 			if($btnadddraft == 'save_draft'){
@@ -276,9 +321,14 @@ class Draft extends MX_Controller {
 			}
 
 			update_filedata($this->input->post('file_id'), $d_id);
-			$this->session->set_flashdata('message', $this->lang->line('msg_doc_added'));
-			redirect('efile/'.$this->input->post('file_id'));
-			
+			if($is_ajax_return){				
+				echo 'saved';
+				exit;			
+			}else{
+				$this->session->set_flashdata('message', $this->lang->line('msg_doc_added'));
+				redirect('efile/'.$this->input->post('file_id'));
+
+			}
 		}	
 		$data['file_data'] =  getFiledata($this->input->post('file_id'));
 		$data['title']    =   $this->lang->line('draft_create');
@@ -363,7 +413,21 @@ class Draft extends MX_Controller {
         $this->template->index($data);
 	}
 
-	
+	function file_draft_full_viewer($id, $full_view = 1){
+		$data['title']    =   $this->lang->line('lbl_draft_view');
+		$data['sub_title']    =  $this->lang->line('lbl_draft_view');
+		$data['draft_data']  = $this->draft_model->get_single_draft($id);
+		$data['draft_data_log']  = $this->draft_model->get_related_draft($id);
+		$data['draft_emp']  = $this->draft_model->get_draft_employees($id);
+		$data['module_name']    = "draft";
+		if($full_view == 1){
+			$data['view_file']      = "full_viewer";
+		} else{
+			$data['view_file']      = "view_draft";
+		}
+       
+        $this->template->index($data);
+	}
 	function draft_edit($id){
 		$data['title']    =   $this->lang->line('lbl_draft_edit');
 		$data['sub_title']    =  $this->lang->line('lbl_draft_edit');
@@ -660,4 +724,133 @@ class Draft extends MX_Controller {
 		return $this->draft_model->update_draft($final_content,$file_id,$draftlogid,$loginEmpid);
 	}
 	
+	function auto_add_multiple_draft($file_id  ,$draft_subject = null, $d_id = null,$draft_content_text = null, $btnadddraft = null){
+		
+		 $d_log_id = $this->input->post('log_id') ? $this->input->post('log_id') : null;
+		{
+				
+			
+			$data = array(
+				'draft_file_id' => $file_id ,			
+				'draft_sender_id' => emp_session_id(),
+				'draft_reciever_id' => emp_session_id(),
+				'draft_subject' => $draft_subject ,
+				'draft_content_text' => escape_str($draft_content_text),
+				'draft_type' => 'n',
+				'draft_is_finalize' => 0,  //0 for draft working in process
+				'draft_create_date' => date('Y-m-d H:i:s'),
+			);
+			//pr($data );
+			if($btnadddraft == 'save_draft'){
+				$data_draft = array(
+					'draft_status' => 3, // finished  at user level and send to upper level
+				);
+			} else{
+				$data_draft= array(
+					'draft_status' => 2, // working at user level for multiple editing
+				);
+			}
+			$final_data = array_merge($data, $data_draft);
+			//pr($final_data);
+			if($d_id == null){
+				$data_draft_creater = array(
+					'draft_creater_emp_id' => emp_session_id(),
+				);
+				$full_final_data = array_merge($data_draft_creater, $final_data);
+				$d_id = insertData_with_lastid($full_final_data, DRAFT);
+			} else {				
+				$res =  updateData(DRAFT, $final_data, array('draft_id' =>$d_id ));
+			}
+			
+			$log_data = array(
+				'draft_log_creater' => emp_session_id(),
+				'draft_log_sendto' => emp_session_id(),
+				'draft_log_create_date' => date('Y-m-d H:i:s'),
+				'draft_log_draft_id' => $d_id,
+				'draft_content' => escape_str($this->input->post('draft_content_text')),
+                'draft_log_sublogin_creater' => $this->session->userdata("emp_id"),
+			);
+			if($btnadddraft == 'save_draft'){
+				$data_log_draft = array(
+					'draft_final' => 0, // finished  at user level and send to upper level
+				);
+			} else{
+				$data_log_draft= array(
+					'draft_final' => 0, // working at user level for multiple editing
+				);
+			}
+			$final_log_data = array_merge($log_data, $data_log_draft);
+			//pr($log_data);
+			$final_log_data = array_merge($log_data, $data_log_draft);
+			//pr($log_data);
+			if($d_log_id == null){
+				return $res = insertData($final_log_data, DRAFT_LOG);
+			} else {
+                $verify_logid_sinature = verify_logid_sinature($d_log_id) ; // check draft logid is in ft_digital_signature
+                if($verify_logid_sinature != ''){
+                   return  updateData(DRAFT_LOG, array('draft_log_dispaly_status' => '1' ), array('draft_log_id' => $d_log_id ));
+                    $res = insertData($final_log_data, DRAFT_LOG);
+                }else{
+                   return $res =  updateData(DRAFT_LOG, $final_log_data, array('draft_log_id' => $d_log_id ));
+                }
+			}
+
+			update_filedata($this->input->post('file_id'), $d_id);
+
+
+		}	
+		
+	}
+
+    function draft_log_hide($log_id, $create_id){
+      //  $data_draft = get_list(DRAFT_LOG, null, array('draft_log_id' => $id));
+        if($log_id != 'null' && $create_id != 'null') {
+            $res = updateData(DRAFT_LOG, array('draft_log_dispaly_status' => '1'), array('draft_log_id' => $log_id, 'draft_log_creater' => $create_id));
+            if ($res) {
+                $this->session->set_flashdata('error', 'टीप को डिलीट कर दीया गया है |');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
+        }
+    }	
+	function test_update_draft($draft_ids){
+			$draft_ids = explode('d',$draft_ids);
+			if(count($draft_ids)==0 || $draft_ids==null || $draft_ids==''){
+				echo 'No draft d value';
+				exit;
+			}			
+			//$draft_ids= array(1857,295);
+			$draft_list = get_list_with_in("ft_file_draft",null,'draft_id',$draft_ids);						
+			foreach($draft_list as $ky=>$val){
+				$file_detail = get_row("SELECT file_received_emp_id,file_sender_emp_id,file_update_date FROM `ft_files` where file_id=".$val['draft_file_id']);
+				
+				$file_detail_detail = get_row("SELECT draft_creater_emp_id,draft_file_id FROM `ft_file_draft` where draft_id=".$val['draft_id']);
+				pre($file_detail);	
+				pre($file_detail_detail);
+				$log_data = array(
+				'draft_log_creater' => 22,
+				'draft_log_sendto' => $file_detail['file_received_emp_id'],
+				'draft_log_create_date' => $file_detail['file_update_date'],
+				'draft_log_draft_id' => $val['draft_id'],
+				'draft_content' => '<p>Seen</p>',
+                'draft_log_sublogin_creater' => $file_detail['file_sender_emp_id'],
+				);		
+				insertData($log_data,DRAFT_LOG);
+				$data_data = array(
+					'draft_content_text' => '<p>Seen</p>',
+					'draft_sender_id'=>22,
+					'draft_reciever_id'=>$file_detail_detail['draft_creater_emp_id'],
+					'draft_update_date'=>$file_detail['file_update_date'],					
+				);				
+				updateData(DRAFT, $data_data, array('draft_id' =>$val['draft_id']));
+			}
+	}	
+	
+	function voic_input(){		
+		$data['title']    =  'Voice Input';
+		$data['small_title']    =  "Voice";
+		$data['sub_title']    =  'Voice Input';		
+		$data['module_name']    = "draft";
+        $data['view_file']      = "voice_input_draft";
+        $this->template->index($data);		
+	}
 }

@@ -22,6 +22,11 @@ $contents .= '<tr><td align="center" colspan="2"> --------0--------- </td></tr>'
 $contents .= '<tr><td colspan="2" ><p class="shift-left">उपरोक्त विषयक एवं संदर्भित प्रकरण के संबंध में लेख है कि '.$file_subject.' विधि विभाग में आना नही पाया जाता है |</p></td></tr>';
 $contents .= '</td></tr>';
 $contents .= '<tr><td align="right" height="80"></td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

@@ -47,17 +47,8 @@ class Notesheet_generate extends MX_Controller {
     }
 
     public function save_notesheet($notesheet_id = null, $section_id = null, $file_id = null){
-			if($this->input->post('content1')){
-		
-			echo $content = $this->input->post('content1');
-			$html = $content;
-			}else{
-			
-				$content = $this->input->post('contents');
-				$html = $this->encrypt->decode($content);
-			}
-		
-		
+		 $content = $this->input->post('content1');
+		$html = base64_decode($content);		
 		$notesheet_id = isset($notesheet_id)?$notesheet_id:$this->input->post('notesheet_id');
 		$section_id = isset($section_id)?$section_id:$this->input->post('section_id');
 		$file_id = isset($file_id)?$file_id:$this->input->post('file_id');
@@ -121,23 +112,41 @@ class Notesheet_generate extends MX_Controller {
                 	//redirect("view_file/viewdetails/".$file_id);
                 	redirect("attached/file_doc/1");
                 } else {
-					$query = $this->db->get_where(DRAFT, array('draft_file_id' => $file_id, 'notesheet_id' => $notesheet_id), '1');
-					$draft_data = $query->row_array();
-					if($query->num_rows() > 0){
-						$upt_data = array(
-							'draft_content_text' =>  escape_str($html),
-						);
-						$res =  updateData(DRAFT, $upt_data, array('draft_id' => $draft_data['draft_id'] ));
-						$d_id = $draft_data['draft_id'];
-					} else {
-						$d_id = insertData_with_lastid($data, DRAFT);
-					}
 
+					if($notesheet_id == 51 || $notesheet_id == 21){
+						$d_id = insertData_with_lastid($data, DRAFT);
+					}else{
+                        if($d_type == 'n'){
+                            $query = $this->db->get_where(DRAFT, array('draft_file_id' => $file_id, 'draft_type' => 'n'), '1');
+                        }else{
+                            $query = $this->db->get_where(DRAFT, array('draft_file_id' => $file_id, 'notesheet_id' => $notesheet_id), '1');
+                        }$draft_data = $query->row_array();
+						if($query->num_rows() > 0){
+							$upt_data = array(
+								'draft_content_text' =>  escape_str($html),
+								'order_generat_officer_id' => $this->input->post('officer_id')
+							);
+                        if($draft_data['draft_status'] == 4){
+                            $upt_data['notesheet_id'] = $notesheet_id;
+                            $upt_data['draft_status'] = 3;
+                            $upt_data['draft_sender_id'] = $this->session->userdata("emp_id");
+                            $upt_data['draft_reciever_id'] = $this->session->userdata("emp_id");
+                        }
+
+							$res =  updateData(DRAFT, $upt_data, array('draft_id' => $draft_data['draft_id'] ));
+							$d_id = $draft_data['draft_id'];
+						} else {
+							$d_id = insertData_with_lastid($data, DRAFT);
+						}
+
+					}
 					$log_data = array(
 						'draft_log_creater' => $this->session->userdata("emp_id"),
 						'draft_log_sendto' => $this->session->userdata("emp_id"),
 						'draft_log_create_date' => date('Y-m-d H:i:s'),
 						'draft_log_draft_id' => $d_id,
+						'draft_log_file_id' => $file_id,
+						'draft_log_section_id' => $file_data[0]['file_mark_section_id'] ? $file_data[0]['file_mark_section_id'] : false ,
 						'draft_content' => escape_str($html),
 						'draft_final' => 0,
 					);
@@ -155,16 +164,17 @@ class Notesheet_generate extends MX_Controller {
         }
     }
             
-    function alpha_dash_space($str)
+    function alpha_dash_space($str) 
     {
         if(!preg_match("/^([-a-z_ ])+$/i", $str)){
             $this->form_validation->set_message('alpha_dash_space',$this->lang->line('text_allow_with_space_error'));
-            return false;
+            return false; 
         }
     }
     
 	public function again_save_notesheet(){
 		$content = $this->input->post('content1');
+		$content = base64_decode($content);
 		$content = htmlentities($content);
 		$file_log_id = $this->input->post('file_log_id');
 		if(isset($file_log_id) && !empty($file_log_id )){

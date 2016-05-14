@@ -97,7 +97,7 @@ class Admin_notesheet_master extends MX_Controller {
 
     function view_file_notesheet($notesheet_id = null, $section_id = null, $file_id = null, $file_sts = null) {
        //die("asdasd");
-	   if($notesheet_id != null && $section_id != null){
+	   if($notesheet_id != null){
 		    $data['title'] = 'E-file';
             $data['file_details']  = getFiledata($file_id);
             $data['notesheet_details']  = $this->notesheet_master_model->get_notesheet_details($notesheet_id);

@@ -119,8 +119,59 @@ if($is_genrate == true){
     $contents .= '<select name="option_postpond"><option> ख़ारिज</option><option>निरस्त</option><option>स्वीकार</option></select>';
 }
  $contents .= ' की गई है ।</p></td></tr>';
+$contents .= '<tr><td colspan="2"><p class="text-justify shift-left"> प्रकरण  में पारित'; 
+if($is_genrate == true){
+    $contents .= $post_data['high_court'];
+}else{
+	 $contents .= '<select name="high_court"><option> निर्णय </option><option> आदेश </option></select>';
+}
+$contents .= ' दिनांक   ';
+if($is_genrate == true){
+    $contents .= $post_data['order_date_1'];
+}else{
+    $contents .= '<input type="text" name="order_date_1" class="date1"  value = "'.$file_judgment_date1 .'" />';
+}
+$contents .= ' प्राप्त हैं| नकल के लिये आवेदन दिनांक  ';
+if($is_genrate == true){
+    $contents .= $post_data['order_date_12'];
+}else{
+    $contents .= '<input type="text" name="order_date_12" class="date1"/>';
+}
+$contents .= ' से दिनांक  ';
+if($is_genrate == true){
+    $contents .= $post_data['order_date_14'];
+}else{
+    $contents .= '<input type="text" name="order_date_14" class="date1"/>';
+}
+$contents .= ' तक है | नकल के लिये अवधि दिनांक  ';
+if($is_genrate == true){
+    $contents .= $post_data['order_date_122'];
+}else{
+    $contents .= '<input type="text" name="order_date_122" class="date1"/>';
+}
+$contents .= ' तक प्राप्त हैं| शासन की ';
+if($is_genrate == true){
+    $contents .= $post_data['option_postpond'];
+}else{
+    $contents .= '<select name="option_postpond"><option> अपील </option><option>पुनरीक्षण </option></select>';
+}
+if($is_genrate == true){
+    $contents .= $post_data['option_postpond'];
+}else{
+    $contents .= '<select name="option_postpond"><option> ख़ारिज</option><option>निरस्त</option><option>स्वीकार</option></select>';
+}
+$contents .= ' की गई हैं|  ';
 
-$contents .= '<tr><td colspan="2"><p class="text-justify shift-left">प्रकरण पररिक्षण हेतु प्रस्तुत है ।</p><br/></td></tr>';
+$contents .= ' प्रकरण   ';
+if($is_genrate == true){
+    $contents .= $post_data['late_receive_days'] ;
+}else{
+$contents .= '<input type="text" name="late_receive_days"/>';
+}
+$contents .= '   दिन विलम्ब से प्राप्त हुआ है। ';
+$contents .= '</p></td></tr>';
+$contents .= '<tr><td colspan="2"><p class="text-justify shift-left">प्रकरण  परीक्षण हेतु प्रस्तुत है ।</p><br/></td></tr>';
+$contents .= '<tr><td colspan="2"><br/><div  style="text-align:justify" ></div><br/></td></tr>';
    if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td colspan="2"><div><u>अनुभाग अधिकारी (आप.) </u> </div><br/><br/><br/></td></tr>';
 $contents .= '<tr><td colspan="2"><div><u>अति. सचिव </u> </div><br/></td></tr>';

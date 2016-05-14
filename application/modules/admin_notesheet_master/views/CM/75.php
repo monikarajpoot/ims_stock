@@ -117,6 +117,7 @@ $contents .= '</p></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><p>आदेशार्थ ।</p></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'  ){
 $contents .= '<tr><td><u>अनुभाग अधिकारी (आप.) </u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अवर सचिव,</u></td></tr>';
@@ -124,6 +125,7 @@ $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>वरिष्ठ लेखाधिकारी,</u></td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td><u>अतिरिक्त सचिव,</u></td></tr>';
+}
 $contents .= '<tr><td>&nbsp;</td></tr>';
 ?>
 

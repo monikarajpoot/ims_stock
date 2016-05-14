@@ -1,6 +1,6 @@
 <?php 
 $contents  = '' ;
-$contents .= '<tr><td> <div style="margin-top:20px;"><span style="margin-left:10%;">'.@$file_subject.'</span></div></td></tr>';
+$contents .= '<tr><td> <div style="margin-top:20px;"><span style="margin-left:10%;">प्रकरण वापसी '.@$file_subject.'</span></div></td></tr>';
 $contents .= '<tr><td align="center">------0-------</td></tr>';
 $contents .= '<tr><td><div style="float:left"><u>पंजी क्र0 '.$file_number.'/'.date("Y").'/21-क(अभि )</div><div style="float:right">दिनांक   ';
 if($is_genrate == true){
@@ -14,16 +14,23 @@ $contents .= '<tr><td><u> गृह विभाग का यू.ओ.क्र 
 $contents .= '<tr><td align="center">------0-------</td></tr>';
 
 
-$contents .= '<tr><td>1-कृपया प्रशासकीय विभाग की टीप दिनांक ';
+$contents .= '<tr><td><p>कृपया प्रशासकीय विभाग की टीप दिनांक ';
  if($is_genrate == true){
 $contents .= $post_data['teep_date1'];
 }else
 {
 	$contents .=  '<input type="text" class="date1" name="teep_date1" value="'.date('d-m-Y').'" placeholder="dd/mm/yyyy" />';
 }
-$contents .=  ' का अवलोकन हो।</td></tr>';
-$contents .= '<tr><td>2-प्रशासकीय विभाग ने निम्नलिखित अपराध प्रकरण के वापसी हेतु इस विभाग का मत चाहा है :-</td></tr>';
-$contents .= '<tr><td>पुलिस थाना ';
+$contents .=  ' का अवलोकन करने का कष्ट  करें। </p></td></tr>';
+$contents .= '<tr><td><p>प्रशासकीय विभाग ने निम्नलिखित अपराध क्रमांक ';
+ if($is_genrate == true){
+$contents .= $post_data['crime_no'];
+}else
+{
+	$contents .=  '<input type="text"  name="crime_no" />';
+}
+$contents .= ' के वापसी हेतु इस विभाग का मत चाहा है  कि-:-</td></tr>';
+$contents .= '<tr><td><p>पुलिस थाना ';
  if($is_genrate == true){
 $contents .= $post_data['police_station'];
 }else
@@ -31,9 +38,6 @@ $contents .= $post_data['police_station'];
 	$contents .=  '<input type="text"  name="police_station" />';
 } 
 $contents .=  ' जिला ';
-
-
-
  if($is_genrate == true){
 $contents .= $post_data['state_1'];
 }else
@@ -46,7 +50,7 @@ $contents .=  ' अप0 क्र0 ';
 $contents .= $post_data['crime_no'];
 }else
 {
-	$contents .=  '<input type="text"  name="crime_no" />';
+	$contents .=  '-------';
 } 
 $contents .=  ' ( प्रक.  क्र.)  ';
 
@@ -63,7 +67,7 @@ $contents .= $post_data['crimnal'];
 {
 	$contents .=  '<input type="text"  name="crimnal" />';
 }
-$contents .=  ' के बिरुद्ध धारा   ';
+$contents .=  ' के विरूदध  धारा   ';
  if($is_genrate == true){
 $contents .= $post_data['dhara_1'];
 }else
@@ -78,16 +82,23 @@ $contents .= $post_data['according'];
 	$contents .=  '<input type="text"  name="according" />';
 }
 $contents .=  ' न्यायालय में लंबित है।  ';
-$contents .=  '</td></tr>';
+$contents .=  '</p></td></tr>';
 
-$contents .= '<tr><td>3.	प्रकरण से संबंधित संक्षिप्त विवरण पत्र व्यवहार एवं केस डायरी नीचे अवलोकनार्थ प्रस्तुत है।</td></tr>';
-$contents .= '<tr><td>4.	पुलिस अधीक्षक ,जिला दंडाधिकारी ';
+$contents .= '<tr><td><p>प्रकरण से संबंधित संक्षिप्त विवरण पत्र व्यवहार एवं केस डायरी नीचे अवलोकनार्थ प्रस्तुत है। </p></td></tr>';
+$contents .= '<tr><td><p>पुलिस अधीक्षक ';
 if($is_genrate == true){
-$contents .= $post_data['police_inspector'];
+	$contents .= $post_data['distic_1'];
 }else
 {
-	$contents .=  '<input type="text"  name="police_inspector" />';
-} 
+$contents  .= get_distic_dd('distic_1');	
+}
+$contents .=  ' ,जिला दंडाधिकारी ';
+if($is_genrate == true){
+	$contents .= ' '.$post_data['distic_1'];
+}else
+{
+$contents  .= ' --------';	
+}
 $contents .= ' ने प्रकरण का निराकरण न्यायालय से ';
 if($is_genrate == true){
 	$contents .= $post_data['option_jana'];
@@ -97,10 +108,10 @@ if($is_genrate == true){
 } 
 $contents .=  ' जाना उचित बताया है। 
 </td></tr>';
-$contents .= '<tr><td><p>प्रकरण परीक्षण एवं मतार्थ पस्तुत है ।</p>
+$contents .= '<tr><td><p>प्रकरण परीक्षण एवं उचित मतार्थ हेतु  प्रस्तुत है। </p>
 </td></tr>';
 $contents .= '<tr><td>&nbsp;</td></tr>';
-
+if($this->uri->segment(6) == 'p' || $this->uri->segment(7) == 'p'){
 $contents .= '<tr><td>&nbsp;</td></tr>';
 $contents .= '<tr><td align="left"><div style="width:35%; text-align:center;"></div></td></tr>';
 $contents .= '<tr><td>&nbsp; </td></tr>';
@@ -109,7 +120,7 @@ $contents .= '<tr><td>&nbsp; </td></tr>';
 $contents .= '<tr><td><u>अवर सचिव  (अभि0) </u></td></tr>';
 $contents .= '<tr><td>&nbsp; </td></tr>';
 $contents .= '<tr><td><u>अतिरिक्त सचिव  (अभि0) </u></td></tr>';
-
+}
 //print content
 //echo $contents;
 ?>   

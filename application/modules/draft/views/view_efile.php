@@ -1,5 +1,5 @@
   <link href="<?php echo base_url(); ?>themes/e_file_style.css" rel="stylesheet" type="text/css" />
- <?php $emp_role_lvl = get_emp_role_levele();  ?> 
+ <?php $emp_role_lvl = get_emp_role_levele(); ?> 
  <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
@@ -10,7 +10,6 @@
             <li class="active"><?php echo $title; ?></li>
           </ol>
         </section>
-
 		<?php $draft_ids = null;
 		$show_r	 = base_url().'view_file/document_path/index/'.$file_data['file_id'];
 		if($file_data['final_draft_id'] != '' || $file_data['final_draft_id'] != 0){
@@ -25,12 +24,12 @@
 		<div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <div style="float:left"><h3 class="box-title"><?php echo $title;?></h3></div>
+                    <div style="float:left"><h3 class="box-title"><?php echo $title;  //emp_session_id()?></h3></div>
                     <div style="float:right">
-					   <?php if($emp_role_lvl['emprole_level'] <= 6){ ?>
+					   <?php if($this->session->userdata("emp_id") == emp_session_id() && $emp_role_lvl['emprole_level'] <= 6){ ?>
 						<a href="<?php echo base_url();?>e-files/efile_sign"><button class="btn btn-sm btn-success" style="height:35px;font-size:14px;"><span class="blink_fast">फ़ाइल पर हस्ताक्षर जोड़ें   </span></button></a>
 					   <?php } ?>
-                        <button class="btn btn-sm btn-block btn-warning" onclick="goBack()"><?php echo $this->lang->line('Back_button_label'); ?></button>
+                        <button class="btn btn-sm btn-warning" onclick="goBack()"><?php echo $this->lang->line('Back_button_label'); ?></button>
                     </div>
                 </div><!-- /.box-header -->
 				<!--<div class="box-body">
@@ -39,7 +38,7 @@
 							पंजी क्रमांक :- <b><?php /* echo get_panji_no($file_data['file_id'],$file_data['file_mark_section_id'],$file_data['file_created_date']);  */?></b><br/>
 							File Date :-  <?php /*echo $file_data['file_uo_or_letter_date'] */?><br/>
 							File Subject :-  <?php /*echo $file_data['file_subject'] */?>
-						</p>
+							</p>
 					<?php /*} */?>
 				</div>-->
 			</div>
@@ -93,19 +92,19 @@
 
 										</a>
 										
-										 <div class="pull-left" style="clear:both">
+										 <div class="pull-right" style="clear:both">
 											<?php if(!empty($draft_data) && ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $file_data['file_received_emp_id'] == $this->session->userdata("emp_id") ){
-											if($draft_data['draft_reciever_id'] == $this->session->userdata("emp_id") && single_file_digitally_sign_or_not($cor_draft_log[0]->draft_log_id) == 0 ) { ?>
+											if($draft_data['draft_reciever_id'] == $this->session->userdata("emp_id") && single_file_digitally_sign_or_not($cor_draft_log[0]->draft_log_id,true) == 0 ) { ?>
 												<?php if($draft_data['notesheet_id'] != null){ ?>
 													<a href="<?php echo base_url().'admin_notesheet_master/view_file_notesheet/'; ?><?php echo $draft_data['notesheet_id'] . '/' . $file_data['file_from_section_id'] . '/' . $file_data['file_id']; ?>"   class="bg-warning"><i class="fa fa-edit"> Edit</i></a>
 												<?php } else { ?>
-													<a href="<?php echo base_url().'draft/draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>#edit" ><i class="fa fa-edit"> Edit</i></a>
+													<a href="<?php echo base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>#edit" ><i class="fa fa-edit"> Edit</i></a>
 												<?php } if($file_data['file_return'] == '0' &&  $draft_data['draft_creater_emp_id'] == $this->session->userdata("emp_id")){ ?>
-													<a href="<?php echo base_url().'draft/draft/delete_draft/'.$draft_data['draft_id'].'/'.$file_data['file_id']; ?>" onclick="return confirm('क्या आप आर्डर डिलीट करना चाहते है');" class="bg-danger" title="डिलीट करे"><i class="fa fa-remove"></i> Delete</a>
+													<a href="<?php echo base_url().'draft/delete_draft/'.$draft_data['draft_id'].'/'.$file_data['file_id']; ?>" onclick="return confirm('क्या आप आर्डर डिलीट करना चाहते है');" class="bg-danger" title="डिलीट करे"><i class="fa fa-remove"></i> Delete</a>
 												<?php } ?>
 											<?php }
 											}									?>
-											<a href="<?php echo base_url(); ?>draft/draft/draft_viewer/<?php echo $draft_data['draft_id']; ?>/1" ><i class="fa  fa-arrows-alt"></i> Full </a>
+											<a href="<?php echo base_url(); ?>draft/draft_viewer/<?php echo $draft_data['draft_id']; ?>/1" ><i class="fa  fa-arrows-alt"></i> Full </a>
 										</div>
 
 									  </h4>
@@ -146,9 +145,11 @@
 					<?php if($emp_role_lvl['emprole_level']==13 ){ ?>
 						<a href="<?php echo $show_r; ?>"  class="btn margin btn-sm btn-twitter" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> <?php echo $this->lang->line('btn_add_efile_corespodance'); ?></a>
 						<a href="<?php echo $show_r; ?>?temp=y&type=o"  class="btn margin btn-sm btn-twitter" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> <?php echo $this->lang->line('btn_add_efile_corespodance_template'); ?></a>
-					<?php } ?>
-						<a href="<?php echo $show_r; ?>?temp=y&type=odn" class="btn btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> बाह्य विभाग नोटशीट</a>
-				 <?php } ?>				
+					<?php } $is_odn= get_draft($draft_ids,'odn'); 
+						if(empty($is_odn)){  ?>
+							<a href="<?php echo $show_r; ?>?temp=y&type=odn" class="btn btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> बाह्य विभाग नोटशीट</a>
+					<?php }  
+					}?>				
 			   </div>
             </div>
         </div><!-- /.col -->
@@ -160,64 +161,88 @@
                 </div><!-- /.box-header -->
             <div class="box-body" style="overflow-y:auto;">
 					<?php if($draft_ids != null || $draft_ids != 0){
-					$draft_data = get_draft($draft_ids,'n');
-						if(!empty($draft_data)){
-							$subject = $file_d = $style = '';
-							$type = $draft_data['draft_type'];
-							$panji_number = get_panji_no($file_data['file_id'],$file_data['file_mark_section_id'],$file_data['file_created_date']);
-							if($type == 'n'){
-								$style = 'padding:2% 0%; background-color:#CCFFCC;';
-								if( $draft_data['notesheet_id'] == null){
-									$subject = '<p style="padding-left:15%;"><b>विषय:- '.$draft_data['draft_subject'].'</b></p><p style="text-align: center;">------</p>';
-									$file_d = '<p style="text-align: center;"><b>पंजी क्रमांक  '.$panji_number.', <em style="margin-left:10%;"></em> भोपाल, दिनांक '.get_date_formate($file_data['file_mark_section_date']).'</b></p><p style="text-align: center;">------</p>';
-								}
-							} else{
-								$style = 'padding:2% 13%; background-color:#eee;';
-							}
+						$draft_data = get_draft($draft_ids,'n',false,true);
+						//$draft_data = get_draft($draft_ids,'n');
+							if(!empty($draft_data)){
+								foreach($draft_data as $ky=>$notesheet){
+									$subject = $file_d = $style = '';
+									$type = $notesheet->draft_type;
+									$panji_number = get_panji_no($file_data['file_id'],$file_data['file_mark_section_id'],$file_data['file_created_date']);
+									if($type == 'n'){
+										$style = 'padding:2% 0%; background-color:#CCFFCC;';
+										if( $notesheet->notesheet_id == null){
+											$subject = '<p style="padding-left:15%;"><b>विषय:- '.$notesheet->draft_subject.'</b></p><p style="text-align: center;">------</p>';
+											$file_d = '<p style="text-align: center;"><b>पंजी क्रमांक  '.$panji_number.', <em style="margin-left:10%;"></em> भोपाल, दिनांक '.get_date_formate($file_data['file_mark_section_date']).'</b></p><p style="text-align: center;">------</p>';
+										}
+									} else{
+										$style = 'padding:2% 13%; background-color:#eee;';
+									}
 						 ?>
 					  <div class="mailbox-read-message no-padding" id="for-print">
-						<div  style="<?php echo $style; ?>; "  >
-							<?php echo $subject;
-									echo $file_d ;
-								$all_drafts = get_draft_log_data($draft_data['draft_id'], true, '5','');
-								$all_drafts = array_reverse($all_drafts);
-								foreach($all_drafts as $drafts){
-                                    $span = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? '<img class="direct-chat-img" src="'.base_url().'themes/admin/dist/img/avatar5.png" class="user-image" alt="message user image" title="'.getemployeeName($drafts->draft_log_creater, true).'">' : '' ;
-                                    $span_name = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? getemployeeName($drafts->draft_log_creater, true) : '' ; ?>
-                            <div class="direct-chat-msg">
-                                <!--<div class="direct-chat-info clearfix">
-										<span class="direct-chat-name pull-left">
-										<?php  //if($file_data['file_return'] == '0' && $drafts->draft_log_creater == $this->session->userdata("emp_id") && ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $file_data['file_received_emp_id'] == $this->session->userdata("emp_id")  && $emp_role_lvl['emprole_level' ]== 13){ ?>
-												<a href="<?php //echo base_url().'draft/draft/delete_draft_log/'.$drafts->draft_log_id .'/'.$file_data['file_id']; ?>" onclick="return confirm('क्या आप नोटशीट डिलीट करना चाहते है');"  class="btn btn-flat btn-danger" title="डिलीट करे"><i class="fa fa-remove"></i></a>
-										<?php //} ?>
-										</span>                                    
-                                </div>-->								
-                                <?php //echo $span ; ?>
-                                <div class="logExpand direct-chat-text" data-toggle="modal" data-target="#expandModel" data-log_id="<?php echo $drafts->draft_log_id ;?>" style="height:120px;overflow-y:auto;background:none;cursor:zoom-in">
-                                <?php echo filter_string($drafts->draft_content);
-									//if(get_employee_role($drafts->draft_log_creater, true) < 9 && $type == 'n'){
-									if($type == 'n'){
-										echo '<div class="pull-right">&nbsp;'.verify_digital_sinature($drafts->draft_log_id,md5($drafts->draft_content)).'
-										<b>('.getemployeeName($drafts->draft_log_creater, true).')</b><br/>
-										<b><u>'.get_employee_role($drafts->draft_log_creater).'</u></b></div><div class="clearfix"></div>';
-										if($drafts->draft_log_creater != $drafts->draft_log_sendto){
-											echo '<div class="pull-left">';
-											if(check_so_on_leave($drafts->draft_log_creater,$drafts->draft_log_sendto) != null){
-												echo '<b><u>अनुभाग अधिकारी अवकाश पर </u></b>';
-											}
-											echo '<b><u><br/>'.get_employee_role($drafts->draft_log_sendto).'(';
-											echo  get_employee_role($drafts->draft_log_sendto, true) == 3 ? 'विधि' : getSectionName($file_data['file_mark_section_id']);
-											echo ')</u></b></div>';
-										}
-									} ?>
-                                </div>
-						   </div>
-							<?php
-                                   $last_logid = $drafts->draft_log_id; // use for return files
-                                }	?>
-						</div>
-					  </div><!-- /.mailbox-read-message -->
-					  <?php } else {
+											<div  style="<?php echo $style; ?>; "  >
+												<?php echo $subject;
+													echo $file_d ;
+													$all_drafts = get_draft_log_data($notesheet->draft_id, true, '5','');													
+													$all_drafts = array_reverse($all_drafts);
+                                                    $draft_log_count = count($all_drafts);
+                                                    $draft_log_end = end($all_drafts);
+													foreach($all_drafts as $drafts){
+														$span = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? '<img class="direct-chat-img" src="'.base_url().'themes/admin/dist/img/avatar5.png" class="user-image" alt="message user image" title="'.getemployeeName($drafts->draft_log_creater, true).'">' : '' ;
+														$span_name = (get_employee_role($drafts->draft_log_creater, true) > 9 && $type == 'n') ? getemployeeName($drafts->draft_log_creater, true) : '' ; ?>
+												<div class="direct-chat-msg">
+												<?php if($draft_log_count == 1) {?>
+													<div class="direct-chat-info clearfix">
+															<span class="direct-chat-name pull-left">
+															<?php  if($drafts->draft_log_creater == $this->session->userdata("emp_id") && ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $file_data['file_received_emp_id'] == $this->session->userdata("emp_id")  && $emp_role_lvl['emprole_level' ]== 13){ ?>
+																	<a href="<?php echo base_url().'draft/delete_draft_log/'.$drafts->draft_log_id .'/'.$file_data['file_id']; ?>" onclick="return confirm('क्या आप नोटशीट डिलीट करना चाहते है');"  class="btn btn-xs btn-danger" title="डिलीट करे"><i class="fa fa-remove"></i></a>
+															<?php } ?>
+															</span>                                    
+													</div>
+                                                            <?php } else if($draft_log_end->draft_log_id == $drafts->draft_log_id){ ?>
+                                                        <div class="direct-chat-info clearfix">
+															<span class="direct-chat-name pull-left">
+															<?php  if($drafts->draft_log_creater == $this->session->userdata("emp_id") && ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $file_data['file_received_emp_id'] == $this->session->userdata("emp_id")  && $emp_role_lvl['emprole_level' ]== 13){ ?>
+                                                                <a href="<?php echo base_url().'draft/draft_log_hide/'.$drafts->draft_log_id .'/'.$drafts->draft_log_creater; ?>" onclick="return confirm('क्या आप इस टीप डिलीट करना चाहते है');"  class="btn btn-xs btn-danger" title="इस टीप को डिलीट करे"><i class="fa fa-remove"></i></a>
+                                                            <?php } ?>
+															</span>
+                                                        </div>
+                                                            <?php } ?>
+													<?php //echo $span ; ?>
+													<div class="logExpand direct-chat-text" data-toggle="modal" data-target="#expandModel" data-log_id="<?php echo $drafts->draft_log_id ;?>" style="height:120px;overflow-y:auto;background:none;cursor:zoom-in;margin: 5px 0 0 25px;">
+													<?php echo filter_string($drafts->draft_content);
+														//if(get_employee_role($drafts->draft_log_creater, true) < 9 && $type == 'n'){
+														if($type == 'n'){
+														 $verify_status =  verify_digital_sinature($drafts->draft_log_id,md5($drafts->draft_content));
+															$class_no = '';
+                                                $role_show_fdf = get_employee_role($drafts->draft_log_creater);
+                                                if($verify_status){
+                                                    $class_no = "class='hide'";
+                                                    $role_show_fdf = get_employee_role($drafts->draft_log_creater,false,true);
+                                                }
+															
+															echo '<div class="pull-right" style="text-align: center;">&nbsp;'.$verify_status.'
+															<b  '.$class_no.'>('.getemployeeName($drafts->draft_log_creater, true, false).')<br/></b>
+															<b>'.$role_show_fdf.'</b></div><div class="clearfix"></div>';
+															
+															if($drafts->draft_log_creater != $drafts->draft_log_sendto){
+																echo '<div class="pull-left">';
+																if(check_so_on_leave($drafts->draft_log_creater,$drafts->draft_log_sendto) != null){
+																	echo '<b><u>अनुभाग अधिकारी अवकाश पर </u></b>';
+																}
+																echo '<b><u><br/>'.get_employee_role($drafts->draft_log_sendto).'(';
+																echo  get_employee_role($drafts->draft_log_sendto, true) == 3 ? 'विधि' : getSectionName($file_data['file_mark_section_id']);
+																echo ')</u></b></div>';
+															}												
+															
+														} ?>
+													</div>
+											   </div>
+												<?php
+													   $last_logid = $drafts->draft_log_id; // use for return files
+													}	?>
+											</div>
+									</div><!-- /.mailbox-read-message -->
+						<?php } } else {
 							echo 'No Notesheet found!';
 						}
 					} else {
@@ -226,39 +251,51 @@
 						?>
                 </div><!-- /.box-body -->
 				<div class="box-footer">
-					<?php  if(!empty($draft_data)) {
-                $verify_logid = verify_logid_sinature($last_logid); // only use for return files
+					<?php  
+						$object_array_draft = end($draft_data);  
+						$draft_data = (array) $object_array_draft;	
+						if(!empty($draft_data)) {
+						$verify_logid = verify_logid_sinature($last_logid); // only use for return files
 						if( ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $file_data['file_received_emp_id'] == emp_session_id()){
 							if($draft_data['draft_status'] == 2 && $draft_data['draft_reciever_id'] == emp_session_id()) { ?>
-								<a href="<?php echo base_url().'draft/draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php echo $this->lang->line('btn_full_edit'); ?></a>
+								<a href="<?php echo base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php echo $this->lang->line('btn_full_edit'); ?></a>
 							<?php } if($draft_data['draft_status'] == 3 && $draft_data['draft_reciever_id'] == emp_session_id() && $draft_data['draft_sender_id'] == emp_session_id()) { ?>
-                        <a href="<?php echo base_url().'draft/draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php  echo @$verify_logid != '' ? '<span data-original-title="आपका लिखा हुआ कथन Digital sign हो चुका है | अत: पुनः नया कथन जोड़े |" data-toggle="tooltip">पुनः '.$this->lang->line('btn_add_efile_notesheet').'<span>' : $this->lang->line('btn_re_edit'); ?></a>
+                        <a href="<?php echo base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php  echo @$verify_logid != '' ? '<span data-original-title="आपका लिखा हुआ कथन Digital sign हो चुका है | अत: पुनः नया कथन जोड़े |" data-toggle="tooltip">पुनः '.$this->lang->line('btn_add_efile_notesheet').'<span>' : $this->lang->line('btn_re_edit'); ?></a>
 							<?php } if($draft_data['draft_status'] == 2 && $draft_data['draft_reciever_id'] == emp_session_id() && $draft_data['notesheet_id'] != '' && $emp_role_lvl['emprole_level'] == 13) {?>
 								<a href="<?php echo base_url().'admin_notesheet_master/view_file_notesheet/'; ?><?php echo $draft_data['notesheet_id'] . '/' . $file_data['file_from_section_id'] . '/' . $file_data['file_id']; ?>?ed=y"   class="btn btn-primary"><i class="fa fa-edit"><?php echo $this->lang->line('btn_notesheet_edit'); ?></i></a>
                     <?php } ?>
                         <?php  if($draft_data['draft_status'] == 3 && $draft_data['draft_is_finalize'] == 0 && $draft_data['draft_reciever_id'] == emp_session_id() && $draft_data['draft_sender_id'] != emp_session_id()) {  ?>
                             <div class="col-xs-4">
-                                <div class="input-group"><a href="<?php echo base_url().'draft/draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php echo $this->lang->line('btn_add_efile_notesheet'); ?></a></div>
+                                <div class="input-group"><a href="<?php echo base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/'.$draft_data['draft_type'].'/'.$draft_data['draft_id']; ?>" class="btn btn-primary"><?php echo $this->lang->line('btn_add_efile_notesheet'); ?></a></div>
                             </div>
                         <?php if($draft_data['draft_reciever_id'] == emp_session_id() && $file_data['file_received_emp_id'] == emp_session_id()) {?>
                             <div class="col-xs-8">
-                                <div class="input-group">
-                                    <select class="form-control" id="auto_add_draft_value">
-                                        <option <?php echo @$role_id_s[0]['role_id'] > $this->session->userdata("user_role") ? "selected" : false ; ?>>अनुमोदनार्थ </option>
-                                        <option <?php echo $this->session->userdata("user_role") == '3' ? "selected" : false ; ?>>अनुमोदित </option>
-                                        <option <?php echo $this->session->userdata("user_role") == '7' ? "selected" : false ; ?>>अनुमोदनार्थ एवं आदेशार्थ </option>
-                                        <option>आदेश की प्रतियां प्रेषित की जावे |</option>
-                                        <option <?php echo @$role_id_s[0]['role_id'] < $this->session->userdata("user_role") && $this->session->userdata("user_role") == '8' ? "selected" : false ; ?>>Seen</option>
-                                    </select>
-                                <span class="input-group-btn">
-                                    <button type="button" value="" onclick="addautodraft('<?php echo $draft_data['draft_id']; ?>')" class="btn btn-primary" id="auto_add_draft">Auto add</button>
-                                </span>
-                                </div>
+								<?php if($emp_role_lvl['emprole_level'] <= 6){ ?>
+									<div class="input-group">
+										<select class="form-control" id="auto_add_draft_value">
+											<option <?php echo @$role_id_s[0]['role_id'] > $this->session->userdata("user_role") ? "selected" : false ; ?>>अनुमोदनार्थ |</option>											
+											<option <?php echo $this->session->userdata("user_role") == '3' ? "selected" : false ; ?>>अनुमोदित |</option>
+											<option <?php echo $this->session->userdata("user_role") == '7' ? "selected" : false ; ?>>अनुमोदनार्थ एवं आदेशार्थ |</option>
+											<option <?php echo $this->session->userdata("user_role") == '5' ? "selected" : false ; ?>>यथा प्रस्तावित|</option>
+											<option>आदेश की प्रतियां प्रेषित की जावे |</option>
+											<option>आदेश की प्रतियां हस्ताक्षार्थ प्रेषित है |</option>
+											<option>नस्ती पर ई-हस्ताक्षर अंकित नहीं है |</option>
+											<option <?php echo $this->session->userdata("user_role") == '4' ? "selected" : false ; ?>>य. प्र. अनुमोदित |</option>
+											<option>नस्ती पुनः मतार्थ प्रस्तुत है |</option>
+											<option>हस्ताक्षर किये गए |</option>
+											<option>कार्यवाही करें |</option>
+											<option <?php echo @$role_id_s[0]['role_id'] < $this->session->userdata("user_role") && $this->session->userdata("user_role") == '8' ? "selected" : false ; ?>>देखा गया |</option>
+										</select>
+									<span class="input-group-btn">
+										<button type="button" value="" data-loading-text="Submiting..." onclick="addautodraft('<?php echo $draft_data['draft_id']; ?>')" class="btn btn-primary" id="auto_add_draft">Auto add</button>
+									</span>
+									</div>
+								<?php } ?>
                             </div>
                         <?php } ?>
                         <?php } ?>
                 <?php  }  ?>
-						<a href="<?php echo base_url(); ?>draft/draft/draft_viewer/<?php echo $draft_data['draft_id']; ?>/1" class="btn btn-flat btn-success margin"><i class="fa  fa-arrows-alt"></i> <?php echo $this->lang->line('btn_full_details'); ?></a>
+						
 					<?php }
 
 					if(check_notesheet_exists($file_data['file_id']) == NULL){
@@ -266,8 +303,14 @@
 							echo '<a href="'. base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/n" class="btn btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> '.$this->lang->line('btn_add_efile_notesheet').'</a>';
 							echo '<a href="'.$show_r.'?temp=y&type=n"  class="btn margin btn-sm btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> '.$this->lang->line('btn_add_efile_notesheet_template').'</a>';
 						}
-					 }
-					?>
+					 }else{
+						//echo '<a href="'. base_url().'draft/create_fileto_draft/'.$file_data['file_id'].'/n" class="btn btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> '.$this->lang->line('btn_add_efile_notesheet').'</a>';
+						if(($file_data['file_return'] == '0' || $file_data['file_return'] == '1') && $file_data['file_received_emp_id'] == $this->session->userdata("emp_id") && ($file_data['file_hardcopy_status'] == 'received' || $file_data['file_hardcopy_status'] == 'working' ) && $emp_role_lvl['emprole_level']==13){
+							echo '<a href="'.$show_r.'?temp=y&type=n"  class="btn margin btn-sm btn-success" data-toggle="tooltip" data-original-title="Add doccument"><i class="fa fa-plus"></i> '.$this->lang->line('btn_add_efile_notesheet_template').'</a>';
+						}	
+					?>	
+						<a href="<?php echo base_url(); ?>draft/draft_viewer/<?php echo $draft_data['draft_id']; ?>/1" class="btn btn-flat btn-success margin"><i class="fa  fa-arrows-alt"></i> <?php echo $this->lang->line('btn_full_details'); ?></a>
+					<?php } ?>
 				</div>
             </div><!-- /. box -->
         </div><!-- /.col -->
@@ -411,6 +454,7 @@
 	//show content in model
 	$(function () {
 		$(".logExpand").click(function () {
+			//alert('w');
 			var log_id = $(this).data("log_id");
 			//alert(log_id);
 			var HTTP_PATH='<?php echo base_url(); ?>';
@@ -432,10 +476,11 @@
 
     });
             function addautodraft(draft_id) {
+				$('#auto_add_draft').button('loading');
                 var draft_id = draft_id;
-        var draft_content_text = '<p>'+$("#auto_add_draft_value").val()+'</p>';
+				var draft_content_text = '<p>'+$("#auto_add_draft_value").val()+'</p>';
                 var file_id = '<?php echo $file_data['file_id']; ?>';
-                var draft_subject = '<?php echo $file_data['file_subject']; ?>';
+                var draft_subject = "<?php echo mysql_real_escape_string($file_data['file_subject']); ?>";
                 var draft_type = 'n';
                 var btnadddraft = 'save_draft';
                 var HTTP_PATH = '<?php echo base_url(); ?>';

@@ -179,6 +179,7 @@ $res6 =  $query6->row_array();
             <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-body">
+					<?php $_10days = date('Y-m-d',strtotime(date('Y-m-d').' -10 Days'));  ?>
                     <table class="table table-condensed stripeTable12">
                         <tr>
                             <th>#</th>
@@ -186,13 +187,14 @@ $res6 =  $query6->row_array();
                             <th>Received</th>
                             <th>Not Received</th>
                             <th>Total File (C+D+E)<br/><span class="badge bg-red"><?php if( isset($res1['total_recieved_file']) && isset( $file_not_received_section['total_not_recived_file_in_section'] ) && isset($file_not_received_officer_level['total_not_recived_file_officers'] ) && isset( $res0['total_working_file'])) { echo $res1['total_recieved_file'] +  $file_not_received_section['total_not_recived_file_in_section'] + $file_not_received_officer_level['total_not_recived_file_officers'] + $res0['total_working_file'] ;}else { echo 0 ;} ?></span></th>
+							<th style="background-color:#FFA4A4">Pending more <br/> than 10 days</th>
                         </tr>
                         <?php
                         if(end($this->uri->segments)==21){
-                            $qry = $this->db->query("SELECT file_received_emp_id , count(file_id) AS fileno, SUM(IF(file_hardcopy_status = 'received' || file_hardcopy_status = 'working', 1,0)) AS received, SUM(IF(file_hardcopy_status = 'not', 1,0)) AS notreceive FROM ft_files WHERE (ps_moniter_date!='' && ps_moniter_date!='0000-00-00') GROUP by `file_received_emp_id` ORDER BY fileno DESC");
+                            $qry = $this->db->query("SELECT file_received_emp_id , count(file_id) AS fileno, SUM(IF(file_hardcopy_status = 'received' || file_hardcopy_status = 'working', 1,0)) AS received, SUM(IF(file_hardcopy_status = 'not', 1,0)) AS notreceive , SUM(IF(date(file_update_date) <= '".$_10days."', 1,0)) AS pending_10 FROM ft_files WHERE (ps_moniter_date!='' && ps_moniter_date!='0000-00-00') GROUP by `file_received_emp_id` ORDER BY fileno DESC");
                         }else{
 							//$qry = $this->db->query("SELECT file_received_emp_id , count(file_id) AS fileno, SUM(IF(file_hardcopy_status = 'received' || file_hardcopy_status = 'working', 1,0)) AS received, SUM(IF(file_hardcopy_status = 'not', 1,0)) AS notreceive FROM ft_files WHERE `file_mark_section_id`='".$get_section[0]['section_id']."' GROUP by `file_received_emp_id` ORDER BY fileno DESC");
-							$sql_qry="SELECT emp.designation_id,files.file_received_emp_id , count(files.file_id) AS fileno, SUM(IF(files.file_hardcopy_status = 'received' || files.file_hardcopy_status = 'working', 1,0)) AS received, SUM(IF(files.file_hardcopy_status = 'not', 1,0)) AS notreceive FROM ft_files as files inner join ft_employee as emp on emp.emp_id=files.file_received_emp_id WHERE files.file_mark_section_id='".$get_section[0]['section_id']."' and files.file_hardcopy_status != 'close' GROUP by files.file_received_emp_id ORDER BY emp.designation_id DESC";
+							$sql_qry="SELECT emp.designation_id,files.file_received_emp_id , count(files.file_id) AS fileno, SUM(IF(files.file_hardcopy_status = 'received' || files.file_hardcopy_status = 'working', 1,0)) AS received, SUM(IF(files.file_hardcopy_status = 'not', 1,0)) AS notreceive , SUM(IF(date(file_update_date) <= '".$_10days."', 1,0)) AS pending_10 FROM ft_files as files inner join ft_employee as emp on emp.emp_id=files.file_received_emp_id WHERE files.file_mark_section_id='".$get_section[0]['section_id']."' and files.file_hardcopy_status != 'close' GROUP by files.file_received_emp_id ORDER BY emp.designation_id DESC";
 							$qry = $this->db->query($sql_qry);
                             
                         }
@@ -230,7 +232,8 @@ $res6 =  $query6->row_array();
     											<?php //echo $record1->fileno; ?>
     										</span>
     									</td>
-                                    </tr>
+										<td style="background-color:#FFA4A4"><?php if(isset($record1[$j]->pending_10)){ echo $record1[$j]->pending_10;}else{ echo 0;}  ?></td>
+                                   </tr>
                                     <?php $i++; }
                                 }
                             } else{ ?>

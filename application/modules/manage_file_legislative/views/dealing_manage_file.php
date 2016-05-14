@@ -78,6 +78,9 @@
                                     <?php echo form_error('file_type');?>
                                 </div>
                             <?php }?>
+
+                            <?php if($file_data[0]['file_mark_section_id']!=19){ ?>
+
                             <div class="form-group">
                                 <label for="file_head"><?php  echo $this->lang->line('file_head'); ?></label>
                                 <select class="form-control" name="file_head" id="file_head">
@@ -88,6 +91,7 @@
                                     <?php  } ?>
                                 </select>
                             </div>
+<?php } ?>
 
                             <div class="form-group">
                                 <label for="file_uo_number"><?php if($file_data[0]['file_type'] == 'f') {
@@ -121,8 +125,18 @@
 
                             <?php if($file_data[0]['file_mark_section_id']!=16){ ?>
                             <div class="form-group">
-                                <label for="file_subject">Notifications</label>
-                                <?php $file_sub = file_sub_type() ; ?>
+                                <label for="file_subject">
+                                    <?php if($file_data[0]['file_mark_section_id']==19){
+                                        echo $this->lang->line('file_ka_prakar_lib');
+                                    }else{
+                                        echo "Notifications";
+                                    } ?>
+                                    </label>
+                                <?php if($file_data[0]['file_mark_section_id']==19){
+                                    $file_sub = get_lib_file_type() ;
+                                }else{
+                                    $file_sub = file_sub_type() ;
+                                } ?>
                                 <select name="section_file_type"  class="form-control">
                                     <option value="">Select</option>
                                     <?php foreach($file_sub as $file_sub1 ) {?>
@@ -192,6 +206,16 @@
                                     <option value="other"><?php echo $this->lang->line('option_other'); ?></option>
                                 </select>
                                 <?php echo form_error('district_id');?>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="stat_id"><?php echo $this->lang->line('label_state_name'); ?></label>
+                                <select class="form-control" name="state_id" id="state_id">
+                                    <option value="">Select</option>
+                                    <?php $i = 1; foreach($state_list as $row){ ?>
+                                        <option value="<?php echo $row['state_id']; ?>" <?php  if($file_data[0]['file_state_id'] == $row['state_id']){ echo 'selected';} ?>><?php echo $i." - ".$row['state_name_hi'].'('.$row['state_name_en'].')'; ?></option>
+                                        <?php $i++; } ?>
+                                </select>
                             </div>
 
 

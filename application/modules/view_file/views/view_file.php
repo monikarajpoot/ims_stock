@@ -35,16 +35,22 @@
     </div>
     <div style="float:right">
         <?php
+		$emp_section_id = explode(',',$this->session->userdata('emp_section_id'));
         $moveemp = get_move_empid_file($file_details[0]['file_id'],null,$file_details[0]['file_mark_section_id']);
         foreach($moveemp as $moveemp1){  $moveemp2[] = $moveemp1['fmove_current_user_id'];  }
-        if($file_details[0]['final_draft_id'] != '' && $this->session->userdata('user_role') != '9' && $this->session->userdata('user_role') != '39' && (in_array(emp_session_id(),$moveemp2) || $this->session->userdata('user_role') == '3')){
+        if($file_details[0]['final_draft_id'] != '' && $this->session->userdata('user_role') != '9' && $this->session->userdata('user_role') != '39' && (in_array(emp_session_id(),$moveemp2) || in_array($file_details[0]['file_mark_section_id'], $emp_section_id))){
         $notesheet = get_draft($file_details[0]['final_draft_id'], 'n');
         $order = get_draft($file_details[0]['final_draft_id'], 'o');
+		$notesheet_out_dept = get_draft($file_details[0]['final_draft_id'], 'odn');
         if($order){ ?>
         <a href="<?php echo base_url(); ?>draft/draft/draft_viewer/<?php echo $order['draft_id']; ?>/1"  class="btn btn-sm bg-olive no-print">आदेश</a>
         <?php }if($notesheet) {?>
         <a href="<?php echo base_url(); ?>draft/draft/draft_viewer/<?php echo $notesheet['draft_id']; ?>/1"  class="btn btn-sm bg-olive no-print">नोटशीट</a>
-        <?php }} ?>
+        <?php }if($notesheet_out_dept) {?>
+                <a href="<?php echo base_url(); ?>draft/draft/draft_viewer/<?php echo $notesheet_out_dept['draft_id']; ?>/1"  class="btn btn-sm bg-olive no-print">बाह्य विभाग नोटशीट</a>
+        <?php } ?>
+            <a href="<?php echo base_url(); ?>efile/<?php echo $file_details[0]['file_id']; ?>"  class="btn btn-sm bg-olive no-print">ई-फाइल की सम्पूर्ण जानकारी</a>
+        <?php } ?>
         <button onclick="printContents('divname')" class="btn btn-primary btn-sm no-print">Print</button>
         <button class="btn btn-sm btn-warning" onclick="goBack()"><?php echo $this->lang->line('Back_button_label'); ?></button>
     </div>
@@ -90,10 +96,21 @@ if($file_details[0]['file_return'] == 2 && $file_details[0]['file_hardcopy_statu
         <div class="box-header" align="center">
             <h4 class="box-title"><b><?php echo   $file_details[0]['file_type'] == 'app' ? 'आवेदन' : 'नस्ती/पत्र'; ?> की जानकारी</b>
         <span <?php if($file_details[0]['file_hardcopy_status'] == 'close') {?> class="text-red" <?php }else{ ?>class="text-green" <?php } ?>>[<?php echo get_panji_no($file_details[0]['file_id'],$file_details[0]['file_mark_section_id'],$file_details[0]['file_created_date']); ?>]</span>
-            </h4><br/>
+            </h4>
+			<br/>
             <?php if($file_details[0]['file_return'] == '2'){ ?>
                 <span class="box-title text-red"><?php echo @$file_details[0]['file_return'] == '2' && @$file_details[0]['status'] != 'close'  ? "" : false ; ?></span>
             <?php } ?>
+			पंजी क्रं :<b> <?php
+                $rrt = all_getfilesec_id_byfileid($file_details[0]['file_id']);
+                if($rrt){
+                foreach($rrt as $rrt1){
+                    $sechi = explode('(',getSection($rrt1['section_id']));
+                    echo " ".$rrt1['section_number'] ." - <span>".$sechi['0']."</span> , ";
+                }}else{
+				echo "N/A";
+				}
+                ?></b>
         </div>
         <?php if($file_details[0]['file_linked_id'] != '' &&  $file_details[0]['file_linked_id'] != 0) { ?>
             <div class="col-xs-12">
@@ -433,7 +450,7 @@ if($file_details[0]['multi_user_receiver_id'] !=null){
                     <table width="100%">
                         <tr>
                             <td><b>दिनांक</b></td>
-                            <td><b>कोई टिप</b></td>
+                            <td><b>कोई टीप</b></td>
                             <td><b>कौन लाया</b></td>
                             <td><b>क्या हुआ</b></td>
                             <td><b>दस्तावेज</b></td>
@@ -459,14 +476,16 @@ if($file_details[0]['multi_user_receiver_id'] !=null){
                                     if($row['to_emp_id'] == $row['from_emp_id']){
                                         if (isset($empnmto[0]->emp_full_name_hi)) {
                                             if(isset($row['fvlm_id']) && $row['fvlm_id'] == 1){
-                                                echo " Dispose by ";
+                                               
                                                 echo  file_status_withname($empnmto[0]->emp_id,$empnmto[0]->emp_full_name_hi,$empnmto[0]->emprole_name_hi);
+												echo " के द्वारा बंद कर दी  गई | ";
                                             }else if(isset($row['fvlm_id']) && $row['fvlm_id'] == 4){
                                                 echo " File Merged by ";
                                                 echo  file_status_withname($empnmto[0]->emp_id,$empnmto[0]->emp_full_name_hi,$empnmto[0]->emprole_name_hi);
                                             }else {
-                                                echo " File is in progress by ";
+                                               
                                                 echo  file_status_withname($empnmto[0]->emp_id,$empnmto[0]->emp_full_name_hi,$empnmto[0]->emprole_name_hi);
+											   echo " के पास प्रक्रियाधीन | ";
 												physical_electronic_file_status_receive( $row['file_status_log']);
                                             } }
 
@@ -493,10 +512,11 @@ if($file_details[0]['multi_user_receiver_id'] !=null){
                                         }else{
                                         if (isset($empnmfrom[0]->emp_full_name_hi)) {
                                             echo file_status_withname($empnmfrom[0]->emp_id,$empnmfrom[0]->emp_full_name_hi,$empnmfrom[0]->emprole_name_hi);
-                                            echo " marked file to ";
+                                           echo " द्वारा  ";
                                         }
                                         if (isset($empnmto[0]->emp_full_name_hi)) {
                                             echo file_status_withname($empnmto[0]->emp_id,$empnmto[0]->emp_full_name_hi,$empnmto[0]->emprole_name_hi);
+											echo " को प्रेषित |";
                                         }
                                     }
 										physical_electronic_file_status_send($row['file_status_log']);
@@ -564,7 +584,7 @@ if($file_details[0]['file_linked_id'] != null){
                             <table width="100%">
                                 <tr>
                                     <td><b>दिनांक</b></td>
-                                    <td><b>कोई टिप</b></td>
+                                    <td><b>कोई टीप</b></td>
                                     <td><b>कौन लाया</b></td>
                                     <td><b>क्या हुआ</b></td>
                                     <td><b>दस्तावेज</b></td>

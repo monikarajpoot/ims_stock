@@ -47,7 +47,11 @@ $contents  .= ' जिला दण्डाधिकारी, '.$district_name
 
 $contents  .= ' पुलिस अधीक्षक, '.$district_name_hi.' (म0प्र0) की ओर इस निर्देश के साथ प्रेषित कि उपरोक्तानुसार अपील प्रस्तुत कराया  जाना सुनिश्चित करें तथा कि गई कार्यवाही की सूचना इस विभाग को भेजें ।  </p></td></tr><tr><td></td><td class="top_class" >6.</td><td ><p>' ;
 $contents  .= ' विधि विभाग, उप कार्यालय, एम.पी. भवन, नई दिल्ली-110001 की ओर सूचनार्थ एवं आवश्यक  कार्यवाही हेतु अग्रेषित । </p></td></tr>' ;
-$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3" ><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

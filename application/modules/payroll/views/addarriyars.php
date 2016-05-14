@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-   <?php echo "एरीयर्स"; ?>
+   <?php echo "एरीयस"; ?>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"><?php echo "एरीयर्स" ?></li>
+        <li class="active"><?php echo "एरीयस" ?></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -20,7 +20,7 @@
                 <div class="box-header">
                   <!--  <h3>यह आपकी पर्सनल जानकारी है अगर इसमे किसी प्रकार की त्रुटी दिखाई दे तो हमें अवश्य सूचित करे|</h3> -->
                 </div>
-           <div class="container"><h2><?php echo " एरीयर्स  ";?></h2>
+           <div class="container"><h2><?php echo " एरीयस  ";?></h2>
   
 <div class="row">
         <div class="col-xs-12">
@@ -61,7 +61,7 @@
                                 <?php } ?>
                             </select> 
  <select name="pay_year" name="pay_year" class="form-control">
-                                <option value=""><?php echo " एरीयर्स साल से"; ?></option>
+                                <option value=""><?php echo " एरीयस साल से"; ?></option>
                                 <?php for ($my=2011; $my<=date("Y"); $my++) {
    
      ?>
@@ -87,7 +87,7 @@
                                 <?php } ?>
                             </select> 
 							 <select name="pay_year_end" name="pay_year_end" class="form-control">
-                                <option value=""><?php echo " एरीयर्स साल  तक "; ?></option>
+                                <option value=""><?php echo " एरीयस साल  तक "; ?></option>
                                 <?php for ($my=2011; $my<=date("Y"); $my++) {
    
      ?>

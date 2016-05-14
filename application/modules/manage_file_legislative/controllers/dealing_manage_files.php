@@ -83,7 +83,7 @@ class Dealing_manage_files extends MX_Controller {
         if ($this->form_validation->run($this) === TRUE)
         {
 
-			if(in_array(checkUserrole(),show_dealing_asst_list())){
+			if(in_array(checkUserrole(),show_dealing_asst_list()) || in_array('19',$section_exp)){
                $file_hardcopy_status='working'; 
             }else{  $file_hardcopy_status='received';  }   
             //die(checkUserrole());         
@@ -98,6 +98,7 @@ class Dealing_manage_files extends MX_Controller {
                 'file_hardcopy_status'      => $file_hardcopy_status,
                 'file_department_id'        => $this->input->post('file_department_id')==''?0:$this->input->post('file_department_id'),
                 'file_district_id'          => $this->input->post('district_id')==''?0:$this->input->post('district_id'),
+                'file_state_id'          => $this->input->post('state_id')==''?0:$this->input->post('state_id'),
             //    'court_bench_id'            => $this->input->post('court_bench'),
             //    'file_judgment_date'        => $judg_dt,
                'file_department_name'      => $this->input->post('file_department_name'),

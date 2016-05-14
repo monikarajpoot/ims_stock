@@ -58,6 +58,11 @@ $contents .= '</td></tr>';
 $contents .= '<tr><td colspan="3"><p class="shift-left">उपरोक्त विषयक संदर्भित पत्र के संबंध में लेख किया जाता है कि जिला दंडाधिकारी कार्यालय से विभाग को जो अपील प्रस्ताव भेजा गया है, उसके साथ साक्षियों  के कथन की नकलें  एवं अन्य दस्तावेज संलग्न कर नहीं भेजी है, जिनके अभाव में अपील मत दिया जाना संभव नहीं है अत: तत्काल चाहे गये दस्तावेज विधि विभाग को भेजने का कष्ट करे | तत्पश्चात  ही उपरोक्त प्रकरण  में अपील अभिमत दिया जाना संभव होगा| साथ ही लेख किया जाता है कि प्रकरण में हुए विलंब का उत्तरदायित्व आपके कार्यालय का होगा |</p></td></tr>';
 
 $contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="3" align="right"><div  contenteditable="false" class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('avar_secetroy')); 

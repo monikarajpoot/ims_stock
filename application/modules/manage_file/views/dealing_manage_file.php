@@ -119,6 +119,11 @@
                         <textarea class="form-control"  name="file_subject" ><?php echo isset($file_data[0]['file_subject']) ? $file_data[0]['file_subject'] : ''; ?></textarea>
                         <?php echo form_error('file_subject');?>
                     </div>
+					 <div class="form-group">
+                        <label for="file_subject_en"><?php echo $this->lang->line('label_subject‌_en'); ?></label>
+                        <textarea class="form-control"  name="file_subject_en" ><?php echo isset($file_data[0]['file_subject_en']) ? $file_data[0]['file_subject_en'] : ''; ?></textarea>
+                       
+                    </div>
 					<div <?php if($sed_id == 11 || $sed_id == 12 || $sed_id == 13 || $sed_id == 19) { echo "style='display: none'"; } else { echo "style='display: block'";} ?>>
 
 								<div class="form-group">
@@ -165,7 +170,7 @@
 						</div>
 					<?php } ?>
                     <input type="hidden" name="file_offer_by" value="<?php echo $file_data[0]['file_Offer_by']; ?>">
-                    <?php if($file_data[0]['file_mark_section_id']==2){ ?>
+                     <?php if($sed_id == 2){ ?>
 						<div class="form-group">
 							<label for="High_court_bench"><?php echo $this->lang->line('High_court_bench'); ?></label>
 							<?php $highcourt = highcourt_bench() ; ?>
@@ -179,21 +184,27 @@
 							</select>
 							<?php echo form_error('court_bench');?>
 						</div>
-				<?php } else if($file_data[0]['file_mark_section_id']== 15 || $sed_id == 11 || $sed_id == 12 || $sed_id == 19){ ?>
+				<?php }  if($sed_id == 15 || $sed_id == 11 || $sed_id == 12 || $sed_id == 19 || $sed_id == 2 || $sed_id == 10){ ?>
 						<div class="form-group">
 							<label for="prosecution file type">
-					 <?php if($sed_id == 15){ ?> <label for="prosecution file type" id="procecution_label"  ><?php echo $this->lang->line('file_ka_prakar'); ?> </label> <?php } ?>
-					 <?php if($sed_id == 12){ ?> <label for="BII file type" id="nyayic_sec_2label" ><?php echo $this->lang->line('file_ka_prakar_b2'); ?> </label><?php } ?>
-					 <?php if($sed_id == 11){ ?> <label for="BII file type" id="nyayic_sec_1label" ><?php echo $this->lang->line('file_ka_prakar_b1'); ?> </label><?php } ?>
-					 <?php if($sed_id == 19){ ?>  <label for="lib file type" id="lib_sec_1label" ><?php echo $this->lang->line('file_ka_prakar_lib'); ?> </label><?php } ?>
+							 <?php if($sed_id == 15){ ?> <label for="prosecution file type" id="procecution_label"  ><?php echo $this->lang->line('file_ka_prakar'); ?> </label> <?php } ?>
+							 <?php if($sed_id == 12){ ?> <label for="BII file type" id="nyayic_sec_2label" ><?php echo $this->lang->line('file_ka_prakar_b2'); ?> </label><?php } ?>
+							 <?php if($sed_id == 11){ ?> <label for="BII file type" id="nyayic_sec_1label" ><?php echo $this->lang->line('file_ka_prakar_b1'); ?> </label><?php } ?>
+							 <?php if($sed_id == 19){ ?>  <label for="lib file type" id="lib_sec_1label" ><?php echo $this->lang->line('file_ka_prakar_lib'); ?> </label><?php } ?>
+							<?php if($sed_id == 2){ ?>  <label for="pettion file type" id="petition_sec_1label" >फाइल का प्रकार  </label><?php } ?>
+							<?php if($sed_id == 10){ ?>  <label for="civil file type" id="civil_sec_1label" >फाइल का प्रकार  </label><?php } ?>
+							
 					
 							 <span class="text-danger">*</span></label>
 							<select class="form-control" name="section_file_type" >
 								<option value="">  <?php if($sed_id == 15){ ?> <?php echo $this->lang->line('file_ka_prakar'); ?> <?php } ?>
-					 <?php if($sed_id == 12){ ?> <?php echo $this->lang->line('file_ka_prakar_b2'); ?><?php } ?>
-					 <?php if($sed_id == 11){ ?> <?php echo $this->lang->line('file_ka_prakar_b1'); ?><?php } ?>
-					 <?php if($sed_id == 19){ ?> <?php echo $this->lang->line('file_ka_prakar_lib'); ?><?php } ?>
-					</option>		<?php
+								 <?php if($sed_id == 12){ ?> <?php echo $this->lang->line('file_ka_prakar_b2'); ?><?php } ?>
+								 <?php if($sed_id == 11){ ?> <?php echo $this->lang->line('file_ka_prakar_b1'); ?><?php } ?>
+								 <?php if($sed_id == 19){ ?> <?php echo $this->lang->line('file_ka_prakar_lib'); ?><?php } ?>
+								<?php if($sed_id == 2){ ?> फाइल का प्रकार <?php } ?>
+								 <?php if($sed_id == 10){ ?> फाइल का प्रकार <?php } ?>
+								</option>	
+								<?php
 
 									if($sed_id == 11){
 										$presecution_file_type= get_BI_file_type(); /*function define in common helper. Database filed name : section_file_type in ft_files */
@@ -207,7 +218,12 @@
 									if($sed_id == 19){
 										$presecution_file_type= get_lib_file_type(); /*function define in common helper. Database filed name : section_file_type in ft_files */
 									}
-
+									if($sed_id == 2){
+										$presecution_file_type= get_petition_file_type(); /*function define in common helper. Database filed name : section_file_type in ft_files */
+									}
+									if($sed_id == 10){
+										$presecution_file_type= get_civil_file_type(); /*function define in common helper. Database filed name : section_file_type in ft_files */
+									}
 									foreach($presecution_file_type as $pftype => $value){ ?>
 										<option value="<?php echo $pftype; ?>" <?php if($file_data[0]['section_file_type']==$pftype){ echo 'selected';} ?>><?php echo $value; ?></option>
 							<?php } ?>

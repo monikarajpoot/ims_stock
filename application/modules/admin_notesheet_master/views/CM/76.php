@@ -62,6 +62,11 @@ $contents  .= '<tr><td>संलग्न :- देयक </td></tr>';
 $contents  .= '<tr><td>&nbsp;</td></tr>';
 $contents  .= '<tr><td align="right"><b>मध्यप्रदेश के राज्यपाल के नाम से तथा आदेशानुसार,</b> </td></tr>';
 $contents .= '<tr><td colspan="2">&nbsp;</td></tr>';
+if(($this->uri->segment(6) != 'p' && $is_genrate == false) ||  ($this->uri->segment(7) != 'p' && $is_genrate == true)){
+	$contents .= '<tr><td align="right" colspan="3"><div class="officer-center">(Digitally Signed)</div></td></tr>';
+} else {
+	$contents .= '<tr><td colspan="3">&nbsp;</td></tr>';
+}
 $contents .= '<tr><td colspan="2" align="right"><div contenteditable="false"  class="officer-center">( ';
 if($is_genrate == true){
 $contents .=  get_officer_information($this->input->post('secetroy')); 

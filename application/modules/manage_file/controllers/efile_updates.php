@@ -8,6 +8,7 @@ class Efile_updates extends MX_Controller {
     }
 	public function multi_file_send_upper_officer($fileid,$rmk1,$markrd_emp,$section_id,$file_status,$draft_log_id,$loggined_in_userId)
     {
+		$file_status = safe_b64decode($file_status);
         $f_status = array();
         if($fileid) {
             $file_progress = '0';

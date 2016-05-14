@@ -6,6 +6,10 @@ class Efile_list_model extends CI_Model {
     }
     public function geteFiles($section_id,$moveup_down,$section_id_search='',$pgmode)
     {
+		$sub_type = '';
+		if($this->input->get('sstype') != '') {
+			$sub_type = $this->input->get('sstype');
+        }
 		$login_emp_id = emp_session_id();		
 		$emp_role_lvl= get_emp_role_levele();      
 		//echo $emp_role_lvl['emprole_level'];
@@ -120,6 +124,9 @@ class Efile_list_model extends CI_Model {
 			$this->db->where($where_draft_status);				
         }
         $this->db->where('file_hardcopy_status !=','close');
+		if($sub_type != ''){
+			$this->db->where('section_file_categoty',$sub_type);
+		}
 		//$where="file_status=='e' || file_status=='e,p' || file_status=='p,e'";
 		//$this->db->or_where(array('file_status !='=>'p'));
 		//$this->db->or_where(array('file_status !='=>''));
@@ -129,6 +136,44 @@ class Efile_list_model extends CI_Model {
 		//echo $this->db->last_query();
 		return $query->result();
     }
+	public function geteFiles_working(){
+		$login_emp_id = emp_session_id();		
+		$emp_role_lvl= get_emp_role_levele();      
+		//echo $emp_role_lvl['emprole_level'];
+		$cr_emp_str = get_emp_by_role(9,$section_id = null);
+		$cr_emp_ids_array =  explode(',',$cr_emp_str);
+		$query =   $this->db->query("select group_concat(under_emp_id SEPARATOR ',') as u_empid from ft_employee_hirarchi where emp_id = ".$login_emp_id);
+        $rr =  $query->row_array();
+		$rt =  explode(',',$rr['u_empid']);
+        //pre($rt);
+        $tbl_files = FILES;
+		$tbl4 = DEPARTMENTS;
+        $tbl5 = DISTRICT;
+		$draft=DRAFT;
+        $this->db->select(FILES .'.*,'.$draft.'.*,dept_name_hi,district_name_hi');
+		$this->db->join($tbl4, "$tbl4.dept_id = $tbl_files.file_department_id", 'left');
+        $this->db->join($tbl5, "$tbl5.district_id = $tbl_files.file_district_id",'left');		
+        $this->db->join($draft, "$tbl_files.file_id= $draft.draft_file_id and draft_type='n' ",'left');					
+		if($emp_role_lvl['emprole_level']==6){
+			$this->db->where('file_hardcopy_status','received');
+			$this->db->where('final_draft_id IS NOT NULL', null, false);
+		 }else{				
+			$this->db->where('final_draft_id IS NOT NULL', null, false);
+		 }
+		$this->db->where('draft_reciever_id',$login_emp_id);	
+		$this->db->where('draft_sender_id',$login_emp_id);	
+		$this->db->where('final_draft_id IS NOT NULL', null, false);	
+		$this->db->where('file_received_emp_id',$login_emp_id);
+		$where_draft_status = "(draft_status = 2 OR draft_status = 3)";
+		$this->db->where($where_draft_status);				        
+        $this->db->where('file_hardcopy_status !=','close');		
+		$this->db->group_by('file_id');
+		$this->db->order_by('file_update_date','desc');
+		$query = $this->db->get($tbl_files);
+		//echo $this->db->last_query();
+		return $query->result();	 
+	 }		 
+	
 	public function getesingleFiles($section_id=null,$file_id)
     {
 		$login_emp_id = emp_session_id();
@@ -150,25 +195,19 @@ class Efile_list_model extends CI_Model {
     public function sent_efile(){
 		$login_emp_id = emp_session_id();
         $CI = & get_instance();		
-        //   $subQuery = ("SELECT DISTINCT `fmove_file_id` FROM `ft_file_movements` WHERE `fmove_current_user_id`=".emp_session_id());
-        // $subQuery = ("SELECT DISTINCT `file_id` FROM `ft_file_logs` WHERE `to_emp_id`=".emp_session_id());
-	     $subQuery = ("SELECT DISTINCT `file_id` FROM `ft_file_logs` WHERE (from_emp_id = ".$login_emp_id . ")" );
-        //$CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery)", NULL, FALSE);
-		/*if(isset($_GET['sort']) && $_GET['sort']!=''){
-			if(isset($_GET['sort'])&& $_GET['sort']=='rj'){
-				$CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery)", NULL, FALSE)->where("file_hardcopy_status",'not');
-			}else if(isset($_GET['sort'])&& $_GET['sort']=='rj_cr'){
-				$CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery)", NULL, FALSE)->where("file_hardcopy_status",'not')->where("file_received_emp_id IN (210,211,204,177)", NULL, FALSE);
-			}else if(isset($_GET['sort'])&& $_GET['sort']=='rc'){
-				$CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery)", NULL, FALSE)->where("file_hardcopy_status",'received')->or_where("file_hardcopy_status",'working');
-			}
-		}else{*/
-			$CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery) and final_draft_id!='' ", NULL, FALSE);
-		//}
-        $CI->db->order_by("file_update_date", 'desc');
+        $subQuery = ("SELECT distinct (draft_file_id) FROM `ft_file_draft` WHERE `draft_id` in (SELECT DISTINCT(draft_log_draft_id) FROM `ft_draft_log` where draft_log_creater= ".$login_emp_id . ")");
+        $CI->db->select('*')->from(FILES)->where("file_id IN ($subQuery) and file_hardcopy_status!='close' and final_draft_id!='' ", NULL, FALSE);
+		$CI->db->order_by("file_update_date", 'desc');
         $query = $CI->db->get();
         return    $query->result();
 
     }
+	public function get_not_recieved_files($file_selected_file_ids){
+		$tbl_files = "ft_files";
+		$query =   $this->db->query("select group_concat(file_id SEPARATOR ',') as not_recived_file_id from $tbl_files where file_id in (".$file_selected_file_ids.") and file_hardcopy_status!='received' and file_hardcopy_status!='working'");
+        $rr =  $query->row_array();
+		//echo $this->db->last_query();		
+		return $rr['not_recived_file_id'];		
+	}
 }
 
