@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <?php echo $title; ?>
+        <?php echo "वेतन विवरण " ; ?>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active"><?php echo $title; ?></li>
+        <li class="active"><?php echo "वेतन विवरण "; ?></li>
     </ol>
 </section>
 
@@ -15,7 +15,7 @@
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h3 class="box-title"><?php //echo $title_tab_header;     ?></h3>
+                    <h3 class="box-title"><?php echo "वेतन मास्टर "; ?></h3>
                 </div>
                 <div class="box-body">
                     <?php $this->load->view('payroll_header') ?>
@@ -30,7 +30,7 @@
             <div class="box box-primary">
             
                     <div class="box-header with-border">
-                        <h3 class="box-title"><?php echo $title_tab; ?></h3>                 
+                        <h3 class="box-title"><?php echo  "वेतन मास्टर "; ?></h3>                 
                     </div>
                     <div class="box-header with-border">
                         <div class="row">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="box-body">
 					    <div class="box-header with-border">
-                        <h3 class="box-title">कृपया  ड्रॉप डाउन मे  कोई भी माह का चयन करें</h3>                 
+                        <h3 class="box-title"> </h3>                 
                     </div>
 					
                            <div class="form-group col-xs-2">
@@ -85,7 +85,6 @@ $('select').on('change', function() {
   $("#6").attr("href", "<?php echo base_url(); ?>payroll/empcate/6/"+this.value);
   $("#7").attr("href", "<?php echo base_url(); ?>payroll/empcate/7/"+this.value);
   $("#8").attr("href", "<?php echo base_url(); ?>payroll/empcate/8/"+this.value);
-    $("#9").attr("href", "<?php echo base_url(); ?>payroll/empcate/9/"+this.value);
 });
 
 </script>

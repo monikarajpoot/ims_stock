@@ -111,7 +111,7 @@
                                      <?php }if($dataval[0]['pay_cate_gias'] == 1){  ?>
                                     <th width="10%"><?php  echo $this->lang->line('pay_gis');?></th>
                                     <?php }if($dataval[0]['pay_cate_defined_contribution'] == 1){  ?>
-                                    <th width='25%'><?php echo $this->lang->line('pay_define')."dsf"; ?></th>
+                                    <th width='25%'><?php echo $this->lang->line('pay_define'); ?></th>
                                  
                                         <?php }if($dataval[0]['pay_cate_house_loan'] == 1){  ?>
                             <th width='25%'><?php echo $this->lang->line('pay_home_loan');?></th>
@@ -167,7 +167,9 @@
                                         <tr id="<?php echo $pay->pay_id; ?>">
                                   <?php }else{ ?>
 
-                                  <tr id="<?php echo $pay->pay_id; ?>" class="printdrak" style="background-color: #FF9800;color: #000;">
+                                  <tr id="<?php echo $pay->pay_id; ?>" class="printdrak" style="background-color: #FF9800;color: #000; @media print
+{    background-color: #000000;color: #fff;
+}">
                                     <?php } ?>
 
                                   
@@ -607,8 +609,9 @@
         display: none !important;
     }
     .printdrak {
-      background-color: #000000;
-    }
+      background-color: #ccc  !important;
+       color: #fff  !important;
+    } 
 
 
 }

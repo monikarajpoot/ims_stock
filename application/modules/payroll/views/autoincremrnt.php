@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        <?php echo "Icrement Month of employee"; ?>
+        <?php echo "Increment this Month of employee"; ?>
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -109,6 +109,12 @@
       <div class="modal-body">
            <form action="<?php echo base_url();?>payroll/incrment_month" method="post" >
          <div class="form-group">
+                <label for="exampleInputEmail1"><?php echo  "Icrement Month of employee" ?><span class="text-danger">*</span></label>
+               <input type="text" name="pay_basic" id=""  value="<?php echo $salary->pay_basic; ?>" class="form-control">
+               
+              
+              </div>
+                <div class="form-group">
                 <label for="exampleInputEmail1"><?php echo  "Icrement Month of employee" ?><span class="text-danger">*</span></label>
                <input type="text" name="pay_basic" id=""  value="<?php echo $salary->pay_basic; ?>" class="form-control">
                

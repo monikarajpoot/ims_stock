@@ -297,3 +297,21 @@ function getsalary($m,$y,$ui)
 
 
  }
+ function emp_nmae($emp_unique_id)
+ {
+
+$CI = & get_instance();
+ $CI->db->select('*');
+          $CI->db->from('ft_employee');
+          $CI->db->where("emp_unique_id",$emp_unique_id);
+     
+     $query = $CI->db->get();
+            
+    //    echo $CI->db->last_query();
+         $rows = $query->result();
+
+
+        return $rows;
+
+
+ }

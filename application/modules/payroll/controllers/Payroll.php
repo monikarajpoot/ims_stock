@@ -27,7 +27,8 @@ class Payroll extends MX_Controller {
      * @return void
      */
 
-    public function index() {
+    public function index()
+     {
         if ($this->session->userdata('is_logged_in')) {
             redirect('dashboard');
         } else if ($this->session->userdata('admin_logged_in')) {
@@ -37,12 +38,14 @@ class Payroll extends MX_Controller {
             $data['notice'] = $this->admin_notice->fetchnoticebyid();
             $this->load->view('home', $data);
         }
-    }function showbuget()
+    }
+
+      
+    function showbuget()
     {
-	$pay_cate_id = $this->uri->segment(3);
-	
-	    $data['dataval'] =$this->payroll_model->getcate_al($pay_cate_id);
-      $this->load->view("payroll/test" ,$data);
+	     $pay_cate_id = $this->uri->segment(3);
+		    $data['dataval'] =$this->payroll_model->getcate_al($pay_cate_id);
+        $this->load->view("payroll/test" ,$data);
 
     }
 
@@ -1164,6 +1167,148 @@ if(isset($_POST['pay_sa'])){
 
       $data['pay_salary'] = $this->payroll_model->incrment_month();
         redirect("payroll/autoincremrnt");
+
+    }
+function emp_salary_master()
+    {
+
+      $this->payroll_model->emp_salary_master();
+    }
+    function permisstion()
+    {
+
+      $data['title'] = "";//$this->lang->line('emp_salary_details');
+
+    //pre($data['pay_regi']);
+    $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/permisstion";
+         $this->template->index($data);
+    } 
+
+
+
+    function master()
+    {//echo "monika";
+     $data['pay_salary']= $this->payroll_model->salary_mastar();
+     $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/dashboard";
+         $this->template->index($data);
+    }
+    function showsalary_cate()
+    {
+      $emp_id = $this->uri->segment(3);
+        $data['pay_salary']= $this->payroll_model->empsalary($emp_id);
+         $data['cate_salary'] = $this->payroll_model->cate_salary($emp_id);
+         $data['master_salary'] = $this->payroll_model->cate_salary_master($emp_id);
+         $condi =  array("pay_cate_id"=>$emp_id );
+      $data['dataval'] = get_list("ft_pay_salary_category",'pay_cate_id',$condi);
+       
+     $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/showsalary_cate";
+         $this->template->index($data);
+    }
+    function fromloadca()
+    {
+      $pay_cate_id = $this->uri->segment(3);
+        $data['dataval'] =$this->payroll_model->getcate_pp($pay_cate_id);
+      $this->load->view("fromloadca",$data);
+    }
+    function upadate_master()
+    {
+      pre($_POST);
+    }
+    function addempincate()
+    {
+
+          $data['pay_salary'] = $this->payroll_model->salary_mastar();
+          $data['emp'] = $this->payroll_model->allemp();
+           $data['module_name'] = "payroll";
+         $data['view_file'] = "payroll/addempincate";
+         $this->template->index($data);
+    }
+    function add_slary_head_cate()
+    {
+      
+$data['pay_salary'] = $this->payroll_model->emp_update();
+      redirect("payroll/addempincate");
+    }
+    function changeca()
+    {
+$data['pay_salary'] = $this->payroll_model->changeca();
+
+    
+      redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+    function changeda()
+    {
+
+    $data['pay_salary'] = $this->payroll_model->changeda();
+    redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+      function changehra()
+    {
+
+    $data['pay_salary'] = $this->payroll_model->changehra();
+    redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+function changema()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changema();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+
+    function changesa()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changesa();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+
+ function changegis()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changegis();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+     function changept()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changept();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+
+    function changefule()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changefule();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
+
+    }
+     function changegpf()
+    {
+     // print_r($_POST);
+
+    $data['pay_salary'] = $this->payroll_model->changegpf();
+
+   redirect("payroll/showsalary_cate/".$_POST['cateid']);
 
     }
 }

@@ -540,4 +540,8 @@ function efitfrom(id)
   $(".username1"+id).show();
   $(".username"+id).hide();
 }
-</script>
+</script>  <input  type="button" onclick="window.print();" style="background-color: #052B02;border: solid 1px #36730F;margin: 10px auto;
+    color: #ffffff;
+    padding: 10px;" name="Submit" class="no-print"  value="print" /> <input style="background-color: #052B02;border: solid 1px #36730F;margin: 10px auto;
+    color: #ffffff;
+    padding: 10px;" class="no-print"  type="button" onclick="window.history.back();" name="Submit" value="Go Back" >

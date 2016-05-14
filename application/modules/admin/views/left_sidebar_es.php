@@ -141,15 +141,19 @@ $is_emp_first_login = $emp_details[0]['emp_first_login'];
     <li class="header bg-aqua">Salary master </li>
                 <li class="treeview" title="Not Active">
                     <a href="#">
-                        <i class="fa fa-shopping-cart"></i> <span> हेड</span>
+                        <i class="fa fa-shopping-cart"></i> <span> मास्टर</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu menu-open" style="display: block;">
+                              <li><a href="<?php echo base_url(); ?>payroll/master"><i class="fa fa-folder-o"></i>वेतन मॉनिटर </a></li>
+
+                     <li><a href="<?php echo base_url(); ?>payroll/addempincate"><i class="fa fa-folder-o"></i>कर्मचारी & वेतन हेड</a></li>
+                  
                         <li><a href="<?php echo base_url(); ?>payroll/add_incrementmonth"><i class="fa fa-folder-o"></i>कर्मचारी वेतन वृद्धि माह </a></li>
                            <li><a href="<?php echo base_url(); ?>payroll/autoincremrnt"><i class="fa fa-folder-o"></i> वेतन वृद्धि  </a></li>
 
-                          <li><a href="<?php echo base_url(); ?>payroll/editda"><i class="fa fa-folder-o"></i> कर्मचारी डी.ए   </a></li>
-                         <li><a href="<?php echo base_url(); ?>payroll/allheads"><i class="fa fa-folder-o"></i> वेतन हेड  </a></li>
+                          <li><a href="<?php echo base_url(); ?>payroll/editda"><i class="fa fa-folder-o"></i> कर्मचारी डी.ए  मास्टर </a></li>
+                         <li><a href="<?php echo base_url(); ?>payroll/allheads"><i class="fa fa-folder-o"></i> वेतन हेड  मास्टर </a></li>
                           <li><a href="<?php echo base_url(); ?>payroll/pan_adhar_house"><i class="fa fa-folder-o"></i> पेन नंबर जोड़े </a></li>
 <li><a href="<?php echo base_url(); ?>payroll/backdatesalary"><i class="fa fa-folder-o"></i> पुराने माह का वेतन </a></li>
 
